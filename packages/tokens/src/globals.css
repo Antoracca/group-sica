@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand */
+    --brand-royal: 230 64% 33%;
+    --brand-royal-700: 230 65% 27%;
+    --brand-royal-900: 232 71% 20%;
+    --brand-amber: 36 100% 48%;
+    --brand-amber-600: 35 100% 42%;
+
+    /* Neutral */
+    --ink: 226 49% 8%;
+    --slate: 224 18% 34%;
+    --mist: 222 31% 95%;
+    --paper: 60 22% 98%;
+
+    /* Semantic (shadcn-compatible aliases) */
+    --background: var(--paper);
+    --foreground: var(--ink);
+    --card: 0 0% 100%;
+    --card-foreground: var(--ink);
+    --popover: 0 0% 100%;
+    --popover-foreground: var(--ink);
+    --primary: var(--brand-royal);
+    --primary-foreground: 0 0% 100%;
+    --secondary: var(--brand-amber);
+    --secondary-foreground: 0 0% 100%;
+    --muted: var(--mist);
+    --muted-foreground: var(--slate);
+    --accent: var(--brand-amber);
+    --accent-foreground: 0 0% 100%;
+    --destructive: 351 64% 43%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 150 64% 33%;
+    --success-foreground: 0 0% 100%;
+    --warning: 33 88% 42%;
+    --warning-foreground: 0 0% 100%;
+    --border: 222 31% 90%;
+    --input: 222 31% 90%;
+    --ring: var(--brand-royal);
+
+    --radius: 0.5rem;
+
+    /* Header */
+    --header-height: 5rem;
+    --header-height-lg: 6rem;
+
+    /* Container gutters */
+    --gutter: clamp(1rem, 4vw, 5rem);
+  }
+
+  .dark {
+    --background: var(--brand-royal-900);
+    --foreground: 0 0% 98%;
+    --card: 232 60% 14%;
+    --card-foreground: 0 0% 98%;
+    --popover: 232 60% 14%;
+    --popover-foreground: 0 0% 98%;
+    --primary: var(--brand-amber);
+    --primary-foreground: var(--ink);
+    --secondary: var(--brand-royal);
+    --secondary-foreground: 0 0% 98%;
+    --muted: 232 35% 18%;
+    --muted-foreground: 224 18% 70%;
+    --accent: var(--brand-amber);
+    --accent-foreground: var(--ink);
+    --destructive: 351 64% 53%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 232 40% 22%;
+    --input: 232 40% 22%;
+    --ring: var(--brand-amber);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-brand-amber/30 text-foreground;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

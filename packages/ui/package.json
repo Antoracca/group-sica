@@ -1,0 +1,41 @@
+{
+  "name": "@sica/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles": "./src/styles/index.css"
+  },
+  "sideEffects": false,
+  "files": ["src"],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "clean": "rimraf .turbo"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.1",
+    "@sica/tokens": "workspace:*",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.469.0",
+    "motion": "^11.18.0",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "@sica/config": "workspace:*",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "eslint": "^9.18.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.3"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

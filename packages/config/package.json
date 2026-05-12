@@ -1,0 +1,38 @@
+{
+  "name": "@sica/config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./tsconfig.nextjs.json": "./tsconfig.nextjs.json",
+    "./tsconfig.react.json": "./tsconfig.react.json",
+    "./tailwind-preset": "./tailwind-preset.ts",
+    "./eslint": "./eslint.config.mjs",
+    "./postcss": "./postcss.config.mjs"
+  },
+  "files": [
+    "tsconfig.base.json",
+    "tsconfig.nextjs.json",
+    "tsconfig.react.json",
+    "tailwind-preset.ts",
+    "eslint.config.mjs",
+    "postcss.config.mjs"
+  ],
+  "dependencies": {
+    "@sica/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "@types/node": "^22.10.5",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "^16.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
+  }
+}
