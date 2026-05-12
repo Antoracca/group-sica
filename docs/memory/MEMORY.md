@@ -1,0 +1,6 @@
+- [Projet SICA — plateforme web 3 sites](project_sica_overview.md) — Plan/mémoire complet versionné dans ce repo → `docs/CONTEXTE.md`
+- [Stack & charte verrouillées](project_sica_stack.md) — Next.js 16 + Supabase + Tailwind/shadcn + Vercel ; couleurs #1E2F8A / #F39200
+- [Préférences travail utilisateur SICA](feedback_user_preferences.md) — Pas d'emojis, pas d'IA boilerplate, qualité corporate type Vinci
+- [Utilisateur — profil](user_profile.md) — Client design/dev SICA, francophone CI, exige rendu pro non générique
+- [Référence Vinci Autoroutes](reference_vinci_autoroutes.md) — Header 4-states (transparent→fixed solid→hidden→re-show), Tailwind, #004489 — pattern à reproduire pour SICA
+- [RESPONSIVITÉ ABSOLUE](responsivity_absolute.md) — Exigence client n°1, checklist 9 breakpoints (320→2560), aucune tolérance pour un site mal responsif
