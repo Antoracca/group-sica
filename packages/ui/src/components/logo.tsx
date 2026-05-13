@@ -8,9 +8,19 @@ interface LogoProps extends React.HTMLAttributes<HTMLAnchorElement> {
   href?: string;
   src?: string;
   alt?: string;
+  /** Natural width of the source image (informational, kept for aspect ratio). */
   width?: number;
+  /** Natural height of the source image. */
   height?: number;
-  imageRenderer?: (props: { src: string; alt: string; width: number; height: number }) => React.ReactNode;
+  /** Tailwind classes applied to the img element. Drive responsive size from here. */
+  imgClassName?: string;
+  imageRenderer?: (props: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    className: string;
+  }) => React.ReactNode;
 }
 
 const labels: Record<LogoBrand, string> = {
@@ -20,22 +30,28 @@ const labels: Record<LogoBrand, string> = {
 };
 
 /**
- * Brand logo wrapper. Pass `imageRenderer` to delegate to next/image inside apps;
- * otherwise renders a plain <img> as a fallback.
+ * Brand logo wrapper. Responsive by default — scales from 32px high on tiny
+ * mobiles up to 56px on large desktops. Pass `imageRenderer` to delegate to
+ * next/image inside apps; otherwise renders a plain <img> as a fallback.
  */
 export function Logo({
   brand = "groupe",
   href = "/",
   src,
   alt,
-  width = 160,
-  height = 56,
+  width = 200,
+  height = 200,
   className,
+  imgClassName,
   imageRenderer,
   ...rest
 }: LogoProps) {
   const finalAlt = alt ?? labels[brand];
   const finalSrc = src ?? `/logo-${brand}.png`;
+  const finalImgClassName = cn(
+    "h-9 w-auto select-none sm:h-10 lg:h-11 xl:h-12",
+    imgClassName,
+  );
 
   return (
     <a
@@ -45,10 +61,17 @@ export function Logo({
       {...rest}
     >
       {imageRenderer ? (
-        imageRenderer({ src: finalSrc, alt: finalAlt, width, height })
+        imageRenderer({ src: finalSrc, alt: finalAlt, width, height, className: finalImgClassName })
       ) : (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={finalSrc} alt={finalAlt} width={width} height={height} loading="eager" />
+        <img
+          src={finalSrc}
+          alt={finalAlt}
+          width={width}
+          height={height}
+          loading="eager"
+          className={finalImgClassName}
+        />
       )}
     </a>
   );
