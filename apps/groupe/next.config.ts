@@ -11,6 +11,8 @@ const config: NextConfig = {
     remotePatterns: [
       // Supabase Storage (à compléter quand SUPABASE_URL connu)
       { protocol: "https", hostname: "*.supabase.co" },
+      // Hero image — Adobe Stock / Fotolia CDN
+      { protocol: "https", hostname: "*.ftcdn.net" },
     ],
   },
   poweredByHeader: false,

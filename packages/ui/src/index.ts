@@ -12,3 +12,5 @@ export type { LogoBrand } from "./components/logo";
 
 export { SiteHeader } from "./components/site-header";
 export type { NavItem } from "./components/site-header";
+
+export { SectionHeader } from "./components/section-header";

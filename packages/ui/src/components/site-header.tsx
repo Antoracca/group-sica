@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion } from "motion/react";
-import { Menu, Search, UserRound, X } from "lucide-react";
+import { Menu, UserRound, X } from "lucide-react";
 import { cn } from "../lib/cn";
 import { useHeaderScroll } from "../hooks/use-header-scroll";
 
@@ -65,10 +65,10 @@ export function SiteHeader({
         className={cn(
           "fixed inset-x-0 top-0 z-50 flex items-center justify-between",
           "h-header-height lg:h-header-height-lg px-gutter",
-          "transition-[background-color,box-shadow,backdrop-filter] duration-300 ease-out",
+          "transition-[background-color,box-shadow,backdrop-filter,border-color] duration-300 ease-out",
           isTop
-            ? "bg-transparent text-white shadow-none"
-            : "bg-brand-royal text-white shadow-header backdrop-blur-md supports-[backdrop-filter]:bg-brand-royal/95",
+            ? "bg-gradient-to-b from-brand-royal/60 via-brand-royal/20 to-transparent text-white shadow-none border-b border-transparent"
+            : "bg-brand-royal text-white shadow-header backdrop-blur-md supports-[backdrop-filter]:bg-brand-royal/95 border-b border-brand-royal-700/50",
           className,
         )}
         data-state={state}
@@ -107,13 +107,6 @@ export function SiteHeader({
         </div>
 
         <div className="flex items-center gap-2 lg:gap-4">
-          <button
-            type="button"
-            aria-label="Rechercher"
-            className="hidden lg:inline-flex size-10 items-center justify-center rounded-full text-white/90 transition-colors hover:bg-white/10 hover:text-white"
-          >
-            <Search className="size-5" aria-hidden />
-          </button>
           <div className="hidden lg:block">{isTop ? rightSlotInitial : rightSlotScrolled}</div>
           <button
             type="button"
