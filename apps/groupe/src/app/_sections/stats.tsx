@@ -275,9 +275,15 @@ export function Stats() {
     return () => { el.removeEventListener("mousemove", onMove); el.removeEventListener("mouseleave", onLeave); };
   }, []);
 
-  /* margin: "-20%" → la section doit être à 20% à l'intérieur du viewport
-     avant de déclencher — l'animation se lance quand on est vraiment dessus. */
-  const inView = useInView(sectionRef, { once: true, margin: "-20%" });
+  /* Trigger précis : on attend que 35% de la section soit visible
+     ET que le bas de la section soit à moins de 25% du bas du viewport.
+     Combinaison qui garantit que l'utilisateur est BIEN sur la section
+     avant que l'animation démarre — personne ne rate l'animation. */
+  const inView = useInView(sectionRef, {
+    once: true,
+    amount: 0.35,
+    margin: "0px 0px -25% 0px",
+  });
 
   return (
     <>

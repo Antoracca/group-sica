@@ -34,6 +34,21 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}>
+      <head>
+        {/* ── Préchargement critique du hero ──
+            Le poster est en image (priorité HIGH par défaut) → s'affiche
+            instantanément. La vidéo se télécharge en parallèle dès le
+            parse du HTML. Évite l'écran bleu de 2-3 s. */}
+        <link rel="preload" as="image" href="/hero-poster.jpg" fetchPriority="high" />
+        <link
+          rel="preload"
+          as="video"
+          href="/hero.mp4"
+          type="video/mp4"
+          /* @ts-expect-error — attr HTML standard, types React partiels */
+          fetchpriority="high"
+        />
+      </head>
       <body className="min-h-screen bg-background font-body text-foreground antialiased">
         {children}
       </body>

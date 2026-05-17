@@ -104,9 +104,9 @@ function AnimatedServices({
       });
       if (i >= full.length) {
         if (ivRef.current) clearInterval(ivRef.current);
-        setTimeout(() => setActiveIdx(idx => (idx ?? 0) + 1), 200);
+        setTimeout(() => setActiveIdx(idx => (idx ?? 0) + 1), 80);
       }
-    }, 26);
+    }, 10);
 
     return () => { if (ivRef.current) clearInterval(ivRef.current); };
   }, [activeIdx, services]);
