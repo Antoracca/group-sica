@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(netstat *)",
+      "Bash(pnpm dev)",
+      "Bash(pnpm dev *)",
+      "Bash(pnpm --filter * dev)",
+      "Bash(pnpm --filter * dev *)",
+      "Bash(pnpm run dev)",
+      "Bash(pnpm run dev *)",
+      "Bash(turbo dev *)",
+      "PowerShell(Get-NetTCPConnection *)",
+      "PowerShell(Stop-Process *)",
+      "PowerShell($ownPids*)"
+    ]
+  }
+}
