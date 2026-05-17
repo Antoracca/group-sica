@@ -362,7 +362,6 @@ export function Realisations() {
             key={`project-${idx}`}
             projet={projet}
             slideIdx={idx}
-            totalProjects={PROJETS.length}
             visible={showcaseActive}
             isFirstReveal={isFirstReveal}
           />
@@ -404,11 +403,10 @@ export function Realisations() {
 ══════════════════════════════════════════════════════════════ */
 
 function ProjectShowcase({
-  projet, slideIdx, totalProjects, visible, isFirstReveal,
+  projet, slideIdx, visible, isFirstReveal,
 }: {
   projet: Projet;
   slideIdx: number;
-  totalProjects: number;
   visible: boolean;
   isFirstReveal: boolean;
 }) {
@@ -522,29 +520,11 @@ function ProjectShowcase({
           <div aria-hidden className="pointer-events-none absolute inset-0"
             style={{ background: "radial-gradient(ellipse 95% 90% at 50% 50%, transparent 50%, rgba(8,14,50,0.22) 100%)" }} />
 
-          {/* Compteur + watermark mobile */}
-          <div aria-hidden className="pointer-events-none absolute left-3 top-3 z-20 flex items-baseline gap-1">
-            <span className="font-mono text-[1.25rem] font-bold leading-none text-white/85"
-              style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
-              {String(slideIdx + 1).padStart(2, "0")}
-            </span>
-            <span className="font-mono text-[0.6rem] text-white/35">/{String(totalProjects).padStart(2, "0")}</span>
-          </div>
+          {/* Watermark mobile */}
           <div aria-hidden className="pointer-events-none absolute bottom-3 right-3 z-20">
             <Image src="/logo-groupe.png" alt="SICA" width={90} height={38} unoptimized
               className="h-[34px] w-auto opacity-[0.22]"
               style={{ filter: "brightness(0) invert(1)" }} />
-          </div>
-
-          {/* Barre de progression mobile */}
-          <div aria-hidden className="pointer-events-none absolute bottom-0 inset-x-0 z-20 h-[3px]"
-            style={{ background: "rgba(255,255,255,0.10)" }}>
-            <motion.div className="h-full"
-              style={{ background: "linear-gradient(90deg, #F39200, #FFB84D)" }}
-              initial={{ width: "0%" }}
-              animate={{ width: `${((slideIdx + 1) / totalProjects) * 100}%` }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            />
           </div>
         </div>
 
@@ -633,19 +613,6 @@ function ProjectShowcase({
             }}
           />
 
-          {/* ── Compteur projet — top-left, style éditorial ── */}
-          <div aria-hidden className="pointer-events-none absolute left-5 top-5 z-20 flex items-baseline gap-1.5">
-            <span className="font-mono text-[2rem] font-bold leading-none text-white/90"
-              style={{ textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}>
-              {String(slideIdx + 1).padStart(2, "0")}
-            </span>
-            <span className="font-mono text-[0.75rem] font-medium text-white/40">/</span>
-            <span className="font-mono text-[0.75rem] font-medium text-white/40"
-              style={{ textShadow: "0 1px 8px rgba(0,0,0,0.4)" }}>
-              {String(totalProjects).padStart(2, "0")}
-            </span>
-          </div>
-
           {/* ── Watermark SICA — ×3, semi-transparent, bas-droit ── */}
           <div aria-hidden className="pointer-events-none absolute bottom-5 right-5 z-20">
             <Image
@@ -659,34 +626,6 @@ function ProjectShowcase({
             />
           </div>
 
-          {/* ── Barre de progression — bottom, fine, animée ── */}
-          <div aria-hidden className="pointer-events-none absolute bottom-0 inset-x-0 z-20 h-[3px]"
-            style={{ background: "rgba(255,255,255,0.10)" }}>
-            <motion.div
-              className="h-full"
-              style={{ background: "linear-gradient(90deg, #F39200, #FFB84D)" }}
-              initial={{ width: "0%" }}
-              animate={{ width: `${((slideIdx + 1) / totalProjects) * 100}%` }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            />
-          </div>
-
-          {/* ── Pastilles projet — rangée discrète top-right ── */}
-          <div aria-hidden className="pointer-events-none absolute right-5 top-5 z-20 flex items-center gap-1">
-            {Array.from({ length: totalProjects }).map((_, i) => (
-              <div
-                key={i}
-                className="rounded-full transition-all duration-500"
-                style={{
-                  width: i === slideIdx ? 16 : 5,
-                  height: 5,
-                  backgroundColor: i === slideIdx
-                    ? "#F39200"
-                    : "rgba(255,255,255,0.28)",
-                }}
-              />
-            ))}
-          </div>
         </div>
       </div>
 
