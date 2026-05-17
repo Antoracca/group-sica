@@ -4,6 +4,7 @@ import * as React from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { motion, useInView } from "motion/react";
+import { links } from "@/lib/links";
 import {
   DraftingCompass,
   Building2,
@@ -390,7 +391,7 @@ export function Pillars() {
                 className="mt-8"
               >
                 <a
-                  href="https://sicaconstruction.ci"
+                  href={links.construction.base}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-full bg-[#F39200] px-6 py-3 text-[0.6875rem] font-bold uppercase tracking-[0.1em] text-white shadow-lg transition-all duration-200 hover:bg-[#D97E00] hover:shadow-xl"
@@ -548,7 +549,7 @@ export function Pillars() {
               className="mt-7"
             >
               <a
-                href="https://sicaconstruction.ci"
+                href={links.construction.base}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-[#F39200] px-5 py-2.5 text-[0.6875rem] font-bold uppercase tracking-[0.1em] text-white"

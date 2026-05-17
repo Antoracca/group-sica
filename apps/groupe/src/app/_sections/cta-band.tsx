@@ -1,4 +1,5 @@
 import { Button, Container } from "@sica/ui";
+import { links } from "@/lib/links";
 
 export function CtaBand() {
   return (
@@ -33,7 +34,7 @@ export function CtaBand() {
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:mt-10 sm:flex-row sm:justify-center sm:gap-4">
             <Button asChild variant="accent" size="lg" className="w-full sm:w-auto">
-              <a href="https://sicaconstruction.ci/devis">Demander un devis</a>
+              <a href={links.construction.devis}>Demander un devis</a>
             </Button>
             <Button
               asChild

@@ -4,3 +4,8 @@
 - [Utilisateur â€” profil](user_profile.md) â€” Client design/dev SICA, francophone CI, exige rendu pro non gÃ©nÃ©rique
 - [RÃ©fÃ©rence Vinci Autoroutes](reference_vinci_autoroutes.md) â€” Header 4-states (transparentâ†’fixed solidâ†’hiddenâ†’re-show), Tailwind, #004489 â€” pattern Ã  reproduire pour SICA
 - [RESPONSIVITÃ‰ ABSOLUE](responsivity_absolute.md) â€” Exigence client nÂ°1, checklist 9 breakpoints (320â†’2560), aucune tolÃ©rance pour un site mal responsif
+
+- [Snapshot contexte 17/05/2026](context_snapshot_2026-05-17.md) — État réel après nouveaux commits (sections ajoutées, assets, checks OK/KO, priorité construction)
+- [Prompt directeur Construction 17/05/2026](construction_prompt_master_2026-05-17.md) — Vision premium non générique, images réelles retenues, micro-fonctionnalités et ton éditorial BTP
+- [Construction Phase 1 · 17/05/2026](construction_progress_2026-05-17_phase1.md) — Scaffold complet apps/construction + sections premium + médias réels + build OK
+- [Construction Phase 2 · 17/05/2026](construction_progress_2026-05-17_phase2.md) — Estimateur devis interactif, panels overlay projets A?Z, polish copywriting, build/typecheck OK

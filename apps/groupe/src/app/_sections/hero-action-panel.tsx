@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { MapPin, Briefcase, Search, User, Lock, Building2 } from "lucide-react";
+import { links } from "@/lib/links";
 
 /* ══ ICÔNES PREMIUM SICA ══ */
 
@@ -84,7 +85,7 @@ const FORM_CFG: Record<TabId, {
   construction: {
     f1: { ph: "Je veux construire...", Icon: Building2 },
     f2: { ph: "Dans la ville de...",   Icon: MapPin },
-    action: "https://sicaconstruction.ci/devis",
+    action: links.construction.devis,
   },
   assistance: {
     f1: { ph: "Mon besoin...",          Icon: Briefcase },

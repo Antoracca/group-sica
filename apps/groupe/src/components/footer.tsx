@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Container, Logo } from "@sica/ui";
+import { links } from "@/lib/links";
 
 const navLeGroupe = [
   { label: "Histoire & vision", href: "/groupe" },
@@ -21,7 +22,7 @@ const poles = [
   {
     name: "SICA Construction",
     tagline: "BTP · Génie civil · Géobéton",
-    href: "https://sicaconstruction.ci",
+    href: links.construction.base,
   },
   {
     name: "SICA Assistance",
