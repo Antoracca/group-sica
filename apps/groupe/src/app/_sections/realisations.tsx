@@ -362,6 +362,7 @@ export function Realisations() {
             key={`project-${idx}`}
             projet={projet}
             slideIdx={idx}
+            totalProjects={PROJETS.length}
             visible={showcaseActive}
             isFirstReveal={isFirstReveal}
           />
@@ -403,10 +404,11 @@ export function Realisations() {
 ══════════════════════════════════════════════════════════════ */
 
 function ProjectShowcase({
-  projet, slideIdx, visible, isFirstReveal,
+  projet, slideIdx, totalProjects, visible, isFirstReveal,
 }: {
   projet: Projet;
   slideIdx: number;
+  totalProjects: number;
   visible: boolean;
   isFirstReveal: boolean;
 }) {
@@ -463,135 +465,228 @@ function ProjectShowcase({
       ════════════════════════════════════════════════════════ */}
       <div className="lg:col-span-7">
 
-        {/* ── Mobile : hero plein + 2 collées en dessous ── */}
-        <div className="overflow-hidden rounded-2xl lg:hidden" style={{ boxShadow: "0 20px 56px rgba(13,26,74,0.16), 0 4px 16px rgba(13,26,74,0.07)" }}>
+        {/* ── Mobile : mosaïque seamless — hero + 2 soudées ── */}
+        <div className="relative overflow-hidden rounded-2xl lg:hidden"
+          style={{ boxShadow: "0 20px 56px rgba(13,26,74,0.18), 0 4px 16px rgba(13,26,74,0.08)" }}>
+
+          {/* Image principale */}
           <motion.div
             {...(isFirstReveal
               ? firstReveal(0)
-              : explode(
-                  { x: -60, y: 30, rotate: -4 },
-                  { x: -80, y: 0, rotate: -6 },
-                  0,
-                ))}
+              : explode({ x: -60, y: 30, rotate: -4 }, { x: -80, y: 0, rotate: -6 }, 0))}
             className="relative aspect-[16/10] w-full overflow-hidden"
             style={imgBg}
           >
             <Image src={img0} alt={projet.nom} fill sizes="100vw" className="object-cover" priority unoptimized />
+            {/* Fondu bas pour souder avec les 2 images du bas */}
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-12"
+              style={{ background: "linear-gradient(to top, rgba(8,14,50,0.40), transparent)" }} />
           </motion.div>
 
-          <div className="grid grid-cols-2">
+          {/* 2 images du bas — gap-0 explicite */}
+          <div className="grid grid-cols-2 gap-0">
             <motion.div
               {...(isFirstReveal
                 ? firstReveal(0.12)
-                : explode(
-                    { x: -40, y: 30, rotate: -4 },
-                    { x: -60, y: 20, rotate: -4 },
-                    0.08,
-                  ))}
+                : explode({ x: -40, y: 30, rotate: -4 }, { x: -60, y: 20, rotate: -4 }, 0.08))}
               className="relative aspect-[4/3] overflow-hidden"
               style={imgBg}
             >
               <Image src={img1} alt={`${projet.nom} vue 2`} fill sizes="50vw" className="object-cover" unoptimized />
+              {/* Fondu haut (soude avec img0) */}
+              <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-8"
+                style={{ background: "linear-gradient(to bottom, rgba(8,14,50,0.38), transparent)" }} />
+              {/* Fondu droite (soude avec img2) */}
+              <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-6"
+                style={{ background: "linear-gradient(to right, transparent, rgba(8,14,50,0.35))" }} />
             </motion.div>
 
             <motion.div
               {...(isFirstReveal
                 ? firstReveal(0.24)
-                : explode(
-                    { x: 40, y: 30, rotate: 4 },
-                    { x: 60, y: 20, rotate: 4 },
-                    0.16,
-                  ))}
+                : explode({ x: 40, y: 30, rotate: 4 }, { x: 60, y: 20, rotate: 4 }, 0.16))}
               className="relative aspect-[4/3] overflow-hidden"
               style={imgBg}
             >
               <Image src={img2} alt={`${projet.nom} vue 3`} fill sizes="50vw" className="object-cover" unoptimized />
+              {/* Fondu haut */}
+              <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-8"
+                style={{ background: "linear-gradient(to bottom, rgba(8,14,50,0.38), transparent)" }} />
+              {/* Fondu gauche */}
+              <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-6"
+                style={{ background: "linear-gradient(to left, transparent, rgba(8,14,50,0.35))" }} />
             </motion.div>
+          </div>
+
+          {/* Vignette globale mobile */}
+          <div aria-hidden className="pointer-events-none absolute inset-0"
+            style={{ background: "radial-gradient(ellipse 95% 90% at 50% 50%, transparent 50%, rgba(8,14,50,0.22) 100%)" }} />
+
+          {/* Compteur + watermark mobile */}
+          <div aria-hidden className="pointer-events-none absolute left-3 top-3 z-20 flex items-baseline gap-1">
+            <span className="font-mono text-[1.25rem] font-bold leading-none text-white/85"
+              style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
+              {String(slideIdx + 1).padStart(2, "0")}
+            </span>
+            <span className="font-mono text-[0.6rem] text-white/35">/{String(totalProjects).padStart(2, "0")}</span>
+          </div>
+          <div aria-hidden className="pointer-events-none absolute bottom-3 right-3 z-20">
+            <Image src="/logo-groupe.png" alt="SICA" width={90} height={38} unoptimized
+              className="h-[34px] w-auto opacity-[0.22]"
+              style={{ filter: "brightness(0) invert(1)" }} />
+          </div>
+
+          {/* Barre de progression mobile */}
+          <div aria-hidden className="pointer-events-none absolute bottom-0 inset-x-0 z-20 h-[3px]"
+            style={{ background: "rgba(255,255,255,0.10)" }}>
+            <motion.div className="h-full"
+              style={{ background: "linear-gradient(90deg, #F39200, #FFB84D)" }}
+              initial={{ width: "0%" }}
+              animate={{ width: `${((slideIdx + 1) / totalProjects) * 100}%` }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            />
           </div>
         </div>
 
-        {/* ── Desktop : mosaïque connectée 62% + 38% (2×50%) ── */}
+        {/* ── Desktop : mosaïque seamless — ZÉRO coupure, zéro espace ── */}
         <div
           className="relative hidden overflow-hidden rounded-2xl lg:block"
           style={{
             height: 540,
-            boxShadow: "0 24px 64px rgba(13,26,74,0.18), 0 6px 20px rgba(13,26,74,0.08)",
+            boxShadow: "0 28px 72px rgba(13,26,74,0.22), 0 6px 24px rgba(13,26,74,0.10)",
           }}
         >
-          {/* Card 1 — pleine hauteur gauche, 62% */}
+          {/* Image 1 — gauche, pleine hauteur, 62% */}
           <motion.div
             {...(isFirstReveal
               ? firstReveal(0, 300)
-              : explode(
-                  { x: -80, y: 30, rotate: -6 },
-                  { x: -100, y: 0, rotate: -8 },
-                  0,
-                ))}
+              : explode({ x: -80, y: 30, rotate: -6 }, { x: -100, y: 0, rotate: -8 }, 0))}
             className="absolute overflow-hidden"
-            style={{
-              left: 0, top: 0, width: "62%", bottom: 0,
-              ...imgBg,
-              transformOrigin: "center center",
-            }}
+            style={{ left: 0, top: 0, width: "62%", bottom: 0, ...imgBg }}
           >
-            <Image src={img0} alt={projet.nom} fill sizes="(min-width: 1024px) 44vw, 100vw" className="object-cover" priority unoptimized />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
-              style={{ background: "linear-gradient(to top, rgba(13,26,74,0.10), transparent)" }}
-            />
+            {/* Ken Burns subtil */}
+            <motion.div
+              className="absolute inset-0"
+              animate={{ scale: [1, 1.04] }}
+              transition={{ duration: INTERVAL_MS / 1000, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
+            >
+              <Image src={img0} alt={projet.nom} fill sizes="(min-width: 1024px) 44vw, 100vw" className="object-cover" priority unoptimized />
+            </motion.div>
+            {/* Fondu droit pour fusionner avec img1/2 */}
+            <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-16"
+              style={{ background: "linear-gradient(to right, transparent, rgba(10,18,60,0.45))" }} />
+            {/* Fondu bas */}
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+              style={{ background: "linear-gradient(to top, rgba(10,18,60,0.22), transparent)" }} />
           </motion.div>
 
-          {/* Card 2 — haut-droite, 38% × 50% */}
+          {/* Image 2 — haut-droite, 38% × 50% */}
           <motion.div
             {...(isFirstReveal
               ? firstReveal(0.12, 300)
-              : explode(
-                  { x: 70, y: -40, rotate: 8 },
-                  { x: 90, y: -30, rotate: 8 },
-                  0.08,
-                ))}
+              : explode({ x: 70, y: -40, rotate: 8 }, { x: 90, y: -30, rotate: 8 }, 0.08))}
             className="absolute overflow-hidden"
-            style={{
-              right: 0, top: 0, width: "38%", height: "50%",
-              ...imgBg,
-              transformOrigin: "center center",
-            }}
+            style={{ right: 0, top: 0, width: "38%", height: "50%", ...imgBg }}
           >
             <Image src={img1} alt={`${projet.nom} vue 2`} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" unoptimized />
+            {/* Fondu gauche (fusionne avec img0) */}
+            <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-10"
+              style={{ background: "linear-gradient(to left, transparent, rgba(10,18,60,0.38))" }} />
+            {/* Fondu bas (fusionne avec img2) */}
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-8"
+              style={{ background: "linear-gradient(to top, rgba(10,18,60,0.35), transparent)" }} />
           </motion.div>
 
-          {/* Card 3 — bas-droite, 38% × 50% */}
+          {/* Image 3 — bas-droite, 38% × 50% */}
           <motion.div
             {...(isFirstReveal
               ? firstReveal(0.24, 300)
-              : explode(
-                  { x: 70, y: 40, rotate: -8 },
-                  { x: 90, y: 30, rotate: -8 },
-                  0.16,
-                ))}
+              : explode({ x: 70, y: 40, rotate: -8 }, { x: 90, y: 30, rotate: -8 }, 0.16))}
             className="absolute overflow-hidden"
-            style={{
-              right: 0, bottom: 0, width: "38%", height: "50%",
-              ...imgBg,
-              transformOrigin: "center center",
-            }}
+            style={{ right: 0, bottom: 0, width: "38%", height: "50%", ...imgBg }}
           >
             <Image src={img2} alt={`${projet.nom} vue 3`} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" unoptimized />
+            {/* Fondu gauche */}
+            <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-10"
+              style={{ background: "linear-gradient(to left, transparent, rgba(10,18,60,0.38))" }} />
+            {/* Fondu haut (fusionne avec img1) */}
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-8"
+              style={{ background: "linear-gradient(to bottom, rgba(10,18,60,0.35), transparent)" }} />
           </motion.div>
 
-          {/* Lignes blanches subtiles entre les images (effet "image divisée") */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
+          {/* ── Vignette globale — unifie les 3 images en un seul bloc ── */}
+          <div aria-hidden className="pointer-events-none absolute inset-0"
             style={{
-              background:
-                "linear-gradient(to right, transparent 61.85%, rgba(255,255,255,0.4) 61.92%, rgba(255,255,255,0.4) 62.08%, transparent 62.15%), linear-gradient(to bottom, transparent 49.85%, rgba(255,255,255,0.4) 49.92%, rgba(255,255,255,0.4) 50.08%, transparent 50.15%)",
-              backgroundSize: "100% 100%, 38% 100%",
-              backgroundPosition: "0 0, 100% 0",
-              backgroundRepeat: "no-repeat",
+              background: [
+                "radial-gradient(ellipse 90% 85% at 50% 50%, transparent 55%, rgba(8,14,50,0.28) 100%)",
+                "linear-gradient(to bottom, rgba(8,14,50,0.10) 0%, transparent 15%, transparent 85%, rgba(8,14,50,0.16) 100%)",
+              ].join(", "),
             }}
           />
+
+          {/* ── Grain fin — texture photographique ── */}
+          <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.055]"
+            style={{
+              backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+              backgroundSize: "120px 120px",
+              mixBlendMode: "overlay",
+            }}
+          />
+
+          {/* ── Compteur projet — top-left, style éditorial ── */}
+          <div aria-hidden className="pointer-events-none absolute left-5 top-5 z-20 flex items-baseline gap-1.5">
+            <span className="font-mono text-[2rem] font-bold leading-none text-white/90"
+              style={{ textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}>
+              {String(slideIdx + 1).padStart(2, "0")}
+            </span>
+            <span className="font-mono text-[0.75rem] font-medium text-white/40">/</span>
+            <span className="font-mono text-[0.75rem] font-medium text-white/40"
+              style={{ textShadow: "0 1px 8px rgba(0,0,0,0.4)" }}>
+              {String(totalProjects).padStart(2, "0")}
+            </span>
+          </div>
+
+          {/* ── Watermark SICA — ×3, semi-transparent, bas-droit ── */}
+          <div aria-hidden className="pointer-events-none absolute bottom-5 right-5 z-20">
+            <Image
+              src="/logo-groupe.png"
+              alt="SICA"
+              width={130}
+              height={55}
+              unoptimized
+              className="h-[48px] w-auto opacity-[0.22]"
+              style={{ filter: "brightness(0) invert(1)" }}
+            />
+          </div>
+
+          {/* ── Barre de progression — bottom, fine, animée ── */}
+          <div aria-hidden className="pointer-events-none absolute bottom-0 inset-x-0 z-20 h-[3px]"
+            style={{ background: "rgba(255,255,255,0.10)" }}>
+            <motion.div
+              className="h-full"
+              style={{ background: "linear-gradient(90deg, #F39200, #FFB84D)" }}
+              initial={{ width: "0%" }}
+              animate={{ width: `${((slideIdx + 1) / totalProjects) * 100}%` }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            />
+          </div>
+
+          {/* ── Pastilles projet — rangée discrète top-right ── */}
+          <div aria-hidden className="pointer-events-none absolute right-5 top-5 z-20 flex items-center gap-1">
+            {Array.from({ length: totalProjects }).map((_, i) => (
+              <div
+                key={i}
+                className="rounded-full transition-all duration-500"
+                style={{
+                  width: i === slideIdx ? 16 : 5,
+                  height: 5,
+                  backgroundColor: i === slideIdx
+                    ? "#F39200"
+                    : "rgba(255,255,255,0.28)",
+                }}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
@@ -638,10 +733,10 @@ function ProjectShowcase({
           <Image
             src="/logo-groupe.png"
             alt="SICA"
-            width={42}
-            height={18}
+            width={126}
+            height={54}
             unoptimized
-            className="h-[18px] w-auto opacity-40"
+            className="h-[54px] w-auto opacity-55"
           />
         </div>
 

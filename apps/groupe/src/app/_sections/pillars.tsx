@@ -57,12 +57,14 @@ function AnimatedServices({
   inView,
   onAllComplete,
   light = false,
+  charDelay = 5,
 }: {
   services: { Icon: React.ElementType; text: string }[];
   startDelay: number;
   inView: boolean;
   onAllComplete: () => void;
   light?: boolean;
+  charDelay?: number;
 }) {
   const [activeIdx, setActiveIdx] = React.useState<number | null>(null);
   const [texts, setTexts]         = React.useState<string[]>(services.map(() => ""));
@@ -104,9 +106,9 @@ function AnimatedServices({
       });
       if (i >= full.length) {
         if (ivRef.current) clearInterval(ivRef.current);
-        setTimeout(() => setActiveIdx(idx => (idx ?? 0) + 1), 80);
+        setTimeout(() => setActiveIdx(idx => (idx ?? 0) + 1), 40);
       }
-    }, 10);
+    }, charDelay);
 
     return () => { if (ivRef.current) clearInterval(ivRef.current); };
   }, [activeIdx, services]);
@@ -349,13 +351,13 @@ export function Pillars() {
                 />
               </motion.div>
 
-              {/* Lottie Construction Animation — vitesse ×2.75 */}
+              {/* Lottie Construction Animation — desktop ×2.5 taille */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={inView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.55, delay: 0.5 }}
                 className="mb-5"
-                style={{ width: 80, height: 80 }}
+                style={{ width: 200, height: 200 }}
                 aria-hidden
               >
                 <DotLottieReact
@@ -374,13 +376,14 @@ export function Pillars() {
                 BTP · Génie civil · Géobéton
               </p>
 
-              {/* Typewriter services */}
+              {/* Typewriter services — desktop vitesse ×2.5 */}
               <AnimatedServices
                 services={CONSTRUCTION}
                 startDelay={1.0}
                 inView={inView}
                 onAllComplete={handleConstructionDone}
                 light
+                charDelay={4}
               />
 
               {/* CTA amber */}
@@ -437,13 +440,13 @@ export function Pillars() {
               transition={{ duration: 0.6, delay: 0.35 }}
               className="flex flex-col items-end"
             >
-              {/* Lottie Costumer Support — taille ×2, vitesse inchangée */}
+              {/* Lottie Costumer Support — desktop ×2.5 taille */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={inView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.55, delay: 0.55 }}
                 className="mb-5"
-                style={{ width: 160, height: 160 }}
+                style={{ width: 400, height: 400 }}
                 aria-hidden
               >
                 <DotLottieReact
@@ -461,7 +464,7 @@ export function Pillars() {
                 Création · Conseil · Comptabilité
               </p>
 
-              {/* Typewriter assistance — démarre quand construction est fini */}
+              {/* Typewriter assistance — desktop vitesse ×2.5 */}
               {constructionDone && (
                 <AnimatedServices
                   key="assistance-desktop"
@@ -469,6 +472,7 @@ export function Pillars() {
                   startDelay={0.25}
                   inView={constructionDone}
                   onAllComplete={handleAssistanceDone}
+                  charDelay={4}
                 />
               )}
 
@@ -519,8 +523,8 @@ export function Pillars() {
               />
             </div>
 
-            {/* Lottie Construction Animation — mobile, vitesse ×2.75 */}
-            <div className="mb-5" style={{ width: 64, height: 64 }} aria-hidden>
+            {/* Lottie Construction Animation — mobile ×2 taille */}
+            <div className="mb-5" style={{ width: 128, height: 128 }} aria-hidden>
               <DotLottieReact
                 src="/Construction Animation.lottie"
                 loop
@@ -541,6 +545,7 @@ export function Pillars() {
               inView={inView}
               onAllComplete={handleConstructionDone}
               light
+              charDelay={5}
             />
             <motion.div
               initial={{ opacity: 0 }}
@@ -586,9 +591,9 @@ export function Pillars() {
               />
             </div>
 
-            {/* Lottie Costumer Support — mobile, taille ×2, aligné à droite */}
+            {/* Lottie Costumer Support — mobile ×2 taille, aligné à droite */}
             <div className="mb-5 flex justify-end" aria-hidden>
-              <div style={{ width: 128, height: 128 }}>
+              <div style={{ width: 256, height: 256 }}>
                 <DotLottieReact
                   src="/Costumer Support.lottie"
                   loop
@@ -610,6 +615,7 @@ export function Pillars() {
                 startDelay={0.3}
                 inView={constructionDone}
                 onAllComplete={handleAssistanceDone}
+                charDelay={5}
               />
             )}
             <motion.div
