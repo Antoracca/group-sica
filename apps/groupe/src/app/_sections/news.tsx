@@ -9,7 +9,7 @@ import { ArrowUpRight } from "lucide-react";
    FONTS — DM Serif Display (titres) + Barlow Condensed (méta)
    Cohérent avec Pillars / Realisations
 ══════════════════════════════════════════════════════════════ */
-const FONTS_CSS = `@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Barlow+Condensed:wght@400;500;600;700&display=swap');`;
+/* Google Fonts chargées dans layout.tsx — pas d'injection ici */
 
 /* ══════════════════════════════════════════════════════════════
    DATA — 20 actualités sourcées du Dossier Technique SICA (déc. 2025)
@@ -226,7 +226,7 @@ const ARTICLES: readonly Article[] = [
    Pagination — 2 articles par vue (diptyque), 4s par cycle
 ══════════════════════════════════════════════════════════════ */
 const CHUNK_SIZE = 2;
-const ROTATE_MS = 4200; // 4.2 s — dans la fenêtre 3-5 s demandée
+const ROTATE_MS = 5000; // 5 s
 
 function chunkBy<T>(arr: readonly T[], n: number): T[][] {
   const out: T[][] = [];
@@ -271,18 +271,88 @@ export function News() {
 
   /* Pause au hover/touch — pour laisser le temps de lire */
   const [paused, setPaused] = React.useState(false);
+  const rotateTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const nextSwitchAtRef = React.useRef<number | null>(null);
+  const mobilePauseTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearRotateTimeout = React.useCallback(() => {
+    if (!rotateTimeoutRef.current) return;
+    clearTimeout(rotateTimeoutRef.current);
+    rotateTimeoutRef.current = null;
+  }, []);
+
+  const clearMobilePauseTimeout = React.useCallback(() => {
+    if (!mobilePauseTimeoutRef.current) return;
+    clearTimeout(mobilePauseTimeoutRef.current);
+    mobilePauseTimeoutRef.current = null;
+  }, []);
+
+  const scheduleNextTick = React.useCallback(
+    (delayMs: number) => {
+      clearRotateTimeout();
+      rotateTimeoutRef.current = setTimeout(() => {
+        setChunkIdx((i) => (i + 1) % totalChunks);
+        nextSwitchAtRef.current = Date.now() + ROTATE_MS;
+        scheduleNextTick(ROTATE_MS);
+      }, delayMs);
+    },
+    [clearRotateTimeout, totalChunks],
+  );
+
+  const pauseBrieflyForTouch = React.useCallback((ms = 2200) => {
+    setPaused(true);
+    clearMobilePauseTimeout();
+    mobilePauseTimeoutRef.current = setTimeout(() => {
+      setPaused(false);
+      mobilePauseTimeoutRef.current = null;
+    }, ms);
+  }, [clearMobilePauseTimeout]);
+
   React.useEffect(() => {
-    if (!inView || paused || totalChunks <= 1) return;
-    const t = setInterval(() => {
-      setChunkIdx((i) => (i + 1) % totalChunks);
-    }, ROTATE_MS);
-    return () => clearInterval(t);
-  }, [inView, paused, totalChunks]);
+    if (!inView || paused || totalChunks <= 1) {
+      clearRotateTimeout();
+      return;
+    }
+
+    nextSwitchAtRef.current = Date.now() + ROTATE_MS;
+    scheduleNextTick(ROTATE_MS);
+
+    return clearRotateTimeout;
+  }, [inView, paused, totalChunks, scheduleNextTick, clearRotateTimeout]);
+
+  React.useEffect(() => {
+    if (totalChunks <= 1) return;
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        clearRotateTimeout();
+        return;
+      }
+
+      if (!inView || paused) return;
+
+      const now = Date.now();
+      const target = nextSwitchAtRef.current ?? now + ROTATE_MS;
+      if (now >= target) {
+        setChunkIdx((i) => (i + 1) % totalChunks);
+        nextSwitchAtRef.current = now + ROTATE_MS;
+        scheduleNextTick(ROTATE_MS);
+        return;
+      }
+
+      scheduleNextTick(Math.max(120, target - now));
+    };
+
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+  }, [inView, paused, totalChunks, scheduleNextTick, clearRotateTimeout]);
+
+  React.useEffect(() => clearMobilePauseTimeout, [clearMobilePauseTimeout]);
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: FONTS_CSS }} />
-
       <section
         ref={sectionRef}
         aria-labelledby="news-heading"
@@ -394,7 +464,9 @@ export function News() {
           {/* ═══ MOBILE — diptyque vertical avec même peel ═══ */}
           <div
             className="relative mt-12 lg:hidden"
-            onTouchStart={() => setPaused(true)}
+            onTouchStart={() => pauseBrieflyForTouch(2400)}
+            onTouchEnd={() => setPaused(false)}
+            onTouchCancel={() => setPaused(false)}
           >
             <MobileStage
               chunkIdx={chunkIdx}
@@ -778,21 +850,34 @@ function MobileStage({
         />
       </div>
 
-      <AnimatePresence mode="popLayout">
-        <motion.div
-          key={`mobile-${chunkIdx}`}
-          className="relative z-[5] flex flex-col gap-4"
-        >
-          {articles.map((art, i) => (
-            <MobileCard
-              key={`${chunkIdx}-${art.slug}`}
-              article={art}
-              position={i}
-              inView={inView}
-            />
-          ))}
-        </motion.div>
-      </AnimatePresence>
+      {/*
+        Grid trick — empêche l'effondrement de la hauteur pendant les transitions.
+        Avec mode="sync", l'ancien et le nouveau motion.div coexistent dans la
+        même cellule de la grille CSS (col-start-1 row-start-1). La hauteur de
+        la cellule = max(hauteur sortante, hauteur entrante) → jamais de saut.
+        Le crossfade opacity évite le double-affichage visible.
+      */}
+      <div className="grid">
+        <AnimatePresence mode="sync">
+          <motion.div
+            key={`mobile-${chunkIdx}`}
+            className="col-start-1 row-start-1 relative z-[5] flex flex-col gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            {articles.map((art, i) => (
+              <MobileCard
+                key={`${chunkIdx}-${art.slug}`}
+                article={art}
+                position={i}
+                inView={inView}
+              />
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
@@ -822,7 +907,7 @@ function MobileCard({
       initial={{
         opacity: 0,
         rotateX: isTop ? 70 : -70,
-        rotateZ: isTop ? -4 : 4,
+        rotateZ: isTop ? -6 : 6,
         y: isTop ? -20 : 20,
         scale: 0.92,
         filter: "blur(6px)",
@@ -832,7 +917,7 @@ function MobileCard({
           ? {
               opacity: 1,
               rotateX: 0,
-              rotateZ: isTop ? -0.8 : 0.8,
+              rotateZ: isTop ? -1.7 : 1.7,
               y: 0,
               scale: 1,
               filter: "blur(0px)",
@@ -846,7 +931,7 @@ function MobileCard({
       }
       exit={{
         rotateX: isTop ? [0, -10, -5, -16, -100] : [0, 10, 5, 16, 100],
-        rotateZ: isTop ? [-0.8, -3, -1, -4, 4] : [0.8, 3, 1, 4, -4],
+        rotateZ: isTop ? [-1.7, -4.2, -1.4, -5.2, 4.8] : [1.7, 4.2, 1.4, 5.2, -4.8],
         y: [0, -8, -3, -12, isTop ? -120 : 120],
         scale: [1, 0.99, 1, 0.97, 0.78],
         opacity: [1, 1, 1, 1, 0],

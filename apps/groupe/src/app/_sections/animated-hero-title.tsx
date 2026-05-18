@@ -27,8 +27,13 @@ export function AnimatedHeroTitle() {
       className="max-w-3xl font-display font-bold leading-[1.05] tracking-tight text-balance text-[clamp(1.6rem,5vw,4.25rem)] xl:text-[4.75rem]"
     >
       Votre ambition en Côte d'Ivoire, on
-      {/* Ligne animée — mt et pb resserrés sur mobile */}
-      <span className="mt-1 grid overflow-hidden text-brand-amber pb-1 sm:pb-3">
+      {/* Ligne animée — min-height = 2 lignes sur mobile pour éviter
+          le saut de hauteur quand une phrase plus longue wraps sur très
+          petits écrans (< 380px). clamp : 2 lignes min → 1 ligne desktop. */}
+      <span
+        className="mt-1 grid overflow-hidden text-brand-amber pb-1 sm:pb-3"
+        style={{ minHeight: "clamp(3.4rem, 5.5vw, 4.6rem)" }}
+      >
         <AnimatePresence>
           <motion.span
             key={index}

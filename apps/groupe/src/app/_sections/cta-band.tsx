@@ -1,94 +1,179 @@
-import { Button, Container } from "@sica/ui";
+"use client";
+
+import * as React from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { links } from "@/lib/links";
 
+const SERVICES = [
+  "vos constructions",     // Construction — cœur de métier
+  "votre génie civil",     // Construction — ingénierie
+  "le géobéton",           // Construction — matériau signature SICA
+  "vos travaux VRD",       // Construction — voirie & réseaux
+  "votre plomberie",       // Construction — second œuvre
+  "votre comptabilité",    // Assistance — gestion comptable
+  "votre fiscalité",       // Assistance — déclarations fiscales
+  "votre conseil PME",     // Assistance — accompagnement dirigeants
+];
+
+/** Variants distincts pour l'entrée et la sortie de la slot machine */
+const slotVariants = {
+  /** État de départ : vient d'en bas, flouté, rétréci */
+  enter: {
+    y: "108%",
+    opacity: 0,
+    filter: "blur(20px)",
+    scale: 0.72,
+  },
+  /** État visible : position zéro, net, taille normale */
+  visible: {
+    y: "0%",
+    opacity: 1,
+    filter: "blur(0px)",
+    scale: 1,
+    transition: {
+      // Spring pour un atterrissage naturel avec légère inertie
+      y: { type: "spring", stiffness: 320, damping: 24, mass: 0.85 },
+      scale: { type: "spring", stiffness: 280, damping: 22, mass: 0.85 },
+      // Défloutage progressif légèrement en retard sur le mouvement
+      filter: { duration: 0.58, ease: [0.16, 1, 0.3, 1] },
+      opacity: { duration: 0.32, ease: "easeOut" },
+    },
+  },
+  /** État de sortie : part vers le haut, se floute et grossit */
+  exit: {
+    y: "-108%",
+    opacity: 0,
+    filter: "blur(14px)",
+    scale: 1.14,
+    transition: {
+      // Accélération forte = départ vif, comme une cassette qui avance
+      y: { duration: 0.32, ease: [0.55, 0, 0.9, 0.05] },
+      scale: { duration: 0.32, ease: [0.55, 0, 0.9, 0.05] },
+      filter: { duration: 0.26, ease: "easeIn" },
+      opacity: { duration: 0.18, ease: "easeIn" },
+    },
+  },
+};
+
 export function CtaBand() {
+  const [index, setIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % SERVICES.length);
+    }, 2800);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <section
       aria-labelledby="cta-heading"
-      className="relative isolate overflow-hidden bg-brand-royal-900 py-20 sm:py-28 lg:py-36"
+      className="relative overflow-hidden bg-[#05081A] py-28 sm:py-36 lg:py-44"
     >
-      {/* Subtle radial amber glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_60%_at_50%_100%,rgba(243,146,0,0.18),transparent)]"
-      />
+      {/* ── Aurora blobs ──────────────────────────────────────────────────── */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        {/* Royal blue — top-left */}
+        <div
+          className="absolute -left-32 -top-40 h-[680px] w-[680px] rounded-full"
+          style={{
+            background: "radial-gradient(circle, #1E2F8A 0%, transparent 70%)",
+            filter: "blur(80px)",
+            opacity: 0.48,
+          }}
+        />
+        {/* Amber — top-right */}
+        <div
+          className="absolute -right-20 top-[-8%] h-[560px] w-[560px] rounded-full"
+          style={{
+            background: "radial-gradient(circle, #F7A026 0%, transparent 68%)",
+            filter: "blur(100px)",
+            opacity: 0.26,
+          }}
+        />
+        {/* Indigo — center-bottom */}
+        <div
+          className="absolute bottom-[-25%] left-[20%] h-[520px] w-[520px] rounded-full"
+          style={{
+            background: "radial-gradient(circle, #3E53CC 0%, transparent 70%)",
+            filter: "blur(88px)",
+            opacity: 0.22,
+          }}
+        />
+        {/* White centre glow — subtle halo */}
+        <div
+          className="absolute left-1/2 top-1/2 h-[180px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{
+            background:
+              "radial-gradient(ellipse, rgba(255,255,255,1) 0%, transparent 70%)",
+            filter: "blur(60px)",
+            opacity: 0.035,
+          }}
+        />
+      </div>
 
-      <Container>
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-brand-amber sm:text-sm">
-            Travaillons ensemble
-          </p>
+      {/* ── Content ──────────────────────────────────────────────────────── */}
+      <div className="relative mx-auto max-w-4xl px-6 text-center">
+        {/* Eyebrow */}
+        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-brand-amber/70">
+          Travaillons ensemble
+        </p>
 
-          <h2
-            id="cta-heading"
-            className="mt-4 font-display text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight tracking-tight text-balance text-white"
+        {/* Main heading — static line + animated slot */}
+        <h2
+          id="cta-heading"
+          className="mt-5 text-[clamp(2rem,5.5vw,3.5rem)] font-bold leading-[1.12] tracking-tight text-white"
+        >
+          <span className="block">Faites confiance à SICA pour</span>
+
+          {/* Slot-machine container — clipped + masque dégradé sur les bords */}
+          <span
+            className="relative block overflow-hidden text-brand-amber"
+            style={{
+              height: "clamp(2.4rem, 6.2vw, 4rem)",
+              // Fondu subtil en haut/bas pour un clip premium (pas de coupure brutale)
+              maskImage:
+                "linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%)",
+            }}
           >
-            Parlons de votre projet.
-          </h2>
+            <AnimatePresence mode="sync">
+              <motion.span
+                key={index}
+                className="absolute inset-x-0 top-0 block"
+                variants={slotVariants}
+                initial="enter"
+                animate="visible"
+                exit="exit"
+              >
+                {SERVICES[index]}
+              </motion.span>
+            </AnimatePresence>
+          </span>
+        </h2>
 
-          <p className="mx-auto mt-6 max-w-xl text-pretty text-base text-white/70 sm:mt-7 sm:text-lg">
-            Construction, génie civil, création d&apos;entreprise, comptabilité —
-            nos équipes sont disponibles six jours sur sept à Abidjan et
-            Yamoussoukro.
-          </p>
+        {/* Subtext */}
+        <p className="mx-auto mt-6 max-w-md text-pretty text-base leading-relaxed text-white/45">
+          Une équipe ivoirienne engagée, disponible six jours sur sept à
+          Abidjan.
+        </p>
 
-          <div className="mt-8 flex flex-col items-center gap-3 sm:mt-10 sm:flex-row sm:justify-center sm:gap-4">
-            <Button asChild variant="accent" size="lg" className="w-full sm:w-auto">
-              <a href={links.construction.devis}>Demander un devis</a>
-            </Button>
-            <Button
-              asChild
-              variant="on-dark-outline"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              <a href="/contact">Nous contacter</a>
-            </Button>
-          </div>
-
-          {/* Contact strip */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 sm:mt-12">
-            <a
-              href="tel:+2250709883293"
-              className="flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white"
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                <path
-                  d="M12.5 9.5c-.7-.7-1.9-.7-2.6 0l-.9.9C7.7 9.6 6 7.9 5.3 6.5L6.2 5.6c.7-.7.7-1.9 0-2.6L5 1.8C4.3 1.1 3.1 1.1 2.4 1.8L1.5 2.7C.4 3.8.6 5.6 1.9 8c1.2 2.2 3.1 4.1 5.3 5.3 2.4 1.3 4.2 1.5 5.3.4l.9-.9c.7-.7.7-1.9 0-2.6l-1.1-.7z"
-                  stroke="currentColor"
-                  strokeWidth="1.25"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              +225 07 09 88 32 93
-            </a>
-            <a
-              href="mailto:groupesica@gmail.com"
-              className="flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white"
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                <rect
-                  x="1.5"
-                  y="3"
-                  width="11"
-                  height="8"
-                  rx="1.5"
-                  stroke="currentColor"
-                  strokeWidth="1.25"
-                />
-                <path
-                  d="M1.5 4.5l5.5 4 5.5-4"
-                  stroke="currentColor"
-                  strokeWidth="1.25"
-                  strokeLinecap="round"
-                />
-              </svg>
-              groupesica@gmail.com
-            </a>
-          </div>
+        {/* CTA buttons */}
+        <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
+          <a
+            href={links.construction.devis}
+            className="inline-flex items-center justify-center rounded-full bg-white px-9 py-3.5 text-sm font-bold tracking-wide text-[#05081A] transition-all hover:bg-white/90 active:scale-[0.97]"
+          >
+            Commencer
+          </a>
+          <a
+            href="/contact"
+            className="text-sm font-medium text-white/40 transition-colors hover:text-white/75"
+          >
+            Nous contacter →
+          </a>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

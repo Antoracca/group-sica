@@ -9,38 +9,44 @@ import { links } from "@/lib/links";
 /* Construction — Immeuble architectural avec étages + fenêtres */
 function IconConstruction({ className }: { className?: string }) {
   return (
-    <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <line x1="3" y1="22" x2="21" y2="22" />
-      <polyline points="4 22 4 8 12 3 20 8 20 22" />
-      <rect x="8.5" y="10" width="2.5" height="2.5" rx="0.4" />
-      <rect x="13"  y="10" width="2.5" height="2.5" rx="0.4" />
-      <rect x="8.5" y="15" width="2.5" height="2.5" rx="0.4" />
-      <rect x="13"  y="15" width="2.5" height="2.5" rx="0.4" />
-      <path d="M10.5 22v-4h3v4" />
+    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M2.5 21.5h19" />
+      <path d="M4.2 21.5V10.2l6.8-5.1 6.8 5.1v11.3" />
+      <path d="M9.2 21.5v-4.4h3.6v4.4" />
+      <rect x="5.2" y="4.1" width="4.2" height="2.4" rx="0.45" />
+      <path d="M5.2 6.5v4.2" />
+      <path d="M7.3 6.5v2.8" />
+      <path d="M9.4 6.5v1.6" />
+      <path d="M13.1 11.3h2.1" />
+      <path d="M13.1 13.8h2.1" />
     </svg>
   );
 }
 
-/* Assistance — Document officiel avec validation checkmark */
+/* Assistance — Conseil premium (bulle + dossier validé) */
 function IconAssistance({ className }: { className?: string }) {
   return (
-    <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-      <polyline points="14 2 14 8 20 8" />
-      <line x1="8" y1="10.5" x2="16" y2="10.5" />
-      <polyline points="9 15 11 17 15 13" />
+    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M4.5 5.5h8.2a2.2 2.2 0 0 1 2.2 2.2v4.5a2.2 2.2 0 0 1-2.2 2.2H8.4l-3.9 3v-3H4.5a2 2 0 0 1-2-2V7.5a2 2 0 0 1 2-2Z" />
+      <path d="M17.5 7.8h3.2a1.8 1.8 0 0 1 1.8 1.8v6a1.8 1.8 0 0 1-1.8 1.8h-4.2" />
+      <path d="M8 9.6h5.4" />
+      <path d="M8 12.1h3.8" />
+      <path d="m17.2 13.3 1.3 1.3 2.2-2.5" />
     </svg>
   );
 }
 
-/* Réalisations — Galerie portfolio 2×2 */
+/* Réalisations — Galerie premium */
 function IconRealisations({ className }: { className?: string }) {
   return (
-    <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <rect x="2"  y="2"  width="9" height="9" rx="1.5" />
-      <rect x="13" y="2"  width="9" height="9" rx="1.5" />
-      <rect x="2"  y="13" width="9" height="9" rx="1.5" />
-      <rect x="13" y="13" width="9" height="9" rx="1.5" />
+    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <rect x="3" y="4" width="13" height="16" rx="1.8" />
+      <rect x="8" y="2.5" width="13" height="16" rx="1.8" />
+      <path d="M10.8 8.3h7.3" />
+      <path d="M10.8 11.1h7.3" />
+      <path d="M10.8 13.9h5" />
+      <path d="M5.7 14.8 7.4 13l2 2.3" />
+      <circle cx="7.1" cy="9.3" r="1.1" />
     </svg>
   );
 }

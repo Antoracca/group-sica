@@ -356,16 +356,32 @@ export function Realisations() {
           </p>
         </motion.div>
 
-        {/* ── DIAPORAMA ── */}
-        <AnimatePresence mode="wait">
-          <ProjectShowcase
-            key={`project-${idx}`}
-            projet={projet}
-            slideIdx={idx}
-            visible={showcaseActive}
-            isFirstReveal={isFirstReveal}
-          />
-        </AnimatePresence>
+        {/* ── DIAPORAMA — height-stabilized ──────────────────────────────────
+            TRIPLE BARRIÈRE ANTI-TREMBLEMENT :
+
+            1. Wrapper en CSS Grid avec col-start-1 row-start-1 sur le showcase :
+               permet à l'ancien et au nouveau projet de coexister DANS LA MÊME
+               CELLULE → la hauteur de la cellule = max(ancien, nouveau) →
+               jamais d'effondrement pendant les transitions.
+
+            2. min-height de secours : plancher absolu pour les projets courts.
+
+            3. mode="sync" (≠ popLayout) : les deux ProjectShowcase restent
+               simultanément dans le DOM et dans le grid flow, empilés via
+               col-start-1 row-start-1. La cellule garde toujours la hauteur
+               du plus grand des deux → zéro saut quand les projets défilent.
+        */}
+        <div className="grid min-h-[820px] lg:min-h-[640px]">
+          <AnimatePresence mode="sync">
+            <ProjectShowcase
+              key={`project-${idx}`}
+              projet={projet}
+              slideIdx={idx}
+              visible={showcaseActive}
+              isFirstReveal={isFirstReveal}
+            />
+          </AnimatePresence>
+        </div>
 
         {/* ── CTA ── */}
         <motion.div
@@ -454,7 +470,7 @@ function ProjectShowcase({
   const imgBg = { backgroundColor: "#E8EDF7" };
 
   return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+    <div className="col-start-1 row-start-1 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
 
       {/* ════════════════════════════════════════════════════════
           IMAGES MOSAÏQUE — collées, zéro gap
@@ -642,6 +658,14 @@ function ProjectShowcase({
               transition: { duration: 0.5, delay: 0.15, ease: [0.22, 1, 0.36, 1] as const },
             } satisfies MotionProps))}
         className="flex flex-col justify-center lg:col-span-5"
+        style={{
+          // Réserve l'espace pour la plus longue description (35 mots + métadonnées)
+          // → la hauteur de la colonne texte est stable peu importe le projet
+          // → pas de saut interne quand on passe de "Étude R+3" (court) à
+          //   "Maison GUESSIGUIÉ" (long) toutes les 9 secondes.
+          // 26rem couvre tous les cas y compris "Étude géotechnique" (liste longue).
+          minHeight: "26rem",
+        }}
       >
         {/* ── Badge statut chip (icône + label) ── */}
         <div

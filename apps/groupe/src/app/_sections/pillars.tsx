@@ -16,10 +16,7 @@ import {
   Users,
 } from "lucide-react";
 
-/* ─────────────────────────────────────────────────────────────
-   Fonts
-───────────────────────────────────────────────────────────── */
-const FONTS_CSS = `@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Barlow+Condensed:wght@400;500;600;700&display=swap');`;
+/* Google Fonts chargées dans layout.tsx — pas d'injection ici */
 
 /* ─────────────────────────────────────────────────────────────
    Lottie — chargé uniquement côté client (canvas API)
@@ -137,12 +134,22 @@ function AnimatedServices({
               <Icon size={16} strokeWidth={1.75} />
             </span>
 
+            {/*
+              Ghost text + overlay typé — stabilise la hauteur de chaque ligne.
+              Le texte fantôme (invisible) réserve la hauteur finale dès le
+              premier rendu. Le texte typé s'affiche par-dessus en absolu.
+              Résultat : la hauteur de la ligne ne change JAMAIS pendant l'animation.
+            */}
             <span
-              className={`text-sm sm:text-[0.9375rem] font-semibold tracking-[0.04em] ${
+              className={`relative text-sm sm:text-[0.9375rem] font-semibold tracking-[0.04em] ${
                 light ? "text-white/90" : "text-[#1E2F8A]/90"
               }`}
               style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
             >
+              {/* Texte fantôme — invisible mais réserve la hauteur exacte */}
+              <span className="invisible select-none" aria-hidden>{svc.text}</span>
+              {/* Texte typé — superposé en absolu */}
+              <span className="absolute left-0 top-0">
               {typed}
               {isTyping && (
                 <span
@@ -151,7 +158,8 @@ function AnimatedServices({
                   }`}
                 />
               )}
-            </span>
+              </span>{/* fin texte typé absolu */}
+            </span>{/* fin span relatif */}
           </motion.div>
         );
       })}
@@ -190,8 +198,7 @@ export function Pillars() {
   const handleAssistanceDone   = React.useCallback(() => setAssistanceDone(true),   []);
 
   return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: FONTS_CSS }} />
+    <>{/* Fonts chargées dans layout.tsx — pas d'injection client ici */}
 
       <section
         ref={sectionRef}
@@ -465,7 +472,9 @@ export function Pillars() {
               </p>
 
               {/* Typewriter assistance — desktop vitesse ×2.5 */}
-              {constructionDone && (
+              {/* Toujours rendu — la section desktop a minHeight:760 en absolu,
+                  mais on garde le pattern cohérent avec le mobile. */}
+              <div style={{ minHeight: "8.5rem" }}>
                 <AnimatedServices
                   key="assistance-desktop"
                   services={ASSISTANCE}
@@ -474,7 +483,7 @@ export function Pillars() {
                   onAllComplete={handleAssistanceDone}
                   charDelay={4}
                 />
-              )}
+              </div>
 
               {/* CTA royal */}
               <motion.div
@@ -608,7 +617,13 @@ export function Pillars() {
             >
               Création · Conseil · Comptabilité
             </p>
-            {constructionDone && (
+            {/*
+              Toujours rendu (plus de montage conditionnel) pour éviter
+              l'insertion brutale de ~8rem de contenu qui fait sauter la page.
+              `inView={constructionDone}` contrôle le démarrage de l'animation.
+              min-height réserve l'espace dès le premier paint.
+            */}
+            <div style={{ minHeight: "8.5rem" }}>
               <AnimatedServices
                 key="assistance-mobile"
                 services={ASSISTANCE}
@@ -617,7 +632,7 @@ export function Pillars() {
                 onAllComplete={handleAssistanceDone}
                 charDelay={5}
               />
-            )}
+            </div>
             <motion.div
               initial={{ opacity: 0 }}
               animate={assistanceDone ? { opacity: 1 } : {}}

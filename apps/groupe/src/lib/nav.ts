@@ -1,30 +1,57 @@
-import type { NavItem } from "@sica/ui";
+import type { NavItem, TopNavItem } from "@sica/ui";
 import { links } from "@/lib/links";
+
+/* ════════════════════════════════════════════════════════════════════════
+   NAVIGATION GROUPE SICA — Source : docs/CONTEXTE.md §2 et §8
+   ────────────────────────────────────────────────────────────────────────
+   RÈGLES STRICTES (à respecter pour éviter les doublons) :
+
+   1. SICA possède EXACTEMENT 2 pôles : Construction & Assistance.
+      → "Comptable" N'EST PAS un pôle — c'est une sous-section d'Assistance.
+      → "Réalisations" N'EST PAS un pôle — c'est du contenu Construction.
+
+   2. Sur le site Groupe (groupesica.ci), la navbar liste :
+      - Le Groupe (pages institutionnelles internes)
+      - Construction (lien externe vers sicaconstruction.ci + preview menu)
+      - Assistance (lien externe vers sicaassistance.ci + preview menu)
+      - Actualités (blog SEO interne)
+
+   3. Le top-nav (haut de page) est ADAPTATIF — voir packages/ui/lib/top-nav.ts.
+      Sur Groupe SICA → on n'affiche PAS "Groupe SICA" (on y est déjà).
+═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Navigation principale — 4 entrées ─────────────────────────────────── */
 
 export const mainNav: NavItem[] = [
   {
     label: "Corporate",
-    href: "/groupe",
+    href: "/a-propos",
+    tagline: "Qui nous sommes, d'où nous venons",
     children: [
       {
-        label: "Le Groupe",
-        href: "/groupe",
-        description: "Histoire, vision, positionnement et promesse SICA.",
+        label: "À propos",
+        href: "/a-propos",
+        description: "Dirigeant, organigramme et implantations du Groupe SICA.",
       },
       {
-        label: "Gouvernance",
-        href: "/groupe#equipe",
-        description: "Direction, organisation et pilotage des activites.",
+        label: "Actualités",
+        href: "/actualites",
+        description: "Toute l'activité récente du Groupe et de ses pôles.",
       },
       {
-        label: "Valeurs",
-        href: "/groupe#valeurs",
-        description: "Exigence technique, transparence et delai maitrise.",
+        label: "Carrières",
+        href: "/carrieres",
+        description: "Rejoindre les équipes SICA en Côte d'Ivoire.",
       },
       {
         label: "Partenaires",
         href: "/partenaires",
-        description: "Ecosysteme d'acteurs techniques et institutionnels.",
+        description: "Réseau d'entreprises et institutions associées.",
+      },
+      {
+        label: "Contact",
+        href: "/contact",
+        description: "Nous joindre — Abidjan et Yamoussoukro.",
       },
     ],
   },
@@ -32,23 +59,42 @@ export const mainNav: NavItem[] = [
     label: "Construction",
     href: links.construction.base,
     external: true,
+    tagline: "Du sol au toit — BTP, géobéton, génie civil",
     children: [
       {
         label: "Accueil Construction",
         href: links.construction.base,
-        description: "Presentation du pole, expertises et methodologie chantier.",
+        description: "Présentation du pôle BTP — études, génie civil, géobéton.",
+        external: true,
+      },
+      {
+        label: "Services BTP",
+        href: `${links.construction.base}/services`,
+        description: "Études, terrassement, structure, charpente, plomberie, électricité, VRD.",
+        external: true,
+      },
+      {
+        label: "Géobéton",
+        href: `${links.construction.base}/services/geobeton`,
+        description: "Notre matériau signature — brique BTCS à haute densité.",
+        external: true,
+      },
+      {
+        label: "Études de sol",
+        href: `${links.construction.base}/services/etudes-sol`,
+        description: "Sondages pressiométriques et dimensionnement des fondations.",
+        external: true,
+      },
+      {
+        label: "Réalisations",
+        href: `${links.construction.base}/projets`,
+        description: "Villas, sièges institutionnels et chantiers en cours.",
         external: true,
       },
       {
         label: "Demander un devis",
         href: links.construction.devis,
-        description: "Estimation rapide, cadrage budget et lancement du projet.",
-        external: true,
-      },
-      {
-        label: "Nos realisations",
-        href: `${links.construction.base}/realisations`,
-        description: "Villas, sieges et projets livres ou en cours.",
+        description: "Estimation rapide, cadrage du budget et lancement du projet.",
         external: true,
       },
       {
@@ -63,85 +109,79 @@ export const mainNav: NavItem[] = [
     label: "Assistance",
     href: "https://sicaassistance.ci",
     external: true,
+    tagline: "Créer, gérer et sécuriser votre activité",
     children: [
       {
-        label: "Creation d'entreprise",
+        label: "Accueil Assistance",
         href: "https://sicaassistance.ci",
-        description: "Constitution legale, RCCM et formalites administratives.",
+        description: "Création, comptabilité, juridique et conseil PME.",
+        external: true,
+      },
+      {
+        label: "Création d'entreprise",
+        href: "https://sicaassistance.ci/creation-entreprise",
+        description: "Constitution légale, RCCM et formalités administratives.",
+        external: true,
+      },
+      {
+        label: "Comptabilité & fiscalité",
+        href: "https://sicaassistance.ci/comptabilite",
+        description: "Tenue comptable, déclarations fiscales et sociales.",
+        external: true,
+      },
+      {
+        label: "Juridique",
+        href: "https://sicaassistance.ci/juridique",
+        description: "Suivi administratif et sécurisation des actes.",
         external: true,
       },
       {
         label: "Conseil en gestion",
-        href: "https://sicaassistance.ci",
+        href: "https://sicaassistance.ci/conseil",
         description: "Structuration, pilotage et accompagnement des dirigeants.",
         external: true,
       },
       {
-        label: "Comptabilite",
-        href: "https://sicaassistance.ci",
-        description: "Tenue comptable, fiscalite et reporting financier.",
-        external: true,
-      },
-      {
-        label: "Nous contacter",
-        href: "https://sicaassistance.ci/contact",
-        description: "Parler avec un conseiller en moins de 24h.",
+        label: "Espace client",
+        href: "https://sicaassistance.ci/espace-client",
+        description: "Suivi dossier, pièces attendues et factures.",
         external: true,
       },
     ],
   },
+  {
+    label: "Actualités",
+    href: "/actualites",
+    tagline: "Informations récentes du Groupe et des pôles",
+  },
+];
+
+/* ════════════════════════════════════════════════════════════════════════
+   TOP-NAV — version Groupe SICA
+   Le top-nav du site Groupe NE contient PAS "Groupe SICA" — on y est déjà.
+   Pour les autres sites (Construction / Assistance), utiliser le helper
+   `getTopNav("construction" | "assistance")` exporté par @sica/ui.
+═══════════════════════════════════════════════════════════════════════ */
+
+export const topNav: TopNavItem[] = [
   {
     label: "Réalisations",
     href: "/realisations",
-    children: [
-      {
-        label: "Toutes les realisations",
-        href: "/realisations",
-        description: "Vue complete des projets SICA Construction.",
-      },
-      {
-        label: "Villas & residences",
-        href: "/realisations#villas",
-        description: "Habitations premium, duplex et villas familiales.",
-      },
-      {
-        label: "Programmes institutionnels",
-        href: "/realisations#institutionnels",
-        description: "Sieges, batiments et chantiers a forte exigence.",
-      },
-      {
-        label: "Etudes techniques",
-        href: "/realisations#etudes",
-        description: "Geotechnique, dimensionnement et preconisations.",
-      },
-    ],
+    icon: "realisations",
   },
   {
-    label: "Comptable",
-    href: "https://sicaassistance.ci",
-    external: true,
-    children: [
-      {
-        label: "Tenue comptable",
-        href: "https://sicaassistance.ci",
-        description: "Saisie, bilan et fiabilisation de la comptabilite.",
-        external: true,
-      },
-      {
-        label: "Fiscalite",
-        href: "https://sicaassistance.ci",
-        description: "Declarations fiscales et optimisation conforme.",
-        external: true,
-      },
-      {
-        label: "Paie & social",
-        href: "https://sicaassistance.ci",
-        description: "Gestion de la paie et obligations sociales.",
-        external: true,
-      },
-    ],
+    label: "Carrières",
+    href: "/carrieres",
+    icon: "briefcase",
   },
-  { label: "Actualités", href: "/actualites" },
-  { label: "Carrières", href: "/carrieres" },
-  { label: "Contact", href: "/contact" },
+  {
+    label: "Partenaires",
+    href: "/partenaires",
+    icon: "users",
+  },
+  {
+    label: "Contact",
+    href: "/contact",
+    icon: "phone",
+  },
 ];

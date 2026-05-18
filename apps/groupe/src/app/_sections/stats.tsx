@@ -10,7 +10,7 @@ import { motion, useInView, animate } from "motion/react";
    Barlow Condensed : labels petites caps, technicité
    Barlow           : sub-labels, légèreté
 ───────────────────────────────────────────────────────────── */
-const FONTS_CSS = `@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400&display=swap');`;
+/* Google Fonts chargées dans layout.tsx — pas d'injection ici */
 
 /* ─────────────────────────────────────────────────────────────
    Constellation canvas — particules interconnectées, réactives
@@ -287,9 +287,6 @@ export function Stats() {
 
   return (
     <>
-      {/* Injection fonts */}
-      <style dangerouslySetInnerHTML={{ __html: FONTS_CSS }} />
-
       <section
         ref={sectionRef}
         aria-label="Chiffres clés du Groupe SICA"

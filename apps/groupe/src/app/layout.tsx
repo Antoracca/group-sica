@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr" className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}>
       <head>
-        {/* ── Préchargement critique du hero ──
+        {/* ── Préchargement critique du hero ──────────────────────────────────
             Le poster est en image (priorité HIGH par défaut) → s'affiche
             instantanément. La vidéo se télécharge en parallèle dès le
             parse du HTML. Évite l'écran bleu de 2-3 s. */}
@@ -47,6 +47,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="video/mp4"
           /* @ts-expect-error — attr HTML standard, types React partiels */
           fetchpriority="high"
+        />
+
+        {/* ── Google Fonts — chargement au niveau HTML (zéro CLS) ─────────────
+            Chargées ici au lieu d'être @importées dans les composants client.
+            Raison : les <style dangerouslySetInnerHTML> dans les composants
+            "use client" s'injectent APRÈS l'hydratation React → les polices
+            arrivent après le premier rendu → swap visible de la police système
+            vers DM Serif/Barlow = CLS.
+            En les plaçant dans le <head> du layout SSR, le navigateur les
+            découvre au même moment que le HTML → zéro swap visible. */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400&display=swap"
         />
       </head>
       <body className="min-h-screen bg-background font-body text-foreground antialiased">

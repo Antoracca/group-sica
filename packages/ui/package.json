@@ -10,13 +10,16 @@
     "./styles": "./src/styles/index.css"
   },
   "sideEffects": false,
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "scripts": {
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "clean": "rimraf .turbo"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
     "@radix-ui/react-slot": "^1.1.1",
     "@sica/tokens": "workspace:*",
     "class-variance-authority": "^0.7.1",

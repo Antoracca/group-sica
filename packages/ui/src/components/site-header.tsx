@@ -2,9 +2,30 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, UserRound, X, Search, ChevronDown } from "lucide-react";
+import {
+  List,
+  X,
+  MagnifyingGlass,
+  UserCircle,
+  CaretDown,
+  ArrowRight,
+  Translate,
+  Briefcase,
+  Compass,
+  Buildings,
+  EnvelopeSimple,
+  ArrowSquareOut,
+  Globe,
+  Handshake,
+  HardHat,
+  Phone,
+  Calculator,
+  Trophy,
+} from "@phosphor-icons/react";
 import { cn } from "../lib/cn";
 import { useHeaderScroll } from "../hooks/use-header-scroll";
+
+// ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface NavSubItem {
   label: string;
@@ -18,25 +39,63 @@ export interface NavItem {
   href: string;
   current?: boolean;
   external?: boolean;
+  tagline?: string;
   children?: NavSubItem[];
 }
+
+export type TopNavIcon =
+  | "briefcase"
+  | "compass"
+  | "building"
+  | "phone"
+  | "mail"
+  | "users"
+  | "construction"
+  | "assistance"
+  | "realisations";
+
+export interface TopNavItem {
+  label: string;
+  href: string;
+  external?: boolean;
+  icon?: TopNavIcon;
+}
+
+const TOP_ICONS: Record<
+  TopNavIcon,
+  React.ComponentType<{ size?: number; weight?: "thin" | "light" | "regular" | "bold"; className?: string }>
+> = {
+  briefcase: Briefcase,
+  compass: Compass,
+  building: Buildings,
+  phone: Phone,
+  mail: EnvelopeSimple,
+  users: Handshake,
+  construction: HardHat,
+  assistance: Calculator,
+  realisations: Trophy,
+};
 
 interface SiteHeaderProps {
   brand?: "groupe" | "construction" | "assistance";
   logo: React.ReactNode;
   badgeLogo?: React.ReactNode;
   nav: NavItem[];
+  topNav?: TopNavItem[];
   rightSlotScrolled?: React.ReactNode;
   scrolledThreshold?: number;
   hideThreshold?: number;
   className?: string;
 }
 
+// ─── Component ────────────────────────────────────────────────────────────────
+
 export function SiteHeader({
   brand: _brand = "groupe",
   logo,
   badgeLogo: _badgeLogo,
   nav,
+  topNav,
   rightSlotScrolled: _rightSlotScrolled,
   scrolledThreshold = 80,
   hideThreshold = 480,
@@ -55,50 +114,87 @@ export function SiteHeader({
   const isHidden = state === "hidden";
   const isScrolled = state === "scrolled";
 
+  // ── Search focus ──
   React.useEffect(() => {
     if (!searchOpen) return;
     const t = setTimeout(() => searchRef.current?.focus(), 60);
     return () => clearTimeout(t);
   }, [searchOpen]);
 
+  // ── Close mobile drawer on lg breakpoint ──
   React.useEffect(() => {
     const mq = window.matchMedia("(min-width: 1024px)");
     const h = (e: MediaQueryListEvent) => {
-      if (e.matches) {
-        setMobileOpen(false);
-        setMobileExpanded(null);
-      }
+      if (e.matches) { setMobileOpen(false); setMobileExpanded(null); }
     };
     mq.addEventListener("change", h);
     return () => mq.removeEventListener("change", h);
   }, []);
 
+  // ── SCROLL LOCK : bloque tout défilement quand le drawer mobile est ouvert ──
+  // Technique "position:fixed" — préserve la position de scroll au retour
   React.useEffect(() => {
-    return () => {
-      if (closeMenuTimer.current) clearTimeout(closeMenuTimer.current);
+    if (!mobileOpen) return;
+    const scrollY = window.scrollY;
+    const prev = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      top: document.body.style.top,
+      width: document.body.style.width,
     };
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+    return () => {
+      document.body.style.overflow = prev.overflow;
+      document.body.style.position = prev.position;
+      document.body.style.top = prev.top;
+      document.body.style.width = prev.width;
+      window.scrollTo(0, scrollY);
+    };
+  }, [mobileOpen]);
+
+  // ── Desktop dropdown timer cleanup ──
+  React.useEffect(() => {
+    return () => { if (closeMenuTimer.current) clearTimeout(closeMenuTimer.current); };
   }, []);
+
+  // ── SCROLL LOCK desktop : bloque le défilement en fond quand le mega-menu est ouvert ──
+  React.useEffect(() => {
+    if (!desktopOpenLabel) return;
+    const scrollY = window.scrollY;
+    const prev = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      top: document.body.style.top,
+      width: document.body.style.width,
+    };
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+    return () => {
+      document.body.style.overflow = prev.overflow;
+      document.body.style.position = prev.position;
+      document.body.style.top = prev.top;
+      document.body.style.width = prev.width;
+      window.scrollTo(0, scrollY);
+    };
+  }, [desktopOpenLabel]);
 
   const desktopOpenItem = React.useMemo(
     () => nav.find((item) => item.label === desktopOpenLabel && item.children?.length),
     [desktopOpenLabel, nav],
   );
-  const desktopChildrenCount = desktopOpenItem?.children?.length ?? 0;
-  const desktopGridColsClass =
-    desktopChildrenCount >= 4
-      ? "xl:grid-cols-4"
-      : desktopChildrenCount === 3
-        ? "xl:grid-cols-3"
-        : "xl:grid-cols-2";
 
   const openDesktopMenu = (label: string) => {
     if (closeMenuTimer.current) clearTimeout(closeMenuTimer.current);
     setDesktopOpenLabel(label);
   };
-
   const closeDesktopMenu = () => {
     if (closeMenuTimer.current) clearTimeout(closeMenuTimer.current);
-    closeMenuTimer.current = setTimeout(() => setDesktopOpenLabel(null), 120);
+    closeMenuTimer.current = setTimeout(() => setDesktopOpenLabel(null), 140);
   };
 
   return (
@@ -110,116 +206,238 @@ export function SiteHeader({
         className={cn("fixed inset-x-0 top-0 z-50", className)}
         data-state={state}
       >
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-5 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-brand-royal focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg"
-        >
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-5 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-brand-royal focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white">
           Aller au contenu principal
         </a>
 
+        {/* ══════════════════════════════════════════════════════════════
+            TOP UTILITY BAR — desktop uniquement
+            Fond blanc avec nuance de bleu aux extrémités (subtil, premium)
+            Icônes Phosphor light + séparateurs pipe + icône Translate langue
+        ══════════════════════════════════════════════════════════════ */}
+        {topNav && topNav.length > 0 ? (
+          <div className="relative hidden lg:block overflow-hidden border-b border-slate-100">
+            {/* Base blanche */}
+            <div className="absolute inset-0 bg-white" />
+            {/* Nuance dégradée bleu — très subtile, juste un soufflé de couleur aux bords */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(110deg, rgba(30,47,138,0.045) 0%, rgba(30,47,138,0.01) 22%, rgba(255,255,255,0) 50%, rgba(30,47,138,0.008) 78%, rgba(30,47,138,0.038) 100%)",
+              }}
+            />
+
+            <div className="relative mx-auto max-w-[1440px] px-5 xl:px-8">
+              <div className="flex h-[2.5rem] items-center justify-end">
+                {topNav.map((item, idx) => {
+                  const Icon = item.icon ? TOP_ICONS[item.icon] : null;
+                  return (
+                    <React.Fragment key={item.label}>
+                      {idx > 0 ? (
+                        <span aria-hidden className="mx-4 select-none text-[0.85rem] font-light text-slate-300">
+                          |
+                        </span>
+                      ) : null}
+                      <a
+                        href={item.href}
+                        {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="group inline-flex items-center gap-1.5 text-[0.7rem] font-medium tracking-[0.015em] text-slate-600 transition-colors duration-200 hover:text-brand-royal"
+                      >
+                        {Icon ? (
+                          <Icon size={13} weight="light" className="text-brand-royal/50 transition-colors duration-200 group-hover:text-brand-royal" />
+                        ) : null}
+                        {item.label}
+                        {item.external ? (
+                          <ArrowSquareOut size={10} weight="light" className="text-slate-300 opacity-0 transition-opacity group-hover:opacity-100" aria-hidden />
+                        ) : null}
+                      </a>
+                    </React.Fragment>
+                  );
+                })}
+
+                {/* Séparateur + langue */}
+                <span aria-hidden className="mx-4 select-none text-[0.85rem] font-light text-slate-300">|</span>
+                <div className="flex items-center gap-2">
+                  <Translate size={14} weight="light" className="text-brand-royal/50" aria-hidden />
+                  {(["fr", "en"] as const).map((l, i) => (
+                    <React.Fragment key={l}>
+                      {i > 0 ? <span aria-hidden className="select-none text-xs text-slate-200">/</span> : null}
+                      <button
+                        type="button"
+                        aria-label={l === "fr" ? "Version francaise" : "English version"}
+                        aria-pressed={lang === l}
+                        onClick={() => setLang(l)}
+                        className={cn(
+                          "text-[0.7rem] font-semibold uppercase tracking-[0.06em] transition-colors duration-200",
+                          lang === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
+                        )}
+                      >
+                        {l === "fr" ? "Français" : "English"}
+                      </button>
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {/* ══════════════════════════════════════════════════════════════
+            MOBILE UTILITY STRIP — visible HORS du drawer, au-dessus
+            de la barre hamburger. Minimaliste : Nos pôles | Groupe SICA
+            + sélecteur FR/EN bien visible. Même nuance bleutée que desktop.
+        ══════════════════════════════════════════════════════════════ */}
+        <div className="relative block overflow-hidden border-b border-slate-100/80 lg:hidden">
+          {/* Base blanche */}
+          <div className="absolute inset-0 bg-white" />
+          {/* Nuance bleue latérale — miroir exact du desktop */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(110deg, rgba(30,47,138,0.045) 0%, rgba(30,47,138,0.01) 28%, transparent 50%, rgba(30,47,138,0.008) 72%, rgba(30,47,138,0.038) 100%)",
+            }}
+          />
+
+          <div className="relative flex h-[2rem] items-center justify-between px-4">
+            {/* Gauche : liens utilitaires compacts */}
+            <div className="flex items-center gap-0">
+              <a
+                href="/realisations"
+                className="flex items-center gap-1 text-[0.63rem] font-medium text-slate-500 transition-colors hover:text-brand-royal"
+              >
+                <Trophy size={11} weight="light" className="text-brand-royal/40" aria-hidden />
+                <span>Réalisations</span>
+              </a>
+              <span aria-hidden className="mx-2.5 text-[0.75rem] font-light text-slate-200 select-none">|</span>
+              <a
+                href="/a-propos"
+                className="flex items-center gap-1 text-[0.63rem] font-medium text-slate-500 transition-colors hover:text-brand-royal"
+              >
+                <Compass size={11} weight="light" className="text-brand-royal/40" aria-hidden />
+                <span>Corporate</span>
+              </a>
+            </div>
+
+            {/* Droite : sélecteur de langue avec icône Translate */}
+            <div className="flex items-center gap-1.5">
+              <Translate size={12} weight="light" className="text-brand-royal/40" aria-hidden />
+              {(["fr", "en"] as const).map((l, i) => (
+                <React.Fragment key={l}>
+                  {i > 0 ? (
+                    <span aria-hidden className="select-none text-[0.6rem] text-slate-200">/</span>
+                  ) : null}
+                  <button
+                    type="button"
+                    aria-label={l === "fr" ? "Version francaise" : "English version"}
+                    aria-pressed={lang === l}
+                    onClick={() => setLang(l)}
+                    className={cn(
+                      "text-[0.63rem] font-bold uppercase tracking-[0.06em] transition-colors duration-200",
+                      lang === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
+                    )}
+                  >
+                    {l.toUpperCase()}
+                  </button>
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ══════════════════════════════════════════════════════════════
+            MAIN NAV — Logo + nav collée à gauche + actions droite
+        ══════════════════════════════════════════════════════════════ */}
         <motion.div
           initial={false}
           animate={{
             marginLeft: isScrolled ? 12 : 0,
             marginRight: isScrolled ? 12 : 0,
             marginTop: isScrolled ? 10 : 0,
-            borderRadius: isScrolled ? 28 : 0,
+            borderRadius: isScrolled ? 24 : 0,
           }}
-          transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
           className={cn(
-            "overflow-hidden",
-            "transition-[background-color,box-shadow] duration-[250ms]",
+            "overflow-visible transition-[background-color,box-shadow] duration-[280ms]",
             isScrolled
-              ? "bg-white shadow-[0_4px_32px_rgba(30,47,138,0.10)]"
+              ? "bg-white shadow-[0_8px_32px_rgba(7,20,74,0.10)]"
               : "bg-transparent shadow-none",
           )}
           onMouseLeave={closeDesktopMenu}
         >
-          <div className="mx-auto flex h-[4.75rem] max-w-[1440px] items-center gap-2 px-5 lg:h-[5.25rem] lg:gap-4 xl:px-8">
-            <div
-              className={cn(
-                "flex items-center rounded-2xl bg-white lg:hidden",
-                "transition-[filter] duration-300",
-                isTop
-                  ? "[filter:drop-shadow(0_4px_20px_rgba(0,0,0,0.22))]"
-                  : "[filter:drop-shadow(0_0px_0px_transparent)]",
-              )}
-            >
+          <div className="mx-auto flex h-[4.75rem] max-w-[1440px] items-center px-5 lg:h-[5.5rem] xl:px-8">
+
+            {/* Mobile : plaque menu + logo
+                Quand la barre de recherche est ouverte → logo masqué pour
+                libérer l'espace. Le hamburger reste toujours visible.        */}
+            <div className={cn(
+              "flex items-center rounded-2xl bg-white lg:hidden",
+              "transition-[filter] duration-300",
+              isTop ? "[filter:drop-shadow(0_4px_20px_rgba(0,0,0,0.22))]" : "[filter:drop-shadow(0_0px_0px_transparent)]",
+            )}>
               <button
                 type="button"
                 aria-label="Ouvrir le menu"
                 aria-expanded={mobileOpen}
                 aria-controls="mobile-drawer"
                 onClick={() => setMobileOpen(true)}
-                className="inline-flex size-11 items-center justify-center text-slate-600 transition-colors duration-150 hover:bg-slate-50"
+                className="inline-flex size-11 items-center justify-center text-slate-600 transition-colors hover:bg-slate-50"
               >
-                <Menu className="size-[1.125rem]" aria-hidden />
+                <List size={20} weight="regular" aria-hidden />
               </button>
-              <div className="h-5 w-px shrink-0 bg-gray-200" />
-              <div
-                className={cn(
-                  "flex items-center px-3",
-                  isTop
-                    ? "[&_img]:!h-[60px] [&_img]:!w-auto"
-                    : "[&_img]:!h-20 [&_img]:!w-auto",
-                )}
-              >
-                {logo}
-              </div>
+              {/* Séparateur + logo — cachés quand search est ouverte sur mobile */}
+              {!searchOpen ? (
+                <>
+                  <div className="h-5 w-px shrink-0 bg-gray-200" />
+                  <div className="flex items-center px-3 [&_img]:!h-[56px] [&_img]:!w-auto">
+                    {logo}
+                  </div>
+                </>
+              ) : null}
             </div>
 
-            <div
-              className={cn(
-                "hidden shrink-0 lg:block transition-[filter] duration-300",
-                isTop && "[filter:drop-shadow(0_2px_16px_rgba(0,0,0,0.55))]",
-              )}
-            >
+            {/* Desktop : logo */}
+            <div className={cn(
+              "hidden shrink-0 items-center lg:flex transition-[filter] duration-300",
+              isTop
+                ? "[filter:drop-shadow(0_4px_24px_rgba(0,0,0,0.60))]"
+                : "[filter:drop-shadow(0_2px_8px_rgba(7,20,74,0.10))]",
+            )}>
               {logo}
             </div>
 
-            <nav aria-label="Navigation principale" className="hidden flex-1 lg:block">
-              <ul className="flex items-center">
+            {/* Desktop : nav collée au logo (ml-8) — pas centrée */}
+            <nav aria-label="Navigation principale" className="ml-8 hidden items-center lg:flex xl:ml-10">
+              <ul className="flex items-center gap-0.5">
                 {nav.map((item) => {
                   const hasChildren = Boolean(item.children?.length);
                   const opened = desktopOpenLabel === item.label;
                   return (
                     <li
-                      key={item.href}
-                      onMouseEnter={() =>
-                        hasChildren ? openDesktopMenu(item.label) : setDesktopOpenLabel(null)
-                      }
-                      onFocus={() =>
-                        hasChildren ? openDesktopMenu(item.label) : setDesktopOpenLabel(null)
-                      }
+                      key={item.label}
+                      onMouseEnter={() => hasChildren ? openDesktopMenu(item.label) : setDesktopOpenLabel(null)}
+                      onFocus={() => hasChildren ? openDesktopMenu(item.label) : setDesktopOpenLabel(null)}
                     >
                       <a
                         href={item.href}
                         aria-current={item.current ? "page" : undefined}
                         {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                         className={cn(
-                          "group relative inline-flex items-center gap-1 px-3 py-2.5 xl:px-3.5",
-                          "text-[0.6875rem] font-black tracking-[0.09em] uppercase",
-                          "transition-colors duration-200",
-                          isTop
-                            ? "text-white/90 hover:text-white"
-                            : "text-brand-royal hover:text-brand-royal",
-                          "after:absolute after:bottom-1.5 after:left-3 after:right-3 xl:after:left-3.5 xl:after:right-3.5",
-                          "after:h-[2px] after:rounded-full after:bg-brand-amber",
-                          "after:origin-left after:transition-transform after:duration-250 after:ease-out",
-                          item.current || opened
-                            ? "after:scale-x-100"
-                            : "after:scale-x-0 hover:after:scale-x-100",
+                          "group relative inline-flex items-center gap-1 px-3 py-3 xl:px-3.5",
+                          "text-[0.775rem] font-semibold tracking-[0.01em] transition-colors duration-200",
+                          isTop ? "text-white/95 hover:text-white" : "text-brand-royal/85 hover:text-brand-royal",
+                          "after:absolute after:bottom-[0.6rem] after:left-1/2 after:-translate-x-1/2",
+                          "after:h-[1.5px] after:w-5 after:rounded-full after:bg-brand-amber",
+                          "after:origin-center after:transition-transform after:duration-300 after:ease-out",
+                          item.current || opened ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100",
                         )}
                       >
                         {item.label}
                         {hasChildren ? (
-                          <ChevronDown
-                            className={cn(
-                              "size-3.5 transition-transform duration-200",
-                              opened && "rotate-180",
-                            )}
-                            aria-hidden
-                          />
+                          <CaretDown size={11} weight="bold" className={cn("transition-transform duration-200", opened && "rotate-180")} aria-hidden />
                         ) : null}
                       </a>
                     </li>
@@ -228,172 +446,196 @@ export function SiteHeader({
               </ul>
             </nav>
 
-            <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-1.5">
-              <div
-                className={cn(
-                  "hidden sm:flex items-center gap-0.5 rounded-full border p-0.5",
-                  "transition-[border-color] duration-300",
-                  isTop ? "border-white/25" : "border-brand-royal/15",
-                )}
-              >
-                {(["fr", "en"] as const).map((l) => (
-                  <button
-                    key={l}
-                    type="button"
-                    aria-label={l === "fr" ? "Version francaise" : "English version"}
-                    aria-pressed={lang === l}
-                    onClick={() => setLang(l)}
-                    className={cn(
-                      "rounded-full px-2.5 py-[0.3125rem] text-[0.5625rem] font-black tracking-[0.1em] uppercase",
-                      "transition-all duration-200",
-                      lang === l
-                        ? "bg-brand-amber text-white shadow-sm"
-                        : isTop
-                          ? "text-white/60 hover:text-white"
-                          : "text-slate/50 hover:text-brand-royal",
-                    )}
-                  >
-                    {l.toUpperCase()}
-                  </button>
-                ))}
-              </div>
-
+            {/* Actions droite */}
+            <div className="ml-auto flex shrink-0 items-center gap-2">
               <div className="relative flex items-center">
                 <AnimatePresence>
                   {searchOpen ? (
                     <motion.div
                       key="search-box"
                       initial={{ width: 0, opacity: 0 }}
-                      animate={{ width: 152, opacity: 1 }}
+                      animate={{ width: 200, opacity: 1 }}
                       exit={{ width: 0, opacity: 0 }}
-                      transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+                      transition={{ duration: 0.26, ease: [0.4, 0, 0.2, 1] }}
                       className="overflow-hidden"
                     >
                       <input
                         ref={searchRef}
                         type="search"
-                        placeholder="Rechercher..."
+                        placeholder="Rechercher dans SICA…"
                         aria-label="Rechercher"
+                        // font-size 16px : empêche le zoom iOS sur focus
+                        style={{ fontSize: "16px" }}
                         className={cn(
-                          "w-full rounded-full border py-[0.4375rem] pl-4 pr-2",
-                          "text-[0.8125rem] outline-none transition-all duration-200",
+                          "w-full rounded-full border py-[0.4375rem] pl-4 pr-3 outline-none transition-all duration-200 lg:text-[0.8125rem]",
                           isTop
-                            ? "border-white/30 bg-white/15 text-white placeholder:text-white/50 focus:bg-white/25 backdrop-blur-sm"
-                            : "border-gray-200 bg-gray-50 text-ink placeholder:text-slate/50 focus:border-brand-royal focus:bg-white focus:ring-2 focus:ring-brand-royal/10",
+                            ? "border-white/30 bg-white/15 text-white placeholder:text-white/55 focus:bg-white/25 backdrop-blur-sm"
+                            : "border-slate-200 bg-slate-50 text-slate-800 placeholder:text-slate-400 focus:border-brand-royal focus:bg-white focus:ring-2 focus:ring-brand-royal/10",
                         )}
-                        onKeyDown={(e) => {
-                          if (e.key === "Escape") setSearchOpen(false);
-                        }}
+                        onKeyDown={(e) => { if (e.key === "Escape") setSearchOpen(false); }}
                       />
                     </motion.div>
                   ) : null}
                 </AnimatePresence>
-
                 <button
                   type="button"
                   aria-label={searchOpen ? "Fermer la recherche" : "Rechercher"}
                   aria-expanded={searchOpen}
                   onClick={() => setSearchOpen((v) => !v)}
                   className={cn(
-                    "inline-flex size-9 items-center justify-center rounded-full transition-all duration-200",
+                    "inline-flex size-10 items-center justify-center rounded-full transition-all duration-200",
                     isTop
-                      ? cn(
-                          "text-white/90 hover:bg-white/15 hover:text-white",
-                          searchOpen && "bg-white/20 text-white",
-                        )
-                      : cn(
-                          "text-brand-royal hover:bg-brand-royal hover:text-white",
-                          searchOpen && "bg-brand-royal text-white",
-                        ),
+                      ? cn("text-white/90 hover:bg-white/15 hover:text-white", searchOpen && "bg-white/20 text-white")
+                      : cn("text-brand-royal/70 hover:bg-brand-royal hover:text-white", searchOpen && "bg-brand-royal text-white"),
                   )}
                 >
-                  {searchOpen ? (
-                    <X className="size-[1.0625rem]" aria-hidden />
-                  ) : (
-                    <Search className="size-[1.0625rem]" aria-hidden />
-                  )}
+                  {searchOpen ? <X size={17} weight="regular" aria-hidden /> : <MagnifyingGlass size={17} weight="light" aria-hidden />}
                 </button>
               </div>
 
               <a
                 href="/espace-client"
                 className={cn(
-                  "inline-flex items-center gap-1.5 transition-all duration-200",
-                  "text-[0.6875rem] font-black tracking-[0.07em] uppercase",
-                  "lg:rounded-full lg:border lg:px-3.5 lg:py-[0.4375rem] xl:px-4",
-                  isTop
-                    ? "text-white lg:border-white/30 lg:hover:bg-white/15 lg:hover:border-white/50"
-                    : "text-brand-royal lg:border-brand-royal/20 lg:hover:border-brand-royal lg:hover:bg-brand-royal lg:hover:text-white",
+                  "inline-flex items-center gap-1.5 text-[0.7rem] font-bold uppercase tracking-[0.04em] transition-all duration-200",
+                  "lg:rounded-full lg:border lg:px-4 lg:py-2",
+                  isTop ? "text-white" : "text-brand-royal",
+                  "lg:text-white lg:border-brand-amber lg:bg-brand-amber lg:hover:brightness-110 lg:shadow-[0_2px_14px_rgba(247,160,38,0.30)]",
                 )}
               >
-                <UserRound className="size-[1.0625rem] shrink-0" aria-hidden />
+                <UserCircle size={16} weight="light" className="shrink-0" aria-hidden />
                 <span className="hidden lg:inline">Espace client</span>
               </a>
             </div>
           </div>
         </motion.div>
 
+        {/* ══════════════════════════════════════════════════════════════
+            MEGA-MENU DROPDOWN — Style VINCI, légèrement transparent
+            Nuance dégradée intérieure pour plus de profondeur/goût
+        ══════════════════════════════════════════════════════════════ */}
         <AnimatePresence>
           {desktopOpenItem?.children?.length ? (
             <motion.div
               key={desktopOpenItem.label}
-              initial={{ opacity: 0, y: -14 }}
+              initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
               onMouseEnter={() => openDesktopMenu(desktopOpenItem.label)}
               onMouseLeave={closeDesktopMenu}
               className={cn(
-                "absolute inset-x-0 top-full hidden overflow-hidden border-t backdrop-blur-xl lg:block",
-                "shadow-[0_16px_36px_rgba(7,20,74,0.24)]",
-                "border-white/20 bg-brand-royal/72",
+                "absolute inset-x-0 top-full hidden overflow-hidden lg:block",
+                "shadow-[0_24px_60px_rgba(7,20,74,0.28)]",
+                // Légèrement transparent (82%) + backdrop-blur fort → le blanc de la
+                // page transparaît doucement en bleu givré. Effet premium recherché.
+                "bg-brand-royal/82 backdrop-blur-2xl",
+                "border-t border-white/10",
               )}
             >
-              <div className="mx-auto max-w-[1440px] px-8 py-5 xl:px-10">
-                <ul className={cn("grid gap-2 md:grid-cols-2 xl:gap-x-6", desktopGridColsClass)}>
-                  {desktopOpenItem.children.map((child) => (
-                    <li key={child.href}>
-                      <a
-                        href={child.href}
-                        {...(child.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                        className="group flex items-start gap-3 border-l border-white/30 py-1.5 pl-4 pr-2 transition-colors duration-200 hover:border-brand-amber hover:text-white"
-                      >
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 12 12"
-                          fill="none"
-                          aria-hidden
-                          className="mt-[0.2rem] shrink-0 text-brand-amber"
-                        >
-                          <path
-                            d="M1.5 6h8M6.5 2.5L10 6 6.5 9.5"
-                            stroke="currentColor"
-                            strokeWidth="1.4"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        <span className="block">
-                          <span className="block text-[0.73rem] font-black uppercase tracking-[0.07em] text-white/92 group-hover:text-white">
-                            {child.label}
-                          </span>
-                          {child.description ? (
-                            <span className="mt-0.5 block text-[0.72rem] leading-relaxed text-white/66 group-hover:text-white/82">
-                              {child.description}
+              {/* Nuances internes :
+                  1. Lumière blanche en haut-gauche → donne la "subtilité blanche" demandée
+                  2. Accent amber bas-droite → chaleur de marque
+                  3. Gradient vertical → profondeur de bas en haut                      */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 65% 130% at 0% -10%, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.05) 40%, transparent 65%), " +
+                    "radial-gradient(circle at 95% 110%, rgba(247,160,38,0.12) 0%, transparent 40%), " +
+                    "linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 30%, transparent 55%)",
+                }}
+              />
+
+              <div className="relative mx-auto max-w-[1440px] px-8 py-8 xl:px-12 xl:py-10">
+                {/* Bouton fermer — coin haut droit */}
+                <button
+                  type="button"
+                  aria-label="Fermer le menu"
+                  onClick={() => setDesktopOpenLabel(null)}
+                  className="absolute right-8 top-6 xl:right-12 flex size-8 items-center justify-center rounded-full border border-white/15 text-white/60 transition-all hover:border-white/35 hover:bg-white/10 hover:text-white"
+                >
+                  <X size={15} weight="regular" aria-hidden />
+                </button>
+
+                <div className="grid grid-cols-12 gap-6 xl:gap-10">
+                  {/* Colonne gauche */}
+                  <div className="col-span-4 flex flex-col justify-between">
+                    <div>
+                      <span className="block text-[0.6rem] font-bold uppercase tracking-[0.2em] text-brand-amber mb-3">
+                        {desktopOpenItem.label}
+                      </span>
+                      <h3 className="text-[1.75rem] xl:text-[2.1rem] font-light leading-[1.12] text-white tracking-[-0.01em]">
+                        {desktopOpenItem.tagline ?? desktopOpenItem.label}
+                      </h3>
+                    </div>
+                    <a
+                      href={desktopOpenItem.href}
+                      {...(desktopOpenItem.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      className="group mt-8 inline-flex items-center gap-3 self-start text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-white/80 transition-colors hover:text-brand-amber"
+                    >
+                      <span className="flex items-center">
+                        <span className="block h-px w-7 bg-white/50 transition-all duration-300 group-hover:w-10 group-hover:bg-brand-amber" />
+                        <ArrowRight size={13} weight="regular" className="transition-transform duration-300 group-hover:translate-x-1" />
+                      </span>
+                      En savoir plus
+                    </a>
+                  </div>
+
+                  {/* Barre verticale */}
+                  <div className="col-span-1 hidden lg:flex justify-center">
+                    <div className="h-full w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+                  </div>
+
+                  {/* Colonne droite — liens scrollables si débordement */}
+                  <div className="col-span-7 flex flex-col justify-center">
+                    <ul
+                      className="flex flex-col gap-0.5 overflow-y-auto overscroll-contain"
+                      style={{ maxHeight: "min(52vh, 380px)" }}
+                    >
+                      {desktopOpenItem.children.map((child) => (
+                        <li key={child.label}>
+                          <a
+                            href={child.href}
+                            {...(child.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                            className="group flex items-start gap-4 rounded-md px-3 py-2.5 xl:px-4 transition-colors duration-200 hover:bg-white/[0.05]"
+                          >
+                            <span aria-hidden className="mt-[0.3rem] flex shrink-0 items-center">
+                              <span className="block h-px w-4 bg-brand-amber transition-all duration-300 group-hover:w-7" />
+                              <ArrowRight size={13} weight="regular" className="-ml-[1px] text-brand-amber transition-transform duration-300 group-hover:translate-x-1" />
                             </span>
-                          ) : null}
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                            <span className="flex-1">
+                              <span className="block text-[0.88rem] font-medium text-white/95 transition-colors duration-200 group-hover:text-white">
+                                {child.label}
+                              </span>
+                              {child.description ? (
+                                <span className="mt-0.5 block text-[0.75rem] leading-relaxed text-white/50 transition-colors duration-200 group-hover:text-white/70">
+                                  {child.description}
+                                </span>
+                              ) : null}
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </motion.div>
           ) : null}
         </AnimatePresence>
       </motion.header>
 
+      {/* ══════════════════════════════════════════════════════════════
+          MOBILE DRAWER — Design premium app-banking
+
+          Structure :
+          ┌─ Header gradient (logo grand + close) ──────────┐
+          ├─ Utility chips horizontaux défilants ───────────┤
+          ├─ Navigation principale (accordion) ─────────────┤
+          │    (scrollable)                                  │
+          └─ Footer sticky (langue + espace client) ────────┘
+      ══════════════════════════════════════════════════════════════ */}
       <AnimatePresence>
         {mobileOpen ? (
           <div
@@ -403,59 +645,152 @@ export function SiteHeader({
             aria-label="Menu de navigation"
             className="fixed inset-0 z-[60] lg:hidden"
           >
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="absolute inset-0 bg-brand-royal-900/60 backdrop-blur-sm"
+              transition={{ duration: 0.22 }}
+              className="absolute inset-0 bg-slate-900/55 backdrop-blur-[3px]"
               onClick={() => setMobileOpen(false)}
               aria-hidden
             />
 
+            {/* Panneau drawer */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ duration: 0.26, ease: [0.4, 0, 0.2, 1] }}
-              className="absolute right-0 top-0 flex h-full w-full max-w-[320px] flex-col bg-white shadow-2xl"
+              transition={{ duration: 0.3, ease: [0.32, 0, 0.18, 1] }}
+              className="absolute right-0 top-0 flex h-full w-full max-w-[340px] flex-col bg-white shadow-[−32px_0_80px_rgba(7,20,74,0.22)]"
             >
-              <div className="flex h-[4.75rem] shrink-0 items-center justify-between border-b border-gray-100 px-5">
-                <div className="shrink-0">{logo}</div>
-                <button
-                  type="button"
-                  aria-label="Fermer le menu"
-                  onClick={() => setMobileOpen(false)}
-                  className="inline-flex size-9 items-center justify-center rounded-full text-brand-royal transition-all duration-200 hover:bg-brand-royal hover:text-white"
-                >
-                  <X className="size-5" aria-hidden />
-                </button>
+              {/* ── Header du drawer : gradient bleu + logo grand ──────── */}
+              <div className="relative shrink-0 overflow-hidden">
+                {/* Fond blanc */}
+                <div className="absolute inset-0 bg-white" />
+                {/* Nuance dégradée bleue — donne le caractère premium */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, rgba(30,47,138,0.07) 0%, rgba(30,47,138,0.04) 35%, rgba(255,255,255,0) 65%)",
+                  }}
+                />
+                {/* Ligne d'accentuation amber en bas du header */}
+                <div
+                  aria-hidden
+                  className="absolute bottom-0 left-5 right-5 h-px"
+                  style={{
+                    background:
+                      "linear-gradient(to right, transparent, rgba(247,160,38,0.5) 30%, rgba(247,160,38,0.5) 70%, transparent)",
+                  }}
+                />
+
+                <div className="relative flex items-center justify-between px-5 py-4">
+                  {/* Logo plus grand que dans la nav desktop */}
+                  <div className="[&_img]:!h-[52px] [&_img]:!w-auto">{logo}</div>
+                  <button
+                    type="button"
+                    aria-label="Fermer le menu"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex size-9 items-center justify-center rounded-full border border-brand-royal/10 text-brand-royal transition-all hover:bg-brand-royal hover:text-white hover:border-brand-royal"
+                  >
+                    <X size={18} weight="regular" aria-hidden />
+                  </button>
+                </div>
               </div>
 
+              {/* ── Utility chips — barre 2 sur mobile ────────────────── */}
+              {topNav && topNav.length > 0 ? (
+                <div className="relative shrink-0 border-b border-slate-100/80">
+                  {/* Fond avec très légère nuance bleue */}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, rgba(30,47,138,0.03) 0%, rgba(30,47,138,0.015) 100%)",
+                    }}
+                  />
+
+                  {/* Chips horizontaux avec fondu droit (masque CSS) */}
+                  <div
+                    className="relative flex gap-2 overflow-x-auto px-4 py-3 scrollbar-none"
+                    style={{
+                      scrollbarWidth: "none",
+                      msOverflowStyle: "none",
+                      WebkitOverflowScrolling: "touch",
+                      maskImage:
+                        "linear-gradient(to right, black 78%, rgba(0,0,0,0.3) 92%, transparent 100%)",
+                      WebkitMaskImage:
+                        "linear-gradient(to right, black 78%, rgba(0,0,0,0.3) 92%, transparent 100%)",
+                    }}
+                  >
+                    {topNav.map((item) => {
+                      const Icon = item.icon ? TOP_ICONS[item.icon] : null;
+                      return (
+                        <a
+                          key={item.label}
+                          href={item.href}
+                          {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                          onClick={() => setMobileOpen(false)}
+                          className="group flex shrink-0 items-center gap-1.5 rounded-full border border-brand-royal/10 bg-white/80 px-3 py-1.5 text-[0.68rem] font-semibold text-brand-royal/80 shadow-[0_1px_4px_rgba(7,20,74,0.06)] transition-all hover:border-brand-royal/20 hover:bg-brand-royal hover:text-white active:scale-95"
+                        >
+                          {Icon ? (
+                            <Icon size={12} weight="light" className="text-brand-amber transition-colors group-hover:text-white/90" />
+                          ) : null}
+                          {item.label}
+                        </a>
+                      );
+                    })}
+                    {/* Chip langue dans la barre utilitaire mobile */}
+                    <button
+                      type="button"
+                      onClick={() => setLang((l) => (l === "fr" ? "en" : "fr"))}
+                      className="group flex shrink-0 items-center gap-1.5 rounded-full border border-brand-royal/10 bg-white/80 px-3 py-1.5 text-[0.68rem] font-semibold text-brand-royal/80 shadow-[0_1px_4px_rgba(7,20,74,0.06)] transition-all hover:border-brand-royal/20 hover:bg-brand-royal hover:text-white"
+                      aria-label="Changer la langue"
+                    >
+                      <Globe size={12} weight="light" className="text-brand-amber transition-colors group-hover:text-white/90" />
+                      <span>{lang.toUpperCase()}</span>
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+
+              {/* ── Navigation principale — scrollable ────────────────── */}
               <nav
                 aria-label="Navigation principale (mobile)"
-                className="flex-1 overflow-y-auto px-4 py-5"
+                className="flex-1 overflow-y-auto overscroll-contain px-4 py-4"
+                style={{ WebkitOverflowScrolling: "touch" }}
               >
                 <ul className="flex flex-col gap-1">
-                  {nav.map((item) => {
+                  {nav.map((item, navIdx) => {
                     const hasChildren = Boolean(item.children?.length);
                     const expanded = mobileExpanded === item.label;
                     return (
-                      <li key={item.href}>
+                      <motion.li
+                        key={item.label}
+                        initial={{ opacity: 0, x: 16 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: navIdx * 0.04, duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
+                      >
                         {hasChildren ? (
-                          <div className="rounded-xl border border-brand-royal/10">
+                          <div className={cn(
+                            "rounded-xl border transition-colors duration-200",
+                            expanded ? "border-brand-royal/15 bg-brand-royal/[0.03]" : "border-brand-royal/8",
+                          )}>
                             <button
                               type="button"
                               onClick={() => setMobileExpanded((v) => (v === item.label ? null : item.label))}
-                              className="flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-left text-[0.75rem] font-black uppercase tracking-[0.07em] text-brand-royal"
+                              className="flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-left text-[0.8rem] font-bold uppercase tracking-[0.04em] text-brand-royal"
                               aria-expanded={expanded}
                             >
                               <span>{item.label}</span>
-                              <ChevronDown
-                                className={cn(
-                                  "size-4 transition-transform duration-200",
-                                  expanded && "rotate-180",
-                                )}
+                              <CaretDown
+                                size={13}
+                                weight="bold"
+                                className={cn("text-brand-royal/40 transition-transform duration-200", expanded && "rotate-180 text-brand-amber")}
                                 aria-hidden
                               />
                             </button>
@@ -466,20 +801,26 @@ export function SiteHeader({
                                   initial={{ height: 0, opacity: 0 }}
                                   animate={{ height: "auto", opacity: 1 }}
                                   exit={{ height: 0, opacity: 0 }}
-                                  transition={{ duration: 0.2 }}
+                                  transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
                                   className="overflow-hidden px-2 pb-2"
                                 >
-                                  {item.children?.map((child) => (
-                                    <li key={child.href}>
+                                  {item.children?.map((child, ci) => (
+                                    <motion.li
+                                      key={child.label}
+                                      initial={{ opacity: 0, x: 8 }}
+                                      animate={{ opacity: 1, x: 0 }}
+                                      transition={{ delay: ci * 0.03 }}
+                                    >
                                       <a
                                         href={child.href}
                                         {...(child.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                                         onClick={() => setMobileOpen(false)}
-                                        className="block rounded-lg px-3 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.06em] text-brand-royal/85 transition-colors hover:bg-brand-royal hover:text-white"
+                                        className="flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-[0.75rem] font-medium text-brand-royal/80 transition-colors hover:bg-brand-royal hover:text-white"
                                       >
+                                        <ArrowRight size={11} weight="regular" className="shrink-0 text-brand-amber" aria-hidden />
                                         {child.label}
                                       </a>
-                                    </li>
+                                    </motion.li>
                                   ))}
                                 </motion.ul>
                               ) : null}
@@ -492,53 +833,67 @@ export function SiteHeader({
                             onClick={() => setMobileOpen(false)}
                             className={cn(
                               "flex items-center rounded-xl px-4 py-3.5",
-                              "text-[0.75rem] font-black tracking-[0.07em] uppercase",
-                              "text-brand-royal transition-all duration-200 hover:bg-brand-royal hover:text-white",
+                              "text-[0.8rem] font-bold tracking-[0.04em] uppercase text-brand-royal",
+                              "transition-all hover:bg-brand-royal hover:text-white",
                               item.current && "bg-brand-royal/8",
                             )}
                           >
                             {item.label}
                           </a>
                         )}
-                      </li>
+                      </motion.li>
                     );
                   })}
                 </ul>
+              </nav>
 
-                <div className="mt-6 border-t border-gray-100 pt-5">
-                  <p className="mb-3 px-1 text-[0.625rem] font-black uppercase tracking-[0.14em] text-slate/40">
-                    Langue
-                  </p>
-                  <div className="flex gap-2 px-1">
-                    {(["fr", "en"] as const).map((l) => (
-                      <button
-                        key={l}
-                        type="button"
-                        onClick={() => setLang(l)}
-                        className={cn(
-                          "rounded-full px-5 py-2 text-[0.75rem] font-black uppercase tracking-[0.06em]",
-                          "transition-all duration-200",
-                          lang === l
-                            ? "bg-brand-amber text-white shadow-sm"
-                            : "border border-brand-royal/20 text-slate/60 hover:text-brand-royal",
-                        )}
-                      >
-                        {l.toUpperCase()}
-                      </button>
-                    ))}
+              {/* ── Footer sticky — signature premium ─────────────────── */}
+              {/* Langue + Espace client — toujours visibles, ancrés en bas */}
+              <div className="shrink-0 border-t border-slate-100">
+                {/* Nuance bleue dans le footer aussi */}
+                <div className="relative overflow-hidden">
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(30,47,138,0.025) 100%)",
+                    }}
+                  />
+                  <div className="relative px-4 py-4">
+                    {/* Switcher langue — compact, élégant */}
+                    <div className="mb-3 flex items-center gap-1.5">
+                      <Translate size={13} weight="light" className="text-slate-400" aria-hidden />
+                      <div className="flex gap-1">
+                        {(["fr", "en"] as const).map((l) => (
+                          <button
+                            key={l}
+                            type="button"
+                            onClick={() => setLang(l)}
+                            className={cn(
+                              "rounded-full px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.06em] transition-all duration-200",
+                              lang === l
+                                ? "bg-brand-royal text-white shadow-sm"
+                                : "text-slate-400 hover:text-brand-royal",
+                            )}
+                          >
+                            {l.toUpperCase()}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* CTA Espace client — amber, visible, premium */}
+                    <a
+                      href="/espace-client"
+                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-amber px-4 py-3.5 text-[0.78rem] font-bold uppercase tracking-[0.05em] text-white shadow-[0_4px_20px_rgba(247,160,38,0.32)] transition-all hover:brightness-110 active:scale-[0.98]"
+                    >
+                      <UserCircle size={17} weight="light" aria-hidden />
+                      Espace client
+                    </a>
                   </div>
                 </div>
-
-                <div className="mt-6 flex flex-col gap-2">
-                  <a
-                    href="/espace-client"
-                    className="flex items-center gap-2 rounded-xl border border-brand-royal/20 px-4 py-3.5 text-[0.75rem] font-black uppercase tracking-[0.07em] text-brand-royal transition-all duration-200 hover:bg-brand-royal hover:text-white"
-                  >
-                    <UserRound className="size-4" aria-hidden />
-                    Espace client
-                  </a>
-                </div>
-              </nav>
+              </div>
             </motion.div>
           </div>
         ) : null}

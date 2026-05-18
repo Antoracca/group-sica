@@ -1,1 +1,48 @@
 @import "@sica/tokens/globals.css";
+
+/* ─── Layout Containment ────────────────────────────────────────────────────
+   PRINCIPE : chaque <section> est une boîte étanche.
+   `contain: layout` garantit que tout changement interne (image qui charge,
+   texte qui grandit, animation) ne peut PAS faire bouger les sections voisines.
+   Équivalent à un "mur" de layout entre chaque section.
+
+   Effets de bord voulus :
+   - Crée un nouveau formatting context (empêche le margin-collapse → OK,
+     on utilise padding partout)
+   - Crée un stacking context (OK, chaque section gère son z-index en interne)
+   - Crée un containing block pour les éléments position:absolute/fixed à
+     l'intérieur (OK, pas de position:fixed dans nos sections)
+──────────────────────────────────────────────────────────────────────────── */
+section {
+  contain: layout;
+}
+
+/* ─── Image Stability ───────────────────────────────────────────────────────
+   Empêche les images sans dimensions explicites de provoquer des reflows.
+   Next.js <Image> gère déjà ça via le sizing intrinsèque, mais on renforce
+   pour tout <img> natif éventuel.
+──────────────────────────────────────────────────────────────────────────── */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ─── Animated elements — GPU promotion ─────────────────────────────────────
+   Toutes les animations Framer Motion utilisent déjà transform/opacity (safe).
+   `will-change: transform` promote les éléments animés sur un layer GPU dédié
+   → évite le repaint du reste de la page pendant les animations.
+   Appliqué uniquement aux éléments qui portent la classe Framer Motion.
+──────────────────────────────────────────────────────────────────────────── */
+[data-framer-appear-id],
+[style*="transform"] {
+  will-change: transform;
+}
+
+/* ─── Typewriter / dynamic text — height reservation ───────────────────────
+   Tout élément avec le data-attribute `data-stable-height` doit avoir une
+   hauteur minimale connue. Les composants l'utilisent pour réserver la place
+   avant que le contenu dynamique apparaisse.
+──────────────────────────────────────────────────────────────────────────── */
+[data-stable-height] {
+  min-height: attr(data-stable-height);
+}

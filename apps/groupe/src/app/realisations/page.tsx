@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Logo, SiteHeader } from "@sica/ui";
-import { mainNav } from "@/lib/nav";
+import { mainNav, topNav } from "@/lib/nav";
 import { Footer } from "@/components/footer";
 
 /* ── Renderer next/image (même pattern que page.tsx) ── */
@@ -48,6 +48,7 @@ export default function RealisationsPage() {
           />
         }
         nav={mainNav}
+        topNav={topNav}
       />
 
       <main id="main-content" className="min-h-[80vh] bg-[#FAFAF8]">

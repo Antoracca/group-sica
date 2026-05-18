@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { Container, Logo, SiteHeader } from "@sica/ui";
+import { Container, Logo, SiteHeader, getTopNav } from "@sica/ui";
 import { mainNav } from "@/lib/nav";
+import { links } from "@/lib/links";
 import { Footer } from "@/components/footer";
 import { HeroActionPanel } from "./_sections/hero-action-panel";
 import { Stats } from "./_sections/stats";
@@ -22,6 +23,12 @@ function makeImageRenderer(priority = false) {
 }
 
 export default function HomePage() {
+  /* Top-nav adaptatif : on est sur Groupe → on n'affiche PAS "Groupe SICA"
+     mais Construction + Assistance + utilitaires (Carrières, Partenaires, Contact). */
+  const topNav = getTopNav("groupe", {
+    constructionUrl: links.construction.base,
+  });
+
   return (
     <>
       <SiteHeader
@@ -34,6 +41,7 @@ export default function HomePage() {
           />
         }
         nav={mainNav}
+        topNav={topNav}
       />
 
       <main id="main-content">

@@ -5,7 +5,9 @@
 - [RÃ©fÃ©rence Vinci Autoroutes](reference_vinci_autoroutes.md) â€” Header 4-states (transparentâ†’fixed solidâ†’hiddenâ†’re-show), Tailwind, #004489 â€” pattern Ã  reproduire pour SICA
 - [RESPONSIVITÃ‰ ABSOLUE](responsivity_absolute.md) â€” Exigence client nÂ°1, checklist 9 breakpoints (320â†’2560), aucune tolÃ©rance pour un site mal responsif
 
-- [Snapshot contexte 17/05/2026](context_snapshot_2026-05-17.md) — État réel après nouveaux commits (sections ajoutées, assets, checks OK/KO, priorité construction)
-- [Prompt directeur Construction 17/05/2026](construction_prompt_master_2026-05-17.md) — Vision premium non générique, images réelles retenues, micro-fonctionnalités et ton éditorial BTP
-- [Construction Phase 1 · 17/05/2026](construction_progress_2026-05-17_phase1.md) — Scaffold complet apps/construction + sections premium + médias réels + build OK
-- [Construction Phase 2 · 17/05/2026](construction_progress_2026-05-17_phase2.md) — Estimateur devis interactif, panels overlay projets A?Z, polish copywriting, build/typecheck OK
+- [Snapshot contexte 17/05/2026](context_snapshot_2026-05-17.md) ï¿½ ï¿½tat rï¿½el aprï¿½s nouveaux commits (sections ajoutï¿½es, assets, checks OK/KO, prioritï¿½ construction)
+- [Prompt directeur Construction 17/05/2026](construction_prompt_master_2026-05-17.md) ï¿½ Vision premium non gï¿½nï¿½rique, images rï¿½elles retenues, micro-fonctionnalitï¿½s et ton ï¿½ditorial BTP
+- [Construction Phase 1 ï¿½ 17/05/2026](construction_progress_2026-05-17_phase1.md) ï¿½ Scaffold complet apps/construction + sections premium + mï¿½dias rï¿½els + build OK
+- [Construction Phase 2 ï¿½ 17/05/2026](construction_progress_2026-05-17_phase2.md) ï¿½ Estimateur devis interactif, panels overlay projets A?Z, polish copywriting, build/typecheck OK
+
+- [Structure navbar Groupe SICA â€” 18/05/2026](groupe_navbar_structure.md) â€” **RÃˆGLE ABSOLUE** : 2 pÃ´les uniquement (Construction + Assistance). Comptable et RÃ©alisations NE SONT PAS des pÃ´les. mainNav 4 entrÃ©es max, topNav adaptatif par brand. Pages V1 crÃ©Ã©es : /groupe /actualites /carrieres /partenaires /contact /mentions-legales /confidentialite /cookies.
