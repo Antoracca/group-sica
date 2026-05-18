@@ -545,10 +545,8 @@ export function SiteHeader({
               onMouseLeave={closeDesktopMenu}
               className={cn(
                 "absolute inset-x-0 top-full hidden overflow-hidden lg:block",
-                "shadow-[0_24px_60px_rgba(7,20,74,0.28)]",
-                // Légèrement transparent (82%) + backdrop-blur fort → le blanc de la
-                // page transparaît doucement en bleu givré. Effet premium recherché.
-                "bg-brand-royal/82 backdrop-blur-2xl",
+                "shadow-[0_24px_60px_rgba(7,20,74,0.35)]",
+                "bg-[#1E2F8A]",
                 "border-t border-white/10",
               )}
             >
