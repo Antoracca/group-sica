@@ -216,7 +216,7 @@ export function SiteHeader({
            par Tailwind ou Framer Motion. */
         style={
           forceScrolled
-            ? { backgroundColor: "#ffffff", borderBottom: "1px solid rgba(30,47,138,0.07)", boxShadow: "0 2px 20px rgba(7,20,74,0.07)" }
+            ? { backgroundColor: "#1E2F8A", boxShadow: "0 2px 24px rgba(7,20,74,0.28)" }
             : undefined
         }
       >
@@ -384,7 +384,7 @@ export function SiteHeader({
             forceScrolled
               ? "bg-transparent shadow-none"
               : isScrolled
-                ? "bg-white shadow-[0_8px_32px_rgba(7,20,74,0.10)]"
+                ? "bg-[#1E2F8A] shadow-[0_8px_32px_rgba(7,20,74,0.32)]"
                 : "bg-transparent shadow-none",
           )}
           onMouseLeave={closeDesktopMenu}
@@ -423,9 +423,8 @@ export function SiteHeader({
             {/* Desktop : logo */}
             <div className={cn(
               "hidden shrink-0 items-center lg:flex transition-[filter] duration-300",
-              isTop
-                ? "[filter:drop-shadow(0_4px_24px_rgba(0,0,0,0.60))]"
-                : "[filter:drop-shadow(0_2px_8px_rgba(7,20,74,0.10))]",
+              /* Sur fond bleu ou transparent → ombre blanche pour faire ressortir le logo */
+              "[filter:drop-shadow(0_2px_12px_rgba(255,255,255,0.18))]",
             )}>
               {logo}
             </div>
@@ -449,7 +448,9 @@ export function SiteHeader({
                         className={cn(
                           "group relative inline-flex items-center gap-1 px-3 py-3 xl:px-3.5",
                           "text-[0.775rem] font-semibold tracking-[0.01em] transition-colors duration-200",
-                          isTop ? "text-white/95 hover:text-white" : "text-brand-royal/85 hover:text-brand-royal",
+                          /* Sur fond bleu (isScrolled ou forceScrolled) → texte blanc.
+                             Sur fond transparent (hero) → texte blanc aussi. Toujours blanc. */
+                          "text-white/90 hover:text-white",
                           "after:absolute after:bottom-[0.6rem] after:left-1/2 after:-translate-x-1/2",
                           "after:h-[1.5px] after:w-5 after:rounded-full after:bg-brand-amber",
                           "after:origin-center after:transition-transform after:duration-300 after:ease-out",
@@ -489,9 +490,8 @@ export function SiteHeader({
                         style={{ fontSize: "16px" }}
                         className={cn(
                           "w-full rounded-full border py-[0.4375rem] pl-4 pr-3 outline-none transition-all duration-200 lg:text-[0.8125rem]",
-                          isTop
-                            ? "border-white/30 bg-white/15 text-white placeholder:text-white/55 focus:bg-white/25 backdrop-blur-sm"
-                            : "border-slate-200 bg-slate-50 text-slate-800 placeholder:text-slate-400 focus:border-brand-royal focus:bg-white focus:ring-2 focus:ring-brand-royal/10",
+                          /* Fond bleu comme transparent → même style white/frosted */
+                          "border-white/30 bg-white/15 text-white placeholder:text-white/55 focus:bg-white/25 backdrop-blur-sm",
                         )}
                         onKeyDown={(e) => { if (e.key === "Escape") setSearchOpen(false); }}
                       />
@@ -505,9 +505,8 @@ export function SiteHeader({
                   onClick={() => setSearchOpen((v) => !v)}
                   className={cn(
                     "inline-flex size-10 items-center justify-center rounded-full transition-all duration-200",
-                    isTop
-                      ? cn("text-white/90 hover:bg-white/15 hover:text-white", searchOpen && "bg-white/20 text-white")
-                      : cn("text-brand-royal/70 hover:bg-brand-royal hover:text-white", searchOpen && "bg-brand-royal text-white"),
+                    /* Fond bleu ou transparent → toujours blanc */
+                    cn("text-white/90 hover:bg-white/15 hover:text-white", searchOpen && "bg-white/20 text-white"),
                   )}
                 >
                   {searchOpen ? <X size={17} weight="regular" aria-hidden /> : <MagnifyingGlass size={17} weight="light" aria-hidden />}
