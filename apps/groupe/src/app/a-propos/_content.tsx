@@ -42,13 +42,19 @@ function Reveal({
 function IntroSection() {
   return (
     <div className="relative overflow-hidden bg-white pt-40 pb-20 sm:pt-48 sm:pb-28">
-      {/* Watermark décoratif en fond */}
+      {/* Watermark logo en filigrane */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 select-none text-[clamp(7rem,18vw,16rem)] font-black leading-none tracking-tighter text-[#1E2F8A]/[0.032]"
-        style={{ fontFamily: "'DM Serif Display', serif" }}
+        className="pointer-events-none absolute -right-8 top-1/2 -translate-y-1/2 select-none opacity-[0.04]"
       >
-        SICA
+        <Image
+          src="/logo-groupe.png"
+          alt=""
+          width={560}
+          height={220}
+          className="h-auto w-[clamp(260px,38vw,540px)]"
+          draggable={false}
+        />
       </div>
 
       <Container className="relative">
@@ -104,7 +110,7 @@ function TeamSection() {
       />
 
       <Container className="relative">
-        <div className="grid items-center gap-16 lg:grid-cols-[1fr_360px] xl:gap-24">
+        <div className="grid items-center gap-16 lg:grid-cols-[1fr_420px] xl:gap-24">
 
           {/* Texte */}
           <div>
@@ -183,18 +189,18 @@ function TeamSection() {
                 className="absolute inset-0 rounded-full"
                 style={{
                   boxShadow:
-                    "0 0 0 3px #F39200, 0 0 48px rgba(243,146,0,0.28), 0 0 96px rgba(243,146,0,0.10)",
+                    "0 0 0 3px #F39200, 0 0 52px rgba(243,146,0,0.26), 0 0 100px rgba(243,146,0,0.09)",
                 }}
               />
 
               {/* Photo dans le cercle */}
-              <div className="relative h-[270px] w-[270px] overflow-hidden rounded-full sm:h-[320px] sm:w-[320px]">
+              <div className="relative h-[325px] w-[325px] overflow-hidden rounded-full sm:h-[390px] sm:w-[390px]">
                 <Image
                   src="/EQUIPE.jpeg"
                   alt="Équipe Groupe SICA"
                   fill
                   className="object-cover object-center"
-                  sizes="(max-width: 640px) 270px, 320px"
+                  sizes="(max-width: 640px) 325px, 390px"
                 />
                 {/* Vignette intérieure */}
                 <div
@@ -202,36 +208,10 @@ function TeamSection() {
                   className="absolute inset-0 rounded-full"
                   style={{
                     background:
-                      "radial-gradient(circle, transparent 50%, rgba(13,26,74,0.32) 100%)",
+                      "radial-gradient(circle, transparent 52%, rgba(13,26,74,0.28) 100%)",
                   }}
                 />
               </div>
-
-              {/* Orbite tournante */}
-              <motion.div
-                aria-hidden
-                className="absolute -inset-5 rounded-full border border-[#F39200]/18"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-              />
-              {/* Point sur l'orbite */}
-              <motion.div
-                aria-hidden
-                className="absolute -inset-5 rounded-full"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-              >
-                <div
-                  className="absolute right-0 top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-[#F39200]"
-                  style={{ boxShadow: "0 0 10px rgba(243,146,0,0.9)" }}
-                />
-              </motion.div>
-
-              {/* Second anneau statique plus fin */}
-              <div
-                aria-hidden
-                className="absolute -inset-10 rounded-full border border-[#F39200]/08"
-              />
             </div>
           </motion.div>
         </div>
@@ -382,90 +362,106 @@ const POLES = [
   {
     key: "commercial",
     label: "Pôle Commercial",
-    sub: ["Vente Construction", "Vente Assistance"],
+    sub: ["Vente Construction", "Vente Assistance", "Prospection & Marketing"],
   },
   {
     key: "technique",
     label: "Pôle Technique",
-    sub: ["Études & conception", "Production chantier"],
+    sub: ["Études & conception", "Production chantier", "Génie civil & Géobéton", "Contrôle qualité"],
   },
   {
     key: "administratif",
     label: "Pôle Administratif",
-    sub: ["Achats & appro.", "Ressources humaines"],
+    sub: ["Comptabilité & Finance", "Ressources humaines", "Juridique & Conformité", "Achats & Logistique"],
   },
 ];
 
 /* SVG arbre pour desktop */
 function OrgSVG({ inView }: { inView: boolean }) {
-  const pathAnim = (delay: number) => ({
+  const vertAnim = (delay: number) => ({
     initial: { pathLength: 0, opacity: 0 },
     animate: inView ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 },
-    transition: { duration: 0.55, delay, ease: "easeInOut" as const },
+    transition: { duration: 0.45, delay, ease: "easeOut" as const },
   });
+
+  /* Positions : cx = centre de chaque pôle dans un viewBox 1000×330 */
+  const NODES = [
+    {
+      cx: 160, x: 35, w: 250, label: "COMMERCIAL",
+      sub: ["Vente Construction", "Vente Assistance", "Prospection & Marketing"],
+    },
+    {
+      cx: 500, x: 375, w: 250, label: "TECHNIQUE",
+      sub: ["Études & conception", "Production chantier", "Génie civil · Géobéton"],
+    },
+    {
+      cx: 840, x: 715, w: 250, label: "ADMINISTRATIF",
+      sub: ["Comptabilité & Finance", "Ressources humaines", "Juridique & Conformité"],
+    },
+  ];
 
   return (
     <svg
-      viewBox="0 0 960 320"
+      viewBox="0 0 1000 330"
       className="w-full"
       preserveAspectRatio="xMidYMid meet"
       aria-hidden
+      style={{ overflow: "visible" }}
     >
       {/* ── Nœud racine : Direction ── */}
       <motion.g
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.45 }}
+        initial={{ opacity: 0, y: -8 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5 }}
       >
-        <rect x="340" y="16" width="280" height="64" rx="10"
+        <rect x="360" y="14" width="280" height="62" rx="10"
           stroke="#F39200" strokeWidth="1.5" fill="rgba(243,146,0,0.09)" />
-        <text x="480" y="44" textAnchor="middle"
+        <text x="500" y="41" textAnchor="middle"
           fill="#F39200" fontSize="11" fontWeight="800" letterSpacing="3" fontFamily="sans-serif">
           DIRECTION
         </text>
-        <text x="480" y="62" textAnchor="middle"
-          fill="rgba(243,146,0,0.55)" fontSize="9.5" fontFamily="sans-serif">
-          Ngoran Ivan · Secrétariat de direction
+        <text x="500" y="59" textAnchor="middle"
+          fill="rgba(243,146,0,0.62)" fontSize="10" fontFamily="sans-serif">
+          Ngoran Ivan
         </text>
       </motion.g>
 
-      {/* ── Ligne verticale descente ── */}
-      <motion.path d="M480,80 L480,130" stroke="#F39200" strokeWidth="1.5"
+      {/* ── Ligne verticale principale ── */}
+      <motion.path d="M500,76 L500,124" stroke="#F39200" strokeWidth="1.5"
         fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke"
-        {...pathAnim(0.35)} />
+        {...vertAnim(0.38)} />
 
-      {/* ── Ligne horizontale ── */}
-      <motion.path d="M140,130 L820,130" stroke="rgba(243,146,0,0.45)" strokeWidth="1.2"
-        fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke"
-        {...pathAnim(0.65)} />
+      {/* ── Ligne horizontale complète (opacité, pas pathLength) ── */}
+      <motion.line
+        x1="160" y1="124" x2="840" y2="124"
+        stroke="rgba(243,146,0,0.45)" strokeWidth="1.2"
+        strokeLinecap="round" vectorEffect="non-scaling-stroke"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.4, delay: 0.62 }}
+      />
 
-      {/* ── Descentes vers pôles ── */}
-      <motion.path d="M140,130 L140,186" stroke="rgba(243,146,0,0.45)" strokeWidth="1.2"
-        fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke"
-        {...pathAnim(0.85)} />
-      <motion.path d="M480,130 L480,186" stroke="rgba(243,146,0,0.45)" strokeWidth="1.2"
-        fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke"
-        {...pathAnim(0.85)} />
-      <motion.path d="M820,130 L820,186" stroke="rgba(243,146,0,0.45)" strokeWidth="1.2"
-        fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke"
-        {...pathAnim(0.85)} />
+      {/* ── Descentes vers les pôles ── */}
+      {NODES.map(({ cx }, i) => (
+        <motion.path key={`drop-${cx}`}
+          d={`M${cx},124 L${cx},180`}
+          stroke="rgba(243,146,0,0.45)" strokeWidth="1.2"
+          fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke"
+          {...vertAnim(0.78 + i * 0.06)} />
+      ))}
 
       {/* ── Nœuds pôles ── */}
-      {[
-        { cx: 140, x: 18, label: "COMMERCIAL" },
-        { cx: 480, x: 358, label: "TECHNIQUE" },
-        { cx: 820, x: 698, label: "ADMINISTRATIF" },
-      ].map(({ cx, x, label }, i) => (
+      {NODES.map(({ cx, x, w, label }, i) => (
         <motion.g
           key={label}
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.45, delay: 0.95 + i * 0.07 }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.45, delay: 0.92 + i * 0.07 }}
         >
-          <rect x={x} y="186" width="244" height="56" rx="8"
-            stroke="rgba(255,255,255,0.14)" strokeWidth="1" fill="rgba(30,47,138,0.40)" />
-          <text x={cx} y="219" textAnchor="middle"
-            fill="rgba(255,255,255,0.82)" fontSize="10.5" fontWeight="700"
+          <rect x={x} y="180" width={w} height="54" rx="8"
+            stroke="rgba(255,255,255,0.14)" strokeWidth="1" fill="rgba(30,47,138,0.42)" />
+          <text x={cx} y="213" textAnchor="middle"
+            fill="rgba(255,255,255,0.85)" fontSize="10" fontWeight="700"
             letterSpacing="2" fontFamily="sans-serif">
             {label}
           </text>
@@ -473,33 +469,28 @@ function OrgSVG({ inView }: { inView: boolean }) {
       ))}
 
       {/* ── Lignes sous-items ── */}
-      {[140, 480, 820].map((cx, i) => (
-        <motion.path key={cx}
-          d={`M${cx},242 L${cx},262`}
+      {NODES.map(({ cx }, i) => (
+        <motion.path key={`sub-line-${cx}`}
+          d={`M${cx},234 L${cx},252`}
           stroke="rgba(255,255,255,0.14)" strokeWidth="1"
           fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke"
-          {...pathAnim(1.22 + i * 0.05)} />
+          {...vertAnim(1.18 + i * 0.05)} />
       ))}
 
       {/* ── Textes sous-items ── */}
-      {[
-        { cx: 140, t: ["Vente Construction", "Vente Assistance"] },
-        { cx: 480, t: ["Études & conception", "Production chantier"] },
-        { cx: 820, t: ["Achats & approvisionnement", "Ressources humaines"] },
-      ].map(({ cx, t }, i) => (
-        <motion.g key={cx}
+      {NODES.map(({ cx, sub }, i) => (
+        <motion.g key={`sub-text-${cx}`}
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.4, delay: 1.35 + i * 0.06 }}
+          transition={{ duration: 0.38, delay: 1.32 + i * 0.06 }}
         >
-          <text x={cx} y="276" textAnchor="middle"
-            fill="rgba(255,255,255,0.36)" fontSize="9" fontFamily="sans-serif">
-            {t[0]}
-          </text>
-          <text x={cx} y="291" textAnchor="middle"
-            fill="rgba(255,255,255,0.28)" fontSize="9" fontFamily="sans-serif">
-            {t[1]}
-          </text>
+          {sub.map((line, j) => (
+            <text key={j} x={cx} y={265 + j * 14} textAnchor="middle"
+              fill={j === 0 ? "rgba(255,255,255,0.42)" : "rgba(255,255,255,0.28)"}
+              fontSize="8.5" fontFamily="sans-serif">
+              {line}
+            </text>
+          ))}
         </motion.g>
       ))}
     </svg>
