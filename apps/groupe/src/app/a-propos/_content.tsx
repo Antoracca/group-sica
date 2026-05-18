@@ -199,7 +199,7 @@ function TeamSection() {
                   src="/EQUIPE.jpeg"
                   alt="Équipe Groupe SICA"
                   fill
-                  className="object-cover object-center"
+                  className="object-contain"
                   sizes="(max-width: 640px) 325px, 390px"
                 />
                 {/* Vignette intérieure */}

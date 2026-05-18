@@ -295,7 +295,6 @@ function ArticleCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12, scale: 0.97 }}
       transition={{ duration: 0.5, delay: index * 0.055, ease: E }}
-      layout
     >
       <Link
         href={`/actualites/${article.slug}`}
