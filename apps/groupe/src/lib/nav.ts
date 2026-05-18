@@ -165,19 +165,24 @@ export const mainNav: NavItem[] = [
 
 export const topNav: TopNavItem[] = [
   {
+    label: "Corporate",
+    href: "/a-propos",
+    icon: "building",
+  },
+  {
     label: "Réalisations",
     href: "/realisations",
     icon: "realisations",
   },
   {
-    label: "Carrières",
-    href: "/carrieres",
-    icon: "briefcase",
-  },
-  {
     label: "Partenaires",
     href: "/partenaires",
     icon: "users",
+  },
+  {
+    label: "Carrières",
+    href: "/carrieres",
+    icon: "briefcase",
   },
   {
     label: "Contact",

@@ -33,17 +33,29 @@ export function getTopNav(brand: SiteBrand, options: TopNavOptions = {}): TopNav
   const constructionUrl = options.constructionUrl ?? DEFAULTS.constructionUrl;
   const assistanceUrl = options.assistanceUrl ?? DEFAULTS.assistanceUrl;
 
-  /* ── Liens cross-sites (selon le site courant) ────────────────────── */
-  const crossLinks: TopNavItem[] = [];
+  /* ── Site GROUPE — pas de duplication Construction/Assistance dans topNav ──
+     Le mainNav contient déjà ces 2 pôles, on ne les répète PAS en haut.
+     Items : Corporate (→ /a-propos) · Réalisations · Partenaires · Carrières · Contact */
+  if (brand === "groupe") {
+    return [
+      { label: "Corporate", href: "/a-propos", icon: "building" },
+      { label: "Réalisations", href: "/realisations", icon: "realisations" },
+      { label: "Partenaires", href: "/partenaires", icon: "users" },
+      { label: "Carrières", href: "/carrieres", icon: "briefcase" },
+      { label: "Contact", href: "/contact", icon: "phone" },
+    ];
+  }
 
-  if (brand !== "groupe") {
-    crossLinks.push({
+  /* ── Sites Construction / Assistance — cross-links + utilitaires ────── */
+  const crossLinks: TopNavItem[] = [
+    {
       label: "Groupe SICA",
       href: groupeUrl,
       external: true,
       icon: "building",
-    });
-  }
+    },
+  ];
+
   if (brand !== "construction") {
     crossLinks.push({
       label: "Construction",
@@ -61,23 +73,10 @@ export function getTopNav(brand: SiteBrand, options: TopNavOptions = {}): TopNav
     });
   }
 
-  /* ── Liens utilitaires (toujours présents) ─────────────────────────── */
-  const utility: TopNavItem[] =
-    brand === "groupe"
-      ? [
-          { label: "Carrières", href: "/carrieres", icon: "briefcase" },
-          { label: "Partenaires", href: "/partenaires", icon: "users" },
-          { label: "Contact", href: "/contact", icon: "phone" },
-        ]
-      : brand === "construction"
-      ? [
-          { label: "Carrières", href: `${groupeUrl}/carrieres`, external: true, icon: "briefcase" },
-          { label: "Contact", href: "/contact", icon: "phone" },
-        ]
-      : [
-          { label: "Carrières", href: `${groupeUrl}/carrieres`, external: true, icon: "briefcase" },
-          { label: "Contact", href: "/contact", icon: "phone" },
-        ];
+  const utility: TopNavItem[] = [
+    { label: "Carrières", href: `${groupeUrl}/carrieres`, external: true, icon: "briefcase" },
+    { label: "Contact", href: "/contact", icon: "phone" },
+  ];
 
   return [...crossLinks, ...utility];
 }

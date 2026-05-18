@@ -226,7 +226,7 @@ const ARTICLES: readonly Article[] = [
    Pagination — 2 articles par vue (diptyque), 4s par cycle
 ══════════════════════════════════════════════════════════════ */
 const CHUNK_SIZE = 2;
-const ROTATE_MS = 5000; // 5 s
+const ROTATE_MS = 3000; // 3 s — défilement automatique continu, jamais s'arrête
 
 function chunkBy<T>(arr: readonly T[], n: number): T[][] {
   const out: T[][] = [];

@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { MapPin, Briefcase, Search, User, Lock, Building2 } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { MapPin, Briefcase, Search, User, Lock, Building2, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { links } from "@/lib/links";
 
 /* ══ ICÔNES PREMIUM SICA ══ */
@@ -86,49 +87,107 @@ const TABS: { id: TabId; label: string; labelShort: string; Icon: React.FC<{ cla
 const FORM_CFG: Record<TabId, {
   f1: { ph: string; Icon: React.FC<{ className?: string }>; type?: string };
   f2: { ph: string; Icon: React.FC<{ className?: string }>; type?: string };
-  action: string;
 }> = {
   construction: {
     f1: { ph: "Je veux construire...", Icon: Building2 },
     f2: { ph: "Dans la ville de...",   Icon: MapPin },
-    action: links.construction.devis,
   },
   assistance: {
-    f1: { ph: "Mon besoin...",          Icon: Briefcase },
+    f1: { ph: "Mon besoin...",         Icon: Briefcase },
     f2: { ph: "Nom de l'entreprise",   Icon: User },
-    action: "https://sicaassistance.ci/contact",
   },
   realisations: {
-    f1: { ph: "Je cherche...",          Icon: Search },
-    f2: { ph: "Par ville...",           Icon: MapPin },
-    action: "/realisations",
+    f1: { ph: "Je cherche...",         Icon: Search },
+    f2: { ph: "Par ville...",          Icon: MapPin },
   },
   client: {
     f1: { ph: "Identifiant / Email",   Icon: User },
     f2: { ph: "Mot de passe",          Icon: Lock, type: "password" },
-    action: "/espace-client",
   },
 };
 
-/*
-   ARCHITECTURE UNIFIÉE :
-   Les deux couches (onglets + bandeau) partagent exactement la même couleur #2D9CDB.
-   La carte d'onglets n'a PAS de bordure inférieure (border-b-0) ni d'ombre séparatrice
-   → le bas de la carte se fond invisiblement dans le bandeau.
-   On ne voit qu'une seule bordure extérieure (haut + côtés de la carte) côté vidéo.
+/* ── Identifiants démo pour validation login espace client ─────────────
+   À remplacer plus tard par un vrai appel Supabase auth. Pour l'instant
+   on simule un check côté front pour démontrer les états success/error. */
+const DEMO_CREDENTIALS = { user: "demo@sica.ci", pass: "sica2026" };
 
-   Onglet actif : bg-white/15 + text-[#1E2F8A] (bleu royal foncé)
-   → fort contraste "éclat" sur fond bleu clair.
-*/
+type Feedback =
+  | { kind: "idle" }
+  | { kind: "loading" }
+  | { kind: "success"; msg: string }
+  | { kind: "error"; msg: string };
 
 export function HeroActionPanel() {
   const [active, setActive] = React.useState<TabId>("client");
   const cfg = FORM_CFG[active];
+  const [f1, setF1] = React.useState("");
+  const [f2, setF2] = React.useState("");
+  const [feedback, setFeedback] = React.useState<Feedback>({ kind: "idle" });
+
+  /* Reset feedback et valeurs au changement d'onglet */
+  React.useEffect(() => {
+    setFeedback({ kind: "idle" });
+    setF1("");
+    setF2("");
+  }, [active]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = cfg.action;
+
+    /* ── Espace Client : login validé → succès + reload, sinon erreur rouge ── */
+    if (active === "client") {
+      if (!f1.trim() || !f2.trim()) {
+        setFeedback({ kind: "error", msg: "Veuillez renseigner identifiant et mot de passe." });
+        return;
+      }
+      setFeedback({ kind: "loading" });
+      // Simulation latence réseau — sera remplacée par Supabase auth
+      setTimeout(() => {
+        const ok =
+          f1.trim().toLowerCase() === DEMO_CREDENTIALS.user &&
+          f2 === DEMO_CREDENTIALS.pass;
+        if (ok) {
+          setFeedback({ kind: "success", msg: "Connexion réussie. Redirection..." });
+          setTimeout(() => window.location.reload(), 1100);
+        } else {
+          setFeedback({ kind: "error", msg: "Identifiant ou mot de passe incorrect." });
+        }
+      }, 700);
+      return;
+    }
+
+    /* ── Devis Construction → redirige vers site Construction avec le besoin ── */
+    if (active === "construction") {
+      const params = new URLSearchParams();
+      if (f1.trim()) params.set("besoin", f1.trim());
+      if (f2.trim()) params.set("ville", f2.trim());
+      const qs = params.toString();
+      window.location.href = `${links.construction.devis}${qs ? `?${qs}` : ""}`;
+      return;
+    }
+
+    /* ── Conseil Assistance → redirige vers site Assistance avec le besoin ── */
+    if (active === "assistance") {
+      const params = new URLSearchParams();
+      if (f1.trim()) params.set("besoin", f1.trim());
+      if (f2.trim()) params.set("entreprise", f2.trim());
+      const qs = params.toString();
+      window.location.href = `https://sicaassistance.ci/contact${qs ? `?${qs}` : ""}`;
+      return;
+    }
+
+    /* ── Réalisations → page interne /realisations avec query de recherche ── */
+    if (active === "realisations") {
+      const params = new URLSearchParams();
+      if (f1.trim()) params.set("q", f1.trim());
+      if (f2.trim()) params.set("ville", f2.trim());
+      const qs = params.toString();
+      window.location.href = `/realisations${qs ? `?${qs}` : ""}`;
+      return;
+    }
   };
+
+  const isLoading = feedback.kind === "loading";
 
   return (
     <div className="relative w-full">
@@ -145,7 +204,11 @@ export function HeroActionPanel() {
               <input
                 type={cfg.f1.type ?? "text"}
                 placeholder={cfg.f1.ph}
-                className="w-full bg-transparent text-[13px] font-normal text-slate-700 placeholder:text-slate-400 outline-none"
+                value={f1}
+                onChange={(e) => setF1(e.target.value)}
+                disabled={isLoading}
+                autoComplete={active === "client" ? "username" : "off"}
+                className="w-full bg-transparent text-[13px] font-normal text-slate-700 placeholder:text-slate-400 outline-none disabled:opacity-60"
               />
             </div>
             <div className="h-px w-full sm:h-auto sm:w-px bg-gray-200 sm:my-2" />
@@ -154,25 +217,64 @@ export function HeroActionPanel() {
               <input
                 type={cfg.f2.type ?? "text"}
                 placeholder={cfg.f2.ph}
-                className="w-full bg-transparent text-[13px] font-normal text-slate-700 placeholder:text-slate-400 outline-none"
+                value={f2}
+                onChange={(e) => setF2(e.target.value)}
+                disabled={isLoading}
+                autoComplete={active === "client" ? "current-password" : "off"}
+                className="w-full bg-transparent text-[13px] font-normal text-slate-700 placeholder:text-slate-400 outline-none disabled:opacity-60"
               />
             </div>
             <button
               type="submit"
               aria-label="Valider"
-              className="flex h-[46px] sm:h-auto w-full sm:w-[60px] shrink-0 items-center justify-center bg-[#2C4373] text-white transition-colors duration-200 hover:bg-[#1E3054]"
+              disabled={isLoading}
+              className="flex h-[46px] sm:h-auto w-full sm:w-[60px] shrink-0 items-center justify-center bg-[#2C4373] text-white transition-colors duration-200 hover:bg-[#1E3054] disabled:opacity-70"
             >
-              <LongArrow />
+              {isLoading ? (
+                <Loader2 className="size-5 animate-spin" />
+              ) : (
+                <LongArrow />
+              )}
             </button>
           </form>
+
+          {/* ── Feedback inline (succès vert / erreur rouge) ──
+              Visible UNIQUEMENT pour l'onglet client. Apparaît sous le bandeau,
+              fond blanc + filet coloré à gauche pour la lecture rapide.            */}
+          <AnimatePresence>
+            {active === "client" && (feedback.kind === "error" || feedback.kind === "success") ? (
+              <motion.div
+                key={`fb-${feedback.kind}`}
+                role="status"
+                aria-live="polite"
+                initial={{ opacity: 0, y: -4, height: 0 }}
+                animate={{ opacity: 1, y: 0, height: "auto" }}
+                exit={{ opacity: 0, y: -4, height: 0 }}
+                transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+                className="overflow-hidden"
+              >
+                <div
+                  className={[
+                    "mt-2 flex items-start gap-2.5 rounded-[2px] bg-white px-4 py-2.5 text-[12.5px] font-medium shadow-[0_2px_8px_rgba(0,0,0,0.06)]",
+                    feedback.kind === "error"
+                      ? "border-l-[3px] border-l-red-500 text-red-700"
+                      : "border-l-[3px] border-l-emerald-500 text-emerald-700",
+                  ].join(" ")}
+                >
+                  {feedback.kind === "error" ? (
+                    <AlertCircle className="mt-px size-4 shrink-0" />
+                  ) : (
+                    <CheckCircle2 className="mt-px size-4 shrink-0" />
+                  )}
+                  <span>{feedback.msg}</span>
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
         </div>
       </div>
 
-      {/* ═══ COUCHE 2 : Carte des onglets — fusion visuelle avec le bandeau ═══
-          • rounded-t-[10px]  → coins ronds uniquement en haut (flottant sur la vidéo)
-          • border + border-b-0 → bordure visible côté vidéo (haut + côtés) UNIQUEMENT
-          • bas ouvert (pas de border-bottom) → fusionne silencieusement avec le bandeau
-          • Aucune ombre séparatrice → bloc unique parfaitement unifié               */}
+      {/* ═══ COUCHE 2 : Carte des onglets — fusion visuelle avec le bandeau ═══ */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-full max-w-[780px] px-4">
         <div className="flex rounded-t-[10px] bg-[#2D9CDB] border border-b-0 border-white/25 overflow-hidden">
           {TABS.map((tab, i) => {
@@ -196,7 +298,6 @@ export function HeroActionPanel() {
                   "text-[10px] sm:text-[11px] uppercase tracking-[0.08em] sm:tracking-[0.1em] leading-tight whitespace-nowrap",
                   isActive ? "font-bold" : "font-semibold",
                 ].join(" ")}>
-                  {/* Mobile : label court — desktop : label complet */}
                   <span className="sm:hidden">{tab.labelShort}</span>
                   <span className="hidden sm:inline">{tab.label}</span>
                 </span>

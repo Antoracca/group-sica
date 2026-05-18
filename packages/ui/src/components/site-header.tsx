@@ -86,6 +86,10 @@ interface SiteHeaderProps {
   scrolledThreshold?: number;
   hideThreshold?: number;
   className?: string;
+  /** Force le rendu "scrolled" (fond blanc, texte foncé) dès le chargement.
+   *  À activer sur les pages SANS hero vidéo plein écran — sinon la nav
+   *  blanche reste invisible sur un fond blanc. */
+  forceScrolled?: boolean;
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -100,6 +104,7 @@ export function SiteHeader({
   scrolledThreshold = 80,
   hideThreshold = 480,
   className,
+  forceScrolled = false,
 }: SiteHeaderProps) {
   const state = useHeaderScroll({ scrolledThreshold, hideThreshold });
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -110,9 +115,10 @@ export function SiteHeader({
   const searchRef = React.useRef<HTMLInputElement>(null);
   const closeMenuTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const isTop = state === "top";
+  // ── États d'apparence — surchargés par forceScrolled (pages sans hero) ──
+  const isTop = !forceScrolled && state === "top";
   const isHidden = state === "hidden";
-  const isScrolled = state === "scrolled";
+  const isScrolled = forceScrolled || state === "scrolled";
 
   // ── Search focus ──
   React.useEffect(() => {
@@ -547,17 +553,19 @@ export function SiteHeader({
                 }}
               />
 
-              <div className="relative mx-auto max-w-[1440px] px-8 py-8 xl:px-12 xl:py-10">
-                {/* Bouton fermer — coin haut droit */}
-                <button
-                  type="button"
-                  aria-label="Fermer le menu"
-                  onClick={() => setDesktopOpenLabel(null)}
-                  className="absolute right-8 top-6 xl:right-12 flex size-8 items-center justify-center rounded-full border border-white/15 text-white/60 transition-all hover:border-white/35 hover:bg-white/10 hover:text-white"
-                >
-                  <X size={15} weight="regular" aria-hidden />
-                </button>
+              {/* Bouton fermer — positionné sur le BORD du panneau, hors de la
+                  zone de contenu scrollable. Évite tout conflit avec la
+                  scrollbar de la colonne de droite. */}
+              <button
+                type="button"
+                aria-label="Fermer le menu"
+                onClick={() => setDesktopOpenLabel(null)}
+                className="absolute right-3 top-3 z-20 flex size-9 items-center justify-center rounded-full bg-white/10 text-white/85 backdrop-blur-md ring-1 ring-white/20 transition-all hover:bg-brand-amber hover:text-white hover:ring-brand-amber/60"
+              >
+                <X size={16} weight="bold" aria-hidden />
+              </button>
 
+              <div className="relative mx-auto max-w-[1440px] px-8 py-8 xl:px-12 xl:py-10">
                 <div className="grid grid-cols-12 gap-6 xl:gap-10">
                   {/* Colonne gauche */}
                   <div className="col-span-4 flex flex-col justify-between">
@@ -590,8 +598,8 @@ export function SiteHeader({
                   {/* Colonne droite — liens scrollables si débordement */}
                   <div className="col-span-7 flex flex-col justify-center">
                     <ul
-                      className="flex flex-col gap-0.5 overflow-y-auto overscroll-contain"
-                      style={{ maxHeight: "min(52vh, 380px)" }}
+                      className="flex flex-col gap-0.5 overflow-y-auto overscroll-contain pr-2"
+                      style={{ maxHeight: "min(52vh, 380px)", scrollbarGutter: "stable" }}
                     >
                       {desktopOpenItem.children.map((child) => (
                         <li key={child.label}>

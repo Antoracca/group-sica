@@ -15,12 +15,13 @@ import { Footer } from "./footer";
 
 interface PageShellProps {
   children: React.ReactNode;
-  /** Désactive la transparence initiale du header — utile pour les pages
-   *  sans hero plein écran qui doivent avoir un header solide d'emblée. */
+  /** Désactive la transparence initiale du header — par défaut TRUE pour les
+   *  pages internes (corporate, actualités, contact...) qui ont un fond blanc.
+   *  À mettre à false UNIQUEMENT si la page a un hero vidéo plein écran. */
   headerSolid?: boolean;
 }
 
-export function PageShell({ children, headerSolid: _headerSolid = false }: PageShellProps) {
+export function PageShell({ children, headerSolid = true }: PageShellProps) {
   const topNav = getTopNav("groupe", {
     constructionUrl: links.construction.base,
   });
@@ -40,6 +41,7 @@ export function PageShell({ children, headerSolid: _headerSolid = false }: PageS
         }
         nav={mainNav}
         topNav={topNav}
+        forceScrolled={headerSolid}
       />
 
       <main id="main-content">{children}</main>
