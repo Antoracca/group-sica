@@ -9,7 +9,7 @@ const metrics = [
 
 export function ProofStrip() {
   return (
-    <section className="bg-ink py-14 text-white">
+    <section id="preuves" className="bg-ink py-14 text-white">
       <Container>
         <dl className="grid gap-px md:grid-cols-2 lg:grid-cols-4">
           {metrics.map((metric) => (

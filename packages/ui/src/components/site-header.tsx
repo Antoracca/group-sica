@@ -211,6 +211,14 @@ export function SiteHeader({
         transition={{ duration: 0.22, ease: [0, 0, 0.2, 1] }}
         className={cn("fixed inset-x-0 top-0 z-50", className)}
         data-state={state}
+        /* Fond blanc garanti sur les pages sans hero vidéo.
+           Style inline = priorité maximale, impossible à écraser
+           par Tailwind ou Framer Motion. */
+        style={
+          forceScrolled
+            ? { backgroundColor: "#ffffff", borderBottom: "1px solid rgba(30,47,138,0.07)", boxShadow: "0 2px 20px rgba(7,20,74,0.07)" }
+            : undefined
+        }
       >
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-5 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-brand-royal focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white">
           Aller au contenu principal
@@ -360,17 +368,24 @@ export function SiteHeader({
         <motion.div
           initial={false}
           animate={{
-            marginLeft: isScrolled ? 12 : 0,
-            marginRight: isScrolled ? 12 : 0,
-            marginTop: isScrolled ? 10 : 0,
-            borderRadius: isScrolled ? 24 : 0,
+            /* Pill flottant UNIQUEMENT sur les pages avec hero (forceScrolled=false).
+               Sur les pages internes, header pleine largeur — pas de pill. */
+            marginLeft: !forceScrolled && isScrolled ? 12 : 0,
+            marginRight: !forceScrolled && isScrolled ? 12 : 0,
+            marginTop: !forceScrolled && isScrolled ? 10 : 0,
+            borderRadius: !forceScrolled && isScrolled ? 24 : 0,
           }}
           transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
           className={cn(
             "overflow-visible transition-[background-color,box-shadow] duration-[280ms]",
-            isScrolled
-              ? "bg-white shadow-[0_8px_32px_rgba(7,20,74,0.10)]"
-              : "bg-transparent shadow-none",
+            /* forceScrolled → fond géré par le style inline du motion.header,
+               la motion.div reste transparente pour ne pas doubler l'ombre.
+               Sinon : comportement scroll normal. */
+            forceScrolled
+              ? "bg-transparent shadow-none"
+              : isScrolled
+                ? "bg-white shadow-[0_8px_32px_rgba(7,20,74,0.10)]"
+                : "bg-transparent shadow-none",
           )}
           onMouseLeave={closeDesktopMenu}
         >
