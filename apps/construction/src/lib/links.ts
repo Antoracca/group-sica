@@ -1,14 +1,20 @@
+const isDev = process.env.NODE_ENV === "development";
+
 const constructionBase =
   process.env.NEXT_PUBLIC_CONSTRUCTION_URL?.replace(/\/+$/, "") ||
-  "http://localhost:3001";
+  (isDev ? "http://localhost:3001" : "https://sicaconstruction.ci");
 
 const groupeBase =
   process.env.NEXT_PUBLIC_GROUPE_URL?.replace(/\/+$/, "") ||
-  "https://groupesica.ci";
+  (isDev ? "http://localhost:3000" : "https://groupesica.ci");
 
 const assistanceBase =
   process.env.NEXT_PUBLIC_ASSISTANCE_URL?.replace(/\/+$/, "") ||
-  "https://sicaassistance.ci";
+  (isDev ? "http://localhost:3002" : "https://sicaassistance.ci");
+
+const landingBase = 
+  process.env.NEXT_PUBLIC_LANDING_URL?.replace(/\/+$/, "") ||
+  (isDev ? "http://localhost:3003" : "https://sica.ci");
 
 export const links = {
   construction: {
@@ -21,5 +27,8 @@ export const links = {
   assistance: {
     base: assistanceBase,
   },
+  landing: {
+    base: landingBase,
+  }
 };
 
