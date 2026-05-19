@@ -18,6 +18,11 @@ export const metadata: Metadata = {
     locale: "fr_CI",
     siteName: "Groupe SICA",
   },
+  icons: {
+    icon: "/logo-groupe.png",
+    shortcut: "/logo-groupe.png",
+    apple: "/logo-groupe.png",
+  },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
 };
