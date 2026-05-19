@@ -1,6 +1,7 @@
 import { FooterConstruction } from "@/components/footer-construction";
 import { ConstructionHeader } from "@/components/construction-header";
 import { SectionRail } from "@/components/section-rail";
+import { DevelopmentLock } from "./_sections/development-lock";
 import { HeroConstruction } from "./_sections/hero";
 import { ProofStrip } from "./_sections/proof-strip";
 import { ExpertisesSection } from "./_sections/expertises";
@@ -14,19 +15,19 @@ export default function ConstructionHomePage() {
     <>
       <ConstructionHeader />
 
-      <SectionRail />
-
       <main id="main-content">
         <HeroConstruction />
-        <ProofStrip />
-        <ExpertisesSection />
-        <ProjectsAZSection />
-        <TeamSpotlightSection />
-        <ProcessSection />
-        <CtaConstruction />
+        <DevelopmentLock>
+          <SectionRail />
+          <ProofStrip />
+          <ExpertisesSection />
+          <ProjectsAZSection />
+          <TeamSpotlightSection />
+          <ProcessSection />
+          <CtaConstruction />
+          <FooterConstruction />
+        </DevelopmentLock>
       </main>
-
-      <FooterConstruction />
     </>
   );
 }

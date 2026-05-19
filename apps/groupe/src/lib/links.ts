@@ -12,9 +12,7 @@ const assistanceBase =
   process.env.NEXT_PUBLIC_ASSISTANCE_URL?.replace(/\/+$/, "") ||
   (isDev ? "http://localhost:3002" : "https://sicaassistance.ci");
 
-const landingBase = 
-  process.env.NEXT_PUBLIC_LANDING_URL?.replace(/\/+$/, "") ||
-  (isDev ? "http://localhost:3003" : "https://sica.ci");
+const landingBase = "https://sica.ci";
 
 export const links = {
   construction: {
