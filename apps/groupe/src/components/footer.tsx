@@ -54,7 +54,7 @@ export function Footer() {
       />
 
       <div className="mx-auto max-w-[1440px] px-5 xl:px-8">
-        <div className="grid gap-10 py-12 sm:py-14 md:grid-cols-[1.8fr_1fr_1fr_1.2fr] lg:gap-14">
+        <div className="grid gap-10 py-12 sm:py-14 md:grid-cols-2 xl:grid-cols-[1.8fr_1fr_1fr_1.2fr] lg:gap-14">
           <div className="flex flex-col gap-4">
             <Logo
               brand="groupe"
@@ -85,7 +85,7 @@ export function Footer() {
             <p className="mb-4 text-[0.58rem] font-bold uppercase tracking-[0.22em] text-brand-amber/70">
               Navigation
             </p>
-            <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5 md:grid-cols-1">
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5 xl:grid-cols-1">
               {NAV_LINKS.map((item) => (
                 <li key={item.href}>
                   <a
@@ -210,7 +210,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 border-t border-white/[0.07] py-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-2 border-t border-white/[0.07] py-5 md:flex-row md:items-center md:justify-between">
           <p className="text-[0.72rem] text-white/24">
             &copy; {year} Groupe SICA - RCCM CI-ABJ-03-2020-B13-17592 - Abidjan, Cote d'Ivoire
           </p>

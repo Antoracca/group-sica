@@ -100,8 +100,8 @@ export default function PartenairesPage() {
         <Container>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
             {[
-              { Icon: Handshake, value: "12+", label: "Partenaires actifs" },
-              { Icon: Award, value: "4 ans", label: "Ancienneté moyenne" },
+              { Icon: Handshake, value: "50+", label: "Partenaires actifs" },
+              { Icon: Award, value: "10 ans", label: "Ancienneté moyenne" },
               { Icon: Building2, value: "3", label: "Régions couvertes" },
               { Icon: Handshake, value: "100%", label: "Couverture CI" },
             ].map((s, i) => (

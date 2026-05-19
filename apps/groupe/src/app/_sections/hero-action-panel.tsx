@@ -205,7 +205,7 @@ const TABS: {
   { id: "client",       label: "Espace Client",      labelShort: "Client",       Icon: IconClient },
   { id: "construction", label: "Devis Construction", labelShort: "Devis",        Icon: IconConstruction },
   { id: "assistance",   label: "Conseil Assistance", labelShort: "Conseil",      Icon: IconAssistance },
-  { id: "realisations", label: "Nos Réalisations",   labelShort: "Réalisations", Icon: IconRealisations },
+  { id: "realisations", label: "Nos Réalisations",   labelShort: "Dossiers", Icon: IconRealisations },
 ];
 
 /* ── Petites icônes pour les champs de saisie (16 px, lucide) ── */
@@ -629,7 +629,7 @@ export function HeroActionPanel() {
                 type="button"
                 onClick={() => setActive(tab.id)}
                 className={[
-                  "flex flex-1 flex-col items-center gap-1.5 px-2 py-4 sm:py-5",
+                  "flex min-w-0 flex-1 flex-col items-center gap-1.5 px-1.5 py-4 sm:px-2 sm:py-5",
                   "font-[Inter,Helvetica,sans-serif] transition-all duration-200",
                   isActive
                     ? "bg-white/15 text-[#1E2F8A]"
@@ -640,8 +640,8 @@ export function HeroActionPanel() {
                 <TabIcon className="shrink-0" />
                 <span
                   className={[
-                    "text-[10px] sm:text-[11px] uppercase leading-tight",
-                    "tracking-[0.08em] sm:tracking-[0.1em] whitespace-nowrap",
+                    "text-center text-[9px] sm:text-[11px] uppercase leading-tight",
+                    "tracking-[0.04em] sm:tracking-[0.1em]",
                     isActive ? "font-bold" : "font-semibold",
                   ].join(" ")}
                 >

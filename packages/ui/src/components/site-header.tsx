@@ -326,20 +326,20 @@ export function SiteHeader({
             }}
           />
 
-          <div className="relative flex h-[2rem] items-center justify-between px-4">
+          <div className="relative flex h-[2rem] items-center justify-between gap-2 px-3">
             {/* Gauche : liens utilitaires compacts */}
-            <div className="flex items-center gap-0">
+            <div className="flex min-w-0 items-center gap-0 overflow-hidden">
               <a
                 href="/realisations"
-                className="flex items-center gap-1 text-[0.63rem] font-medium text-slate-500 transition-colors hover:text-brand-royal"
+                className="flex shrink-0 items-center gap-1 text-[0.6rem] font-medium text-slate-500 transition-colors hover:text-brand-royal"
               >
                 <Trophy size={11} weight="light" className="text-brand-royal/40" aria-hidden />
                 <span>Réalisations</span>
               </a>
-              <span aria-hidden className="mx-2.5 text-[0.75rem] font-light text-slate-200 select-none">|</span>
+              <span aria-hidden className="mx-1.5 text-[0.68rem] font-light text-slate-200 select-none max-[359px]:hidden">|</span>
               <a
                 href="/a-propos"
-                className="flex items-center gap-1 text-[0.63rem] font-medium text-slate-500 transition-colors hover:text-brand-royal"
+                className="hidden items-center gap-1 text-[0.6rem] font-medium text-slate-500 transition-colors hover:text-brand-royal min-[360px]:flex"
               >
                 <Compass size={11} weight="light" className="text-brand-royal/40" aria-hidden />
                 <span>Corporate</span>
@@ -347,12 +347,12 @@ export function SiteHeader({
             </div>
 
             {/* Droite : sélecteur de langue avec icône Translate */}
-            <div className="flex items-center gap-1.5">
+            <div className="flex shrink-0 items-center gap-1">
               <Translate size={12} weight="light" className="text-brand-royal/40" aria-hidden />
               {(["fr", "en"] as const).map((l, i) => (
                 <React.Fragment key={l}>
                   {i > 0 ? (
-                    <span aria-hidden className="select-none text-[0.6rem] text-slate-200">/</span>
+                    <span aria-hidden className="select-none text-[0.56rem] text-slate-200">/</span>
                   ) : null}
                   <button
                     type="button"
@@ -360,7 +360,7 @@ export function SiteHeader({
                     aria-pressed={lang === l}
                     onClick={() => setLang(l)}
                     className={cn(
-                      "text-[0.63rem] font-bold uppercase tracking-[0.06em] transition-colors duration-200",
+                      "text-[0.58rem] font-bold uppercase tracking-[0.05em] transition-colors duration-200",
                       lang === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
                     )}
                   >

@@ -80,7 +80,7 @@ function IntroSection() {
 
         <Reveal delay={0.15}>
           <p className="mt-8 max-w-2xl text-pretty text-[1.0625rem] leading-[1.7] text-neutral-500">
-            Une SARL ivoirienne fondée en 2020 à Abidjan. Portée par une conviction simple:
+            Une SARL ivoirienne fondée en 2015 à Abidjan. Portée par une conviction simple:
             la rigueur n'est pas une option, ni sur les chantiers ni dans les dossiers.
           </p>
         </Reveal>
@@ -141,7 +141,7 @@ function TeamSection() {
               transition={{ duration: 0.75, delay: 0.17, ease: E }}
             >
               <p className="mt-7 text-[1.0625rem] leading-[1.72] text-neutral-600">
-                Depuis 2020, nos équipes grandissent avec méthode. Ingénieurs génie civil,
+                Depuis 2015, nos équipes grandissent avec méthode. Ingénieurs génie civil,
                 techniciens supérieurs, juristes, comptables, conseillers en gestion:
                 chaque recrutement est un choix délibéré en faveur de l'excellence.
               </p>
@@ -154,10 +154,10 @@ function TeamSection() {
               {/* Chiffres clés */}
               <div className="mt-11 flex flex-wrap gap-x-10 gap-y-5">
                 {[
-                  { n: "2020", label: "Fondée à Abidjan" },
+                  { n: "2015", label: "Fondée à Abidjan" },
                   { n: "5", label: "Équipes terrain" },
-                  { n: "11+", label: "Projets livrés" },
-                  { n: "2", label: "Implantations" },
+                  { n: "50+", label: "Projets livrés" },
+                  { n: "5", label: "Implantations" },
                 ].map((s) => (
                   <div key={s.label}>
                     <p
@@ -325,7 +325,7 @@ function DirecteurSection() {
               transition={{ duration: 0.78, delay: 0.28, ease: E }}
             >
               <p className="mt-9 text-[1rem] leading-[1.74] text-white/65">
-                Depuis la création du Groupe SICA en 2020, Ngoran Ivan porte une vision
+                Depuis la création du Groupe SICA en 2015, Ngoran Ivan porte une vision
                 claire: offrir à la Côte d'Ivoire un acteur intégré, capable d'accompagner
                 aussi bien le montage d'une PME que la livraison d'un siège institutionnel.
               </p>
@@ -722,3 +722,4 @@ export function AProposContent() {
     </>
   );
 }
+
