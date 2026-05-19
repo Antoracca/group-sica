@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageShell } from "@/components/page-shell";
 import { Container } from "@sica/ui";
-import { ArrowRight, GraduationCap, Heart, Briefcase, Bell } from "lucide-react";
+import { ArrowRight, Bell } from "lucide-react";
 import { NewsletterForm } from "./_newsletter";
 
 export const metadata: Metadata = {
@@ -9,24 +9,6 @@ export const metadata: Metadata = {
   description:
     "Rejoignez les équipes SICA Construction et SICA Assistance en Côte d'Ivoire. Candidatures spontanées bienvenues.",
 };
-
-const AVANTAGES = [
-  {
-    Icon: GraduationCap,
-    titre: "Formation continue",
-    desc: "Programmes internes BTP, OHADA, fiscalité ivoirienne. Une session annuelle financée par SICA.",
-  },
-  {
-    Icon: Heart,
-    titre: "Couverture santé",
-    desc: "Mutuelle santé prise en charge à 70 %. CNPS employeur 378047 — toutes obligations sociales à jour.",
-  },
-  {
-    Icon: Briefcase,
-    titre: "Évolution interne",
-    desc: "Promotion privilégiée en interne. 5 équipes terrain qui montent en compétence avec leurs chefs de projet.",
-  },
-];
 
 const UPDATE_DATE = "18 mai 2026";
 
@@ -71,50 +53,6 @@ export default function CarrieresPage() {
             5 équipes terrain, un bureau d'études, une équipe Assistance. SICA recrute des
             profils techniques et administratifs partout en Côte d'Ivoire.
           </p>
-        </Container>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════
-          AVANTAGES
-      ══════════════════════════════════════════════════════ */}
-      <section className="bg-white py-16 sm:py-20 lg:py-24">
-        <Container>
-          <p className="mb-3 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
-            Pourquoi SICA
-          </p>
-          <h2
-            className="mb-12 text-balance text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold leading-tight tracking-tight text-[#0D1A4A]"
-            style={{ fontFamily: "'DM Serif Display', serif" }}
-          >
-            Ce que vous gagnez en nous rejoignant.
-          </h2>
-
-          <div className="grid gap-8 sm:grid-cols-3 lg:gap-12">
-            {AVANTAGES.map(({ Icon, titre, desc }) => (
-              <div
-                key={titre}
-                className="group relative overflow-hidden rounded-2xl border border-neutral-100 bg-[#F8F8F5] p-7 transition-all duration-300 hover:border-[#1E2F8A]/20 hover:shadow-[0_6px_32px_rgba(30,47,138,0.08)]"
-              >
-                {/* Accent line */}
-                <div
-                  className="absolute inset-x-0 top-0 h-[2.5px] origin-left scale-x-0 bg-gradient-to-r from-[#1E2F8A] to-[#2C47C5] transition-transform duration-500 group-hover:scale-x-100"
-                />
-                <div
-                  className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl"
-                  style={{ background: "rgba(30,47,138,0.08)" }}
-                >
-                  <Icon size={20} strokeWidth={1.8} style={{ color: "#1E2F8A" }} />
-                </div>
-                <h3
-                  className="mb-2 text-[1.0625rem] font-bold leading-tight text-[#0D1A4A]"
-                  style={{ fontFamily: "'DM Serif Display', serif" }}
-                >
-                  {titre}
-                </h3>
-                <p className="text-[0.9375rem] leading-[1.65] text-neutral-600">{desc}</p>
-              </div>
-            ))}
-          </div>
         </Container>
       </section>
 
