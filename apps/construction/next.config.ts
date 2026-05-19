@@ -30,6 +30,7 @@ const config: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "*.supabase.co" },
       { protocol: "https", hostname: "*.ftcdn.net" },
+      { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },
 

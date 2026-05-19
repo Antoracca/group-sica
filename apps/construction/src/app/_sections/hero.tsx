@@ -6,7 +6,7 @@ export function HeroConstruction() {
   return (
     <section id="hero" className="relative isolate overflow-hidden bg-brand-royal-900 text-white">
       <Image
-        src="/EQUIPE2.jpeg"
+        src="https://images.unsplash.com/photo-1761896057588-49e1a6306d8f?auto=format&fit=crop&fm=jpg&q=80&w=3000"
         alt=""
         fill
         priority
