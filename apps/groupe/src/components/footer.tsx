@@ -16,7 +16,7 @@ const NAV_LINKS = [
 /* ── Accès rapide client + liens légaux ── */
 const CLIENT_LINKS = [
   { label: "Connexion client", href: "/espace-client", highlight: true },
-  { label: "Demander un devis", href: `${process.env.NEXT_PUBLIC_CONSTRUCTION_URL ?? "http://localhost:3001"}/devis` },
+  { label: "Demander un devis", href: links.construction.devis },
   { label: "Mentions legales", href: "/mentions-legales" },
   { label: "Confidentialite", href: "/confidentialite" },
   { label: "Cookies", href: "/cookies" },

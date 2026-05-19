@@ -2,15 +2,113 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { MapPin, Briefcase, Search, User, Lock, Building2, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import {
+  MapPin,
+  Search,
+  User,
+  Lock,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
+  ChevronDown,
+  X,
+} from "lucide-react";
+import { Handshake, HouseSimple, ClipboardText } from "@phosphor-icons/react";
 import { links } from "@/lib/links";
 
-/* ══ ICÔNES PREMIUM SICA ══ */
+/* ════════════════════════════════════════════════════════════════════════
+   DONNÉES
+════════════════════════════════════════════════════════════════════════ */
 
-/* Construction — Immeuble architectural avec étages + fenêtres */
+const CONSTRUCTION_TYPES = [
+  "Villa",
+  "Maison individuelle",
+  "Duplex",
+  "Appartement",
+  "Immeuble R+2",
+  "Immeuble R+4",
+  "Résidence",
+  "Siège social",
+  "Bureau professionnel",
+  "Local commercial",
+  "Entrepôt / Hangar",
+  "Clôture & aménagement",
+];
+
+const VILLES_CI = [
+  "Abidjan",
+  "Bouaké",
+  "Daloa",
+  "Korhogo",
+  "Yamoussoukro",
+  "San-Pédro",
+  "Man",
+  "Gagnoa",
+  "Abengourou",
+  "Divo",
+  "Aboisso",
+  "Bondoukou",
+  "Odienné",
+  "Dimbokro",
+  "Agboville",
+  "Adzopé",
+  "Anyama",
+  "Grand-Bassam",
+  "Soubré",
+  "Sassandra",
+  "Duekoué",
+  "Issia",
+  "Lakota",
+  "Tiassalé",
+  "Toumodi",
+  "Katiola",
+  "Ferkessédougou",
+  "Séguéla",
+  "Tengrela",
+  "Bouna",
+];
+
+const ASSISTANCE_BESOINS = [
+  "Création d'entreprise",
+  "Comptabilité",
+  "Déclaration fiscale",
+  "Accompagnement juridique",
+  "Conseil en gestion",
+  "Structuration d'activité",
+  "Bilan comptable",
+  "Audit interne",
+  "Ressources humaines",
+  "Plan d'affaires",
+];
+
+const REALISATIONS_CATEGORIES = [
+  "Construction",
+  "Assistance conseil",
+  "Villa",
+  "Immeuble",
+  "Étude de sol",
+  "Génie civil",
+  "Création d'entreprise",
+  "Bâtiment commercial",
+];
+
+/* ════════════════════════════════════════════════════════════════════════
+   ICÔNES PREMIUM — onglets (44 × 44)
+════════════════════════════════════════════════════════════════════════ */
+
 function IconConstruction({ className }: { className?: string }) {
   return (
-    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <svg
+      width="44"
+      height="44"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.55"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
       <path d="M2.5 21.5h19" />
       <path d="M4.2 21.5V10.2l6.8-5.1 6.8 5.1v11.3" />
       <path d="M9.2 21.5v-4.4h3.6v4.4" />
@@ -24,23 +122,24 @@ function IconConstruction({ className }: { className?: string }) {
   );
 }
 
-/* Assistance — Conseil premium (bulle + dossier validé) */
+/* Assistance — Phosphor Handshake, plus impactant que le custom SVG */
 function IconAssistance({ className }: { className?: string }) {
-  return (
-    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M4.5 5.5h8.2a2.2 2.2 0 0 1 2.2 2.2v4.5a2.2 2.2 0 0 1-2.2 2.2H8.4l-3.9 3v-3H4.5a2 2 0 0 1-2-2V7.5a2 2 0 0 1 2-2Z" />
-      <path d="M17.5 7.8h3.2a1.8 1.8 0 0 1 1.8 1.8v6a1.8 1.8 0 0 1-1.8 1.8h-4.2" />
-      <path d="M8 9.6h5.4" />
-      <path d="M8 12.1h3.8" />
-      <path d="m17.2 13.3 1.3 1.3 2.2-2.5" />
-    </svg>
-  );
+  return <Handshake size={44} weight="thin" className={className} />;
 }
 
-/* Réalisations — Galerie premium */
 function IconRealisations({ className }: { className?: string }) {
   return (
-    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <svg
+      width="44"
+      height="44"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.55"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
       <rect x="3" y="4" width="13" height="16" rx="1.8" />
       <rect x="8" y="2.5" width="13" height="16" rx="1.8" />
       <path d="M10.8 8.3h7.3" />
@@ -52,10 +151,19 @@ function IconRealisations({ className }: { className?: string }) {
   );
 }
 
-/* Espace Client — Bouclier sécurisé avec profil utilisateur */
 function IconClient({ className }: { className?: string }) {
   return (
-    <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <svg
+      width="38"
+      height="38"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
       <path d="M12 2L4 5.5V10c0 5.8 3.8 10.3 8 11.8 4.2-1.5 8-6 8-11.8V5.5L12 2z" />
       <circle cx="12" cy="10" r="2.5" />
       <path d="M7.5 18.5a4.8 4.8 0 0 1 9 0" />
@@ -65,50 +173,95 @@ function IconClient({ className }: { className?: string }) {
 
 function LongArrow({ className }: { className?: string }) {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
       <line x1="5" y1="12" x2="19" y2="12" />
       <polyline points="13 6 19 12 13 18" />
     </svg>
   );
 }
 
-/* ── Données ── */
+/* ════════════════════════════════════════════════════════════════════════
+   TYPES & CONFIG
+════════════════════════════════════════════════════════════════════════ */
 
 type TabId = "construction" | "assistance" | "realisations" | "client";
 
-/* labelShort : version mobile qui ne wrap pas sur les écrans étroits. */
-const TABS: { id: TabId; label: string; labelShort: string; Icon: React.FC<{ className?: string }> }[] = [
+const TABS: {
+  id: TabId;
+  label: string;
+  labelShort: string;
+  Icon: React.FC<{ className?: string }>;
+}[] = [
   { id: "client",       label: "Espace Client",      labelShort: "Client",       Icon: IconClient },
   { id: "construction", label: "Devis Construction", labelShort: "Devis",        Icon: IconConstruction },
   { id: "assistance",   label: "Conseil Assistance", labelShort: "Conseil",      Icon: IconAssistance },
   { id: "realisations", label: "Nos Réalisations",   labelShort: "Réalisations", Icon: IconRealisations },
 ];
 
-const FORM_CFG: Record<TabId, {
-  f1: { ph: string; Icon: React.FC<{ className?: string }>; type?: string };
-  f2: { ph: string; Icon: React.FC<{ className?: string }>; type?: string };
-}> = {
+/* ── Petites icônes pour les champs de saisie (16 px, lucide) ── */
+type SmallIcon = React.FC<{ className?: string }>;
+
+/* Maison = je veux construire */
+const HouseSimpleIcon: SmallIcon = ({ className }) => (
+  <HouseSimple size={16} weight="regular" className={className} />
+);
+/* Presse-papiers = mon besoin / requirements */
+const ClipboardTextIcon: SmallIcon = ({ className }) => (
+  <ClipboardText size={16} weight="regular" className={className} />
+);
+const SearchIcon: SmallIcon = ({ className }) => (
+  <Search size={16} strokeWidth={1.4} className={className} />
+);
+const MapPinIcon: SmallIcon = ({ className }) => (
+  <MapPin size={16} strokeWidth={1.4} className={className} />
+);
+const UserIcon: SmallIcon = ({ className }) => (
+  <User size={16} strokeWidth={1.4} className={className} />
+);
+const LockIcon: SmallIcon = ({ className }) => (
+  <Lock size={16} strokeWidth={1.4} className={className} />
+);
+
+interface FieldCfg {
+  ph: string;
+  Icon: SmallIcon;
+  type?: "text" | "email" | "password";
+  /** Liste d'options → champ devient un sélecteur dropdown */
+  dropdown?: string[];
+  /** Champ facultatif (pas bloquant à la validation) */
+  optional?: boolean;
+}
+
+const FORM_CFG: Record<TabId, { f1: FieldCfg; f2: FieldCfg }> = {
+  client: {
+    f1: { ph: "Identifiant / Email",   Icon: UserIcon,      type: "email" },
+    f2: { ph: "Mot de passe",          Icon: LockIcon,      type: "password" },
+  },
   construction: {
-    f1: { ph: "Je veux construire...", Icon: Building2 },
-    f2: { ph: "Dans la ville de...",   Icon: MapPin },
+    f1: { ph: "Je veux construire...", Icon: HouseSimpleIcon,  dropdown: CONSTRUCTION_TYPES },
+    f2: { ph: "Dans la ville de...",   Icon: MapPinIcon,       dropdown: VILLES_CI },
   },
   assistance: {
-    f1: { ph: "Mon besoin...",         Icon: Briefcase },
-    f2: { ph: "Nom de l'entreprise",   Icon: User },
+    f1: { ph: "Mon besoin...",         Icon: ClipboardTextIcon, dropdown: ASSISTANCE_BESOINS },
+    f2: { ph: "Nom de l'entreprise",   Icon: UserIcon,          optional: true },
   },
   realisations: {
-    f1: { ph: "Je cherche...",         Icon: Search },
-    f2: { ph: "Par ville...",          Icon: MapPin },
-  },
-  client: {
-    f1: { ph: "Identifiant / Email",   Icon: User },
-    f2: { ph: "Mot de passe",          Icon: Lock, type: "password" },
+    f1: { ph: "Je cherche...",         Icon: SearchIcon,    dropdown: REALISATIONS_CATEGORIES, optional: true },
+    f2: { ph: "Par ville...",          Icon: MapPinIcon,    dropdown: VILLES_CI, optional: true },
   },
 };
 
-/* ── Identifiants démo pour validation login espace client ─────────────
-   À remplacer plus tard par un vrai appel Supabase auth. Pour l'instant
-   on simule un check côté front pour démontrer les états success/error. */
+/* ── Identifiants démo (à remplacer par Supabase auth) ── */
 const DEMO_CREDENTIALS = { user: "demo@sica.ci", pass: "sica2026" };
 
 type Feedback =
@@ -117,37 +270,58 @@ type Feedback =
   | { kind: "success"; msg: string }
   | { kind: "error"; msg: string };
 
+/* ════════════════════════════════════════════════════════════════════════
+   COMPOSANT PRINCIPAL
+════════════════════════════════════════════════════════════════════════ */
+
 export function HeroActionPanel() {
   const [active, setActive] = React.useState<TabId>("client");
-  const cfg = FORM_CFG[active];
   const [f1, setF1] = React.useState("");
   const [f2, setF2] = React.useState("");
   const [feedback, setFeedback] = React.useState<Feedback>({ kind: "idle" });
+  const [openDropdown, setOpenDropdown] = React.useState<"f1" | "f2" | null>(null);
+  const formWrapRef = React.useRef<HTMLDivElement>(null);
 
-  /* Reset feedback et valeurs au changement d'onglet */
+  const cfg = FORM_CFG[active];
+
+  /* ── Reset au changement d'onglet ── */
   React.useEffect(() => {
     setFeedback({ kind: "idle" });
     setF1("");
     setF2("");
+    setOpenDropdown(null);
   }, [active]);
 
+  /* ── Fermeture dropdown clic extérieur ── */
+  React.useEffect(() => {
+    if (!openDropdown) return;
+    const handle = (e: MouseEvent) => {
+      if (formWrapRef.current && !formWrapRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handle);
+    return () => document.removeEventListener("mousedown", handle);
+  }, [openDropdown]);
+
+  /* ════════ SOUMISSION ════════ */
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setOpenDropdown(null);
 
-    /* ── Espace Client : login validé → succès + reload, sinon erreur rouge ── */
+    /* Espace Client */
     if (active === "client") {
       if (!f1.trim() || !f2.trim()) {
         setFeedback({ kind: "error", msg: "Veuillez renseigner identifiant et mot de passe." });
         return;
       }
       setFeedback({ kind: "loading" });
-      // Simulation latence réseau — sera remplacée par Supabase auth
       setTimeout(() => {
         const ok =
           f1.trim().toLowerCase() === DEMO_CREDENTIALS.user &&
           f2 === DEMO_CREDENTIALS.pass;
         if (ok) {
-          setFeedback({ kind: "success", msg: "Connexion réussie. Redirection..." });
+          setFeedback({ kind: "success", msg: "Connexion réussie. Redirection en cours..." });
           setTimeout(() => window.location.reload(), 1100);
         } else {
           setFeedback({ kind: "error", msg: "Identifiant ou mot de passe incorrect." });
@@ -156,95 +330,264 @@ export function HeroActionPanel() {
       return;
     }
 
-    /* ── Devis Construction → redirige vers site Construction avec le besoin ── */
+    /* Devis Construction — les deux champs sont obligatoires */
     if (active === "construction") {
-      const params = new URLSearchParams();
-      if (f1.trim()) params.set("besoin", f1.trim());
-      if (f2.trim()) params.set("ville", f2.trim());
-      const qs = params.toString();
-      window.location.href = `${links.construction.devis}${qs ? `?${qs}` : ""}`;
+      if (!f1.trim() || !f2.trim()) {
+        setFeedback({
+          kind: "error",
+          msg: !f1.trim()
+            ? "Veuillez sélectionner un type de construction."
+            : "Veuillez sélectionner une ville.",
+        });
+        return;
+      }
+      const params = new URLSearchParams({ besoin: f1.trim(), ville: f2.trim() });
+      window.location.href = `${links.construction.devis}?${params.toString()}`;
       return;
     }
 
-    /* ── Conseil Assistance → redirige vers site Assistance avec le besoin ── */
+    /* Conseil Assistance — besoin obligatoire, entreprise facultatif */
     if (active === "assistance") {
-      const params = new URLSearchParams();
-      if (f1.trim()) params.set("besoin", f1.trim());
+      if (!f1.trim()) {
+        setFeedback({ kind: "error", msg: "Veuillez sélectionner votre besoin." });
+        return;
+      }
+      const params = new URLSearchParams({ besoin: f1.trim() });
       if (f2.trim()) params.set("entreprise", f2.trim());
-      const qs = params.toString();
-      window.location.href = `https://sicaassistance.ci/contact${qs ? `?${qs}` : ""}`;
+      window.location.href = `${links.assistance.base}/contact?${params.toString()}`;
       return;
     }
 
-    /* ── Réalisations → page interne /realisations avec query de recherche ── */
+    /* Réalisations — au moins un champ doit être rempli */
     if (active === "realisations") {
+      if (!f1.trim() && !f2.trim()) {
+        setFeedback({ kind: "error", msg: "Sélectionnez au moins un critère de recherche." });
+        return;
+      }
       const params = new URLSearchParams();
       if (f1.trim()) params.set("q", f1.trim());
       if (f2.trim()) params.set("ville", f2.trim());
-      const qs = params.toString();
-      window.location.href = `/realisations${qs ? `?${qs}` : ""}`;
+      window.location.href = `/realisations?${params.toString()}`;
       return;
     }
   };
 
+  /* ════════ HELPERS ════════ */
   const isLoading = feedback.kind === "loading";
 
+  const selectOption = (field: "f1" | "f2", value: string) => {
+    if (field === "f1") setF1(value);
+    else setF2(value);
+    setOpenDropdown(null);
+    setFeedback({ kind: "idle" });
+  };
+
+  const clearField = (field: "f1" | "f2") => {
+    if (field === "f1") setF1("");
+    else setF2("");
+  };
+
+  /* ════════ RENDU D'UN CHAMP ════════ */
+  const renderField = (field: "f1" | "f2") => {
+    const fieldCfg = field === "f1" ? cfg.f1 : cfg.f2;
+    const FieldIcon = fieldCfg.Icon;
+    const value = field === "f1" ? f1 : f2;
+    const setValue = field === "f1" ? setF1 : setF2;
+    const isOpen = openDropdown === field;
+
+    /* Champ avec dropdown */
+    if (fieldCfg.dropdown) {
+      return (
+        <div className="flex flex-1 items-center gap-2 px-4 py-3 sm:py-[14px]">
+          <FieldIcon className="shrink-0 text-gray-400" />
+          <button
+            type="button"
+            onClick={() => {
+              setOpenDropdown(isOpen ? null : field);
+              setFeedback({ kind: "idle" });
+            }}
+            disabled={isLoading}
+            className="flex flex-1 items-center justify-between gap-1 text-left outline-none disabled:opacity-60"
+            aria-haspopup="listbox"
+            aria-expanded={isOpen}
+          >
+            <span
+              className={[
+                "truncate text-[13px] font-normal",
+                value ? "text-slate-700" : "text-slate-400",
+              ].join(" ")}
+            >
+              {value || fieldCfg.ph}
+            </span>
+            <span className="flex shrink-0 items-center gap-1">
+              {value ? (
+                <span
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Effacer la sélection"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    clearField(field);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.stopPropagation();
+                      clearField(field);
+                    }
+                  }}
+                  className="flex h-4 w-4 items-center justify-center rounded-full bg-slate-200 text-slate-500 transition-colors hover:bg-slate-300"
+                >
+                  <X size={9} />
+                </span>
+              ) : null}
+              <ChevronDown
+                size={13}
+                strokeWidth={2}
+                className={[
+                  "text-slate-400 transition-transform duration-200",
+                  isOpen ? "rotate-180" : "",
+                ].join(" ")}
+              />
+            </span>
+          </button>
+        </div>
+      );
+    }
+
+    /* Champ texte libre */
+    return (
+      <div className="flex flex-1 items-center gap-3 px-4 py-3 sm:py-[14px]">
+        <FieldIcon className="shrink-0 text-gray-400" />
+        <input
+          type={fieldCfg.type ?? "text"}
+          placeholder={fieldCfg.ph}
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+            setFeedback({ kind: "idle" });
+          }}
+          disabled={isLoading}
+          autoComplete={
+            active === "client"
+              ? field === "f1"
+                ? "username"
+                : "current-password"
+              : "off"
+          }
+          className="w-full bg-transparent text-[13px] font-normal text-slate-700 placeholder:text-slate-400 outline-none disabled:opacity-60"
+        />
+      </div>
+    );
+  };
+
+  /* Options du dropdown actif */
+  const activeOptions =
+    openDropdown === "f1" ? cfg.f1.dropdown : cfg.f2.dropdown;
+
+  /* ════════════════════════════════════════════════════════════════
+     RENDU
+  ════════════════════════════════════════════════════════════════ */
   return (
     <div className="relative w-full">
 
-      {/* ═══ COUCHE 1 : Bandeau bleu pleine largeur ═══ */}
+      {/* ── Bandeau bleu ── */}
       <div className="w-full bg-[#2D9CDB] pt-20 sm:pt-24 pb-6 sm:pb-8">
         <div className="mx-auto max-w-[640px] px-4">
-          <form
-            onSubmit={onSubmit}
-            className="flex flex-col sm:flex-row bg-white rounded-[2px] shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
-          >
-            <div className="flex flex-1 items-center gap-3 px-4 py-3 sm:py-[14px]">
-              <cfg.f1.Icon className="size-[16px] shrink-0 stroke-[1.4] text-gray-400" />
-              <input
-                type={cfg.f1.type ?? "text"}
-                placeholder={cfg.f1.ph}
-                value={f1}
-                onChange={(e) => setF1(e.target.value)}
-                disabled={isLoading}
-                autoComplete={active === "client" ? "username" : "off"}
-                className="w-full bg-transparent text-[13px] font-normal text-slate-700 placeholder:text-slate-400 outline-none disabled:opacity-60"
-              />
-            </div>
-            <div className="h-px w-full sm:h-auto sm:w-px bg-gray-200 sm:my-2" />
-            <div className="flex flex-1 items-center gap-3 px-4 py-3 sm:py-[14px]">
-              <cfg.f2.Icon className="size-[16px] shrink-0 stroke-[1.4] text-gray-400" />
-              <input
-                type={cfg.f2.type ?? "text"}
-                placeholder={cfg.f2.ph}
-                value={f2}
-                onChange={(e) => setF2(e.target.value)}
-                disabled={isLoading}
-                autoComplete={active === "client" ? "current-password" : "off"}
-                className="w-full bg-transparent text-[13px] font-normal text-slate-700 placeholder:text-slate-400 outline-none disabled:opacity-60"
-              />
-            </div>
-            <button
-              type="submit"
-              aria-label="Valider"
-              disabled={isLoading}
-              className="flex h-[46px] sm:h-auto w-full sm:w-[60px] shrink-0 items-center justify-center bg-[#2C4373] text-white transition-colors duration-200 hover:bg-[#1E3054] disabled:opacity-70"
-            >
-              {isLoading ? (
-                <Loader2 className="size-5 animate-spin" />
-              ) : (
-                <LongArrow />
-              )}
-            </button>
-          </form>
 
-          {/* ── Feedback inline (succès vert / erreur rouge) ──
-              Visible UNIQUEMENT pour l'onglet client. Apparaît sous le bandeau,
-              fond blanc + filet coloré à gauche pour la lecture rapide.            */}
+          {/* Formulaire + dropdown, positionné relativement */}
+          <div ref={formWrapRef} className="relative">
+
+            {/* Carte blanche du formulaire */}
+            <form
+              onSubmit={onSubmit}
+              className="flex flex-col sm:flex-row bg-white rounded-[2px] shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
+            >
+              {renderField("f1")}
+
+              {/* Séparateur */}
+              <div className="h-px w-full sm:h-auto sm:w-px bg-gray-200 sm:my-2" />
+
+              {renderField("f2")}
+
+              {/* Bouton soumettre */}
+              <button
+                type="submit"
+                aria-label="Valider"
+                disabled={isLoading}
+                className="flex h-[46px] sm:h-auto w-full sm:w-[60px] shrink-0 items-center justify-center bg-[#2C4373] text-white transition-colors duration-200 hover:bg-[#1E3054] disabled:opacity-70"
+              >
+                {isLoading ? (
+                  <Loader2 className="size-5 animate-spin" />
+                ) : (
+                  <LongArrow />
+                )}
+              </button>
+            </form>
+
+            {/* ── Panneau dropdown ── */}
+            <AnimatePresence>
+              {openDropdown && activeOptions ? (
+                <motion.div
+                  key={`dd-${openDropdown}-${active}`}
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.16, ease: [0.4, 0, 0.2, 1] }}
+                  role="listbox"
+                  aria-label={openDropdown === "f1" ? cfg.f1.ph : cfg.f2.ph}
+                  className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden rounded-[2px] bg-white shadow-[0_10px_36px_rgba(0,0,0,0.16)]"
+                >
+                  {/* Scroll area */}
+                  <div
+                    className="max-h-[220px] overflow-y-auto p-3"
+                    style={{ scrollbarWidth: "thin", scrollbarColor: "#cbd5e1 transparent" }}
+                  >
+                    <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
+                      {activeOptions.map((opt) => {
+                        const currentVal = openDropdown === "f1" ? f1 : f2;
+                        const selected = currentVal === opt;
+                        return (
+                          <button
+                            key={opt}
+                            type="button"
+                            role="option"
+                            aria-selected={selected}
+                            onClick={() => selectOption(openDropdown, opt)}
+                            className={[
+                              "rounded-[2px] px-3 py-2 text-left text-[11.5px] font-medium leading-snug transition-all duration-150",
+                              selected
+                                ? "bg-[#1E2F8A] text-white"
+                                : "bg-slate-50 text-slate-700 hover:bg-[#1E2F8A]/10 hover:text-[#1E2F8A]",
+                            ].join(" ")}
+                          >
+                            {opt}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Footer indicatif */}
+                  <div className="border-t border-slate-100 px-4 py-2">
+                    <p className="text-[9.5px] uppercase tracking-[0.1em] text-slate-400">
+                      {openDropdown === "f1"
+                        ? cfg.f1.ph.replace("...", "").trim()
+                        : cfg.f2.ph.replace("...", "").trim()}
+                      {(openDropdown === "f1" ? cfg.f1.optional : cfg.f2.optional)
+                        ? " — facultatif"
+                        : ""}
+                    </p>
+                  </div>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+          </div>
+
+          {/* ── Feedback succès / erreur — tous les onglets ── */}
           <AnimatePresence>
-            {active === "client" && (feedback.kind === "error" || feedback.kind === "success") ? (
+            {feedback.kind === "error" || feedback.kind === "success" ? (
               <motion.div
-                key={`fb-${feedback.kind}`}
+                key={`fb-${feedback.kind}-${active}`}
                 role="status"
                 aria-live="polite"
                 initial={{ opacity: 0, y: -4, height: 0 }}
@@ -274,30 +617,34 @@ export function HeroActionPanel() {
         </div>
       </div>
 
-      {/* ═══ COUCHE 2 : Carte des onglets — fusion visuelle avec le bandeau ═══ */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-full max-w-[780px] px-4">
-        <div className="flex rounded-t-[10px] bg-[#2D9CDB] border border-b-0 border-white/25 overflow-hidden">
+      {/* ── Carte des onglets (flotte au-dessus) ── */}
+      <div className="absolute top-0 left-1/2 z-10 w-full max-w-[780px] -translate-x-1/2 -translate-y-1/2 px-4">
+        <div className="flex overflow-hidden rounded-t-[10px] border border-b-0 border-white/25 bg-[#2D9CDB]">
           {TABS.map((tab, i) => {
             const isActive = active === tab.id;
+            const TabIcon = tab.Icon;
             return (
               <button
                 key={tab.id}
                 type="button"
                 onClick={() => setActive(tab.id)}
                 className={[
-                  "flex flex-1 flex-col items-center gap-1.5 py-4 sm:py-5 px-2",
+                  "flex flex-1 flex-col items-center gap-1.5 px-2 py-4 sm:py-5",
                   "font-[Inter,Helvetica,sans-serif] transition-all duration-200",
                   isActive
                     ? "bg-white/15 text-[#1E2F8A]"
-                    : "text-white/75 hover:text-white hover:bg-white/10",
+                    : "text-white/75 hover:bg-white/10 hover:text-white",
                   i !== TABS.length - 1 ? "border-r border-white/20" : "",
                 ].join(" ")}
               >
-                <tab.Icon className="shrink-0" />
-                <span className={[
-                  "text-[10px] sm:text-[11px] uppercase tracking-[0.08em] sm:tracking-[0.1em] leading-tight whitespace-nowrap",
-                  isActive ? "font-bold" : "font-semibold",
-                ].join(" ")}>
+                <TabIcon className="shrink-0" />
+                <span
+                  className={[
+                    "text-[10px] sm:text-[11px] uppercase leading-tight",
+                    "tracking-[0.08em] sm:tracking-[0.1em] whitespace-nowrap",
+                    isActive ? "font-bold" : "font-semibold",
+                  ].join(" ")}
+                >
                   <span className="sm:hidden">{tab.labelShort}</span>
                   <span className="hidden sm:inline">{tab.label}</span>
                 </span>

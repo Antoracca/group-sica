@@ -257,7 +257,7 @@ export function SiteHeader({
                       <a
                         href={item.href}
                         {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                        className="group inline-flex items-center gap-1.5 text-[0.7rem] font-medium tracking-[0.015em] text-slate-600 transition-colors duration-200 hover:text-brand-royal"
+                        className="group inline-flex items-center gap-1.5 text-[0.7rem] font-medium tracking-[0.015em] text-brand-royal transition-colors duration-200 hover:text-[#0D1A4A]"
                       >
                         {Icon ? (
                           <Icon size={13} weight="light" className="text-brand-royal/50 transition-colors duration-200 group-hover:text-brand-royal" />
