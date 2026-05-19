@@ -3,15 +3,16 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion, useInView, AnimatePresence } from "motion/react";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Container } from "@sica/ui";
 import type { Actualite, ActualiteCategorie } from "@/lib/actualites";
 import { formatDateFr } from "@/lib/actualites";
 
-/* ─── Easing ───────────────────────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════════════════
+   Easing & helpers
+═══════════════════════════════════════════════════════════════════════ */
 const E = [0.16, 1, 0.3, 1] as const;
 
-/* ─── Reveal wrapper ───────────────────────────────────────────────────── */
 function Reveal({
   children,
   delay = 0,
@@ -38,7 +39,16 @@ function Reveal({
   );
 }
 
-/* ─── Couleurs par catégorie ────────────────────────────────────────────── */
+/* Format date court éditorial : "10 DÉC 2025" */
+function formatDateShort(iso: string): string {
+  const d = new Date(iso);
+  const months = ["JAN", "FÉV", "MAR", "AVR", "MAI", "JUIN", "JUIL", "AOÛT", "SEPT", "OCT", "NOV", "DÉC"];
+  return `${d.getDate().toString().padStart(2, "0")} ${months[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   Couleurs par catégorie — accents clairs (cohérent avec news.tsx)
+═══════════════════════════════════════════════════════════════════════ */
 type CatStyle = { accent: string; bg: string; label: string };
 const FALLBACK_CAT: CatStyle = { accent: "#0D1A4A", bg: "rgba(13,26,74,0.09)", label: "#0D1A4A" };
 const CAT: Record<string, CatStyle> = {
@@ -56,16 +66,15 @@ const CATEGORIES: Array<ActualiteCategorie | "Tout"> = [
   "Communauté",
 ];
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════════════════
    HERO
-═══════════════════════════════════════════════════════════════════════════ */
+═══════════════════════════════════════════════════════════════════════ */
 function Hero() {
   return (
     <section
       className="relative overflow-hidden pt-36 pb-20 text-white sm:pt-44 sm:pb-28"
       style={{ background: "linear-gradient(155deg, #060D22 0%, #0F1C55 55%, #1E2F8A 100%)" }}
     >
-      {/* Blueprint grid */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.055]"
@@ -75,7 +84,6 @@ function Hero() {
           backgroundSize: "52px 52px",
         }}
       />
-      {/* Halo ambre discret */}
       <div
         aria-hidden
         className="pointer-events-none absolute -top-20 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full opacity-15"
@@ -83,12 +91,12 @@ function Hero() {
       />
 
       <Container className="relative">
-        {/* Overline */}
         <motion.p
           initial={{ opacity: 0, x: -14 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.55, ease: E }}
           className="mb-7 inline-flex items-center gap-3 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]"
+          style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
         >
           <span className="h-px w-7 bg-[#F39200]" aria-hidden />
           Actualités SICA
@@ -118,7 +126,6 @@ function Hero() {
           Tout ce qui rythme la vie de SICA Construction et SICA Assistance.
         </motion.p>
 
-        {/* Filet séparateur décoratif */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
@@ -130,238 +137,279 @@ function Hero() {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   FEATURED ARTICLE — mise en avant éditoriale
-═══════════════════════════════════════════════════════════════════════════ */
-function FeaturedArticle({ article, index }: { article: Actualite; index: number }) {
+/* ════════════════════════════════════════════════════════════════════════
+   FEATURED ARTICLE — pleine largeur éditoriale (sans filigrane chiffré)
+═══════════════════════════════════════════════════════════════════════ */
+function FeaturedArticle({ article }: { article: Actualite }) {
   const ref = React.useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.12 });
   const cat: CatStyle = CAT[article.categorie] ?? FALLBACK_CAT;
 
   return (
-    <div ref={ref} className="border-b border-neutral-200 py-16 sm:py-20 lg:py-24">
-      <Container>
+    <section
+      ref={ref}
+      className="relative overflow-hidden border-b border-neutral-200 bg-[#FAFAF6] py-20 sm:py-24 lg:py-28"
+    >
+      {/* Texture papier journal */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+          backgroundSize: "180px 180px",
+        }}
+      />
+
+      <Container className="relative">
+        {/* Bandeau "À LA UNE" en haut */}
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6, ease: E }}
+          className="mb-10 flex items-center gap-4"
+        >
+          <span className="h-[1.5px] w-12" style={{ background: "#F39200" }} aria-hidden />
+          <span
+            className="text-[0.7rem] font-bold uppercase tracking-[0.35em] text-[#F39200]"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+          >
+            À la une
+          </span>
+          <span className="text-neutral-300" aria-hidden>·</span>
+          <span
+            className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-neutral-500"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+          >
+            {formatDateShort(article.date)}
+          </span>
+        </motion.div>
+
         <Link href={`/actualites/${article.slug}`} className="group block">
-          <div className="grid items-start gap-10 lg:grid-cols-[1fr_420px] xl:gap-20">
+          <div className="grid items-start gap-12 lg:grid-cols-[1.6fr_1fr] xl:gap-20">
 
-            {/* Colonne gauche — texte éditorial */}
+            {/* Colonne gauche — titre éditorial massif */}
             <div>
-              {/* Numéro éditorial géant */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : {}}
-                transition={{ duration: 0.5 }}
-                className="mb-2 select-none font-black leading-none tracking-tighter text-[#1E2F8A]/[0.07]"
-                style={{
-                  fontFamily: "'DM Serif Display', serif",
-                  fontSize: "clamp(5rem, 12vw, 9rem)",
-                  lineHeight: 0.85,
-                }}
-                aria-hidden
-              >
-                {String(index + 1).padStart(2, "0")}
-              </motion.p>
-
-              {/* Badge + date */}
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
+              <motion.span
+                initial={{ opacity: 0, y: 12 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.55, delay: 0.07, ease: E }}
-                className="mb-5 flex flex-wrap items-center gap-3"
+                transition={{ duration: 0.55, delay: 0.08, ease: E }}
+                className="mb-5 inline-flex items-center gap-2"
               >
                 <span
-                  className="inline-flex items-center rounded-full px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.22em]"
-                  style={{ background: cat.bg, color: cat.label }}
+                  className="inline-block h-[3px] w-6"
+                  style={{ background: cat.accent }}
+                  aria-hidden
+                />
+                <span
+                  className="text-[0.7rem] font-bold uppercase tracking-[0.28em]"
+                  style={{ color: cat.accent, fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
-                  À la une · {article.categorie}
+                  {article.categorie}
                 </span>
-                <time className="text-[0.8125rem] text-neutral-500">
-                  {formatDateFr(article.date)}
-                </time>
-              </motion.div>
+              </motion.span>
 
-              {/* Titre */}
               <motion.h2
                 initial={{ opacity: 0, y: 22 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.12, ease: E }}
-                className="text-balance text-[clamp(1.875rem,3.5vw,2.875rem)] font-bold leading-[1.12] tracking-tight text-[#0D1A4A] transition-colors group-hover:text-[#1E2F8A]"
+                transition={{ duration: 0.85, delay: 0.14, ease: E }}
+                className="text-balance text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-[#0D1A4A] transition-colors duration-300 group-hover:text-[#1E2F8A]"
                 style={{ fontFamily: "'DM Serif Display', serif" }}
               >
                 {article.titre}
               </motion.h2>
 
-              {/* Chapo */}
               <motion.p
                 initial={{ opacity: 0, y: 16 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.72, delay: 0.2, ease: E }}
-                className="mt-5 text-[1.0625rem] leading-[1.72] text-neutral-600"
+                transition={{ duration: 0.72, delay: 0.24, ease: E }}
+                className="mt-6 max-w-[58ch] text-[1.0625rem] leading-[1.74] text-neutral-600"
               >
                 {article.chapo}
               </motion.p>
 
-              {/* CTA */}
-              <motion.span
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={inView ? { opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="mt-7 inline-flex items-center gap-2 text-[0.875rem] font-semibold text-[#1E2F8A] transition-colors group-hover:text-[#F39200]"
+                transition={{ duration: 0.5, delay: 0.34 }}
+                className="mt-8 inline-flex items-center gap-3"
               >
-                Lire l'article complet
-                <ArrowRight
-                  size={14}
-                  className="transition-transform group-hover:translate-x-1"
+                <span
+                  className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#1E2F8A] transition-colors group-hover:text-[#F39200]"
+                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                >
+                  Lire l'article complet
+                </span>
+                <ArrowUpRight
+                  size={16}
+                  className="text-[#1E2F8A] transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:text-[#F39200]"
                 />
-              </motion.span>
+              </motion.div>
             </div>
 
-            {/* Colonne droite — encart visuel éditorial */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.82, delay: 0.18, ease: E }}
-              className="relative"
+            {/* Colonne droite — pull-quote éditorial sobre */}
+            <motion.aside
+              initial={{ opacity: 0, x: 28 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.85, delay: 0.22, ease: E }}
+              className="relative lg:pt-10"
             >
-              <div
-                className="relative overflow-hidden rounded-2xl p-8 sm:p-10"
-                style={{
-                  background: `linear-gradient(145deg, ${cat.accent} 0%, #060D22 100%)`,
-                }}
-              >
-                {/* Blueprint grid */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 opacity-[0.06]"
-                  style={{
-                    backgroundImage:
-                      "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><path d='M40 0H0V40' fill='none' stroke='white' stroke-width='0.5'/></svg>\")",
-                    backgroundSize: "40px 40px",
-                  }}
-                />
-
-                {/* Pull-quote éditorial */}
+              {/* Filet d'accent vertical à gauche */}
+              <span
+                className="absolute left-0 top-10 hidden h-[80%] w-[2px] lg:block"
+                style={{ background: cat.accent, opacity: 0.7 }}
+                aria-hidden
+              />
+              <div className="lg:pl-8">
                 <p
-                  className="relative text-[0.72rem] font-bold uppercase tracking-[0.28em] text-white/35"
+                  className="text-[0.7rem] font-bold uppercase tracking-[0.28em] text-neutral-400"
+                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
                   Extrait
                 </p>
                 <blockquote
-                  className="relative mt-4 text-[1.05rem] italic leading-[1.7] text-white/80"
+                  className="mt-3 text-[1.125rem] italic leading-[1.7] text-neutral-700"
                   style={{ fontFamily: "'DM Serif Display', serif" }}
                 >
-                  "{(article.contenu[0] ?? "").slice(0, 160)}…"
+                  "{(article.contenu[0] ?? "").slice(0, 180)}…"
                 </blockquote>
-
-                {/* Filet ambre */}
-                <div
-                  aria-hidden
-                  className="mt-7 h-px w-16"
-                  style={{ background: "#F39200" }}
-                />
-
-                {/* Meta */}
-                <div className="mt-5 flex items-center gap-4">
-                  <span className="text-[0.78rem] text-white/45">{article.auteur}</span>
-                  <span className="flex items-center gap-1.5 text-[0.78rem] text-white/35">
-                    <Clock size={11} strokeWidth={2} />
-                    {article.lecture}
+                <div className="mt-7 flex flex-col gap-1.5">
+                  <span
+                    className="text-[0.68rem] font-bold uppercase tracking-[0.22em] text-neutral-500"
+                    style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                  >
+                    {article.auteur}
+                  </span>
+                  <span
+                    className="text-[0.68rem] uppercase tracking-[0.18em] text-neutral-400"
+                    style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                  >
+                    {article.lecture} de lecture
                   </span>
                 </div>
               </div>
-            </motion.div>
+            </motion.aside>
           </div>
         </Link>
       </Container>
-    </div>
+    </section>
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   ARTICLE CARD — grille magazine
-═══════════════════════════════════════════════════════════════════════════ */
-function ArticleCard({
+/* ════════════════════════════════════════════════════════════════════════
+   ARTICLE ROW — ligne éditoriale (pas de card, pas de border rounded)
+   Variant "large" tous les 4 articles : titre plus grand, layout différent
+═══════════════════════════════════════════════════════════════════════ */
+function ArticleRow({
   article,
-  index,
+  variant,
 }: {
   article: Actualite;
-  index: number;
+  variant: "large" | "standard";
 }) {
   const cat: CatStyle = CAT[article.categorie] ?? FALLBACK_CAT;
+  const isLarge = variant === "large";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
+    <motion.li
+      initial={{ opacity: 0, y: 22 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12, scale: 0.97 }}
-      transition={{ duration: 0.5, delay: index * 0.055, ease: E }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.55, ease: E }}
+      className="group relative"
     >
       <Link
         href={`/actualites/${article.slug}`}
-        className="group flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-all duration-300 hover:border-transparent hover:shadow-[0_8px_40px_rgba(30,47,138,0.10)]"
+        className="relative flex flex-col gap-5 py-9 transition-colors duration-300 sm:py-10 lg:flex-row lg:items-start lg:gap-10 lg:py-12"
+        aria-label={`Lire : ${article.titre}`}
       >
-        {/* Barre accent catégorie */}
-        <div
-          className="h-[3px] w-full transition-transform duration-500 group-hover:scale-x-100"
-          style={{ background: cat.accent, transformOrigin: "left" }}
+        {/* ─ Filet d'accent vertical (subtil → s'élargit au hover) ─ */}
+        <span
+          aria-hidden
+          className="absolute left-0 top-9 h-12 w-[2px] transition-all duration-500 group-hover:h-[calc(100%-3rem)] group-hover:w-[3px] sm:top-10"
+          style={{ background: cat.accent }}
         />
 
-        <div className="flex flex-1 flex-col p-6 sm:p-7">
-          {/* Numéro + catégorie */}
-          <div className="mb-5 flex items-center justify-between">
-            <span
-              className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-[0.18em]"
-              style={{ background: cat.bg, color: cat.label }}
-            >
-              {article.categorie}
-            </span>
-            <span
-              className="select-none font-black text-[1.75rem] leading-none text-[#1E2F8A]/[0.08]"
-              style={{ fontFamily: "'DM Serif Display', serif" }}
-              aria-hidden
-            >
-              {String(index + 1).padStart(2, "0")}
-            </span>
-          </div>
+        {/* ─ Halo ambre qui se révèle au hover, parfaitement sobre ─ */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -inset-x-4 inset-y-0 -z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(243,146,0,0.04) 0%, rgba(243,146,0,0.015) 50%, transparent 100%)",
+          }}
+        />
 
-          {/* Date */}
-          <time className="mb-2.5 text-[0.75rem] text-neutral-400">
-            {formatDateFr(article.date)}
+        {/* ─ COLONNE GAUCHE : méta + date verticale (desktop), inline (mobile) ─ */}
+        <div className="flex shrink-0 items-center gap-4 pl-6 lg:w-[200px] lg:flex-col lg:items-start lg:gap-3 lg:pt-2 lg:pl-8">
+          <span
+            className="text-[0.65rem] font-bold uppercase tracking-[0.28em]"
+            style={{ color: cat.accent, fontFamily: "'Barlow Condensed', sans-serif" }}
+          >
+            {article.categorie}
+          </span>
+          <span className="text-neutral-300 lg:hidden" aria-hidden>·</span>
+          <time
+            className="tabular-nums text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-neutral-500"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+          >
+            {formatDateShort(article.date)}
           </time>
+        </div>
 
-          {/* Titre */}
+        {/* ─ COLONNE CENTRE : titre + chapô ─ */}
+        <div className="flex-1 pl-6 lg:pl-0">
           <h3
-            className="flex-1 text-balance text-[1.125rem] font-bold leading-[1.22] tracking-tight text-[#0D1A4A] transition-colors group-hover:text-[#1E2F8A]"
+            className={[
+              "text-balance font-bold leading-[1.16] tracking-tight text-[#0D1A4A] transition-colors duration-300 group-hover:text-[#1E2F8A]",
+              isLarge
+                ? "text-[clamp(1.625rem,2.6vw,2.25rem)]"
+                : "text-[clamp(1.25rem,2vw,1.625rem)]",
+            ].join(" ")}
             style={{ fontFamily: "'DM Serif Display', serif" }}
           >
             {article.titre}
           </h3>
 
-          {/* Chapo */}
-          <p className="mt-3 line-clamp-3 text-[0.875rem] leading-[1.65] text-neutral-600">
+          <p
+            className={[
+              "mt-3 text-pretty leading-[1.68] text-neutral-600",
+              isLarge ? "max-w-[62ch] text-[1rem]" : "max-w-[58ch] line-clamp-2 text-[0.9375rem]",
+            ].join(" ")}
+          >
             {article.chapo}
           </p>
 
-          {/* Footer */}
-          <div className="mt-6 flex items-center justify-between border-t border-neutral-100 pt-4">
-            <span className="flex items-center gap-1.5 text-[0.75rem] text-neutral-400">
-              <Clock size={11} strokeWidth={2} />
-              {article.lecture}
+          {/* Méta ligne basse : lire + temps */}
+          <div className="mt-5 flex items-center gap-5">
+            <span
+              className="inline-flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-[#1E2F8A] transition-colors group-hover:text-[#F39200]"
+              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+            >
+              <span className="h-px w-5 bg-current transition-all duration-300 group-hover:w-9" aria-hidden />
+              Lire l'article
+              <ArrowUpRight
+                size={13}
+                strokeWidth={2.4}
+                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
             </span>
-            <span className="inline-flex items-center gap-1 text-[0.8125rem] font-semibold text-[#1E2F8A] transition-colors group-hover:text-[#F39200]">
-              Lire
-              <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+            <span
+              className="text-[0.68rem] tabular-nums uppercase tracking-[0.18em] text-neutral-400"
+              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+            >
+              {article.lecture}
             </span>
           </div>
         </div>
       </Link>
-    </motion.div>
+    </motion.li>
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════════════════
    COMPOSANT PRINCIPAL
-═══════════════════════════════════════════════════════════════════════════ */
+═══════════════════════════════════════════════════════════════════════ */
 export function ActualitesContent({ articles }: { articles: Actualite[] }) {
   const [activeFilter, setActiveFilter] = React.useState<ActualiteCategorie | "Tout">("Tout");
 
@@ -380,27 +428,47 @@ export function ActualitesContent({ articles }: { articles: Actualite[] }) {
       <Hero />
 
       {/* ── À LA UNE ── */}
-      {featured && <FeaturedArticle article={featured} index={0} />}
+      {featured && <FeaturedArticle article={featured} />}
 
-      {/* ── GRILLE ARTICLES ── */}
+      {/* ══════════════════════════════════════════════════════════════
+          LISTE ÉDITORIALE — pas de cards, layout journal
+          Filets verticaux d'accent + séparateurs fins horizontaux
+      ══════════════════════════════════════════════════════════════ */}
       {rest.length > 0 && (
-        <section className="bg-[#F8F8F5] py-16 sm:py-20 lg:py-24">
-          <Container>
-            {/* En-tête section + filtres */}
-            <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <section className="relative overflow-hidden bg-[#FBF7EE] py-16 sm:py-20 lg:py-24">
+          {/* Texture papier journal très subtile */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-[0.035]"
+            style={{
+              backgroundImage:
+                "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+              backgroundSize: "180px 180px",
+            }}
+          />
+
+          <Container className="relative">
+            {/* ─ En-tête section + filtres ─ */}
+            <div className="mb-12 flex flex-col gap-7 border-b border-[#1E2F8A]/12 pb-10 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
               <Reveal>
-                <p className="text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
-                  Tous les articles
-                </p>
+                <div className="flex items-center gap-3">
+                  <span className="h-[1.5px] w-8 bg-[#F39200]" aria-hidden />
+                  <span
+                    className="text-[0.7rem] font-bold uppercase tracking-[0.32em] text-[#F39200]"
+                    style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                  >
+                    Toute l'actualité
+                  </span>
+                </div>
                 <h2
-                  className="mt-2 text-[1.375rem] font-bold leading-tight tracking-tight text-[#0D1A4A]"
+                  className="mt-4 text-balance text-[clamp(1.625rem,3vw,2.25rem)] font-bold leading-[1.1] tracking-tight text-[#0D1A4A]"
                   style={{ fontFamily: "'DM Serif Display', serif" }}
                 >
-                  Filtrer par thème
+                  Chroniques du Groupe SICA.
                 </h2>
               </Reveal>
 
-              {/* Pills filtre */}
+              {/* ─ Pills filtre, alignés à droite, look journal ─ */}
               <Reveal delay={0.05}>
                 <div className="flex flex-wrap gap-2">
                   {CATEGORIES.map((cat) => {
@@ -411,11 +479,12 @@ export function ActualitesContent({ articles }: { articles: Actualite[] }) {
                         type="button"
                         onClick={() => setActiveFilter(cat)}
                         className={[
-                          "rounded-full border px-4 py-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] transition-all duration-200",
+                          "px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.18em] transition-all duration-200",
                           isActive
-                            ? "border-[#1E2F8A] bg-[#1E2F8A] text-white shadow-sm"
-                            : "border-neutral-300 bg-white text-neutral-600 hover:border-[#1E2F8A] hover:text-[#1E2F8A]",
+                            ? "bg-[#1E2F8A] text-white shadow-[0_2px_12px_rgba(30,47,138,0.25)]"
+                            : "bg-transparent text-neutral-500 hover:bg-[#1E2F8A]/[0.05] hover:text-[#1E2F8A]",
                         ].join(" ")}
+                        style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                       >
                         {cat}
                       </button>
@@ -425,28 +494,33 @@ export function ActualitesContent({ articles }: { articles: Actualite[] }) {
               </Reveal>
             </div>
 
-            {/* Grille */}
-            <AnimatePresence mode="popLayout">
+            {/* ─ Liste éditoriale verticale (pas de grid, pas de cards) ─ */}
+            <AnimatePresence mode="wait">
               {filtered.length > 0 ? (
-                <motion.div
+                <motion.ul
                   key={activeFilter}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.25 }}
-                  className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                  transition={{ duration: 0.3 }}
+                  className="divide-y divide-[#1E2F8A]/12"
                 >
                   {filtered.map((a, i) => (
-                    <ArticleCard key={a.slug} article={a} index={i} />
+                    <ArticleRow
+                      key={a.slug}
+                      article={a}
+                      /* Une ligne sur 4 passe en "large" pour rythmer la page */
+                      variant={i % 4 === 0 ? "large" : "standard"}
+                    />
                   ))}
-                </motion.div>
+                </motion.ul>
               ) : (
                 <motion.div
                   key="empty"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="py-16 text-center"
+                  className="border-t border-[#1E2F8A]/12 py-16 text-center"
                 >
                   <p className="text-[0.875rem] text-neutral-500">
                     Aucun article dans cette catégorie pour le moment.
@@ -454,28 +528,52 @@ export function ActualitesContent({ articles }: { articles: Actualite[] }) {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {/* Pied de section — colophon éditorial */}
+            <div className="mt-12 flex items-center justify-between border-t border-[#1E2F8A]/12 pt-7">
+              <span
+                className="text-[0.68rem] font-bold uppercase tracking-[0.28em] text-neutral-400"
+                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+              >
+                Le journal du Groupe SICA
+              </span>
+              <span
+                className="text-[0.68rem] tabular-nums uppercase tracking-[0.18em] text-neutral-400"
+                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+              >
+                {filtered.length} {filtered.length > 1 ? "articles" : "article"}
+              </span>
+            </div>
           </Container>
         </section>
       )}
 
-      {/* ── PRIX ET RÉCOMPENSES — placeholder ── */}
+      {/* ══════════════════════════════════════════════════════════════
+          PRIX ET RÉCOMPENSES — placeholder éditorial
+      ══════════════════════════════════════════════════════════════ */}
       <section className="border-t border-neutral-200 bg-white py-16 sm:py-20">
         <Container>
           <Reveal>
-            <p className="mb-3 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
-              Prix et Récompenses
-            </p>
+            <div className="flex items-center gap-3">
+              <span className="h-[1.5px] w-8 bg-[#F39200]" aria-hidden />
+              <span
+                className="text-[0.7rem] font-bold uppercase tracking-[0.32em] text-[#F39200]"
+                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+              >
+                Prix et récompenses
+              </span>
+            </div>
           </Reveal>
           <Reveal delay={0.07}>
             <h2
-              className="mb-10 text-[1.375rem] font-bold leading-tight tracking-tight text-[#0D1A4A]"
+              className="mb-10 mt-4 text-balance text-[clamp(1.625rem,3vw,2.25rem)] font-bold leading-[1.1] tracking-tight text-[#0D1A4A]"
               style={{ fontFamily: "'DM Serif Display', serif" }}
             >
-              Distinctions du Groupe
+              Distinctions du Groupe.
             </h2>
           </Reveal>
           <Reveal delay={0.14}>
-            <div className="flex items-center gap-4 rounded-2xl border border-dashed border-neutral-300 bg-[#F8F8F5] px-7 py-8">
+            <div className="flex items-center gap-5 border-l-[2px] border-[#F39200] bg-[#FBF7EE] px-7 py-7">
               <div
                 className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
                 style={{ background: "rgba(243,146,0,0.10)" }}

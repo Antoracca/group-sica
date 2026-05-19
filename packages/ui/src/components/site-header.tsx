@@ -515,14 +515,18 @@ export function SiteHeader({
 
               <a
                 href="/espace-client"
+                aria-label="Espace client"
                 className={cn(
                   "inline-flex items-center gap-1.5 text-[0.7rem] font-bold uppercase tracking-[0.04em] transition-all duration-200",
                   "lg:rounded-full lg:border lg:px-4 lg:py-2",
-                  isTop ? "text-white" : "text-brand-royal",
+                  /* Mobile : toujours blanc — la navbar mobile est soit transparente
+                     sur hero sombre, soit bleue au scroll : dans les deux cas blanc
+                     est le seul choix lisible. Bleu royal sur bleu = invisible (bug). */
+                  "text-white",
                   "lg:text-white lg:border-brand-amber lg:bg-brand-amber lg:hover:brightness-110 lg:shadow-[0_2px_14px_rgba(247,160,38,0.30)]",
                 )}
               >
-                <UserCircle size={16} weight="light" className="shrink-0" aria-hidden />
+                <UserCircle size={18} weight="regular" className="shrink-0" aria-hidden />
                 <span className="hidden lg:inline">Espace client</span>
               </a>
             </div>
