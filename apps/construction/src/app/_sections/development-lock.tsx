@@ -61,16 +61,19 @@ export function DevelopmentLock({ children }: { children: ReactNode }) {
             </p>
 
             <div className="mt-7">
-              <div className="flex items-center justify-between text-sm font-semibold text-slate-700">
-                <span>Progression globale</span>
-                <span>{PROGRESS_VALUE}%</span>
-              </div>
-              <div className="relative mt-3 h-4 overflow-hidden rounded-full border border-slate-200 bg-slate-100">
+              <div className="text-sm font-semibold text-slate-700">Progression globale</div>
+              <div className="relative mt-8 h-4 overflow-hidden rounded-full border border-slate-200 bg-slate-100">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-yellow-400 via-orange-500 to-emerald-500" />
                 <div
                   className="absolute right-0 top-0 h-full bg-white/88"
                   style={{ width: `${100 - PROGRESS_VALUE}%` }}
                 />
+                <div
+                  className="absolute -top-8 -translate-x-1/2 rounded-md bg-slate-900 px-2 py-1 text-[0.7rem] font-semibold text-white"
+                  style={{ left: `${PROGRESS_VALUE}%` }}
+                >
+                  {PROGRESS_VALUE}%
+                </div>
                 <div
                   className="absolute top-[-4px] h-6 w-1.5 rounded-full bg-slate-900"
                   style={{ left: `calc(${PROGRESS_VALUE}% - 3px)` }}

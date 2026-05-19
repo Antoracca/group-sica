@@ -6,10 +6,11 @@ export function HeroConstruction() {
   return (
     <section id="hero" className="relative isolate overflow-hidden bg-brand-royal-900 text-white">
       <Image
-        src="/media/projects/sgci/sgci-1.jpeg"
+        src="/EQUIPE2.jpeg"
         alt=""
         fill
         priority
+        quality={100}
         sizes="100vw"
         className="object-cover object-center"
       />
