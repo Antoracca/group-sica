@@ -6,8 +6,11 @@ import Image from "next/image";
 /* ─────────────────────────────────────────────────────────────────────────────
    SICA ASSISTANCE — Page "Bientôt disponible"
    Palette : Navy profond #0B1120 · Royal Blue #1E2F8A · Ambre #F39200 · Blanc
-   Typographie : Sora (display) · Inter (body)
 ───────────────────────────────────────────────────────────────────────────── */
+
+const GROUPE_URL =
+  process.env.NEXT_PUBLIC_GROUPE_URL?.replace(/\/+$/, "") ||
+  "https://groupesica.ci";
 
 export default function AssistancePage() {
   const [email, setEmail] = React.useState("");
@@ -75,9 +78,18 @@ export default function AssistancePage() {
           priority
         />
         <a
-          href="https://groupesica.ci"
-          className="flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-4 py-2 text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-white/60 backdrop-blur-sm transition-all hover:border-white/25 hover:text-white"
+          href={GROUPE_URL}
+          className="flex items-center gap-2.5 rounded-full border border-white/12 bg-white/[0.05] px-4 py-2 text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-white/60 backdrop-blur-sm transition-all hover:border-white/25 hover:text-white"
         >
+          {/* Logo Groupe SICA miniature */}
+          <Image
+            src="/logo-groupe.png"
+            alt=""
+            aria-hidden
+            width={80}
+            height={32}
+            className="h-4 w-auto object-contain opacity-70"
+          />
           Groupe SICA
           <span aria-hidden className="text-[#F39200]">↗</span>
         </a>
@@ -88,22 +100,10 @@ export default function AssistancePage() {
         id="main-content"
         className="relative z-10 flex flex-1 flex-col items-center justify-center px-5 py-20 text-center sm:px-10"
       >
-        {/* Badge statut */}
-        <div
-          className="mb-10 inline-flex items-center gap-2.5 rounded-full border px-4 py-2"
-          style={{
-            borderColor: "rgba(243,146,0,0.3)",
-            background: "rgba(243,146,0,0.08)",
-          }}
-        >
-          <span
-            className="block h-2 w-2 rounded-full bg-[#F39200]"
-            style={{ boxShadow: "0 0 8px rgba(243,146,0,0.7)" }}
-          />
-          <span className="text-[0.68rem] font-bold uppercase tracking-[0.26em] text-[#F39200]">
-            En cours de déploiement
-          </span>
-        </div>
+        {/* Surtitre discret — remplace le badge orange */}
+        <p className="mb-6 text-[0.7rem] font-bold uppercase tracking-[0.32em] text-[#F39200]/70">
+          Pôle Conseil et Gestion
+        </p>
 
         {/* Titre principal */}
         <h1
@@ -117,8 +117,8 @@ export default function AssistancePage() {
 
         {/* Description */}
         <p className="mx-auto mt-7 max-w-[52ch] text-pretty text-[1.05rem] leading-[1.75] text-white/52">
-          Comptabilité, fiscalité, paie, création d'entreprise — notre équipe
-          ivoirienne prépare une offre complète d'accompagnement pour les PME et
+          Comptabilité, fiscalité, paie, création d&apos;entreprise — notre équipe
+          ivoirienne prépare une offre complète d&apos;accompagnement pour les PME et
           entrepreneurs.
         </p>
 
@@ -140,7 +140,6 @@ export default function AssistancePage() {
               background: "rgba(243,146,0,0.07)",
             }}
           >
-            {/* Coche minimaliste sans icône générique */}
             <div
               className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
               style={{ background: "rgba(243,146,0,0.18)" }}
@@ -218,14 +217,14 @@ export default function AssistancePage() {
             groupesica@gmail.com
           </a>
           <span aria-hidden className="text-white/18">·</span>
-          <span className="text-[0.82rem] text-white/28">Abidjan, Côte d'Ivoire</span>
+          <span className="text-[0.82rem] text-white/28">Abidjan, Côte d&apos;Ivoire</span>
         </div>
       </main>
 
       {/* ── Footer minimal ─────────────────────────────────────────────────── */}
       <footer className="relative z-10 border-t border-white/[0.06] px-6 py-6 text-center sm:px-10">
         <p className="text-[0.68rem] text-white/20">
-          © {new Date().getFullYear()} SICA Assistance · Groupe SICA · Côte d'Ivoire
+          © {new Date().getFullYear()} SICA Assistance · Groupe SICA · Côte d&apos;Ivoire
         </p>
       </footer>
     </div>

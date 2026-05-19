@@ -3,80 +3,115 @@ import type { TopNavItem } from "../components/site-header";
 /* ════════════════════════════════════════════════════════════════════════
    TOP-NAV ADAPTATIF PAR SITE
    ────────────────────────────────────────────────────────────────────────
-   Le top-nav (bandeau gris fin tout en haut du header) liste les LIENS
-   CROSS-SITES et utilitaires. Règle :
-
-   ● Sur le site Groupe        → afficher Construction + Assistance + utilitaires
-   ● Sur le site Construction  → afficher Groupe + Assistance + utilitaires
-   ● Sur le site Assistance    → afficher Groupe + Construction + utilitaires
-
-   On n'affiche JAMAIS le lien du site sur lequel on se trouve déjà.
+   Règle :
+   ● Sur le site Groupe        → Corporate + cross-links Construction / Assistance / SICA + Partenaires + Contact
+   ● Sur le site Construction  → cross-links Groupe / Assistance / SICA + Contact
+   ● Sur le site Assistance    → cross-links Groupe / Construction / SICA + Contact
+   On n'affiche JAMAIS le lien du site courant dans le topNav.
 ═══════════════════════════════════════════════════════════════════════ */
 
 export type SiteBrand = "groupe" | "construction" | "assistance";
 
 interface TopNavOptions {
-  /** URLs externes des autres sites SICA — passées par l'app appelante */
   groupeUrl?: string;
   constructionUrl?: string;
   assistanceUrl?: string;
+  landingUrl?: string;
 }
 
 const DEFAULTS = {
   groupeUrl: "https://groupesica.ci",
   constructionUrl: "https://sicaconstruction.ci",
   assistanceUrl: "https://sicaassistance.ci",
+  landingUrl: "https://sica.ci",
 } as const;
 
 export function getTopNav(brand: SiteBrand, options: TopNavOptions = {}): TopNavItem[] {
   const groupeUrl = options.groupeUrl ?? DEFAULTS.groupeUrl;
   const constructionUrl = options.constructionUrl ?? DEFAULTS.constructionUrl;
   const assistanceUrl = options.assistanceUrl ?? DEFAULTS.assistanceUrl;
+  const landingUrl = options.landingUrl ?? DEFAULTS.landingUrl;
 
-  /* ── Site GROUPE — pas de duplication Construction/Assistance dans topNav ──
-     Le mainNav contient déjà ces 2 pôles, on ne les répète PAS en haut.
-     Items : Corporate (→ /a-propos) · Réalisations · Partenaires · Carrières · Contact */
+  /* ── Site GROUPE ───────────────────────────────────────────────────────
+     Corporate (interne) + cross-links Construction / Assistance / SICA
+     + Partenaires + Contact. Pas de Carrières, pas de Réalisations dans topNav.
+  ───────────────────────────────────────────────────────────────────── */
   if (brand === "groupe") {
     return [
-      { label: "Corporate", href: "/a-propos", icon: "building" },
-      { label: "Réalisations", href: "/realisations", icon: "realisations" },
-      { label: "Partenaires", href: "/partenaires", icon: "users" },
-      { label: "Carrières", href: "/carrieres", icon: "briefcase" },
-      { label: "Contact", href: "/contact", icon: "phone" },
+      {
+        label: "Corporate",
+        href: "/a-propos",
+        logoSrc: "/logo-groupe.png",
+      },
+      {
+        label: "Construction",
+        href: constructionUrl,
+        external: true,
+        logoSrc: "/logo-construction.png",
+      },
+      {
+        label: "Assistance",
+        href: assistanceUrl,
+        external: true,
+        logoSrc: "/logo-assistance.png",
+      },
+      {
+        label: "SICA",
+        href: landingUrl,
+        external: true,
+        icon: "compass",
+      },
+      {
+        label: "Partenaires",
+        href: "/partenaires",
+        icon: "users",
+      },
+      {
+        label: "Contact",
+        href: "/contact",
+        icon: "phone",
+      },
     ];
   }
 
   /* ── Sites Construction / Assistance — cross-links + utilitaires ────── */
-  const crossLinks: TopNavItem[] = [
-    {
-      label: "Groupe SICA",
-      href: groupeUrl,
-      external: true,
-      icon: "building",
-    },
-  ];
+  const items: TopNavItem[] = [];
+
+  // Toujours afficher le lien Groupe SICA avec son logo
+  items.push({
+    label: "Groupe SICA",
+    href: groupeUrl,
+    external: true,
+    logoSrc: "/logo-groupe.png",
+  });
 
   if (brand !== "construction") {
-    crossLinks.push({
+    items.push({
       label: "Construction",
       href: constructionUrl,
       external: true,
-      icon: "construction",
+      logoSrc: "/logo-construction.png",
     });
   }
+
   if (brand !== "assistance") {
-    crossLinks.push({
+    items.push({
       label: "Assistance",
       href: assistanceUrl,
       external: true,
-      icon: "assistance",
+      logoSrc: "/logo-assistance.png",
     });
   }
 
-  const utility: TopNavItem[] = [
-    { label: "Carrières", href: `${groupeUrl}/carrieres`, external: true, icon: "briefcase" },
-    { label: "Contact", href: "/contact", icon: "phone" },
-  ];
+  // Lien SICA landing — toujours présent
+  items.push({
+    label: "SICA",
+    href: landingUrl,
+    external: true,
+    icon: "compass",
+  });
 
-  return [...crossLinks, ...utility];
+  items.push({ label: "Contact", href: "/contact", icon: "phone" });
+
+  return items;
 }

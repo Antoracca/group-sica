@@ -24,6 +24,9 @@ interface PageShellProps {
 export function PageShell({ children, headerSolid = true }: PageShellProps) {
   const topNav = getTopNav("groupe", {
     constructionUrl: links.construction.base,
+    assistanceUrl: links.assistance.base,
+    groupeUrl: links.groupe.base,
+    landingUrl: links.landing.base,
   });
 
   return (

@@ -1,4 +1,4 @@
-import type { NavItem, TopNavItem } from "@sica/ui";
+import { getTopNav, type NavItem } from "@sica/ui";
 import { links } from "@/lib/links";
 
 /* ════════════════════════════════════════════════════════════════════════
@@ -163,30 +163,10 @@ export const mainNav: NavItem[] = [
    `getTopNav("construction" | "assistance")` exporté par @sica/ui.
 ═══════════════════════════════════════════════════════════════════════ */
 
-export const topNav: TopNavItem[] = [
-  {
-    label: "Corporate",
-    href: "/a-propos",
-    icon: "building",
-  },
-  {
-    label: "Réalisations",
-    href: "/realisations",
-    icon: "realisations",
-  },
-  {
-    label: "Partenaires",
-    href: "/partenaires",
-    icon: "users",
-  },
-  {
-    label: "Carrières",
-    href: "/carrieres",
-    icon: "briefcase",
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-    icon: "phone",
-  },
-];
+/* Délégué à getTopNav pour rester synchronisé avec le shared package */
+export const topNav = getTopNav("groupe", {
+  constructionUrl: links.construction.base,
+  assistanceUrl: links.assistance.base,
+  groupeUrl: links.groupe.base,
+  landingUrl: links.landing.base,
+});

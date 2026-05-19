@@ -90,5 +90,6 @@ export const constructionTopNav = getTopNav("construction", {
   constructionUrl: links.construction.base,
   groupeUrl: links.groupe.base,
   assistanceUrl: links.assistance.base,
+  landingUrl: links.landing.base,
 });
 

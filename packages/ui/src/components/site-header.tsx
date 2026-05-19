@@ -59,6 +59,8 @@ export interface TopNavItem {
   href: string;
   external?: boolean;
   icon?: TopNavIcon;
+  /** Chemin vers un logo image à afficher à la place de l'icône Phosphor */
+  logoSrc?: string;
 }
 
 const TOP_ICONS: Record<
@@ -259,7 +261,15 @@ export function SiteHeader({
                         {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                         className="group inline-flex items-center gap-1.5 text-[0.7rem] font-medium tracking-[0.015em] text-brand-royal transition-colors duration-200 hover:text-[#0D1A4A]"
                       >
-                        {Icon ? (
+                        {item.logoSrc ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={item.logoSrc}
+                            alt=""
+                            aria-hidden
+                            className="h-[1.1rem] w-auto object-contain opacity-85 transition-opacity duration-200 group-hover:opacity-100"
+                          />
+                        ) : Icon ? (
                           <Icon size={13} weight="light" className="text-brand-royal/50 transition-colors duration-200 group-hover:text-brand-royal" />
                         ) : null}
                         {item.label}
@@ -761,7 +771,15 @@ export function SiteHeader({
                           onClick={() => setMobileOpen(false)}
                           className="group flex shrink-0 items-center gap-1.5 rounded-full border border-brand-royal/10 bg-white/80 px-3 py-1.5 text-[0.68rem] font-semibold text-brand-royal/80 shadow-[0_1px_4px_rgba(7,20,74,0.06)] transition-all hover:border-brand-royal/20 hover:bg-brand-royal hover:text-white active:scale-95"
                         >
-                          {Icon ? (
+                          {item.logoSrc ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={item.logoSrc}
+                              alt=""
+                              aria-hidden
+                              className="h-3.5 w-auto object-contain opacity-80 transition-opacity group-hover:opacity-100 group-hover:brightness-200"
+                            />
+                          ) : Icon ? (
                             <Icon size={12} weight="light" className="text-brand-amber transition-colors group-hover:text-white/90" />
                           ) : null}
                           {item.label}
