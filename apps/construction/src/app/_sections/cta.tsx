@@ -1,33 +1,42 @@
 import { Button, Container } from "@sica/ui";
+import Image from "next/image";
 
 export function CtaConstruction() {
   return (
-    <section className="relative overflow-hidden bg-brand-royal py-16 text-white sm:py-20">
-      <div aria-hidden className="absolute inset-0 bg-[radial-gradient(70%_80%_at_80%_0%,rgba(243,146,0,0.3),transparent_70%)]" />
-      <Container className="relative z-10">
-        <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-amber">
-              Prêt à lancer
-            </p>
-            <h2 className="mt-3 font-display text-[clamp(2rem,4.8vw,3.6rem)] font-bold leading-tight">
-              On transforme ton cahier des charges en plan d'exécution.
-            </h2>
-            <p className="mt-4 max-w-2xl text-sm text-white/85 sm:text-base">
-              Donne-nous ton type de projet, ta surface et ta localité. On te retourne
-              une première lecture technique exploitable.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-            <Button asChild variant="accent" size="lg" className="w-full justify-center">
-              <a href="/devis">Demander un devis</a>
-            </Button>
-            <Button asChild variant="on-dark-outline" size="lg" className="w-full justify-center">
-              <a href="tel:+2250709883293">Parler à un expert chantier</a>
-            </Button>
-          </div>
+    <section className="relative overflow-hidden bg-white pt-16 sm:pt-24">
+      <Container className="relative z-10 flex flex-col items-center text-center">
+        <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-brand-amber">
+          Prêt à lancer
+        </p>
+        
+        <h2 className="mt-4 font-display text-[clamp(2.5rem,5vw,4.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink text-balance max-w-5xl">
+          On transforme ton cahier des charges en plan d'exécution.
+        </h2>
+        
+        <div className="mt-10 flex flex-col items-center">
+          <Button asChild variant="accent" size="lg" className="h-14 px-10 text-base font-bold shadow-xl shadow-brand-amber/20">
+            <a href="tel:+2250709883293">Parler à un expert chantier</a>
+          </Button>
+          <p className="mt-3 text-sm font-medium text-slate-500">
+            Temps de réponse inférieur à 5 minutes.
+          </p>
         </div>
       </Container>
+
+      {/* Image EQUIPE2 fondue dans le décor (pleine largeur) */}
+      <div className="relative mt-12 w-full lg:mt-16">
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white/10 z-10" />
+        <div className="relative aspect-[4/3] w-full sm:aspect-[21/9] lg:aspect-[3/1]">
+          <Image
+            src="/equipe2.jpg"
+            alt="Équipe SICA Construction"
+            fill
+            className="object-cover object-top"
+            sizes="100vw"
+            quality={90}
+          />
+        </div>
+      </div>
     </section>
   );
 }

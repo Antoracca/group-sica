@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Container, Logo, SiteHeader, getTopNav } from "@sica/ui";
+import { Container, Logo, SiteHeader, StickyCtaMobile, getTopNav } from "@sica/ui";
 import { mainNav } from "@/lib/nav";
 import { links } from "@/lib/links";
 import { Footer } from "@/components/footer";
@@ -65,6 +65,12 @@ export default function HomePage() {
       </main>
 
       <Footer />
+
+      {/* Sticky bottom CTA — mobile uniquement, apparaît après hero scrollé */}
+      <StickyCtaMobile
+        devisHref={links.construction.devis}
+        phoneHref="tel:+2250709883293"
+      />
     </>
   );
 }
@@ -113,8 +119,17 @@ function Hero() {
 
         <AnimatedHeroTitle />
 
-        <p className="mt-3 max-w-[22rem] text-pretty text-sm leading-relaxed text-white/85 sm:mt-6 sm:max-w-2xl sm:text-base md:text-lg">
-          Construire un immeuble ou monter sa boîte, c'est le même combat : il faut des fondations solides. SICA s'occupe de vos chantiers et de votre paperasse.
+        {/* Mobile : version concise — deux blocs courts, hiérarchie nette */}
+        <p className="mt-4 max-w-[24rem] text-pretty text-[1.0625rem] font-medium leading-snug text-white/95 sm:hidden">
+          Vos chantiers et votre paperasse.
+          <span className="mt-2 block text-[0.9375rem] font-normal leading-relaxed text-white/75">
+            SICA s&apos;en occupe — depuis 2020 en Côte d&apos;Ivoire.
+          </span>
+        </p>
+
+        {/* Tablette / Desktop : version étendue (original) */}
+        <p className="hidden text-pretty leading-relaxed text-white/85 sm:mt-6 sm:block sm:max-w-2xl sm:text-base md:text-lg">
+          Construire un immeuble ou monter sa boîte, c&apos;est le même combat : il faut des fondations solides. SICA s&apos;occupe de vos chantiers et de votre paperasse.
         </p>
 
       </Container>

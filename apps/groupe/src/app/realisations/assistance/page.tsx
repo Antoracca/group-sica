@@ -183,7 +183,7 @@ export default function RealisationsAssistancePage() {
 
                   {/* Card body */}
                   <div className="p-6">
-                    <span className="mb-3 block text-[0.58rem] font-bold uppercase tracking-[0.2em] text-[#A05500]/60">
+                    <span className="mb-3 block text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-[#A05500]/60">
                       Assistance
                     </span>
                     <h3

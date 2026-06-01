@@ -168,7 +168,7 @@ export function CtaBand() {
           </a>
           <a
             href="/contact"
-            className="text-sm font-medium text-white/40 transition-colors hover:text-white/75"
+            className="inline-flex min-h-[44px] items-center justify-center px-4 text-sm font-medium text-white/60 transition-colors hover:text-white/90"
           >
             Nous contacter →
           </a>

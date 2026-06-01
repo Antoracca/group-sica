@@ -416,7 +416,7 @@ export function Stats() {
           </motion.p>
 
           {/* ── Grid staircase 2×2 mobile / 1×4 desktop ── */}
-          <div className="grid grid-cols-2 gap-x-8 gap-y-14 lg:grid-cols-4 lg:gap-x-0 lg:gap-y-0">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-20 lg:grid-cols-4 lg:gap-x-0 lg:gap-y-0">
             {STATS.map((stat, i) => (
               <motion.div
                 key={i}
@@ -478,7 +478,7 @@ export function Stats() {
                     <span
                       key={li}
                       style={{
-                        fontSize: "0.625rem",
+                        fontSize: "0.6875rem",
                         fontWeight: 700,
                         letterSpacing: "0.24em",
                         textTransform: "uppercase" as const,
@@ -496,7 +496,7 @@ export function Stats() {
                   className="mt-3"
                   style={{
                     fontFamily: "'Barlow', sans-serif",
-                    fontSize: "0.6875rem",
+                    fontSize: "0.75rem",
                     fontWeight: 300,
                     color: "#1E2F8A",
                     opacity: 0.38,

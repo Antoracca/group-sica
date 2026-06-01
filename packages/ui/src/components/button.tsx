@@ -27,10 +27,10 @@ const buttonVariants = cva(
       },
       size: {
         sm: "h-9 px-3",
-        md: "h-10 px-4",
+        md: "h-11 px-4",
         lg: "h-12 px-6 text-base",
         xl: "h-14 px-8 text-base",
-        icon: "size-10",
+        icon: "size-11",
       },
     },
     defaultVariants: {

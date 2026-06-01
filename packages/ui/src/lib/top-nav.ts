@@ -50,7 +50,7 @@ export function getTopNav(brand: SiteBrand, options: TopNavOptions = {}): TopNav
         logoSrc: "/logo-construction.png",
       },
       {
-        label: "Assistance",
+        label: "SICA Assistance",
         href: assistanceUrl,
         external: true,
         logoSrc: "/logo-assistance.png",
@@ -96,7 +96,7 @@ export function getTopNav(brand: SiteBrand, options: TopNavOptions = {}): TopNav
 
   if (brand !== "assistance") {
     items.push({
-      label: "Assistance",
+      label: "SICA Assistance",
       href: assistanceUrl,
       external: true,
       logoSrc: "/logo-assistance.png",

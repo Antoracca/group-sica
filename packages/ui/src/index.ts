@@ -16,3 +16,6 @@ export { SiteHeader } from "./components/site-header";
 export type { NavItem, NavSubItem, TopNavItem, TopNavIcon } from "./components/site-header";
 
 export { SectionHeader } from "./components/section-header";
+
+export { StickyCtaMobile } from "./components/sticky-cta-mobile";
+export type { StickyCtaMobileProps } from "./components/sticky-cta-mobile";

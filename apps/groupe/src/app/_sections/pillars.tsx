@@ -216,7 +216,7 @@ export function Pillars() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.45, delay: 0.1 }}
             style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-            className="mb-4 text-[0.625rem] font-semibold uppercase tracking-[0.32em] text-[#F39200] sm:text-[0.6875rem]"
+            className="mb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.32em] text-[#F39200] sm:text-[0.75rem]"
           >
             Deux pôles, une exigence
           </motion.p>
@@ -377,7 +377,7 @@ export function Pillars() {
 
               {/* Tagline */}
               <p
-                className="mb-5 text-[0.625rem] font-medium uppercase tracking-[0.22em] text-white/45"
+                className="mb-5 text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-white/45"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
               >
                 BTP · Génie civil · Géobéton
@@ -404,7 +404,7 @@ export function Pillars() {
                   href={links.construction.base}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#F39200] px-6 py-3 text-[0.6875rem] font-bold uppercase tracking-[0.1em] text-white shadow-lg transition-all duration-200 hover:bg-[#D97E00] hover:shadow-xl"
+                  className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#F39200] px-6 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-white shadow-lg transition-all duration-200 hover:bg-[#D97E00] hover:shadow-xl"
                   style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
                   Découvrir SICA Construction <Arrow />
@@ -465,7 +465,7 @@ export function Pillars() {
 
               {/* Tagline */}
               <p
-                className="mb-5 text-right text-[0.625rem] font-semibold uppercase tracking-[0.22em] text-[#1E2F8A]/70"
+                className="mb-5 text-right text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-[#1E2F8A]/70"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
               >
                 Création · Conseil · Comptabilité
@@ -496,7 +496,7 @@ export function Pillars() {
                   href="https://sicaassistance.ci"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border-2 border-[#1E2F8A] px-6 py-3 text-[0.6875rem] font-bold uppercase tracking-[0.1em] text-[#1E2F8A] shadow-sm transition-all duration-200 hover:bg-[#1E2F8A] hover:text-white hover:shadow-lg"
+                  className="inline-flex min-h-[44px] items-center gap-2 rounded-full border-2 border-[#1E2F8A] px-6 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#1E2F8A] shadow-sm transition-all duration-200 hover:bg-[#1E2F8A] hover:text-white hover:shadow-lg"
                   style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
                   Découvrir SICA Assistance <Arrow />
@@ -543,7 +543,7 @@ export function Pillars() {
             </div>
 
             <p
-              className="mb-5 text-[0.5625rem] font-medium uppercase tracking-[0.2em] text-white/40"
+              className="mb-5 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-white/40"
               style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
             >
               BTP · Génie civil · Géobéton
@@ -566,7 +566,7 @@ export function Pillars() {
                 href={links.construction.base}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-[#F39200] px-5 py-2.5 text-[0.6875rem] font-bold uppercase tracking-[0.1em] text-white"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#F39200] px-5 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-white"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
               >
                 Découvrir <Arrow />
@@ -612,7 +612,7 @@ export function Pillars() {
             </div>
 
             <p
-              className="mb-5 text-[0.5625rem] font-medium uppercase tracking-[0.2em] text-[#1E2F8A]/40"
+              className="mb-5 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-[#1E2F8A]/40"
               style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
             >
               Création · Conseil · Comptabilité
@@ -643,7 +643,7 @@ export function Pillars() {
                 href="https://sicaassistance.ci"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border-2 border-[#1E2F8A] px-5 py-2.5 text-[0.6875rem] font-bold uppercase tracking-[0.1em] text-[#1E2F8A]"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-full border-2 border-[#1E2F8A] px-5 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#1E2F8A]"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
               >
                 Découvrir <Arrow />

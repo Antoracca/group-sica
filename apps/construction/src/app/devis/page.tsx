@@ -1,21 +1,24 @@
-import { Container } from "@sica/ui";
-import { ConstructionHeader } from "@/components/construction-header";
-import { FooterConstruction } from "@/components/footer-construction";
+import type { Metadata } from "next";
+import { createInitialDevisState } from "@/lib/devis/state";
+import { DevisSimulator } from "./devis-simulator";
 
-export default function DevisPage() {
+export const metadata: Metadata = {
+  title: "Simulateur de devis",
+  description:
+    "Constituez votre devis SICA Construction en temps réel : corps d'état, options, conditions, document prêt à imprimer.",
+};
+
+export default async function DevisPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ type?: string; surface?: string; locality?: string }>;
+}) {
+  const { type, surface, locality } = await searchParams;
+  const initialState = createInitialDevisState({ type, surface, locality });
+
   return (
-    <>
-      <ConstructionHeader forceScrolled />
-      <main id="main-content" className="min-h-[70svh] bg-paper pt-40 sm:pt-44">
-        <Container className="space-y-4">
-          <h1 className="font-display text-4xl font-bold text-ink">Demande de devis</h1>
-          <p className="text-slate">
-            Module devis en cours de finalisation. Le formulaire multi-étapes sera branché ici.
-          </p>
-        </Container>
-      </main>
-      <FooterConstruction />
-    </>
+    <main id="main-content">
+      <DevisSimulator initialState={initialState} />
+    </main>
   );
 }
-

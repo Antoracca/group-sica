@@ -5,11 +5,6 @@ const config: NextConfig = {
   reactStrictMode: true,
   transpilePackages: ["@sica/ui", "@sica/tokens"],
 
-  // @ts-expect-error — turbopack.root documenté mais pas encore dans les types NextConfig
-  turbopack: {
-    root: path.resolve(__dirname, "../.."),
-  },
-
   allowedDevOrigins: [
     "192.168.*.*",
     "10.*.*.*",

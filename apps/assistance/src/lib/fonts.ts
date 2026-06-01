@@ -1,15 +1,25 @@
-import { Inter, Sora } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 
-export const fontDisplay = Sora({
+/*
+  Système typographique SICA Assistance — identité partagée avec le holding.
+  Geist (display + corps) + Geist Mono (labels, références légales, données).
+  On ne change jamais de police par site : la cohérence inter-sites prime.
+*/
+
+export const fontDisplay = Geist({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-display",
-  weight: ["400", "600", "700", "800"],
 });
 
-export const fontBody = Inter({
+export const fontBody = Geist({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-body",
-  weight: ["400", "500", "600"],
+});
+
+export const fontMono = Geist_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
 });

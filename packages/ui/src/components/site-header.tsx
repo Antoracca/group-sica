@@ -246,9 +246,20 @@ export function SiteHeader({
             />
 
             <div className="relative mx-auto max-w-[1440px] px-5 xl:px-8">
-              <div className="flex h-[2.5rem] items-center justify-end">
-                {topNav.map((item, idx) => {
-                  const Icon = item.icon ? TOP_ICONS[item.icon] : null;
+              <div className="flex h-[2.5rem] items-center justify-between">
+                {/* Left side: Brand specific kicker */}
+                <div className="flex items-center">
+                  {_brand === "construction" && (
+                    <p className="flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-brand-royal-900 font-bold">
+                      SICA Construction · Maîtrise d&apos;œuvre
+                    </p>
+                  )}
+                </div>
+
+                {/* Right side: Top nav links */}
+                <div className="flex items-center justify-end">
+                  {topNav.map((item, idx) => {
+                    const Icon = item.icon ? TOP_ICONS[item.icon] : null;
                   return (
                     <React.Fragment key={item.label}>
                       {idx > 0 ? (
@@ -306,6 +317,7 @@ export function SiteHeader({
               </div>
             </div>
           </div>
+        </div>
         ) : null}
 
         {/* ══════════════════════════════════════════════════════════════
@@ -326,28 +338,45 @@ export function SiteHeader({
             }}
           />
 
-          <div className="relative flex h-[2rem] items-center justify-between gap-2 px-3">
-            {/* Gauche : liens utilitaires compacts */}
-            <div className="flex min-w-0 items-center gap-0 overflow-hidden">
-              <a
-                href="/realisations"
-                className="flex shrink-0 items-center gap-1 text-[0.6rem] font-medium text-slate-500 transition-colors hover:text-brand-royal"
-              >
-                <Trophy size={11} weight="light" className="text-brand-royal/40" aria-hidden />
-                <span>Réalisations</span>
-              </a>
-              <span aria-hidden className="mx-1.5 text-[0.68rem] font-light text-slate-200 select-none max-[359px]:hidden">|</span>
-              <a
-                href="/a-propos"
-                className="hidden items-center gap-1 text-[0.6rem] font-medium text-slate-500 transition-colors hover:text-brand-royal min-[360px]:flex"
-              >
-                <Compass size={11} weight="light" className="text-brand-royal/40" aria-hidden />
-                <span>Corporate</span>
-              </a>
+          <div className="relative flex min-h-[3rem] items-start justify-between gap-2 px-3 py-1.5">
+            {/* Gauche : Colonne (étagères alignées) avec Kicker en haut, Liens en bas */}
+            <div className="flex flex-col gap-1">
+              {_brand === "construction" && (
+                <span className="text-[0.55rem] font-extrabold uppercase text-[#1E2F8A] tracking-widest leading-none mt-1">
+                  SICA Construction · Maîtrise d&apos;œuvre
+                </span>
+              )}
+              <div className="flex flex-wrap items-center gap-x-1.5">
+                {topNav?.map((item, idx) => {
+                  const Icon = item.icon ? TOP_ICONS[item.icon] : null;
+                  return (
+                    <React.Fragment key={item.label}>
+                      {idx > 0 && <span aria-hidden className="text-[0.6rem] font-light text-slate-300 select-none">|</span>}
+                      <a
+                        href={item.href}
+                        className="flex shrink-0 items-center gap-1 text-[0.55rem] font-medium uppercase text-slate-500 transition-colors hover:text-brand-royal"
+                      >
+                        {item.logoSrc ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={item.logoSrc}
+                            alt=""
+                            aria-hidden
+                            className="h-[0.75rem] w-auto object-contain opacity-85 transition-opacity group-hover:opacity-100"
+                          />
+                        ) : Icon ? (
+                          <Icon size={10} weight="light" className="text-brand-royal/40" aria-hidden />
+                        ) : null}
+                        <span>{item.label}</span>
+                      </a>
+                    </React.Fragment>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Droite : sélecteur de langue avec icône Translate */}
-            <div className="flex shrink-0 items-center gap-1">
+            <div className="mt-1 flex shrink-0 items-center gap-1">
               <Translate size={12} weight="light" className="text-brand-royal/40" aria-hidden />
               {(["fr", "en"] as const).map((l, i) => (
                 <React.Fragment key={l}>

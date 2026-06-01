@@ -40,6 +40,23 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener("pageshow", function(event) {
+                if (event.persisted) {
+                  window.location.reload();
+                }
+              });
+            `,
+          }}
+        />
+        {/* Hero — préchargement du premier visuel (LCP), prefetch des suivants */}
+        <link rel="preload" as="image" href="/hero/chantier.jpg" fetchPriority="high" />
+        <link rel="prefetch" as="image" href="/hero/ingenierie.jpg" />
+        <link rel="prefetch" as="image" href="/hero/pilotage.jpg" />
+      </head>
       <body className="min-h-screen bg-background font-body text-foreground antialiased">
         {children}
       </body>

@@ -1,35 +1,39 @@
 import type { Metadata, Viewport } from "next";
-import { fontDisplay, fontBody } from "@/lib/fonts";
+import { fontBody, fontDisplay, fontMono } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sicaassistance.ci"),
-  title: "SICA Assistance — Comptabilité, Fiscalité, Conseil PME",
+  title: {
+    default: "SICA Assistance — Création d'entreprise, comptabilité, conseil en Côte d'Ivoire",
+    template: "%s · SICA Assistance",
+  },
   description:
-    "SICA Assistance accompagne les entrepreneurs et PME ivoiriennes : comptabilité, fiscalité, paie, création d'entreprise. Bientôt disponible.",
+    "SICA Assistance, pôle administratif du Groupe SICA : création et modification d'entreprises, comptabilité, fiscalité, déclarations, conseil en gestion et accompagnement des entrepreneurs et PME.",
   applicationName: "SICA Assistance",
   openGraph: {
     type: "website",
     locale: "fr_CI",
     siteName: "SICA Assistance",
-    title: "SICA Assistance — Bientôt disponible",
+    title: "SICA Assistance — Pôle administratif et conseil du Groupe SICA",
     description:
-      "Notre pôle Assistance déploie ses services. Laissez votre e-mail pour être informé en premier.",
+      "Création d'entreprise, comptabilité, fiscalité, conseil. Nous structurons vos démarches administratives en Côte d'Ivoire.",
   },
+  icons: { icon: "/logo-assistance.png", shortcut: "/logo-assistance.png", apple: "/logo-assistance.png" },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0B1120",
+  themeColor: "#FAFAF7",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${fontDisplay.variable} ${fontBody.variable}`}>
-      <body className="min-h-screen bg-[#0B1120] font-body text-white antialiased">
+    <html lang="fr" className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}>
+      <body className="min-h-screen bg-background font-body text-foreground antialiased">
         {children}
       </body>
     </html>

@@ -1,49 +1,102 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { ArrowRight } from "lucide-react";
 
-type ProjectType = "villa" | "immeuble" | "extension" | "rehabilitation";
-type Locality = "abidjan" | "interieur" | "hors-ci";
-type Urgency = "normal" | "rapide" | "urgent";
+/*
+  Estimateur express — pré-cadrage budgétaire dans le hero.
+  8 typologies de projet, sélection tactile, recalcul live avec feedback
+  animé. Carte « glass » posée sur le hero sombre. Tokens : font-mono pour
+  les labels (signature ingénierie), brand-amber pour l'état actif.
+*/
 
-const baseRateByType: Record<ProjectType, number> = {
-  villa: 280_000,
-  immeuble: 340_000,
-  extension: 240_000,
-  rehabilitation: 210_000,
-};
+const TYPES = [
+  { id: "neuve", label: "Construction neuve", rate: 280_000 },
+  { id: "rehabilitation", label: "Réhabilitation", rate: 210_000 },
+  { id: "extension", label: "Extension", rate: 240_000 },
+  { id: "amenagement", label: "Aménagement", rate: 160_000 },
+  { id: "genie-civil", label: "Génie civil", rate: 320_000 },
+  { id: "industriel", label: "Bâtiment industriel", rate: 300_000 },
+  { id: "commercial", label: "Bâtiment commercial", rate: 290_000 },
+  { id: "infrastructure", label: "Infrastructure", rate: 350_000 },
+] as const;
+type TypeId = (typeof TYPES)[number]["id"];
 
-const localityFactor: Record<Locality, number> = {
-  abidjan: 1,
-  interieur: 1.08,
-  "hors-ci": 1.2,
-};
+const LOCALITIES = [
+  { id: "abidjan", label: "Abidjan", factor: 1 },
+  { id: "interieur", label: "Intérieur", factor: 1.08 },
+  { id: "hors-ci", label: "Hors CI", factor: 1.2 },
+] as const;
+type LocalityId = (typeof LOCALITIES)[number]["id"];
 
-const urgencyFactor: Record<Urgency, number> = {
-  normal: 1,
-  rapide: 1.12,
-  urgent: 1.22,
-};
+const URGENCIES = [
+  { id: "normal", label: "Normale", factor: 1 },
+  { id: "rapide", label: "Accélérée", factor: 1.12 },
+  { id: "urgent", label: "Urgente", factor: 1.22 },
+] as const;
+type UrgencyId = (typeof URGENCIES)[number]["id"];
 
 function formatFcfa(value: number) {
-  return new Intl.NumberFormat("fr-FR", {
-    maximumFractionDigits: 0,
-  }).format(Math.round(value));
+  return new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 }).format(
+    Math.round(value),
+  );
+}
+
+function Segmented<T extends string>({
+  label,
+  options,
+  value,
+  onChange,
+}: {
+  label: string;
+  options: readonly { id: T; label: string }[];
+  value: T;
+  onChange: (id: T) => void;
+}) {
+  return (
+    <div>
+      <p className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-white/70">
+        {label}
+      </p>
+      <div role="group" aria-label={label} className="grid grid-cols-3 gap-1.5">
+        {options.map((opt) => {
+          const selected = opt.id === value;
+          return (
+            <button
+              key={opt.id}
+              type="button"
+              aria-pressed={selected}
+              onClick={() => onChange(opt.id)}
+              className={[
+                "min-h-[44px] rounded-lg px-2 text-[0.8rem] font-semibold transition-colors",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-amber/70",
+                selected
+                  ? "bg-brand-amber text-brand-royal-900"
+                  : "bg-white/10 text-white/80 hover:bg-white/15",
+              ].join(" ")}
+            >
+              {opt.label}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 export function HeroEstimator() {
-  const [type, setType] = useState<ProjectType>("villa");
+  const [type, setType] = useState<TypeId>("neuve");
   const [surface, setSurface] = useState(240);
-  const [locality, setLocality] = useState<Locality>("abidjan");
-  const [urgency, setUrgency] = useState<Urgency>("normal");
+  const [locality, setLocality] = useState<LocalityId>("abidjan");
+  const [urgency, setUrgency] = useState<UrgencyId>("normal");
 
   const { low, high } = useMemo(() => {
-    const base = baseRateByType[type] * surface;
-    const weighted = base * localityFactor[locality] * urgencyFactor[urgency];
-    return {
-      low: weighted * 0.88,
-      high: weighted * 1.14,
-    };
+    const rate = TYPES.find((t) => t.id === type)!.rate;
+    const localityFactor = LOCALITIES.find((l) => l.id === locality)!.factor;
+    const urgencyFactor = URGENCIES.find((u) => u.id === urgency)!.factor;
+    const weighted = rate * surface * localityFactor * urgencyFactor;
+    return { low: weighted * 0.85, high: weighted * 1.15 };
   }, [type, surface, locality, urgency]);
 
   const query = new URLSearchParams({
@@ -54,96 +107,118 @@ export function HeroEstimator() {
   }).toString();
 
   return (
-    <aside className="rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur-md sm:p-6">
-      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-amber">
-        Estimateur express
-      </p>
-      <h2 className="mt-3 font-display text-2xl font-semibold">Pré-cadrage devis</h2>
+    <aside className="rounded-2xl border border-white/15 bg-white/[0.08] p-5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl sm:p-6">
+      <div className="flex items-center gap-3">
+        <span aria-hidden className="h-px w-6 bg-brand-amber" />
+        <p className="font-mono text-xs uppercase tracking-[0.22em] text-brand-amber">
+          Estimateur express
+        </p>
+      </div>
+      <h2 className="mt-3 font-display text-2xl font-semibold text-white">
+        Pré-cadrage de votre projet
+      </h2>
 
-      <div className="mt-4 space-y-4">
-        <label className="block">
-          <span className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.08em] text-white/75">
-            Type de projet
-          </span>
-          <select
-            value={type}
-            onChange={(event) => setType(event.target.value as ProjectType)}
-            className="w-full rounded-xl border border-white/30 bg-white/20 px-3 py-2 text-sm text-white outline-none transition focus:border-brand-amber/80"
-          >
-            <option value="villa" className="text-ink">Villa</option>
-            <option value="immeuble" className="text-ink">Immeuble</option>
-            <option value="extension" className="text-ink">Extension</option>
-            <option value="rehabilitation" className="text-ink">Réhabilitation</option>
-          </select>
-        </label>
-
-        <label className="block">
-          <span className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.08em] text-white/75">
-            Surface estimée · {surface} m²
-          </span>
-          <input
-            type="range"
-            min={60}
-            max={2000}
-            step={10}
-            value={surface}
-            onChange={(event) => setSurface(Number(event.target.value))}
-            className="w-full accent-brand-amber"
-          />
-        </label>
-
-        <div className="grid gap-3 sm:grid-cols-2">
-          <label className="block">
-            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.08em] text-white/75">
-              Localité
-            </span>
-            <select
-              value={locality}
-              onChange={(event) => setLocality(event.target.value as Locality)}
-              className="w-full rounded-xl border border-white/30 bg-white/20 px-3 py-2 text-sm text-white outline-none transition focus:border-brand-amber/80"
-            >
-              <option value="abidjan" className="text-ink">Abidjan</option>
-              <option value="interieur" className="text-ink">Intérieur du pays</option>
-              <option value="hors-ci" className="text-ink">Hors Côte d'Ivoire</option>
-            </select>
-          </label>
-
-          <label className="block">
-            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.08em] text-white/75">
-              Urgence
-            </span>
-            <select
-              value={urgency}
-              onChange={(event) => setUrgency(event.target.value as Urgency)}
-              className="w-full rounded-xl border border-white/30 bg-white/20 px-3 py-2 text-sm text-white outline-none transition focus:border-brand-amber/80"
-            >
-              <option value="normal" className="text-ink">Cadence normale</option>
-              <option value="rapide" className="text-ink">Accélérée</option>
-              <option value="urgent" className="text-ink">Urgente</option>
-            </select>
-          </label>
+      {/* Typologie — grille tactile */}
+      <div className="mt-5">
+        <p className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-white/70">
+          Nature des travaux
+        </p>
+        <div className="grid grid-cols-2 gap-1.5">
+          {TYPES.map((t) => {
+            const selected = t.id === type;
+            return (
+              <button
+                key={t.id}
+                type="button"
+                aria-pressed={selected}
+                onClick={() => setType(t.id)}
+                className={[
+                  "min-h-[44px] rounded-lg px-3 text-left text-[0.8rem] font-semibold leading-tight transition-colors",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-amber/70",
+                  selected
+                    ? "bg-brand-amber text-brand-royal-900"
+                    : "bg-white/10 text-white/80 hover:bg-white/15",
+                ].join(" ")}
+              >
+                {t.label}
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      <div className="mt-5 rounded-xl border border-white/20 bg-black/20 p-3.5">
-        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-white/65">
+      {/* Surface */}
+      <div className="mt-5">
+        <div className="mb-2 flex items-baseline justify-between">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-white/70">
+            Surface estimée
+          </p>
+          <p className="font-mono text-sm font-semibold text-white">
+            {surface} m²
+          </p>
+        </div>
+        <input
+          type="range"
+          min={40}
+          max={3000}
+          step={10}
+          value={surface}
+          onChange={(e) => setSurface(Number(e.target.value))}
+          aria-label={`Surface estimée ${surface} mètres carrés`}
+          className="w-full accent-brand-amber"
+        />
+      </div>
+
+      {/* Localité + urgence */}
+      <div className="mt-5 space-y-4">
+        <Segmented
+          label="Localité"
+          options={LOCALITIES}
+          value={locality}
+          onChange={setLocality}
+        />
+        <Segmented
+          label="Cadence"
+          options={URGENCIES}
+          value={urgency}
+          onChange={setUrgency}
+        />
+      </div>
+
+      {/* Résultat — feedback animé */}
+      <div className="mt-6 overflow-hidden rounded-xl border border-white/15 bg-brand-royal-900/60 p-4">
+        <p className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-white/60">
           Fourchette initiale
         </p>
-        <p className="mt-1 text-lg font-bold text-white">
-          {formatFcfa(low)} – {formatFcfa(high)} FCFA
-        </p>
-        <p className="mt-1 text-xs text-white/60">
-          Estimation indicative avant visite site et étude technique.
+        <div className="mt-1 h-8 overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={`${low}-${high}`}
+              initial={{ y: "60%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              exit={{ y: "-60%", opacity: 0 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display text-xl font-bold text-white"
+            >
+              {formatFcfa(low)} – {formatFcfa(high)}{" "}
+              <span className="font-mono text-sm font-medium text-brand-amber">
+                FCFA
+              </span>
+            </motion.p>
+          </AnimatePresence>
+        </div>
+        <p className="mt-1 text-xs leading-relaxed text-white/55">
+          Estimation indicative, avant visite de site et étude technique.
         </p>
       </div>
 
       <a
         href={`/devis?${query}`}
-        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-brand-royal transition hover:bg-brand-amber hover:text-white"
+        className="group mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-white px-5 text-sm font-semibold text-brand-royal-900 transition-colors hover:bg-brand-amber hover:text-brand-royal-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-amber focus-visible:ring-offset-2 focus-visible:ring-offset-brand-royal-900"
       >
         Continuer avec ces paramètres
+        <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
       </a>
     </aside>
   );
 }
-

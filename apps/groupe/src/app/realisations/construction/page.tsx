@@ -182,7 +182,7 @@ export default function RealisationsConstructionPage() {
 
                   {/* Card body */}
                   <div className="p-6">
-                    <span className="mb-3 block text-[0.58rem] font-bold uppercase tracking-[0.2em] text-[#1E2F8A]/50">
+                    <span className="mb-3 block text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-[#1E2F8A]/50">
                       Construction
                     </span>
                     <h3

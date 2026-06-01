@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Questionnaire Estimateur — SICA Construction</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+  }
+  
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 10.5pt;
+    color: #1a1a2e;
+    line-height: 1.55;
+    background: #fff;
+  }
+
+  /* ── Cover Page ── */
+  .cover {
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    text-align: center;
+    padding: 40px;
+  }
+  .cover-badge {
+    display: inline-block;
+    background: #0F1956;
+    color: #F39200;
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 8px 24px;
+    border-radius: 6px;
+    margin-bottom: 32px;
+  }
+  .cover h1 {
+    font-size: 28pt;
+    font-weight: 800;
+    color: #0F1956;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .cover h1 span { color: #F39200; }
+  .cover .subtitle {
+    font-size: 13pt;
+    color: #555;
+    max-width: 500px;
+    margin: 0 auto 40px;
+  }
+  .cover-meta {
+    margin-top: 48px;
+    font-size: 9.5pt;
+    color: #888;
+    line-height: 1.8;
+  }
+  .cover-meta strong { color: #0F1956; }
+  .cover-line {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #0F1956, #F39200);
+    border-radius: 2px;
+    margin: 24px auto;
+  }
+  .cover-footer {
+    margin-top: 60px;
+    padding: 16px 32px;
+    background: #f8f9fc;
+    border-radius: 10px;
+    border: 1px solid #e0e4ed;
+    font-size: 9pt;
+    color: #666;
+  }
+  .cover-footer strong { color: #c0392b; }
+
+  /* ── Section Headers ── */
+  .section-title {
+    font-size: 15pt;
+    font-weight: 800;
+    color: #0F1956;
+    margin: 32px 0 6px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #F39200;
+    display: inline-block;
+  }
+  .section-desc {
+    font-size: 9.5pt;
+    color: #666;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  /* ── Tables ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 20px;
+    font-size: 9.5pt;
+  }
+  thead th {
+    background: #0F1956;
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  thead th:first-child { border-radius: 6px 0 0 0; }
+  thead th:last-child { border-radius: 0 6px 0 0; }
+  tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e8eaf0;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #f8f9fc; }
+  tbody tr:hover { background: #eef1f8; }
+  td.fill {
+    background: #fffbf0;
+    border-bottom: 1.5px dotted #F39200;
+    min-width: 100px;
+  }
+
+  /* ── Question blocks ── */
+  .question-block {
+    background: #f8f9fc;
+    border-left: 4px solid #F39200;
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .question-block .q-label {
+    font-weight: 700;
+    color: #0F1956;
+    font-size: 10pt;
+    margin-bottom: 6px;
+  }
+  .question-block .q-answer {
+    border-bottom: 1.5px dotted #ccc;
+    min-height: 28px;
+    margin-top: 4px;
+    color: #999;
+    font-size: 9pt;
+  }
+
+  /* ── Utilities ── */
+  .page-break { page-break-before: always; }
+  .note {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 9pt;
+    margin: 16px 0;
+    color: #856404;
+  }
+  .note strong { color: #6d3a00; }
+  .info-box {
+    background: #e8f4fd;
+    border: 1px solid #b8daff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 9pt;
+    margin: 16px 0;
+    color: #004085;
+  }
+  
+  .footer-strip {
+    text-align: center;
+    font-size: 8pt;
+    color: #aaa;
+    padding-top: 20px;
+    margin-top: 32px;
+    border-top: 1px solid #eee;
+  }
+
+  h3 {
+    font-size: 11pt;
+    color: #0F1956;
+    margin: 20px 0 4px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ COVER ═══════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-badge">Document Confidentiel</div>
+  <h1>Questionnaire Technique<br><span>Estimateur de Devis</span></h1>
+  <div class="cover-line"></div>
+  <p class="subtitle">
+    Collecte des données tarifaires et métier nécessaires à la mise en place du simulateur de devis en ligne sur la plateforme <strong>www.sica.ci</strong>
+  </p>
+  <div class="cover-meta">
+    <strong>Destinataires :</strong> Direction Technique — SICA Construction<br>
+    <strong>Émetteur :</strong> Équipe Développement Plateforme SICA<br>
+    <strong>Date :</strong> 31 mai 2026<br>
+    <strong>Référence :</strong> SICA-EST-2026-001
+  </div>
+  <div class="cover-footer">
+    <strong>⚠️ IMPORTANT :</strong> Les tarifs actuellement affichés sur l'estimateur du site sont des <strong>valeurs provisoires non validées</strong>. Ce questionnaire vise à les remplacer par vos données réelles.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ CONTEXT ═══════════════════════════════ -->
+
+<div class="info-box">
+  <strong>📌 Contexte :</strong> Nous développons un estimateur de devis en ligne intégré à la plateforme SICA Construction. Cet outil permettra aux clients de simuler le coût de leur projet de construction en temps réel, avant même de prendre contact avec un ingénieur. Pour que les résultats soient fiables et représentatifs de vos tarifs réels, nous avons besoin de vos données tarifaires.
+</div>
+
+<div class="info-box">
+  <strong>📋 Instructions :</strong> Veuillez compléter chaque tableau ci-dessous. Si une information n'est pas applicable, écrire <strong>N/A</strong>. Si une donnée est confidentielle, écrire <strong>CONFIDENTIEL</strong> — nous adapterons le système pour ne jamais l'afficher au client.
+</div>
+
+<!-- ═══════════════════════════ SECTION A ═══════════════════════════ -->
+
+<div class="section-title">Section A — Tarifs au mètre carré</div>
+<p class="section-desc">Pour chaque type de projet, indiquer le prix moyen au m² (en FCFA) pratiqué par SICA Construction. Si le tarif varie, donner une fourchette basse et haute.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:5%">#</th>
+      <th style="width:35%">Typologie de projet</th>
+      <th style="width:18%">Prix bas (FCFA/m²)</th>
+      <th style="width:18%">Prix moyen (FCFA/m²)</th>
+      <th style="width:18%">Prix haut (FCFA/m²)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Villa basse 2 pièces (agglo/parpaing)</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>2</td><td>Villa basse 3 pièces (agglo/parpaing)</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>3</td><td>Villa basse 4 pièces (agglo/parpaing)</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>4</td><td>Villa basse (géobéton / BTCS)</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>5</td><td>Villa duplex (agglo/parpaing)</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>6</td><td>Villa duplex (géobéton / BTCS)</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>7</td><td>Immeuble R+2 / R+3</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>8</td><td>Case ronde / Bungalow</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>9</td><td>Extension / Réhabilitation</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>10</td><td>Aménagement intérieur</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>11</td><td>Bâtiment commercial / bureaux</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>12</td><td>Bâtiment industriel (hangar métallique)</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>13</td><td>Construction métallique (charpente, pylône)</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>14</td><td>Génie civil (ouvrages d'art, soutènements)</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>15</td><td>VRD (Voirie et Réseaux Divers)</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+  </tbody>
+</table>
+
+<div class="question-block">
+  <div class="q-label">Question A.1 : Ces prix incluent-ils main d'œuvre + matériaux, ou uniquement la main d'œuvre ?</div>
+  <div class="q-answer">&nbsp;</div>
+</div>
+<div class="question-block">
+  <div class="q-label">Question A.2 : Ces prix sont-ils HT ou TTC ? Quel taux de TVA appliquer ?</div>
+  <div class="q-answer">&nbsp;</div>
+</div>
+<div class="question-block">
+  <div class="q-label">Question A.3 : Y a-t-il un montant plancher minimum en dessous duquel SICA ne prend pas un projet ?</div>
+  <div class="q-answer">&nbsp;</div>
+</div>
+<div class="question-block">
+  <div class="q-label">Question A.4 : Y a-t-il d'autres typologies de projets non listées que SICA réalise régulièrement ?</div>
+  <div class="q-answer">&nbsp;</div>
+</div>
+
+<!-- ═══════════════════════════ SECTION B ═══════════════════════════ -->
+<div class="page-break"></div>
+
+<div class="section-title">Section B — Coefficients de localité</div>
+<p class="section-desc">Le coût d'un chantier varie selon la localisation (transport matériaux, hébergement équipe, logistique). Indiquer le coefficient multiplicateur par rapport à Abidjan centre (référence = 1.00).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:5%">#</th>
+      <th style="width:55%">Zone géographique</th>
+      <th style="width:20%">Coefficient</th>
+      <th style="width:20%">Observations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Abidjan centre (Cocody, Plateau, Marcory, Treichville…)</td><td><strong>1.00</strong> (référence)</td><td>—</td></tr>
+    <tr><td>2</td><td>Abidjan périphérie (Bingerville, Anyama, Songon, Dabou…)</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>3</td><td>Yamoussoukro</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>4</td><td>Villes principales (Bouaké, San Pedro, Daloa, Korhogo)</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>5</td><td>Villes secondaires (Agboville, Soubré, Jacqueville, Man, Gagnoa)</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>6</td><td>Zones rurales / accès difficile</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>7</td><td>Hors Côte d'Ivoire</td><td class="fill"></td><td class="fill"></td></tr>
+  </tbody>
+</table>
+
+<div class="question-block">
+  <div class="q-label">Question B.1 : Les frais de déplacement et d'hébergement de l'équipe sont-ils inclus dans le coefficient ou facturés séparément ?</div>
+  <div class="q-answer">&nbsp;</div>
+</div>
+<div class="question-block">
+  <div class="q-label">Question B.2 : Y a-t-il des localités où SICA refuse d'intervenir ou applique des conditions particulières ?</div>
+  <div class="q-answer">&nbsp;</div>
+</div>
+
+<!-- ═══════════════════════════ SECTION C ═══════════════════════════ -->
+
+<div class="section-title">Section C — Coefficients de cadence d'exécution</div>
+<p class="section-desc">Quel supplément le client doit-il payer pour un chantier accéléré ou urgent ? Indiquer également les délais types pour une villa basse 4 pièces.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:5%">#</th>
+      <th style="width:30%">Cadence</th>
+      <th style="width:20%">Coefficient</th>
+      <th style="width:25%">Délai type (villa 4P)</th>
+      <th style="width:20%">Observations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Normale (planning standard)</td><td><strong>1.00</strong> (référence)</td><td class="fill"></td><td>—</td></tr>
+    <tr><td>2</td><td>Accélérée (−20% à −30% du délai)</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>3</td><td>Urgente (−40% à −50% du délai)</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+  </tbody>
+</table>
+
+<div class="question-block">
+  <div class="q-label">Question C.1 : Le géobéton permet −30% sur les délais (selon votre dossier). Ce facteur se cumule-t-il avec la cadence accélérée ?</div>
+  <div class="q-answer">&nbsp;</div>
+</div>
+<div class="question-block">
+  <div class="q-label">Question C.2 : Y a-t-il un forfait de mobilisation rapide en plus du coefficient pour les urgences ?</div>
+  <div class="q-answer">&nbsp;</div>
+</div>
+
+<!-- ═══════════════════════════ SECTION D ═══════════════════════════ -->
+<div class="page-break"></div>
+
+<div class="section-title">Section D — Prestations complémentaires facturées</div>
+<p class="section-desc">Votre dossier technique confirme que ces étapes sont « facturées ». Merci d'indiquer les tarifs pratiqués par SICA.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:5%">#</th>
+      <th style="width:35%">Prestation</th>
+      <th style="width:25%">Mode de tarification</th>
+      <th style="width:25%">Tarif indicatif (FCFA)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Visite de terrain + extrait topographique</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>2</td><td>Étude de sol (pressiomètre / pénétromètre)</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>3</td><td>Conception architecturale (plans)</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>4</td><td>Ingénierie & Étude de structure</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>5</td><td>DQE (Devis Quantitatif & Estimatif)</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>6</td><td>Permis de construire + Certificat d'urbanisme</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>7</td><td>Suivi de chantier / Pilotage (honoraires)</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>8</td><td>Clôture et portail</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>9</td><td>Piscine</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>10</td><td>Forage / Puits</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>11</td><td>Panneaux solaires</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>12</td><td>Aménagement paysager / extérieur</td><td class="fill"></td><td class="fill"></td></tr>
+  </tbody>
+</table>
+
+<div class="question-block">
+  <div class="q-label">Question D.1 : Y a-t-il d'autres prestations facturées séparément non listées ci-dessus ?</div>
+  <div class="q-answer">&nbsp;</div>
+</div>
+
+<!-- ═══════════════════════════ SECTION E ═══════════════════════════ -->
+
+<div class="section-title">Section E — Informations client à collecter</div>
+<p class="section-desc">Lors d'une demande de devis en ligne, quelles informations souhaitez-vous que le formulaire collecte auprès du client ?</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:5%">#</th>
+      <th style="width:45%">Information</th>
+      <th style="width:20%">Obligatoire ?</th>
+      <th style="width:25%">Observations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Nom et prénom</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>2</td><td>Numéro de téléphone</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>3</td><td>Adresse e-mail</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>4</td><td>Ville / Commune du projet</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>5</td><td>Le client dispose-t-il du terrain ? (ACD / CMPF)</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>6</td><td>Le client a-t-il des plans existants ?</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>7</td><td>Budget envisagé par le client</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>8</td><td>Date souhaitée de démarrage</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>9</td><td>Description libre du projet</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td>10</td><td>Upload de documents (plans, photos du terrain)</td><td class="fill"></td><td class="fill"></td></tr>
+  </tbody>
+</table>
+
+<div class="question-block">
+  <div class="q-label">Question E.1 : Qui recevra les notifications de demande de devis ? (adresse e-mail, numéro WhatsApp, ou les deux ?)</div>
+  <div class="q-answer">&nbsp;</div>
+</div>
+<div class="question-block">
+  <div class="q-label">Question E.2 : Y a-t-il d'autres informations spécifiques dont vous avez besoin pour établir un pré-devis ?</div>
+  <div class="q-answer">&nbsp;</div>
+</div>
+
+<!-- ═══════════════════════════ SECTION F ═══════════════════════════ -->
+<div class="page-break"></div>
+
+<div class="section-title">Section F — Questions stratégiques</div>
+<p class="section-desc">Ces questions déterminent les fonctionnalités de l'estimateur en ligne.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:5%">#</th>
+      <th style="width:60%">Question</th>
+      <th style="width:30%">Réponse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Le devis en ligne doit-il générer un <strong>PDF téléchargeable</strong> pour le client ?</td><td class="fill"></td></tr>
+    <tr><td>2</td><td>Souhaitez-vous une option « <strong>Être rappelé par un ingénieur</strong> » après la simulation ?</td><td class="fill"></td></tr>
+    <tr><td>3</td><td>Le client doit-il pouvoir <strong>comparer agglo/parpaing vs géobéton</strong> côte à côte ?</td><td class="fill"></td></tr>
+    <tr><td>4</td><td>Souhaitez-vous un <strong>tableau de bord administrateur</strong> pour modifier les tarifs sans toucher au code ?</td><td class="fill"></td></tr>
+    <tr><td>5</td><td>Le devis doit-il afficher la mention « <strong>Estimation indicative sous réserve de visite de site</strong> » ?</td><td class="fill"></td></tr>
+    <tr><td>6</td><td>SICA intervient-elle pour les <strong>particuliers</strong>, les <strong>promoteurs/entreprises</strong>, ou <strong>les deux</strong> ?</td><td class="fill"></td></tr>
+    <tr><td>7</td><td>Les prix doivent-ils être indexés annuellement (mise à jour automatique) ?</td><td class="fill"></td></tr>
+    <tr><td>8</td><td>Le client doit-il pouvoir <strong>comparer plusieurs scénarios</strong> (normal vs accéléré, avec/sans options) ?</td><td class="fill"></td></tr>
+  </tbody>
+</table>
+
+<!-- ═══════════════════════════ SIGNATURES ═══════════════════════════ -->
+
+<div style="margin-top: 40px; padding: 24px; background: #f8f9fc; border-radius: 12px; border: 1px solid #e0e4ed;">
+  <h3 style="margin-bottom: 16px;">Validation et signatures</h3>
+  <table style="border: none;">
+    <tbody>
+      <tr style="background: transparent;">
+        <td style="border: none; width: 50%; padding: 20px 20px 40px;">
+          <strong>Complété par :</strong><br><br>
+          Nom : ________________________________<br><br>
+          Fonction : ____________________________<br><br>
+          Date : ________________________________<br><br><br>
+          Signature :
+        </td>
+        <td style="border: none; width: 50%; padding: 20px 20px 40px;">
+          <strong>Validé par (Direction) :</strong><br><br>
+          Nom : ________________________________<br><br>
+          Fonction : ____________________________<br><br>
+          Date : ________________________________<br><br><br>
+          Signature :
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note" style="margin-top: 24px;">
+  <strong>⚠️ Confidentialité :</strong> Les données tarifaires transmises dans ce formulaire seront utilisées exclusivement pour le paramétrage du simulateur de devis en ligne de la plateforme www.sica.ci. Elles ne seront en aucun cas divulguées à des tiers. Les marges et coefficients internes peuvent être masqués sur l'interface client si vous le souhaitez.
+</div>
+
+<div class="footer-strip">
+  GROUPE SICA — SICA CONSTRUCTION &nbsp;|&nbsp; Réf. SICA-EST-2026-001 &nbsp;|&nbsp; Document confidentiel &nbsp;|&nbsp; 31 mai 2026<br>
+  Plateforme : www.sica.ci &nbsp;|&nbsp; Contact : groupesica@gmail.com &nbsp;|&nbsp; Tél. : +225 07 09 88 32 93
+</div>
+
+</body>
+</html>

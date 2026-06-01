@@ -70,19 +70,19 @@ export function Footer() {
                 />
               )}
             />
-            <p className="max-w-[30ch] text-sm leading-relaxed text-white/40">
+            <p className="max-w-[30ch] text-sm leading-relaxed text-white/60">
               Construction, genie civil et assistance entrepreneuriale. Une
               equipe ivoirienne a votre service depuis 2020.
             </p>
-            <div className="text-xs leading-relaxed text-white/28">
-              <span className="font-medium text-white/40">Abidjan</span> - Cocody Mermoz
+            <div className="text-xs leading-relaxed text-white/55">
+              <span className="font-medium text-white/60">Abidjan</span> - Cocody Mermoz
               <br />
-              <span className="font-medium text-white/40">Yamoussoukro</span> - Morofe, rte Daloa
+              <span className="font-medium text-white/60">Yamoussoukro</span> - Morofe, rte Daloa
             </div>
           </div>
 
           <nav aria-label="Navigation du pied de page">
-            <p className="mb-4 text-[0.58rem] font-bold uppercase tracking-[0.22em] text-brand-amber/70">
+            <p className="mb-4 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-brand-amber/70">
               Navigation
             </p>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5 xl:grid-cols-1">
@@ -101,7 +101,7 @@ export function Footer() {
 
           {/* Colonne Accès Client + liens légaux */}
           <nav aria-label="Accès client et liens légaux">
-            <p className="mb-4 text-[0.58rem] font-bold uppercase tracking-[0.22em] text-brand-amber/70">
+            <p className="mb-4 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-brand-amber/70">
               Accès
             </p>
             <ul className="flex flex-col gap-2.5">
@@ -139,7 +139,7 @@ export function Footer() {
 
           <div className="flex flex-col gap-7">
             <div>
-              <p className="mb-4 text-[0.58rem] font-bold uppercase tracking-[0.22em] text-brand-amber/70">
+              <p className="mb-4 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-brand-amber/70">
                 Nos poles
               </p>
               <ul className="flex flex-col gap-3">
@@ -162,9 +162,9 @@ export function Footer() {
                         <span className="block text-sm font-medium text-white/75 transition-colors duration-200 group-hover:text-white">
                           {pole.name}
                         </span>
-                        <span className="text-xs text-white/36">{pole.tagline}</span>
+                        <span className="text-xs text-white/60">{pole.tagline}</span>
                       </div>
-                      <span className="ml-auto mt-0.5 shrink-0 text-xs text-white/28 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-brand-amber">
+                      <span className="ml-auto mt-0.5 shrink-0 text-xs text-white/55 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-brand-amber">
                         ↗
                       </span>
                     </a>
@@ -174,7 +174,7 @@ export function Footer() {
             </div>
 
             <div>
-              <p className="mb-3 text-[0.58rem] font-bold uppercase tracking-[0.22em] text-brand-amber/70">
+              <p className="mb-3 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-brand-amber/70">
                 Contact direct
               </p>
               <ul className="flex flex-col gap-2">
@@ -202,7 +202,7 @@ export function Footer() {
                     className="inline-flex items-center gap-1.5 text-sm text-white/52 transition-colors duration-200 hover:text-white"
                   >
                     Facebook
-                    <span aria-hidden className="text-white/28">↗</span>
+                    <span aria-hidden className="text-white/55">↗</span>
                   </a>
                 </li>
               </ul>
@@ -211,7 +211,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-2 border-t border-white/[0.07] py-5 md:flex-row md:items-center md:justify-between">
-          <p className="text-[0.72rem] text-white/24">
+          <p className="text-[0.75rem] text-white/55">
             &copy; {year} Groupe SICA - RCCM CI-ABJ-03-2020-B13-17592 - Abidjan, Cote d'Ivoire
           </p>
           <nav aria-label="Navigation legale">
@@ -223,7 +223,7 @@ export function Footer() {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="text-[0.72rem] text-white/24 transition-colors duration-200 hover:text-white/55"
+                    className="text-[0.75rem] text-white/55 transition-colors duration-200 hover:text-white/55"
                   >
                     {item.label}
                   </a>

@@ -280,6 +280,7 @@ export function HeroActionPanel() {
   const [f2, setF2] = React.useState("");
   const [feedback, setFeedback] = React.useState<Feedback>({ kind: "idle" });
   const [openDropdown, setOpenDropdown] = React.useState<"f1" | "f2" | null>(null);
+  const [tabsMenuOpen, setTabsMenuOpen] = React.useState(false);
   const formWrapRef = React.useRef<HTMLDivElement>(null);
 
   const cfg = FORM_CFG[active];
@@ -290,7 +291,18 @@ export function HeroActionPanel() {
     setF1("");
     setF2("");
     setOpenDropdown(null);
+    setTabsMenuOpen(false);
   }, [active]);
+
+  /* ── ESC ferme le sélecteur d'onglet mobile ── */
+  React.useEffect(() => {
+    if (!tabsMenuOpen) return;
+    const handle = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setTabsMenuOpen(false);
+    };
+    document.addEventListener("keydown", handle);
+    return () => document.removeEventListener("keydown", handle);
+  }, [tabsMenuOpen]);
 
   /* ── Fermeture dropdown clic extérieur ── */
   React.useEffect(() => {
@@ -569,7 +581,7 @@ export function HeroActionPanel() {
 
                   {/* Footer indicatif */}
                   <div className="border-t border-slate-100 px-4 py-2">
-                    <p className="text-[9.5px] uppercase tracking-[0.1em] text-slate-400">
+                    <p className="text-[11px] uppercase tracking-[0.1em] text-slate-400">
                       {openDropdown === "f1"
                         ? cfg.f1.ph.replace("...", "").trim()
                         : cfg.f2.ph.replace("...", "").trim()}
@@ -619,7 +631,86 @@ export function HeroActionPanel() {
 
       {/* ── Carte des onglets (flotte au-dessus) ── */}
       <div className="absolute top-0 left-1/2 z-10 w-full max-w-[780px] -translate-x-1/2 -translate-y-1/2 px-4">
-        <div className="flex overflow-hidden rounded-t-[10px] border border-b-0 border-white/25 bg-[#2D9CDB]">
+
+        {/* Mobile <480px : sélecteur dropdown — gain de place + lisibilité */}
+        <div className="relative min-[480px]:hidden">
+          {(() => {
+            const activeTab = TABS.find((t) => t.id === active);
+            if (!activeTab) return null;
+            const ActiveIcon = activeTab.Icon;
+            return (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setTabsMenuOpen((v) => !v)}
+                  aria-haspopup="listbox"
+                  aria-expanded={tabsMenuOpen}
+                  aria-label="Choisir une action"
+                  className="flex w-full items-center gap-3 rounded-t-[10px] border border-b-0 border-white/25 bg-[#2D9CDB] px-4 text-white transition-colors hover:bg-[#2890CC]"
+                  style={{ minHeight: 56 }}
+                >
+                  <ActiveIcon className="h-7 w-7 shrink-0" />
+                  <span className="flex-1 text-left text-[0.8125rem] font-bold uppercase tracking-[0.1em]">
+                    {activeTab.label}
+                  </span>
+                  <ChevronDown
+                    size={18}
+                    strokeWidth={2}
+                    className={[
+                      "shrink-0 transition-transform duration-200",
+                      tabsMenuOpen ? "rotate-180" : "",
+                    ].join(" ")}
+                  />
+                </button>
+
+                <AnimatePresence>
+                  {tabsMenuOpen ? (
+                    <motion.ul
+                      role="listbox"
+                      aria-label="Sélectionner une action"
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+                      className="absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-[6px] border border-white/25 bg-[#2D9CDB] shadow-lg"
+                    >
+                      {TABS.map((tab) => {
+                        const TabIcon = tab.Icon;
+                        const isActive = tab.id === active;
+                        return (
+                          <li key={tab.id}>
+                            <button
+                              type="button"
+                              role="option"
+                              aria-selected={isActive}
+                              onClick={() => {
+                                setActive(tab.id);
+                                setTabsMenuOpen(false);
+                              }}
+                              className={[
+                                "flex w-full items-center gap-3 px-4 text-left text-white transition-colors",
+                                isActive ? "bg-white/20" : "hover:bg-white/10",
+                              ].join(" ")}
+                              style={{ minHeight: 52 }}
+                            >
+                              <TabIcon className="h-6 w-6 shrink-0" />
+                              <span className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em]">
+                                {tab.label}
+                              </span>
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </motion.ul>
+                  ) : null}
+                </AnimatePresence>
+              </>
+            );
+          })()}
+        </div>
+
+        {/* Tablette / Desktop ≥480px : grille 4 onglets existante */}
+        <div className="hidden overflow-hidden rounded-t-[10px] border border-b-0 border-white/25 bg-[#2D9CDB] min-[480px]:flex">
           {TABS.map((tab, i) => {
             const isActive = active === tab.id;
             const TabIcon = tab.Icon;
@@ -640,13 +731,11 @@ export function HeroActionPanel() {
                 <TabIcon className="shrink-0" />
                 <span
                   className={[
-                    "text-center text-[9px] sm:text-[11px] uppercase leading-tight",
-                    "tracking-[0.04em] sm:tracking-[0.1em]",
+                    "text-center text-[11px] uppercase leading-tight tracking-[0.06em] sm:tracking-[0.1em]",
                     isActive ? "font-bold" : "font-semibold",
                   ].join(" ")}
                 >
-                  <span className="sm:hidden">{tab.labelShort}</span>
-                  <span className="hidden sm:inline">{tab.label}</span>
+                  {tab.label}
                 </span>
               </button>
             );

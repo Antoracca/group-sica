@@ -5,78 +5,61 @@ export const constructionNav: NavItem[] = [
   {
     label: "Accueil",
     href: "/",
-    tagline: "Vision chantier et execution",
-    children: [
-      {
-        label: "Hero chantier",
-        href: "/#hero",
-        description: "Positionnement SICA Construction et lancement rapide du devis.",
-      },
-      {
-        label: "Chiffres cle",
-        href: "/#preuves",
-        description: "Indicateurs de capacite, disponibilite et pilotage.",
-      },
-      {
-        label: "Equipe projet",
-        href: "/#equipe",
-        description: "Direction chantier et organisation terrain.",
-      },
-    ],
   },
   {
     label: "Expertises",
     href: "/#expertises",
-    tagline: "Etudes, execution, controle qualite",
+    tagline: "Nos domaines d'intervention",
     children: [
       {
-        label: "Etudes & preconisations",
-        href: "/#expertises",
-        description: "Etude de sol, metres, planification des lots et methode.",
+        label: "Découvrir la méthode",
+        href: "/#etudes",
+        description: "Études et préconisations avant projet.",
       },
       {
-        label: "Geobeton & structure",
-        href: "/#expertises",
-        description: "Systeme constructif et adaptation aux contraintes terrain.",
+        label: "Les normes appliquées",
+        href: "/#structure",
+        description: "Géobéton, structure et respect des normes.",
       },
       {
-        label: "Process chantier",
-        href: "/#process",
-        description: "Parcours de 01 Diagnostic a 05 Livraison.",
+        label: "Comprendre le pilotage",
+        href: "/#pilotage",
+        description: "Ordonnancement, pilotage et coordination.",
+      },
+      {
+        label: "Explorer nos outils",
+        href: "/#metriques",
+        description: "Contrôle des métriques et tableaux de bord.",
+      },
+      {
+        label: "La charte qualité",
+        href: "/#livraison",
+        description: "Sécurité, OPR et livraison.",
       },
     ],
   },
   {
-    label: "Projets A-Z",
+    label: "Projets de A à Z",
     href: "/#projets-az",
-    tagline: "Portefeuille complet et panel detaille",
-    children: [
-      {
-        label: "Vue A-Z",
-        href: "/#projets-az",
-        description: "Classement alphabetique des operations avec statuts.",
-      },
-      {
-        label: "Realisations",
-        href: "/realisations",
-        description: "Galerie projet par projet avec visuels de reference.",
-      },
-    ],
+  },
+  {
+    label: "Réalisations",
+    href: "/realisations",
   },
   {
     label: "Devis",
     href: "/devis",
-    tagline: "Pre-cadrage budgetaire et lancement projet",
+    tagline: "Pré-cadrage et chiffrage",
     children: [
       {
-        label: "Demande de devis",
+        label: "Demander un devis",
         href: "/devis",
-        description: "Parametrer besoin, surface, localite et urgence.",
+        description: "Accéder au simulateur en ligne.",
       },
       {
-        label: "Parler a un expert",
+        label: "Parler à un expert",
         href: "tel:+2250709883293",
-        description: "Echange direct avec un responsable chantier.",
+        description: "Échange direct avec un responsable.",
       },
     ],
   },
