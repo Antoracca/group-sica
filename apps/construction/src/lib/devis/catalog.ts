@@ -40,6 +40,18 @@ export const TYPES_CHANTIER = [
   { id: "infrastructure", label: "Infrastructure" },
 ] as const;
 
+/*
+  Niveaux de standing — prix indicatif du gros œuvre au m² (FCFA).
+  Fourchettes fournies par la direction ; min/max éditables côté devis.
+*/
+export const STANDINGS = [
+  { id: "moyen", label: "Moyen standing", min: 150_000, max: 250_000, pu: 200_000 },
+  { id: "standing", label: "Standing", min: 250_000, max: 350_000, pu: 300_000 },
+  { id: "haut", label: "Haut standing", min: 350_000, max: 500_000, pu: 425_000 },
+] as const;
+
+export type StandingId = (typeof STANDINGS)[number]["id"];
+
 export const DELAIS = [
   "Dès que possible",
   "Sous 1 à 3 mois",
@@ -86,6 +98,46 @@ export const WORK_CATALOG: WorkCatalogItem[] = [
     group: "etudes",
     unit: "forfait",
     pu: 850_000,
+    surfaceDriven: false,
+    defaultOn: false,
+  },
+  {
+    id: "etude-architecturale",
+    label: "Étude architecturale",
+    detail: "Esquisse, plans, façades et conception du projet (à partir de).",
+    group: "etudes",
+    unit: "forfait",
+    pu: 300_000,
+    surfaceDriven: false,
+    defaultOn: false,
+  },
+  {
+    id: "conception-duplex",
+    label: "Conception duplex / villa",
+    detail: "Conception complète d'un duplex ou d'une villa (à partir de).",
+    group: "etudes",
+    unit: "forfait",
+    pu: 1_000_000,
+    surfaceDriven: false,
+    defaultOn: false,
+  },
+  {
+    id: "honoraires-architecte",
+    label: "Honoraires architecte",
+    detail: "Suivi architectural et coordination de la conception.",
+    group: "etudes",
+    unit: "forfait",
+    pu: 1_000_000,
+    surfaceDriven: false,
+    defaultOn: false,
+  },
+  {
+    id: "honoraires-ingenieur",
+    label: "Honoraires ingénieur",
+    detail: "Note de calcul, dimensionnement structure, suivi technique.",
+    group: "etudes",
+    unit: "forfait",
+    pu: 800_000,
     surfaceDriven: false,
     defaultOn: false,
   },
@@ -202,6 +254,14 @@ export interface OptionCatalogItem {
 
 /* Options supplémentaires — ajoutées à la demande. */
 export const OPTION_CATALOG: OptionCatalogItem[] = [
+  {
+    id: "visite-site",
+    label: "Visite de site & déplacement",
+    detail: "Déplacement d'un technicien sur site — facturé. Tout le territoire national couvert.",
+    unit: "forfait",
+    pu: 50_000,
+    defaultQty: 1,
+  },
   {
     id: "permis",
     label: "Permis de construire & démarches",

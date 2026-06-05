@@ -95,7 +95,7 @@ export function DemandesClient() {
             </div>
           ) : (
             tickets.map((ticket) => {
-              const brand = BRANDS[ticket.pole];
+              const brand = BRANDS[ticket.pole]!;
               const BrandIcon = brand.icon;
               const StatusIcon = STATUS_ICONS[ticket.statut];
 
