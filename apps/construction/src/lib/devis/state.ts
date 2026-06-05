@@ -65,6 +65,7 @@ export function createInitialDevisState(prefill: Prefill = {}): DevisState {
     projet: {
       typeChantier: typeMatch ? typeMatch.label : "",
       natureTravaux: "",
+      standing: "",
       surface: Number.isFinite(surface) ? surface : 0,
       niveaux: 0,
       delai: "",

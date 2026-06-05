@@ -10,7 +10,7 @@ import type { DevisState, OptionLine, WorkLine } from "./types";
 
 export const SHEET_W = 794;
 export const SHEET_H = 1123;
-const USABLE = 858; // hauteur utile après en-tête + pied + marges internes
+const USABLE = 840; // hauteur utile après en-tête + pied + marges internes
 
 /*
   Hauteurs estimées = majorants du rendu réel (px). Les lignes de tableau
@@ -18,16 +18,16 @@ const USABLE = 858; // hauteur utile après en-tête + pied + marges internes
   cette marge, une description longue débordait sur la feuille suivante.
 */
 const H = {
-  intro: 112,
-  client: 164,
-  projet: 204,
-  tableHead: 48,
-  tableRow: 58,
-  totals: 204,
-  conditions: 240,
-  signature: 162,
-  annexHead: 42,
-  annexRow: 158,
+  intro: 150,
+  client: 188,
+  projet: 250,
+  tableHead: 54,
+  tableRow: 70,
+  totals: 230,
+  conditions: 286,
+  signature: 188,
+  annexHead: 48,
+  annexRow: 168,
 } as const;
 
 export type Block =

@@ -206,7 +206,7 @@ export function AdminModuleCatalog() {
               <div>
                 <p className="text-sm font-bold text-slate-950">Valeur attendue</p>
                 <div className="mt-3 space-y-2">
-                  {(groupValue[selectedModule.group] ?? groupValue.Systeme).map((item) => (
+                  {((groupValue[selectedModule.group as keyof typeof groupValue] ?? groupValue.Systeme) || []).map((item) => (
                     <p key={item} className="flex gap-2 rounded-md bg-white text-sm leading-relaxed text-slate-600">
                       <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-slate-500" />
                       {item}

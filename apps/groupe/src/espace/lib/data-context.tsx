@@ -1,15 +1,15 @@
 "use client";
 
 import { createContext, useContext, type ReactNode } from "react";
-import type { ActiviteItem, Demande, Document, Suivi } from "./types";
+import type { NotificationItem, Ticket, Document, Project } from "./types";
 import type { ProfileRow } from "./queries";
 
 export interface EspaceData {
   profile: ProfileRow;
-  suivis: Suivi[];
+  suivis: Project[];
   documents: Document[];
-  demandes: Demande[];
-  activite: ActiviteItem[];
+  demandes: Ticket[];
+  activite: NotificationItem[];
 }
 
 const Ctx = createContext<EspaceData | null>(null);

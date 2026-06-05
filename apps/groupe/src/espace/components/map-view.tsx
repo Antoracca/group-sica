@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { Suivi } from "@/espace/lib/types";
+import type { Project } from "@/espace/lib/types";
 
 const MapViewClient = dynamic(() => import("./map-view-client"), {
   ssr: false,
@@ -12,6 +12,6 @@ const MapViewClient = dynamic(() => import("./map-view-client"), {
   ),
 });
 
-export function MapView({ initialProjects }: { initialProjects: Suivi[] }) {
+export function MapView({ initialProjects }: { initialProjects: Project[] }) {
   return <MapViewClient initialProjects={initialProjects} />;
 }

@@ -28,21 +28,21 @@ export function A4Sheet({
       <header className="flex items-start justify-between px-14 pt-12">
         <div className="flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={COMPANY.logo} alt={COMPANY.marque} className="h-11 w-auto" />
+          <img src={COMPANY.logo} alt={COMPANY.marque} className="h-12 w-auto" />
           <div className="border-l border-black/10 pl-3">
-            <p className="font-display text-sm font-semibold leading-tight text-brand-royal">
+            <p className="font-display text-base font-semibold leading-tight text-brand-royal">
               {COMPANY.marque}
             </p>
-            <p className="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-slate">
+            <p className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-slate">
               {COMPANY.baseline}
             </p>
           </div>
         </div>
         <div className="text-right">
-          <p className="font-display text-base font-bold tracking-tight text-ink">
+          <p className="font-display text-xl font-bold tracking-tight text-ink">
             DEVIS ESTIMATIF
           </p>
-          <p className="font-mono text-[0.62rem] uppercase tracking-[0.12em] text-slate">
+          <p className="font-mono text-[0.72rem] uppercase tracking-[0.12em] text-slate">
             {reference}
           </p>
         </div>
@@ -57,11 +57,11 @@ export function A4Sheet({
       {/* Pied de page */}
       <footer className="mx-14 mb-8 border-t border-black/10 pt-3">
         <div className="flex items-end justify-between gap-4">
-          <p className="max-w-[78%] font-mono text-[0.55rem] leading-relaxed text-slate">
+          <p className="max-w-[78%] font-mono text-[0.62rem] leading-relaxed text-slate">
             {COMPANY.groupe} · RCCM {COMPANY.rccm} · Capital {COMPANY.capital} ·{" "}
             {COMPANY.siege} · {COMPANY.telephones[0]} · {COMPANY.email}
           </p>
-          <p className="shrink-0 font-mono text-[0.6rem] font-semibold text-brand-royal">
+          <p className="shrink-0 font-mono text-[0.7rem] font-semibold text-brand-royal">
             {String(page).padStart(2, "0")} / {String(total).padStart(2, "0")}
           </p>
         </div>

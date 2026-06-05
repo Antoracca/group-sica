@@ -49,6 +49,8 @@ export interface LocationInfo {
 export interface ProjectInfo {
   typeChantier: string;
   natureTravaux: string;
+  /** Niveau de standing (cf. STANDINGS) — pilote le prix/m² du gros œuvre. */
+  standing: string;
   surface: number;
   niveaux: number;
   delai: string;

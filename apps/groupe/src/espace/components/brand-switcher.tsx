@@ -22,7 +22,7 @@ export function BrandSwitcher() {
     >
       {OPTIONS.map((opt) => {
         const active = pole === opt.id;
-        const Icon = opt.id === "all" ? Layers : BRANDS[opt.id].icon;
+        const Icon = opt.id === "all" ? Layers : BRANDS[opt.id as "construction" | "assistance"]!.icon;
         return (
           <button
             key={opt.id}

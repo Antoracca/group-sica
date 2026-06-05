@@ -29,7 +29,7 @@ const contacts = [
 ];
 
 export default function MessageriePage() {
-  const [selectedContactId, setSelectedContactId] = useState<number | null>(contacts[0].id);
+  const [selectedContactId, setSelectedContactId] = useState<number | null>(contacts[0]?.id || null);
   const [message, setMessage] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 

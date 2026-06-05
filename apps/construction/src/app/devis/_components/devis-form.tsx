@@ -8,6 +8,7 @@ import {
 } from "react";
 import {
   Building2,
+  Car,
   Check,
   ChevronDown,
   DraftingCompass,
@@ -36,6 +37,7 @@ import {
   DELAIS,
   MODALITES_PAIEMENT,
   OPTION_CATALOG,
+  STANDINGS,
   TYPES_CHANTIER,
   UNIT_LABEL,
   VILLES_CI,
@@ -52,6 +54,7 @@ const GROUP_ICON: Record<WorkGroup, LucideIcon> = {
 };
 
 const OPTION_ICON: Record<string, LucideIcon> = {
+  "visite-site": Car,
   permis: FileCheck2,
   transport: Truck,
   materiaux: PackageOpen,
@@ -131,6 +134,38 @@ export function DevisForm({
       ...s,
       works: s.works.map((w) => (w.id === id ? { ...w, enabled: !w.enabled } : w)),
     }));
+
+  // Prix évolutifs : P.U. et quantités modifiables en direct (demande direction).
+  const setWorkPu = (id: string, pu: number) =>
+    setState((s) => ({
+      ...s,
+      works: s.works.map((w) => (w.id === id ? { ...w, pu: Math.max(0, pu) } : w)),
+    }));
+
+  const setWorkQty = (id: string, qty: number) =>
+    setState((s) => ({
+      ...s,
+      works: s.works.map((w) => (w.id === id ? { ...w, qty: Math.max(0, qty) } : w)),
+    }));
+
+  const setOptionPu = (id: string, pu: number) =>
+    setState((s) => ({
+      ...s,
+      options: s.options.map((o) => (o.id === id ? { ...o, pu: Math.max(0, pu) } : o)),
+    }));
+
+  // Standing : pré-remplit le prix/m² du gros œuvre (reste éditable ensuite).
+  const setStanding = (id: string) =>
+    setState((s) => {
+      const tier = STANDINGS.find((t) => t.id === id);
+      return {
+        ...s,
+        projet: { ...s.projet, standing: id },
+        works: tier
+          ? s.works.map((w) => (w.id === "gros-oeuvre" ? { ...w, pu: tier.pu } : w))
+          : s.works,
+      };
+    });
 
   const hasOption = (catalogId: string) =>
     state.options.some((o) => o.catalogId === catalogId);
@@ -317,6 +352,20 @@ export function DevisForm({
               }
             />
           </Labelled>
+          <Labelled label="Standing (prix gros œuvre / m²)">
+            <select
+              className={fieldCls}
+              value={state.projet.standing}
+              onChange={(e) => setStanding(e.target.value)}
+            >
+              <option value="">Choisir</option>
+              {STANDINGS.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.label} — {formatFcfa(t.min)} à {formatFcfa(t.max)} FCFA/m²
+                </option>
+              ))}
+            </select>
+          </Labelled>
           <Labelled label={`Surface : ${surface} m²`}>
             <input
               type="range"
@@ -379,18 +428,19 @@ export function DevisForm({
           {state.works.map((w) => {
             const Icon = GROUP_ICON[w.group] ?? Hammer;
             const qty = w.surfaceDriven ? surface : w.qty;
-            const total = w.pu * (w.surfaceDriven ? surface : w.qty);
+            const total = w.pu * qty;
             return (
-              <li key={w.id}>
+              <li
+                key={w.id}
+                className={`overflow-hidden rounded-lg border transition-colors ${
+                  w.enabled ? "border-brand-royal/30 bg-brand-royal/5" : "border-black/10 bg-white"
+                }`}
+              >
                 <button
                   type="button"
                   onClick={() => toggleWork(w.id)}
                   aria-pressed={w.enabled}
-                  className={`flex w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors ${
-                    w.enabled
-                      ? "border-brand-royal/30 bg-brand-royal/5"
-                      : "border-black/10 bg-white hover:bg-mist/50"
-                  }`}
+                  className="flex w-full items-center gap-3 p-3 text-left transition-colors hover:bg-mist/40"
                 >
                   <span
                     className={`flex size-5 shrink-0 items-center justify-center rounded border ${
@@ -411,10 +461,49 @@ export function DevisForm({
                       {formatFcfa(total)}
                     </span>
                     <span className="block font-mono text-[0.6rem] text-slate">
-                      {formatFcfa(w.pu)}/{UNIT_LABEL[w.unit]}
+                      {w.surfaceDriven ? `${surface} m²` : `${w.qty} ${UNIT_LABEL[w.unit]}`}
                     </span>
                   </span>
                 </button>
+
+                {/* Prix évolutifs : P.U. (et quantité) éditables une fois le lot activé */}
+                {w.enabled ? (
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-brand-royal/15 bg-white/70 px-3 py-2.5">
+                    {w.surfaceDriven ? (
+                      <span className="flex items-center gap-1.5">
+                        <span className={labelCls}>Qté</span>
+                        <span className="text-sm text-ink">{surface} m²</span>
+                        <span className="font-mono text-[0.6rem] text-slate">(surface)</span>
+                      </span>
+                    ) : (
+                      <label className="flex items-center gap-1.5">
+                        <span className={labelCls}>Qté</span>
+                        <input
+                          type="number"
+                          min={0}
+                          aria-label={`Quantité ${w.label}`}
+                          className="h-9 w-20 rounded-md border border-black/10 px-2 text-right text-sm outline-none focus:border-brand-royal"
+                          value={w.qty}
+                          onChange={(e) => setWorkQty(w.id, Number(e.target.value))}
+                        />
+                        <span className="font-mono text-[0.6rem] text-slate">{UNIT_LABEL[w.unit]}</span>
+                      </label>
+                    )}
+                    <label className="flex items-center gap-1.5">
+                      <span className={labelCls}>P.U.</span>
+                      <input
+                        type="number"
+                        min={0}
+                        step={1000}
+                        aria-label={`Prix unitaire ${w.label}`}
+                        className="h-9 w-28 rounded-md border border-black/10 px-2 text-right text-sm outline-none focus:border-brand-royal"
+                        value={w.pu}
+                        onChange={(e) => setWorkPu(w.id, Number(e.target.value))}
+                      />
+                      <span className="font-mono text-[0.6rem] text-slate">FCFA/{UNIT_LABEL[w.unit]}</span>
+                    </label>
+                  </div>
+                ) : null}
               </li>
             );
           })}
@@ -456,31 +545,49 @@ export function DevisForm({
             {state.options.map((o) => (
               <li
                 key={o.id}
-                className="flex items-center gap-3 rounded-lg border border-black/10 bg-mist/40 p-2.5"
+                className="rounded-lg border border-black/10 bg-mist/40 p-2.5"
               >
-                <span className="flex-1 text-sm font-medium text-ink">{o.label}</span>
-                <div className="flex items-center gap-1.5">
-                  <input
-                    type="number"
-                    min={0}
-                    aria-label={`Quantité ${o.label}`}
-                    className="h-9 w-16 rounded-md border border-black/10 px-2 text-right text-sm outline-none focus:border-brand-royal"
-                    value={o.qty}
-                    onChange={(e) => setOptionQty(o.id, Number(e.target.value))}
-                  />
-                  <span className="w-10 font-mono text-[0.6rem] text-slate">{UNIT_LABEL[o.unit]}</span>
+                <div className="flex items-center gap-3">
+                  <span className="flex-1 text-sm font-medium text-ink">{o.label}</span>
+                  <button
+                    type="button"
+                    onClick={() => removeOption(o.id)}
+                    aria-label={`Retirer ${o.label}`}
+                    className="flex size-9 items-center justify-center rounded-md text-slate transition-colors hover:bg-red-50 hover:text-red-600"
+                  >
+                    <Trash2 className="size-4" />
+                  </button>
                 </div>
-                <span className="w-24 text-right font-mono text-xs font-semibold text-ink">
-                  {formatFcfa(o.pu * o.qty)}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => removeOption(o.id)}
-                  aria-label={`Retirer ${o.label}`}
-                  className="flex size-9 items-center justify-center rounded-md text-slate transition-colors hover:bg-red-50 hover:text-red-600"
-                >
-                  <Trash2 className="size-4" />
-                </button>
+                <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <label className="flex items-center gap-1.5">
+                    <span className={labelCls}>Qté</span>
+                    <input
+                      type="number"
+                      min={0}
+                      aria-label={`Quantité ${o.label}`}
+                      className="h-9 w-16 rounded-md border border-black/10 px-2 text-right text-sm outline-none focus:border-brand-royal"
+                      value={o.qty}
+                      onChange={(e) => setOptionQty(o.id, Number(e.target.value))}
+                    />
+                    <span className="font-mono text-[0.6rem] text-slate">{UNIT_LABEL[o.unit]}</span>
+                  </label>
+                  <label className="flex items-center gap-1.5">
+                    <span className={labelCls}>P.U.</span>
+                    <input
+                      type="number"
+                      min={0}
+                      step={1000}
+                      aria-label={`Prix unitaire ${o.label}`}
+                      className="h-9 w-28 rounded-md border border-black/10 px-2 text-right text-sm outline-none focus:border-brand-royal"
+                      value={o.pu}
+                      onChange={(e) => setOptionPu(o.id, Number(e.target.value))}
+                    />
+                    <span className="font-mono text-[0.6rem] text-slate">FCFA/{UNIT_LABEL[o.unit]}</span>
+                  </label>
+                  <span className="ml-auto font-mono text-xs font-semibold text-ink">
+                    {formatFcfa(o.pu * o.qty)}
+                  </span>
+                </div>
               </li>
             ))}
           </ul>

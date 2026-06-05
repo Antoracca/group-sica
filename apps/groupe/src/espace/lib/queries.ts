@@ -1,15 +1,8 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { ActiviteItem, Demande, Document, Suivi } from "./types";
+import type { Project, Document, Ticket, NotificationItem } from "./types";
 import { createAdminClient } from "./supabase/admin";
 
 /* Couche de mapping : lignes Supabase → types de l'app. Aucune donnée mock. */
-
-function frDate(iso: string | null): string {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
-}
 
 export interface ProfileRow {
   id: string;
@@ -24,25 +17,18 @@ export interface ProfileRow {
 }
 
 export async function getProfile(supabase: SupabaseClient): Promise<ProfileRow | null> {
-  /* 1. Vérifier l'authentification */
-  const { data: auth, error: authError } = await supabase.auth.getUser();
-  console.log("[getProfile] auth.getUser →", auth.user?.id ?? "NO USER", authError?.message ?? "OK");
+  const { data: auth } = await supabase.auth.getUser();
   if (!auth.user) return null;
 
-  /* 2. Lire le profil via le client ADMIN (contourne la RLS) */
   const admin = createAdminClient();
-  const { data, error: selectError } = await admin
+  const { data } = await admin
     .from("profiles")
     .select("*")
     .eq("id", auth.user.id)
     .maybeSingle();
 
-  console.log("[getProfile] SELECT profiles →", data ? `role=${data.role}` : "NULL", selectError?.message ?? "OK");
-
   if (data) return data as ProfileRow;
 
-  /* 3. Auto-réparation : profil introuvable → on le crée via le client admin */
-  console.log("[getProfile] Profile missing — attempting auto-repair upsert via admin client...");
   const meta = (auth.user.user_metadata ?? {}) as Record<string, string | undefined>;
   const payload = {
     id: auth.user.id,
@@ -53,46 +39,47 @@ export async function getProfile(supabase: SupabaseClient): Promise<ProfileRow |
     entreprise: meta.entreprise ?? null,
     telephone: meta.telephone ?? null,
   };
-  console.log("[getProfile] Upsert payload →", JSON.stringify(payload));
 
-  const { data: created, error: upsertError } = await admin
+  const { data: created } = await admin
     .from("profiles")
     .upsert(payload, { onConflict: "id" })
     .select("*")
     .maybeSingle();
 
-  console.log("[getProfile] UPSERT result →", created ? `role=${created.role}` : "NULL", upsertError?.message ?? "OK");
-
   return (created as ProfileRow) ?? null;
 }
 
-export async function getSuivis(supabase: SupabaseClient): Promise<Suivi[]> {
+export async function getSuivis(supabase: SupabaseClient): Promise<Project[]> {
   const { data } = await supabase
     .from("projects")
     .select("*, project_steps(*)")
     .order("updated_at", { ascending: false });
-  return (data ?? []).map((p): Suivi => ({
+  return (data ?? []).map((p): Project => ({
     id: p.id,
     pole: p.pole,
     type: p.type,
     titre: p.titre,
-    reference: p.reference ?? "",
-    localisation: p.localisation ?? "",
-    x: Number(p.pos_x ?? 52),
-    y: Number(p.pos_y ?? 56),
+    reference: p.reference ?? null,
+    localisation: p.localisation ?? null,
+    pos_lat: p.pos_x ? Number(p.pos_x) : null,
+    pos_lng: p.pos_y ? Number(p.pos_y) : null,
     statut: p.statut,
     avancement: p.avancement ?? 0,
-    prochaineEtape: p.prochaine_etape ?? "",
-    miseAJour: frDate(p.updated_at),
-    photos: p.photos_count ?? 0,
-    rapports: p.rapports_count ?? 0,
+    budget_prevu: p.budget_prevu ?? 0,
+    budget_depense: p.budget_depense ?? 0,
+    date_debut: p.date_debut ?? null,
+    date_fin_prevue: p.date_fin_prevue ?? null,
+    prochaine_etape: p.prochaine_etape ?? null,
+    updated_at: p.updated_at,
     etapes: (p.project_steps ?? [])
       .slice()
-      .sort((a: { ordre: number }, b: { ordre: number }) => a.ordre - b.ordre)
-      .map((e: { label: string; statut: Suivi["etapes"][number]["statut"]; date_label: string | null }) => ({
+      .sort((a: any, b: any) => a.ordre - b.ordre)
+      .map((e: any) => ({
+        id: e.id,
         label: e.label,
         statut: e.statut,
-        date: e.date_label ?? undefined,
+        date_prevue: e.date_prevue ?? undefined,
+        date_realise: e.date_realise ?? undefined,
       })),
   }));
 }
@@ -104,34 +91,39 @@ export async function getDocuments(supabase: SupabaseClient): Promise<Document[]
     pole: d.pole,
     type: d.type,
     titre: d.titre,
-    reference: d.reference ?? "",
+    reference: d.reference ?? null,
     montant: Number(d.montant ?? 0),
-    date: frDate(d.doc_date),
+    file_url: d.file_url ?? "",
+    version: d.version ?? 1,
     statut: d.statut,
+    doc_date: d.doc_date ?? d.created_at,
+    signed_at: d.signed_at ?? null,
   }));
 }
 
-export async function getDemandes(supabase: SupabaseClient): Promise<Demande[]> {
-  const { data } = await supabase.from("demandes").select("*").order("created_at", { ascending: false });
-  return (data ?? []).map((d): Demande => ({
+export async function getDemandes(supabase: SupabaseClient): Promise<Ticket[]> {
+  const { data } = await supabase.from("tickets").select("*").order("created_at", { ascending: false });
+  return (data ?? []).map((d): Ticket => ({
     id: d.id,
     pole: d.pole,
-    objet: d.objet,
-    budget: d.budget ?? "À cadrer",
-    localisation: d.localisation ?? "",
-    recu: frDate(d.created_at),
-    statut: d.statut,
-    canal: d.canal,
+    sujet: d.sujet ?? d.objet ?? "Sans sujet",
+    description: d.description ?? "",
+    priorite: d.priorite ?? "moyenne",
+    statut: d.statut ?? "nouvelle",
+    created_at: d.created_at,
+    updated_at: d.updated_at ?? d.created_at,
   }));
 }
 
-export async function getActivity(supabase: SupabaseClient): Promise<ActiviteItem[]> {
-  const { data } = await supabase.from("activity").select("*").order("created_at", { ascending: false }).limit(8);
-  return (data ?? []).map((a): ActiviteItem => ({
+export async function getActivity(supabase: SupabaseClient): Promise<NotificationItem[]> {
+  const { data } = await supabase.from("notifications").select("*").order("created_at", { ascending: false }).limit(8);
+  return (data ?? []).map((a): NotificationItem => ({
     id: a.id,
-    icon: a.icon,
-    texte: a.texte,
-    quand: frDate(a.created_at),
-    pole: a.pole,
+    type: a.type ?? "system",
+    titre: a.titre ?? "Notification",
+    corps: a.corps ?? null,
+    action_url: a.action_url ?? null,
+    is_read: a.is_read ?? false,
+    created_at: a.created_at,
   }));
 }

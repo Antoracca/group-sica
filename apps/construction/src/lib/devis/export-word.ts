@@ -1,6 +1,6 @@
 import type { DevisState, Totals } from "./types";
 import { COMPANY } from "./company";
-import { UNIT_LABEL } from "./catalog";
+import { STANDINGS, UNIT_LABEL } from "./catalog";
 import { formatFcfa, formatDateFr, lineQty, lineTotal } from "./pricing";
 
 /*
@@ -28,7 +28,7 @@ function row(label: string, detail: string, unit: string, qty: number, pu: numbe
   return `
     <tr>
       <td style="padding:6px 8px;border-bottom:1px solid ${C.line};">
-        <strong>${esc(label)}</strong>${detail ? `<br><span style="font-size:10px;color:${C.slate};">${esc(detail)}</span>` : ""}
+        <strong>${esc(label)}</strong>${detail ? `<br><span style="font-size:11px;color:${C.slate};">${esc(detail)}</span>` : ""}
       </td>
       <td style="padding:6px 8px;border-bottom:1px solid ${C.line};text-align:center;color:${C.slate};">${esc(unit)}</td>
       <td style="padding:6px 8px;border-bottom:1px solid ${C.line};text-align:right;">${qty}</td>
@@ -39,7 +39,7 @@ function row(label: string, detail: string, unit: string, qty: number, pu: numbe
 
 function infoRow(label: string, value: string) {
   return `<tr>
-    <td style="padding:4px 8px;color:${C.slate};font-size:11px;width:38%;">${esc(label)}</td>
+    <td style="padding:4px 8px;color:${C.slate};font-size:12px;width:38%;">${esc(label)}</td>
     <td style="padding:4px 8px;font-weight:600;">${esc(value || "—")}</td>
   </tr>`;
 }
@@ -73,7 +73,7 @@ export function buildDevisHtml(state: DevisState, totals: Totals): string {
   return `<!DOCTYPE html>
 <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
 <head><meta charset="utf-8"><title>${esc(state.ref)}</title></head>
-<body style="font-family:Calibri,Arial,sans-serif;color:${C.ink};font-size:12px;">
+<body style="font-family:Calibri,Arial,sans-serif;color:${C.ink};font-size:13px;">
   <table style="width:100%;border-collapse:collapse;margin-bottom:16px;">
     <tr>
       <td style="vertical-align:top;">
@@ -89,7 +89,7 @@ export function buildDevisHtml(state: DevisState, totals: Totals): string {
   </table>
   <div style="height:3px;background:${C.amber};margin-bottom:16px;"></div>
 
-  <h3 style="color:${C.royal};font-size:13px;border-bottom:2px solid ${C.royal};padding-bottom:3px;">Client</h3>
+  <h3 style="color:${C.royal};font-size:15px;border-bottom:2px solid ${C.royal};padding-bottom:3px;">Client</h3>
   <table style="width:100%;border-collapse:collapse;margin-bottom:14px;">
     ${infoRow("Nom et prénom", clientName)}
     ${infoRow("Entreprise", c.entreprise)}
@@ -97,10 +97,11 @@ export function buildDevisHtml(state: DevisState, totals: Totals): string {
     ${infoRow("Adresse e-mail", c.email)}
   </table>
 
-  <h3 style="color:${C.royal};font-size:13px;border-bottom:2px solid ${C.royal};padding-bottom:3px;">Projet</h3>
+  <h3 style="color:${C.royal};font-size:15px;border-bottom:2px solid ${C.royal};padding-bottom:3px;">Projet</h3>
   <table style="width:100%;border-collapse:collapse;margin-bottom:14px;">
     ${infoRow("Type de chantier", pr.typeChantier)}
     ${infoRow("Nature des travaux", pr.natureTravaux)}
+    ${infoRow("Standing", STANDINGS.find((t) => t.id === pr.standing)?.label ?? "")}
     ${infoRow("Surface", surface > 0 ? `${surface} m²` : "")}
     ${infoRow("Niveaux", pr.niveaux > 0 ? `R+${pr.niveaux}` : "")}
     ${infoRow("Localisation", [l.quartier, l.ville].filter(Boolean).join(", "))}
@@ -108,12 +109,12 @@ export function buildDevisHtml(state: DevisState, totals: Totals): string {
     ${infoRow("Délai souhaité", pr.delai)}
   </table>
 
-  <h3 style="color:${C.royal};font-size:13px;">Corps d'état</h3>
+  <h3 style="color:${C.royal};font-size:15px;">Corps d'état</h3>
   <table style="width:100%;border-collapse:collapse;margin-bottom:14px;">${tableHead}${worksRows}</table>
 
   ${
     optionRows
-      ? `<h3 style="color:${C.royal};font-size:13px;">Options supplémentaires</h3>
+      ? `<h3 style="color:${C.royal};font-size:15px;">Options supplémentaires</h3>
   <table style="width:100%;border-collapse:collapse;margin-bottom:14px;">${tableHead}${optionRows}</table>`
       : ""
   }
@@ -131,11 +132,12 @@ export function buildDevisHtml(state: DevisState, totals: Totals): string {
     ${infoRow("Solde à la livraison", `${formatFcfa(totals.solde)} FCFA`)}
   </table>
 
-  <h3 style="color:${C.royal};font-size:13px;">Conditions</h3>
-  <p style="font-size:11px;color:${C.slate};line-height:1.5;">
+  <h3 style="color:${C.royal};font-size:15px;">Conditions</h3>
+  <p style="font-size:12px;color:${C.slate};line-height:1.5;">
     Méthodologie : visite de site, étude de sol, conception et devis quantitatif, validation et démarches, exécution et livraison.<br>
     Paiement : ${esc(state.finances.modalite)} — ${esc(COMPANY.banque)}${COMPANY.iban ? ` (${esc(COMPANY.iban)})` : ""}.<br>
-    Devis valable ${state.validiteJours} jours à compter de sa date d'émission.
+    Devis valable ${state.validiteJours} jours à compter de sa date d'émission.<br>
+    Couverture nationale : nos techniciens interviennent sur tout le territoire ivoirien. Toute visite de site et déplacement sont facturés.
   </p>
 
   <table style="width:100%;border-collapse:collapse;margin-top:24px;">

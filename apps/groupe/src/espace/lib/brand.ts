@@ -1,15 +1,15 @@
 import { Building2, Briefcase, type LucideIcon } from "lucide-react";
-import type { Pole } from "./types";
+import type { ProjectPole } from "./types";
 
 export interface BrandInfo {
-  id: Pole;
+  id: ProjectPole;
   label: string;
   short: string;
   logo: string;
   icon: LucideIcon;
 }
 
-export const BRANDS: Record<Pole, BrandInfo> = {
+export const BRANDS: Record<ProjectPole, BrandInfo> = {
   construction: {
     id: "construction",
     label: "SICA Construction",
@@ -27,4 +27,4 @@ export const BRANDS: Record<Pole, BrandInfo> = {
 };
 
 /** Filtre actif : "all" = vue holding (Groupe). */
-export type PoleFilter = Pole | "all";
+export type PoleFilter = ProjectPole | "all";

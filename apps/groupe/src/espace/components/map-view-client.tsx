@@ -9,7 +9,7 @@ import { Building2, FileText, MapPin, X, ChevronRight } from "lucide-react";
 import { cn } from "@sica/ui";
 import { StatusPill, Progress } from "@/espace/components/ui/primitives";
 import { usePole, filterByPole } from "@/espace/lib/pole-context";
-import type { Suivi } from "@/espace/lib/types";
+import type { Project } from "@/espace/lib/types";
 
 const { BaseLayer } = LayersControl;
 
@@ -40,24 +40,19 @@ const createCustomIcon = (type: string, active: boolean) => {
   });
 };
 
-export default function MapViewClient({ initialProjects }: { initialProjects: Suivi[] }) {
+export default function MapViewClient({ initialProjects }: { initialProjects: Project[] }) {
   const { pole } = usePole();
   const suivis = useMemo(() => filterByPole(initialProjects, pole), [initialProjects, pole]);
   const [activeId, setActiveId] = useState<string | null>(null);
   
-  const activeProject = useMemo(() => suivis.find(s => s.id === activeId) || null, [suivis, activeId]);
+  const activeProject = useMemo(() => suivis.find((s: Project) => s.id === activeId) || null, [suivis, activeId]);
 
   const center: [number, number] = [7.54, -5.54]; // Centered on Ivory Coast
   const zoom = 6; // Adjusted zoom to fit the country nicely
 
-  // Mock map coordinates translation from x,y to lat,lng
-  // Assuming the original map bounds for Ivory Coast:
-  // Lat: ~4.3 to ~10.7
-  // Lng: ~-8.6 to ~-2.5
-  const getLatLng = (x: number, y: number): [number, number] => {
-    const lat = 10.7 - (y / 100) * (10.7 - 4.3);
-    const lng = -8.6 + (x / 100) * (-2.5 - -8.6);
-    return [lat, lng];
+  const getLatLng = (lat: number | null, lng: number | null): [number, number] => {
+    if (lat !== null && lng !== null) return [lat, lng];
+    return [7.54, -5.54];
   };
 
   return (
@@ -85,8 +80,8 @@ export default function MapViewClient({ initialProjects }: { initialProjects: Su
         
         <ZoomControl position="bottomright" />
         
-        {suivis.map(s => {
-          const position = getLatLng(s.x, s.y);
+        {suivis.map((s: Project) => {
+          const position = getLatLng(s.pos_lat, s.pos_lng);
           const isActive = activeId === s.id;
           return (
             <Marker 
@@ -146,13 +141,13 @@ export default function MapViewClient({ initialProjects }: { initialProjects: Su
                 <Progress value={activeProject.avancement} className="h-2" />
               </div>
 
-              {activeProject.prochaineEtape && (
+              {activeProject.prochaine_etape && (
                 <div className="rounded-xl bg-brand-amber/10 p-3.5 border border-brand-amber/20">
                   <p className="text-xs font-bold uppercase tracking-wider text-brand-amber-600 mb-1.5">
                     Prochaine Étape
                   </p>
                   <p className="text-sm font-medium text-ink leading-snug">
-                    {activeProject.prochaineEtape}
+                    {activeProject.prochaine_etape}
                   </p>
                 </div>
               )}
@@ -163,9 +158,10 @@ export default function MapViewClient({ initialProjects }: { initialProjects: Su
                     Jalons Clés
                   </h4>
                   <div className="space-y-4 relative before:absolute before:inset-y-2 before:left-[9px] before:w-[2px] before:bg-slate/15">
-                    {activeProject.etapes.map((etape, i) => {
-                      const done = etape.statut === "termine";
-                      const current = etape.statut === "en-cours";
+                    {activeProject.etapes.map((etape: any, i: number) => {
+                      const done = etape.statut === "fait";
+                      const current = etape.statut === "encours";
+                      const dateLabel = etape.date_realise ? new Date(etape.date_realise).toLocaleDateString("fr-FR") : (etape.date_prevue ? new Date(etape.date_prevue).toLocaleDateString("fr-FR") : "");
                       return (
                         <div key={i} className="relative flex items-start gap-3.5">
                           <div className={cn(
@@ -181,8 +177,8 @@ export default function MapViewClient({ initialProjects }: { initialProjects: Su
                             <p className={cn("text-sm font-medium leading-snug", done || current ? "text-ink" : "text-slate")}>
                               {etape.label}
                             </p>
-                            {etape.date && (
-                              <p className="mt-1 text-[0.7rem] uppercase tracking-wider font-semibold text-slate/70">{etape.date}</p>
+                            {dateLabel && (
+                              <p className="mt-1 text-[0.7rem] uppercase tracking-wider font-semibold text-slate/70">{dateLabel}</p>
                             )}
                           </div>
                         </div>
