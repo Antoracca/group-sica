@@ -173,7 +173,7 @@ export default function RealisationsPage() {
                       className="absolute inset-0"
                     >
                       <Image
-                        src={selectedProject.media[currentImageIndex]}
+                        src={selectedProject.media[currentImageIndex]!}
                         alt={`${selectedProject.name} - vue ${currentImageIndex + 1}`}
                         fill
                         className="object-cover opacity-80 lg:opacity-100 lg:object-contain"

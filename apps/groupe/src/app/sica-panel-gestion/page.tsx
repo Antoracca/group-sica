@@ -63,7 +63,7 @@ export default function PanelGestionLogin() {
               className="object-contain"
             />
           </div>
-          <div className="mt-6 flex items-center justify-center gap-2">
+          <div className="mt-10 flex items-center justify-center gap-2">
             <ShieldCheck className="size-5 text-brand-royal" />
             <h1 className="font-display text-xl font-bold tracking-tight text-slate-900">
               Gestion interne
