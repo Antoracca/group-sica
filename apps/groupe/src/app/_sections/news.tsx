@@ -158,12 +158,12 @@ const ARTICLES: readonly Article[] = [
     readTime: "3 min",
   },
   {
-    slug: "partenariat-afg-bank",
+    slug: "partenariat-cofina",
     category: "Partenariat",
     date: "Avril 2025",
-    title: "Partenariat AFG Bank — accompagner le financement de votre projet",
+    title: "Partenariat Cofina — accompagner le financement de votre projet",
     excerpt:
-      "Notre client peut désormais bénéficier d'un parcours de financement simplifié auprès d'AFG Bank Côte d'Ivoire. Devis SICA, dossier accompagné, décision plus rapide.",
+      "Notre client peut désormais bénéficier d'un parcours de financement simplifié auprès de Cofina Côte d'Ivoire. Devis SICA, dossier accompagné, décision plus rapide.",
     readTime: "3 min",
   },
   {

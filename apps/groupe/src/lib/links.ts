@@ -14,6 +14,9 @@ const assistanceBase =
 
 const landingBase = "https://sica.ci";
 
+// L'espace client est intégré à l'app groupe : connexion sous /espace-client.
+const espaceBase = `${groupeBase}/espace-client`;
+
 export const links = {
   construction: {
     base: constructionBase,
@@ -27,6 +30,9 @@ export const links = {
   },
   landing: {
     base: landingBase,
+  },
+  espace: {
+    base: espaceBase,
   }
 };
 

@@ -58,9 +58,9 @@ export function FooterConstruction() {
               De l'étude de sol jusqu'à la livraison, SICA Construction pilote chaque lot avec une logique chantier claire: délais, qualité, sécurité, traçabilité.
             </p>
             <div className="text-xs leading-relaxed text-white/55">
-              <span className="font-medium text-white/60">Abidjan</span> - Cocody Mermoz
+              <span className="font-medium text-white/60">Abidjan</span> — Cocody, Centre, en face Cité 48 Logements V1
               <br />
-              <span className="font-medium text-white/60">Yamoussoukro</span> - Morofé, rte Daloa
+              <span className="font-medium text-white/60">Yamoussoukro</span> — Morofé, 24 ampoules
             </div>
           </div>
 

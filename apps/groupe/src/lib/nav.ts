@@ -99,7 +99,7 @@ export const mainNav: NavItem[] = [
       },
       {
         label: "Espace client",
-        href: `${links.construction.base}/espace-client`,
+        href: links.espace.base,
         description: "Suivi d'avancement, documents et points chantier.",
         external: true,
       },
@@ -143,7 +143,7 @@ export const mainNav: NavItem[] = [
       },
       {
         label: "Espace client",
-        href: "https://sicaassistance.ci/espace-client",
+        href: links.espace.base,
         description: "Suivi dossier, pièces attendues et factures.",
         external: true,
       },

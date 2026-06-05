@@ -12,9 +12,12 @@ const assistanceBase =
   process.env.NEXT_PUBLIC_ASSISTANCE_URL?.replace(/\/+$/, "") ||
   (isDev ? "http://localhost:3002" : "https://sicaassistance.ci");
 
-const landingBase = 
+const landingBase =
   process.env.NEXT_PUBLIC_LANDING_URL?.replace(/\/+$/, "") ||
   (isDev ? "http://localhost:3003" : "https://sica.ci");
+
+// L'espace client est intégré à l'app groupe : connexion sous /espace-client.
+const espaceBase = `${groupeBase}/espace-client`;
 
 export const links = {
   construction: {
@@ -29,6 +32,9 @@ export const links = {
   },
   landing: {
     base: landingBase,
+  },
+  espace: {
+    base: espaceBase,
   }
 };
 

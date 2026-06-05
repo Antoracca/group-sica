@@ -253,9 +253,91 @@ export function ProjectsAZSection() {
           >
              <ArchitecturalAccordion projects={featuredProjects} />
           </motion.div>
-
         </motion.div>
+
+        {/* ── Section PFO-Inspired Grid ajoutée en bas ── */}
+        <div className="mt-32 w-full">
+          <PfoInspiredGrid projects={constructionProjects.slice(0, 4)} />
+        </div>
       </Container>
     </section>
+  );
+}
+
+/* ─── Composant : Grille PFO Africa Style ───────────── */
+function PfoInspiredGrid({ projects }: { projects: ProjectItem[] }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
+
+  return (
+    <div ref={ref} className="w-full space-y-16">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6"
+      >
+        <div>
+          <h3 className="font-display text-3xl font-bold text-ink lg:text-4xl">Nos dernières réalisations</h3>
+          <p className="mt-2 text-slate-500 max-w-xl">
+            Découvrez un aperçu de nos projets phares, reflétant notre expertise et notre engagement pour l'excellence.
+          </p>
+        </div>
+        <a 
+          href="/realisations" 
+          className="group inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-brand-royal-900 transition-colors hover:text-brand-amber"
+        >
+          <span className="border-b border-brand-royal-900/30 pb-0.5 transition-colors group-hover:border-brand-amber">
+            Voir tous les projets
+          </span>
+          <MoveRight className="size-4 transition-transform group-hover:translate-x-1" />
+        </a>
+      </motion.div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        {projects.map((project, index) => (
+          <motion.a
+            key={project.id}
+            href={`/realisations#${project.id}`}
+            initial={{ opacity: 0, y: 50 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.8, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+            className={cn(
+              "group relative block overflow-hidden rounded-2xl bg-slate-100",
+              // Layout asymétrique (le 2e et le 3e élément sont plus grands)
+              index % 3 === 0 ? "aspect-[4/3] md:aspect-[3/4]" : "aspect-[4/3] md:aspect-square",
+              index === 1 && "md:mt-16"
+            )}
+          >
+            {/* Image avec zoom lent au survol */}
+            <Image
+              src={project.media?.[0] || "/placeholder.jpg"}
+              alt={project.name}
+              fill
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            
+            {/* Dégradé sombre qui apparaît au survol */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-90" />
+
+            {/* Contenu textuel (slide-up animation) */}
+            <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end p-6 lg:p-10 translate-y-4 transition-transform duration-500 group-hover:translate-y-0">
+              <div className="mb-3 overflow-hidden">
+                <span className="inline-block translate-y-full rounded-full bg-brand-amber px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-ink transition-transform duration-500 delay-100 group-hover:translate-y-0">
+                  {project.sector || project.type}
+                </span>
+              </div>
+              <h4 className="font-display text-2xl font-bold text-white lg:text-3xl">
+                {project.name}
+              </h4>
+              <p className="mt-2 font-mono text-xs uppercase tracking-widest text-white/70">
+                {project.city} {project.year && `— ${project.year}`}
+              </p>
+            </div>
+          </motion.a>
+        ))}
+      </div>
+    </div>
   );
 }

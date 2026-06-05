@@ -2,16 +2,17 @@ import Image from "next/image";
 import { Container, Logo } from "@sica/ui";
 
 const SERVICES_LINKS = [
-  { label: "Création d'entreprise", href: "/#services" },
-  { label: "Comptabilité et fiscalité", href: "/#services" },
-  { label: "Déclarations", href: "/#services" },
-  { label: "Conseil et suivi", href: "/#services" },
+  { label: "Création d'entreprise", href: "/services#creation" },
+  { label: "Comptabilité et fiscalité", href: "/services#comptable" },
+  { label: "Déclarations", href: "/services#declarations" },
+  { label: "Conseil et suivi", href: "/services#conseil" },
 ] as const;
 
 const RESSOURCES_LINKS = [
-  { label: "Simulateur de création", href: "/#simulateur" },
+  { label: "Simulateur de création", href: "/simulateur" },
+  { label: "Ressources et guides", href: "/ressources" },
   { label: "Questions fréquentes", href: "/#faq" },
-  { label: "Pour qui", href: "/#segments" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 export function FooterAssistance() {
@@ -78,9 +79,9 @@ export function FooterAssistance() {
               <li><a href="mailto:groupesica@gmail.com" className="text-white/60 hover:text-white">groupesica@gmail.com</a></li>
             </ul>
             <p className="mt-4 text-xs leading-relaxed text-white/45">
-              Cocody Mermoz, Abidjan
+Cocody Centre, en face Cité 48 Logements V1, Abidjan
               <br />
-              Morofé, Yamoussoukro
+              Morofé, 24 ampoules, Yamoussoukro
             </p>
           </div>
         </div>

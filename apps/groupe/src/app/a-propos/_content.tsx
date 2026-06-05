@@ -80,8 +80,9 @@ function IntroSection() {
 
         <Reveal delay={0.15}>
           <p className="mt-8 max-w-2xl text-pretty text-[1.0625rem] leading-[1.7] text-neutral-500">
-            Une SARL ivoirienne fondée en 2015 à Abidjan. Portée par une conviction simple:
-            la rigueur n'est pas une option, ni sur les chantiers ni dans les dossiers.
+            Une SARL ivoirienne démarrée en 2015 et légalement fondée en 2020 à Abidjan,
+            Côte d&apos;Ivoire. Portée par une conviction simple: la rigueur n&apos;est pas une
+            option, ni sur les chantiers ni dans les dossiers.
           </p>
         </Reveal>
       </Container>
@@ -682,8 +683,8 @@ function ImplantationsSection() {
             <LocationCard
               ville="Abidjan"
               role="Siège social"
-              adresse="Cocody Mermoz, derrière la Pharmacie Mermoz"
-              detail="Après le terrain SOGEFIA/RTI"
+              adresse="Cocody Centre, en face de la cité 48 Logements V1"
+              detail="Près de la PMI Urbaine"
               tel="+225 0709 883 293"
             />
           </Reveal>

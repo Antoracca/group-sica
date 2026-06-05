@@ -104,9 +104,31 @@ Direction validée : fusion **Trust & Authority + Gateway par profil**, charte c
   - [x] FAQ (accordéon, 6 questions)
   - [x] CTA final (devise sourcée) + StickyCtaMobile
   - Typecheck + build prod : 0 erreur
-- [ ] **A-3** Pages V2 : `/services` détail, `/simulateur` (vrai), `/contact`, `/intake`, `/espace-client`, `/ressources`, légal
-- [ ] Reprise possible des 3 agents annulés (limite de session) — non nécessaire, sections faites manuellement
+- [x] **A-3** Pages V2 (build prod OK, 8 routes statiques) :
+  - [x] `/services` — détail des 7 services (ancres par service) + composant `PageHero` réutilisable
+  - [x] `/simulateur` — wizard 4 étapes (forme juridique OHADA → secteur → détails → coordonnées → récap avec formalités + pièces, sans tarif inventé)
+  - [x] `/contact` — coordonnées + formulaire (état de soumission local, prêt backend)
+  - [x] `/ressources` — 6 guides « bientôt disponible »
+  - [x] `/mentions-legales`, `/confidentialite`, `/cookies` — composant `LegalPage` partagé, contenu sourcé (RCCM, capital, contacts réels)
+  - [x] Nav + footer mis à jour vers les vraies routes
+  - Données : `lib/simulateur.ts` (formes + secteurs + pièces)
+- [ ] **A-4** Page backend (V3) : `/intake` (nécessite Supabase) — différée
 - [ ] Setup skills `sica-context` et `sica-task-validate` + hook `SessionStart` (après stabilisation)
+
+## Espace client unifié (`apps/espace`, port 3004) — livré, build OK
+App web façon Windows 11 / Fluent, reliée aux 3 pôles (Groupe = vue holding, Construction, Assistance). Design : nos tokens + Geist + Lucide. Données mock TS (`lib/`). Magic MCP abandonné (générique, hors charte). Supabase + admin = étape suivante.
+- [x] **E-0** Scaffold app (config sans bloc turbopack), Geist, logos, globals
+- [x] **E-1** App shell : sidebar desktop (rail Win11, accent actif), app bar (titre, recherche, switcher de pôle, notifications, avatar), bottom tab bar mobile, fond Mica
+- [x] **E-2** Données + contexte : `lib/{types,brand,user,nav,data,format,pole-context}` ; primitives UI (`Surface` Mica, `StatCard`, `Progress`, `StatusPill`)
+- [x] **E-3** Les 5 fonctionnalités GIRA (partie 04 du PDF) :
+  - [x] Tableau de bord direction (KPIs, suivi temps réel, à-signer, activité, raccourcis)
+  - [x] Suivi de chantier (`/chantiers` + `/chantiers/[id]` : avancement, étapes, photos, rapports)
+  - [x] Carte interactive (`/carte` : marqueurs positionnés + liste synchronisée)
+  - [x] Signature en ligne (`/documents` : liste, modale de signature sécurisée, statut tracé)
+  - [x] Assistant de prise en charge (`/demandes` : fiches qualifiées objet/budget/localisation)
+  - [x] Paramètres (`/parametres`) + Connexion (`/login`, maquette pré-Supabase)
+- [x] Filtre par pôle (Tous / Construction / Assistance) transverse, mobile-first
+- [ ] **E-4** Branchement Supabase (auth + données réelles) + espace administration
 
 ---
 

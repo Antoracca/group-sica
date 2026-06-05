@@ -160,11 +160,11 @@ export const constructionProjects: ProjectItem[] = [
     tech: "Gestion de chantier digitalisée (SICA ERP)",
     referent: "Ing. Bamba",
     media: [
-      "/media/projects/gbakayo-soubre/WhatsApp Image 2026-05-11 at 19.38.31 (1).jpeg",
-      "/media/projects/gbakayo-soubre/WhatsApp Image 2026-05-11 at 19.38.31 (2).jpeg",
-      "/media/projects/gbakayo-soubre/WhatsApp Image 2026-05-11 at 19.38.31 (3).jpeg",
-      "/media/projects/gbakayo-soubre/WhatsApp Image 2026-05-11 at 19.38.31 (4).jpeg",
-      "/media/projects/gbakayo-soubre/WhatsApp Image 2026-05-11 at 19.38.31.jpeg"
+      "/media/projects/gbakayo-soubre/WhatsApp Image 2026-05-11 at 19.39.29 (1).jpeg",
+      "/media/projects/gbakayo-soubre/WhatsApp Image 2026-05-11 at 19.39.29 (2).jpeg",
+      "/media/projects/gbakayo-soubre/WhatsApp Image 2026-05-11 at 19.39.29 (3).jpeg",
+      "/media/projects/gbakayo-soubre/WhatsApp Image 2026-05-11 at 19.39.29.jpeg",
+      "/media/projects/gbakayo-soubre/WhatsApp Image 2026-05-11 at 19.39.30.jpeg"
     ],
   },
   {

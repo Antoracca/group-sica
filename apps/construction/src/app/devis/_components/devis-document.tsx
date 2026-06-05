@@ -258,7 +258,7 @@ function renderBlock(
               <p className="mb-1 font-semibold text-ink">Modalités</p>
               <p>Paiement : {state.finances.modalite}.</p>
               <p>Règlement par {COMPANY.banque}.</p>
-              <p className="mt-1 break-words">{COMPANY.iban}</p>
+              {COMPANY.iban ? <p className="mt-1 break-words">{COMPANY.iban}</p> : null}
               <p className="mt-1">
                 Devis valable {state.validiteJours} jours à compter de sa date d&apos;émission.
               </p>

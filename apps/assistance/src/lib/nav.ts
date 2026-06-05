@@ -22,38 +22,38 @@ export const assistanceNav: NavItem[] = [
   },
   {
     label: "Services",
-    href: "/#services",
+    href: "/services",
     tagline: "Création, comptabilité, fiscalité, conseil",
     children: [
       {
         label: "Création d'entreprise",
-        href: "/#services",
+        href: "/services#creation",
         description: "Forme juridique, statuts, immatriculation RCCM.",
       },
       {
         label: "Comptabilité et fiscalité",
-        href: "/#services",
+        href: "/services#comptable",
         description: "Tenue comptable, états financiers, déclarations.",
       },
       {
         label: "Conseil et suivi",
-        href: "/#services",
+        href: "/services#conseil",
         description: "Gestion, suivi administratif, accompagnement.",
       },
     ],
   },
   {
     label: "Simulateur",
-    href: "/#simulateur",
+    href: "/simulateur",
     tagline: "Estimez votre création d'entreprise",
   },
   {
     label: "Ressources",
-    href: "/#ressources",
+    href: "/ressources",
   },
   {
     label: "Contact",
-    href: "/#contact",
+    href: "/contact",
   },
 ];
 

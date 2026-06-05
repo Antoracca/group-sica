@@ -53,7 +53,7 @@ export const ACTUALITES: Actualite[] = [
     auteur: "Direction SICA",
     lecture: "3 min",
     contenu: [
-      "Le Groupe SICA s'appuie désormais sur deux bureaux permanents : un siège social à Abidjan Cocody Mermoz, et une succursale installée à Yamoussoukro Morofé — 24 ampoules, sur le rond-point route Daloa. Cette double implantation n'est pas symbolique : elle traduit notre conviction que les villes de l'intérieur méritent le même niveau d'exigence que la capitale économique.",
+      "Le Groupe SICA s'appuie désormais sur deux bureaux permanents : un siège social à Abidjan Cocody Centre, en face de la cité 48 Logements V1, et une succursale installée à Yamoussoukro Morofé — 24 ampoules. Cette double implantation n'est pas symbolique : elle traduit notre conviction que les villes de l'intérieur méritent le même niveau d'exigence que la capitale économique.",
       "Notre bureau de Yamoussoukro accueille des équipes terrain et techniques permanentes, capables d'intervenir dans toute la zone centre et au-delà : Bouaké, Daloa, Korhogo, San Pedro. Les contacts directs (+225 0102442894 et +225 2722247445) permettent d'obtenir un rendez-vous sans intermédiaire.",
       "Pour le Groupe, c'est aussi la concrétisation d'une promesse contenue dans nos statuts : « nos équipes sont mobiles et disponibles pour vous servir et satisfaire partout en Côte d'Ivoire, quelle que soit votre localité ». Aucune mission n'est trop éloignée si elle entre dans notre champ technique.",
     ],
@@ -237,17 +237,17 @@ export const ACTUALITES: Actualite[] = [
   },
 
   {
-    slug: "partenariat-afg-bank",
-    titre: "AFG Bank Côte d'Ivoire : notre établissement bancaire de référence",
+    slug: "partenariat-cofina",
+    titre: "Cofina Côte d'Ivoire : notre établissement bancaire de référence",
     chapo:
-      "AFG Bank Côte d'Ivoire accompagne le Groupe SICA depuis sa structuration. Une relation bancaire stable au service de la solidité financière de nos chantiers.",
+      "Cofina Côte d'Ivoire accompagne le Groupe SICA depuis sa structuration. Une relation bancaire stable au service de la solidité financière de nos chantiers.",
     categorie: "Groupe",
     date: "2025-04-10",
     auteur: "Direction Administrative",
     lecture: "3 min",
     contenu: [
-      "Le Groupe SICA tient ses comptes professionnels auprès d'AFG Bank Côte d'Ivoire. C'est notre banque de référence depuis la structuration du Groupe, et toutes nos opérations courantes (paiements fournisseurs, salaires, encaissements clients) transitent par cet établissement.",
-      "Pour nos clients, cette relation bancaire offre une garantie pratique : les coordonnées bancaires officielles du Groupe sont stables et identifiables (compte CI93 CI260 01210 013898690001 45). Tous les paiements liés à un projet SICA, qu'il s'agisse d'un devis, d'une étude facturée ou d'une situation de chantier, sont émis ou réceptionnés sur ce compte unique.",
+      "Le Groupe SICA tient ses comptes professionnels auprès de Cofina Côte d'Ivoire. C'est notre banque de référence depuis la structuration du Groupe, et toutes nos opérations courantes (paiements fournisseurs, salaires, encaissements clients) transitent par cet établissement.",
+      "Pour nos clients, cette relation bancaire offre une garantie pratique : les coordonnées bancaires officielles du Groupe sont stables et communiquées dans nos documents contractuels. Tous les paiements liés à un projet SICA, qu'il s'agisse d'un devis, d'une étude facturée ou d'une situation de chantier, sont émis ou réceptionnés sur ce compte unique.",
       "Cette transparence financière fait partie des fondations sur lesquelles repose la confiance de nos clients. Aucun versement intermédiaire, aucun compte parallèle. Le Groupe SICA opère avec la rigueur administrative qu'exige un acteur sérieux du BTP en Côte d'Ivoire.",
     ],
   },

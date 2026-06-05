@@ -1,9 +1,11 @@
-﻿"use client";
+"use client";
 
 import * as React from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { Eye, EyeOff, ArrowLeft, Lock, User, Shield, FileText, Wifi, ChevronRight, Mail } from "lucide-react";
+import { createClient } from "@/espace/lib/supabase/client";
 
 interface ParticlesDef {
   color?: string;
@@ -108,6 +110,7 @@ const FEATURES = [
 ] as const;
 
 export default function EspaceClientPage() {
+  const router = useRouter();
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [resetEmail, setResetEmail] = React.useState("");
@@ -124,15 +127,27 @@ export default function EspaceClientPage() {
     e.preventDefault();
     setError("");
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1400));
-    setLoading(false);
-    setError("Identifiants incorrects. Verifiez vos informations puis reessayez.");
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithPassword({
+      email: username.trim(),
+      password,
+    });
+    if (error) {
+      setLoading(false);
+      setError("Identifiants incorrects. Verifiez vos informations puis reessayez.");
+      return;
+    }
+    router.push("/espace");
+    router.refresh();
   };
 
   const handleResetSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setResetLoading(true);
-    await new Promise((r) => setTimeout(r, 1100));
+    const supabase = createClient();
+    await supabase.auth.resetPasswordForEmail(resetEmail.trim(), {
+      redirectTo: typeof window !== "undefined" ? `${window.location.origin}/espace/parametres` : undefined,
+    });
     setResetLoading(false);
     setResetSent(true);
   };

@@ -37,7 +37,7 @@ export default function MentionsLegalesPage() {
           body: (
             <>
               <p>
-                Cocody Mermoz, derrière la Pharmacie Mermoz, après le terrain SOGEFIA/RTI —
+                Cocody Centre, en face Cité 48 Logements V1, près de la PMI Urbaine —
                 Abidjan, Côte d'Ivoire.
               </p>
               <p>

@@ -118,9 +118,14 @@ export function SiteHeader({
   const closeMenuTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // ── États d'apparence — surchargés par forceScrolled (pages sans hero) ──
-  const isTop = !forceScrolled && state === "top";
+  // Un méga-menu ouvert force un fond solide : à l'ouverture, le scroll-lock
+  // remet window.scrollY à 0, ce qui ferait repasser le header en "top"
+  // (transparent) et rendrait ses liens illisibles sur une section claire.
+  const menuOpen = Boolean(desktopOpenLabel);
   const isHidden = state === "hidden";
-  const isScrolled = forceScrolled || state === "scrolled";
+  const solidBg = forceScrolled || state === "scrolled" || menuOpen;
+  const floating = !forceScrolled && state === "scrolled" && !menuOpen;
+  const isTop = !forceScrolled && state === "top" && !menuOpen;
 
   // ── Search focus ──
   React.useEffect(() => {
@@ -246,12 +251,12 @@ export function SiteHeader({
             />
 
             <div className="relative mx-auto max-w-[1440px] px-5 xl:px-8">
-              <div className="flex h-[2.5rem] items-center justify-between">
+              <div className="flex h-[3.25rem] items-center justify-between">
                 {/* Left side: Brand specific kicker */}
                 <div className="flex items-center">
                   {_brand === "construction" && (
-                    <p className="flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-brand-royal-900 font-bold">
-                      SICA Construction · Maîtrise d&apos;œuvre
+                    <p className="flex items-center gap-2 font-mono text-[0.8rem] uppercase tracking-[0.18em] text-brand-royal-900 font-bold">
+                      SICA Construction
                     </p>
                   )}
                 </div>
@@ -270,7 +275,7 @@ export function SiteHeader({
                       <a
                         href={item.href}
                         {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                        className="group inline-flex items-center gap-1.5 text-[0.7rem] font-medium tracking-[0.015em] text-brand-royal transition-colors duration-200 hover:text-[#0D1A4A]"
+                        className="group inline-flex items-center gap-2 text-[0.95rem] font-semibold tracking-[0.01em] text-brand-royal transition-colors duration-200 hover:text-[#0D1A4A]"
                       >
                         {item.logoSrc ? (
                           // eslint-disable-next-line @next/next/no-img-element
@@ -278,14 +283,14 @@ export function SiteHeader({
                             src={item.logoSrc}
                             alt=""
                             aria-hidden
-                            className="h-[1.1rem] w-auto object-contain opacity-85 transition-opacity duration-200 group-hover:opacity-100"
+                            className="h-[1.6rem] w-auto object-contain opacity-90 transition-opacity duration-200 group-hover:opacity-100"
                           />
                         ) : Icon ? (
-                          <Icon size={13} weight="light" className="text-brand-royal/50 transition-colors duration-200 group-hover:text-brand-royal" />
+                          <Icon size={18} weight="regular" className="text-brand-royal/60 transition-colors duration-200 group-hover:text-brand-royal" />
                         ) : null}
                         {item.label}
                         {item.external ? (
-                          <ArrowSquareOut size={10} weight="light" className="text-slate-300 opacity-0 transition-opacity group-hover:opacity-100" aria-hidden />
+                          <ArrowSquareOut size={13} weight="light" className="text-slate-300 opacity-0 transition-opacity group-hover:opacity-100" aria-hidden />
                         ) : null}
                       </a>
                     </React.Fragment>
@@ -295,17 +300,17 @@ export function SiteHeader({
                 {/* Séparateur + langue */}
                 <span aria-hidden className="mx-4 select-none text-[0.85rem] font-light text-slate-300">|</span>
                 <div className="flex items-center gap-2">
-                  <Translate size={14} weight="light" className="text-brand-royal/50" aria-hidden />
+                  <Translate size={17} weight="regular" className="text-brand-royal/55" aria-hidden />
                   {(["fr", "en"] as const).map((l, i) => (
                     <React.Fragment key={l}>
-                      {i > 0 ? <span aria-hidden className="select-none text-xs text-slate-200">/</span> : null}
+                      {i > 0 ? <span aria-hidden className="select-none text-sm text-slate-200">/</span> : null}
                       <button
                         type="button"
                         aria-label={l === "fr" ? "Version francaise" : "English version"}
                         aria-pressed={lang === l}
                         onClick={() => setLang(l)}
                         className={cn(
-                          "text-[0.7rem] font-semibold uppercase tracking-[0.06em] transition-colors duration-200",
+                          "text-[0.875rem] font-semibold uppercase tracking-[0.05em] transition-colors duration-200",
                           lang === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
                         )}
                       >
@@ -338,23 +343,23 @@ export function SiteHeader({
             }}
           />
 
-          <div className="relative flex min-h-[3rem] items-start justify-between gap-2 px-3 py-1.5">
+          <div className="relative flex min-h-[3.25rem] items-start justify-between gap-2 px-3 py-2">
             {/* Gauche : Colonne (étagères alignées) avec Kicker en haut, Liens en bas */}
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1.5">
               {_brand === "construction" && (
-                <span className="text-[0.55rem] font-extrabold uppercase text-[#1E2F8A] tracking-widest leading-none mt-1">
-                  SICA Construction · Maîtrise d&apos;œuvre
+                <span className="text-[0.68rem] font-extrabold uppercase text-[#1E2F8A] tracking-[0.16em] leading-none mt-1">
+                  SICA Construction
                 </span>
               )}
-              <div className="flex flex-wrap items-center gap-x-1.5">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                 {topNav?.map((item, idx) => {
                   const Icon = item.icon ? TOP_ICONS[item.icon] : null;
                   return (
                     <React.Fragment key={item.label}>
-                      {idx > 0 && <span aria-hidden className="text-[0.6rem] font-light text-slate-300 select-none">|</span>}
+                      {idx > 0 && <span aria-hidden className="text-[0.78rem] font-light text-slate-300 select-none">|</span>}
                       <a
                         href={item.href}
-                        className="flex shrink-0 items-center gap-1 text-[0.55rem] font-medium uppercase text-slate-500 transition-colors hover:text-brand-royal"
+                        className="flex shrink-0 items-center gap-1.5 text-[0.78rem] font-semibold uppercase text-slate-600 transition-colors hover:text-brand-royal"
                       >
                         {item.logoSrc ? (
                           // eslint-disable-next-line @next/next/no-img-element
@@ -362,10 +367,10 @@ export function SiteHeader({
                             src={item.logoSrc}
                             alt=""
                             aria-hidden
-                            className="h-[0.75rem] w-auto object-contain opacity-85 transition-opacity group-hover:opacity-100"
+                            className="h-[1.1rem] w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100"
                           />
                         ) : Icon ? (
-                          <Icon size={10} weight="light" className="text-brand-royal/40" aria-hidden />
+                          <Icon size={14} weight="regular" className="text-brand-royal/50" aria-hidden />
                         ) : null}
                         <span>{item.label}</span>
                       </a>
@@ -376,12 +381,12 @@ export function SiteHeader({
             </div>
 
             {/* Droite : sélecteur de langue avec icône Translate */}
-            <div className="mt-1 flex shrink-0 items-center gap-1">
-              <Translate size={12} weight="light" className="text-brand-royal/40" aria-hidden />
+            <div className="mt-1 flex shrink-0 items-center gap-1.5">
+              <Translate size={15} weight="regular" className="text-brand-royal/45" aria-hidden />
               {(["fr", "en"] as const).map((l, i) => (
                 <React.Fragment key={l}>
                   {i > 0 ? (
-                    <span aria-hidden className="select-none text-[0.56rem] text-slate-200">/</span>
+                    <span aria-hidden className="select-none text-[0.72rem] text-slate-200">/</span>
                   ) : null}
                   <button
                     type="button"
@@ -389,7 +394,7 @@ export function SiteHeader({
                     aria-pressed={lang === l}
                     onClick={() => setLang(l)}
                     className={cn(
-                      "text-[0.58rem] font-bold uppercase tracking-[0.05em] transition-colors duration-200",
+                      "text-[0.74rem] font-bold uppercase tracking-[0.04em] transition-colors duration-200",
                       lang === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
                     )}
                   >
@@ -407,12 +412,12 @@ export function SiteHeader({
         <motion.div
           initial={false}
           animate={{
-            /* Pill flottant UNIQUEMENT sur les pages avec hero (forceScrolled=false).
-               Sur les pages internes, header pleine largeur — pas de pill. */
-            marginLeft: !forceScrolled && isScrolled ? 12 : 0,
-            marginRight: !forceScrolled && isScrolled ? 12 : 0,
-            marginTop: !forceScrolled && isScrolled ? 10 : 0,
-            borderRadius: !forceScrolled && isScrolled ? 24 : 0,
+            /* Pill flottant UNIQUEMENT au scroll réel et hors méga-menu.
+               À l'ouverture du méga-menu → pleine largeur + fond solide. */
+            marginLeft: floating ? 12 : 0,
+            marginRight: floating ? 12 : 0,
+            marginTop: floating ? 10 : 0,
+            borderRadius: floating ? 24 : 0,
           }}
           transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
           className={cn(
@@ -422,13 +427,13 @@ export function SiteHeader({
                Sinon : comportement scroll normal. */
             forceScrolled
               ? "bg-transparent shadow-none"
-              : isScrolled
+              : solidBg
                 ? "bg-[#1E2F8A] shadow-[0_8px_32px_rgba(7,20,74,0.32)]"
                 : "bg-transparent shadow-none",
           )}
           onMouseLeave={closeDesktopMenu}
         >
-          <div className="mx-auto flex h-[4.75rem] max-w-[1440px] items-center px-5 lg:h-[5.5rem] xl:px-8">
+          <div className="mx-auto flex h-[5.25rem] max-w-[1440px] items-center px-5 lg:h-[6rem] xl:px-8">
 
             {/* Mobile : plaque menu + logo
                 Quand la barre de recherche est ouverte → logo masqué pour
@@ -485,20 +490,20 @@ export function SiteHeader({
                         aria-current={item.current ? "page" : undefined}
                         {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                         className={cn(
-                          "group relative inline-flex items-center gap-1 px-3 py-3 xl:px-3.5",
-                          "text-[0.775rem] font-semibold tracking-[0.01em] transition-colors duration-200",
-                          /* Sur fond bleu (isScrolled ou forceScrolled) → texte blanc.
+                          "group relative inline-flex items-center gap-1.5 px-3.5 py-3.5 xl:px-4",
+                          "text-[0.95rem] font-semibold tracking-[0.01em] transition-colors duration-200",
+                          /* Sur fond bleu (solidBg ou forceScrolled) → texte blanc.
                              Sur fond transparent (hero) → texte blanc aussi. Toujours blanc. */
                           "text-white/90 hover:text-white",
-                          "after:absolute after:bottom-[0.6rem] after:left-1/2 after:-translate-x-1/2",
-                          "after:h-[1.5px] after:w-5 after:rounded-full after:bg-brand-amber",
+                          "after:absolute after:bottom-[0.55rem] after:left-1/2 after:-translate-x-1/2",
+                          "after:h-[2px] after:w-6 after:rounded-full after:bg-brand-amber",
                           "after:origin-center after:transition-transform after:duration-300 after:ease-out",
                           item.current || opened ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100",
                         )}
                       >
                         {item.label}
                         {hasChildren ? (
-                          <CaretDown size={11} weight="bold" className={cn("transition-transform duration-200", opened && "rotate-180")} aria-hidden />
+                          <CaretDown size={13} weight="bold" className={cn("transition-transform duration-200", opened && "rotate-180")} aria-hidden />
                         ) : null}
                       </a>
                     </li>
@@ -543,12 +548,12 @@ export function SiteHeader({
                   aria-expanded={searchOpen}
                   onClick={() => setSearchOpen((v) => !v)}
                   className={cn(
-                    "inline-flex size-10 items-center justify-center rounded-full transition-all duration-200",
+                    "inline-flex size-11 items-center justify-center rounded-full transition-all duration-200",
                     /* Fond bleu ou transparent → toujours blanc */
                     cn("text-white/90 hover:bg-white/15 hover:text-white", searchOpen && "bg-white/20 text-white"),
                   )}
                 >
-                  {searchOpen ? <X size={17} weight="regular" aria-hidden /> : <MagnifyingGlass size={17} weight="light" aria-hidden />}
+                  {searchOpen ? <X size={20} weight="regular" aria-hidden /> : <MagnifyingGlass size={20} weight="light" aria-hidden />}
                 </button>
               </div>
 
@@ -556,8 +561,8 @@ export function SiteHeader({
                 href="/espace-client"
                 aria-label="Espace client"
                 className={cn(
-                  "inline-flex items-center gap-1.5 text-[0.7rem] font-bold uppercase tracking-[0.04em] transition-all duration-200",
-                  "lg:rounded-full lg:border lg:px-4 lg:py-2",
+                  "inline-flex items-center gap-2 text-[0.85rem] font-bold uppercase tracking-[0.04em] transition-all duration-200",
+                  "lg:rounded-full lg:border lg:px-5 lg:py-2.5",
                   /* Mobile : toujours blanc — la navbar mobile est soit transparente
                      sur hero sombre, soit bleue au scroll : dans les deux cas blanc
                      est le seul choix lisible. Bleu royal sur bleu = invisible (bug). */
@@ -565,7 +570,7 @@ export function SiteHeader({
                   "lg:text-white lg:border-brand-amber lg:bg-brand-amber lg:hover:brightness-110 lg:shadow-[0_2px_14px_rgba(247,160,38,0.30)]",
                 )}
               >
-                <UserCircle size={18} weight="regular" className="shrink-0" aria-hidden />
+                <UserCircle size={22} weight="regular" className="shrink-0" aria-hidden />
                 <span className="hidden lg:inline">Espace client</span>
               </a>
             </div>

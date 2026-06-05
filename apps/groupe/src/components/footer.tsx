@@ -70,14 +70,14 @@ export function Footer() {
                 />
               )}
             />
-            <p className="max-w-[30ch] text-sm leading-relaxed text-white/60">
-              Construction, genie civil et assistance entrepreneuriale. Une
-              equipe ivoirienne a votre service depuis 2020.
+            <p className="max-w-[34ch] text-sm leading-relaxed text-white/60">
+              Construction, génie civil, BTP et assistance : création, modification,
+              comptabilité, conseil. Une équipe ivoirienne depuis 2020.
             </p>
             <div className="text-xs leading-relaxed text-white/55">
-              <span className="font-medium text-white/60">Abidjan</span> - Cocody Mermoz
+              <span className="font-medium text-white/70">Abidjan</span> — Cocody, Centre, en face Cité 48 Logements V1
               <br />
-              <span className="font-medium text-white/60">Yamoussoukro</span> - Morofe, rte Daloa
+              <span className="font-medium text-white/70">Yamoussoukro</span> — Morofé, 24 ampoules
             </div>
           </div>
 

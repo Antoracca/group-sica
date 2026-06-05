@@ -18,41 +18,46 @@ interface Partenaire {
 
 const PARTENAIRES: Partenaire[] = [
   {
-    nom: "AFG BANK Côte d'Ivoire",
-    categorie: "Bancaire",
-    description:
-      "Banque historique du Groupe SICA. Garanties bancaires sur appels d'offres, financement projets clients.",
-    depuis: "2020",
-  },
-  {
-    nom: "NIC.CI",
+    nom: "CEPICI",
     categorie: "Institution",
     description:
-      "Office national d'enregistrement des noms de domaine .ci. Domaines officiels du Groupe.",
+      "Centre de Promotion des Investissements en Côte d'Ivoire. Guichet unique pour la création d'entreprise et l'accompagnement des investisseurs.",
   },
   {
-    nom: "Chambre des Notaires de Côte d'Ivoire",
+    nom: "DGI Côte d'Ivoire",
     categorie: "Institution",
     description:
-      "Réseau de notaires partenaires pour authentification des actes et signatures à valeur juridique OHADA.",
+      "Direction Générale des Impôts. Immatriculation fiscale, déclarations et suivi des obligations fiscales de nos clients.",
   },
   {
-    nom: "Fournisseurs matériaux Abidjan",
-    categorie: "Matériaux",
+    nom: "CNPS",
+    categorie: "Institution",
     description:
-      "Réseau de cimenteries, aciéristes et carrières partenaires. Approvisionnement chantiers en flux tendu.",
+      "Caisse Nationale de Prévoyance Sociale. Immatriculation employeur, déclarations sociales et couverture des travailleurs.",
   },
   {
-    nom: "Bureaux de contrôle technique agréés",
-    categorie: "Études techniques",
+    nom: "FDFP",
+    categorie: "Institution",
     description:
-      "Bureaux indépendants pour contrôle structure, sondages complémentaires et validation conformité.",
+      "Fonds de Développement de la Formation Professionnelle. Financement et appui à la formation des équipes.",
   },
   {
-    nom: "Cabinets d'expertise comptable agréés",
+    nom: "Guichet Unique du Permis de Construire",
+    categorie: "Institution",
+    description:
+      "Guichet Unique du Permis de Construire et du Contrôle Urbain. Autorisations d'urbanisme et conformité des constructions.",
+  },
+  {
+    nom: "Cabinet d'Experts-Comptables",
     categorie: "Cabinet conseil",
     description:
-      "Réseau d'experts-comptables agréés CEMAC pour audits, attestations et certifications de comptes.",
+      "Cabinet d'Experts-Comptables de Côte d'Ivoire. Tenue, révision et certification des comptes de nos clients.",
+  },
+  {
+    nom: "Cabinet d'Architecte",
+    categorie: "Cabinet conseil",
+    description:
+      "Cabinet d'Architecte de Côte d'Ivoire. Conception architecturale, plans et suivi technique des projets.",
   },
 ];
 

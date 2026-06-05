@@ -40,7 +40,9 @@ Hiérarchie du holding :
 - Capital : 2 500 000 FCFA
 - Compte contribuable : 2054314X · CNPS employeur : 378047
 - Certificat IDU : CI20200014890K · Régime fiscal : TEE
-- Banque : AFG BANK CI — CI93 CI260 01210 01389869 0001 45
+- Banque : Cofina Côte d'Ivoire (RIB à fournir par le client ; l'ancien compte AFG ne s'applique plus)
+- Siège : Abidjan, Cocody Centre, en face Cité 48 Logements V1 · Succursale : Yamoussoukro, Morofé, 24 ampoules
+- Statut : SARL ivoirienne démarrée en 2015, légalement fondée en 2020
 - Directeur : Ngoran Ivan (élu Meilleur jeune entrepreneur ivoirien 2023)
 - Siège : Abidjan, Cocody Mermoz · Succursale : Yamoussoukro, Morofé
 - Téléphones : +225 07 09 88 32 93 · +225 01 02 44 28 94 · +225 27 22 24 74 45

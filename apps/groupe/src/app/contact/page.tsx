@@ -11,8 +11,8 @@ const ADRESSES = [
   {
     ville: "Abidjan",
     role: "Siège social",
-    adresse: "Cocody Mermoz",
-    detail: "Derrière la Pharmacie Mermoz, après le terrain SOGEFIA/RTI",
+    adresse: "Cocody Centre, en face Cité 48 Logements V1",
+    detail: "Près de la PMI Urbaine, Abidjan",
     bp: "01 BP 1203 Abidjan",
     tel: "+225 0709883293",
   },

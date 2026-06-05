@@ -134,7 +134,7 @@ export function buildDevisHtml(state: DevisState, totals: Totals): string {
   <h3 style="color:${C.royal};font-size:13px;">Conditions</h3>
   <p style="font-size:11px;color:${C.slate};line-height:1.5;">
     Méthodologie : visite de site, étude de sol, conception et devis quantitatif, validation et démarches, exécution et livraison.<br>
-    Paiement : ${esc(state.finances.modalite)} — ${esc(COMPANY.banque)} (${esc(COMPANY.iban)}).<br>
+    Paiement : ${esc(state.finances.modalite)} — ${esc(COMPANY.banque)}${COMPANY.iban ? ` (${esc(COMPANY.iban)})` : ""}.<br>
     Devis valable ${state.validiteJours} jours à compter de sa date d'émission.
   </p>
 
