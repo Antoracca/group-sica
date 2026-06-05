@@ -56,8 +56,8 @@ const mockProject: Project = {
     { id: "e5", label: "Gros œuvre achevé", statut: "avenir", date_prevue: "2024-08-30" },
   ],
   team: [
-    { id: "t1", user_id: "u1", role_projet: "Chef de projet", profile: { id: "u1", role: "staff", email: "", telephone: "", ville: "", adresse: "", pays: "", signature_url: "", preferences: { theme: "", language: "", notifications_email: true }, entreprise: null, prenom: "Jean", nom: "Kouadio", photo_url: null } },
-    { id: "t2", user_id: "u2", role_projet: "Architecte", profile: { id: "u2", role: "staff", email: "", telephone: "", ville: "", adresse: "", pays: "", signature_url: "", preferences: { theme: "", language: "", notifications_email: true }, entreprise: null, prenom: "Marie", nom: "Sery", photo_url: null } },
+    { id: "t1", user_id: "u1", role_projet: "Chef de projet", profile: { prenom: "Jean", nom: "Kouadio", photo_url: null } },
+    { id: "t2", user_id: "u2", role_projet: "Architecte", profile: { prenom: "Marie", nom: "Sery", photo_url: null } },
   ]
 };
 
