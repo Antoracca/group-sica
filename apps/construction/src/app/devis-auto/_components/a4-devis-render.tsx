@@ -160,23 +160,23 @@ function renderBlock(b: Block, key: string): React.ReactNode {
           <p className="mt-3 mb-1.5 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-slate">
             {b.code}. {b.titre}{b.continued ? " (suite)" : ""}
           </p>
-          <div className="grid grid-cols-[1fr_3rem_4rem_5.5rem_6.5rem] gap-2 border-b border-brand-royal/60 pb-1 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.08em] text-brand-royal">
+          <div className="grid grid-cols-[1fr_3.5rem_4rem_7rem_8rem] gap-2 border-b-2 border-brand-royal/60 pb-1.5 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.1em] text-brand-royal">
             <span>Désignation</span>
             <span className="text-center">Unité</span>
             <span className="text-right">Qté</span>
             <span className="text-right">P.U.</span>
-            <span className="text-right">Montant</span>
+            <span className="text-right">Total</span>
           </div>
         </div>
       );
     case "sl-row":
       return (
-        <div key={key} className="grid grid-cols-[1fr_3rem_4rem_5.5rem_6.5rem] items-center gap-2 border-b border-black/[0.06] py-1.5 text-[0.82rem]">
+        <div key={key} className="grid grid-cols-[1fr_3.5rem_4rem_7rem_8rem] items-center gap-2 border-b border-black/5 py-2.5 text-[0.85rem]">
           <span className="text-ink">{b.line.designation}</span>
           <span className="text-center font-mono text-[0.7rem] text-slate">{b.line.unite}</span>
-          <span className="text-right font-mono tabular-nums text-slate">{fmtNum(b.line.quantite)}</span>
-          <span className="text-right font-mono tabular-nums text-slate">{fmt(b.line.pu)}</span>
-          <span className="text-right font-mono font-semibold tabular-nums text-ink">{fmt(b.line.montant)}</span>
+          <span className="text-right tabular-nums text-slate">{fmtNum(b.line.quantite)}</span>
+          <span className="text-right tabular-nums text-slate">{fmt(b.line.pu)}</span>
+          <span className="text-right font-semibold tabular-nums text-ink">{fmt(b.line.montant)}</span>
         </div>
       );
     case "sl-footer":

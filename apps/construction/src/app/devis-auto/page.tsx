@@ -58,8 +58,23 @@ export default function DevisAutoPage() {
       const form = new FormData();
       form.append("plan", file);
       const res = await fetch("/api/devis-auto", { method: "POST", body: form });
+      
+      if (!res.ok) {
+        if (res.status === 413) {
+          throw new Error("Fichier trop volumineux. La limite sur Vercel est de 4.5 Mo. Veuillez compresser votre PDF.");
+        }
+        const text = await res.text();
+        let errorMsg = `Erreur serveur (${res.status})`;
+        try {
+          const errJson = JSON.parse(text);
+          errorMsg = errJson.error || errorMsg;
+        } catch {
+          errorMsg = text.substring(0, 100);
+        }
+        throw new Error(errorMsg);
+      }
+
       const json: ApiResponse = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Erreur inconnue.");
       setPlan(json.plan);
       setDevis(json.devis);
       setRef(json.reference);
@@ -80,9 +95,9 @@ export default function DevisAutoPage() {
   };
 
   return (
-    <main className="relative min-h-[100dvh] overflow-hidden bg-[#FAFAFA] selection:bg-brand-royal/20">
+    <main className="relative min-h-[100dvh] overflow-hidden print:overflow-visible bg-[#FAFAFA] selection:bg-brand-royal/20">
       {/* Background Époustouflant : Gradient mesh et grid */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden print:hidden">
         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-royal/5 blur-[120px]" />
         <div className="absolute top-[20%] right-[-10%] w-[40%] h-[40%] rounded-full bg-brand-amber/5 blur-[120px]" />
         <div
