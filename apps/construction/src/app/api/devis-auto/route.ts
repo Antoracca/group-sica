@@ -32,33 +32,67 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let form: FormData;
-  try {
-    form = await req.formData();
-  } catch {
-    return NextResponse.json({ error: "Form-data invalide." }, { status: 400 });
+  let buffer: Buffer;
+  let fileName = "plan.pdf";
+  let fileSize = 0;
+  let email: string | null = null;
+  let uploadedFilePath: string | null = null;
+
+  const contentType = req.headers.get("content-type") || "";
+
+  if (contentType.includes("application/json")) {
+    // Nouveau flux : Le frontend a uploadé le fichier sur Supabase Storage
+    try {
+      const body = await req.json();
+      if (!body.filePath) {
+        return NextResponse.json({ error: 'Champ "filePath" requis en JSON.' }, { status: 400 });
+      }
+      uploadedFilePath = body.filePath;
+      email = body.email || null;
+
+      const admin = createAdminClient();
+      if (!admin) {
+        return NextResponse.json({ error: "Supabase non configuré côté serveur." }, { status: 500 });
+      }
+
+      const { data, error } = await admin.storage.from("plans").download(uploadedFilePath);
+      if (error || !data) {
+        return NextResponse.json({ error: `Fichier introuvable sur Supabase: ${error?.message}` }, { status: 404 });
+      }
+
+      buffer = Buffer.from(await data.arrayBuffer());
+      fileName = uploadedFilePath.split("/").pop() || "plan.pdf";
+      fileSize = buffer.length;
+    } catch (e) {
+      return NextResponse.json({ error: "JSON invalide." }, { status: 400 });
+    }
+  } else {
+    // Ancien flux : FormData direct
+    let form: FormData;
+    try {
+      form = await req.formData();
+    } catch {
+      return NextResponse.json({ error: "Form-data invalide." }, { status: 400 });
+    }
+
+    const file = form.get("plan");
+    email = (form.get("email") as string | null)?.trim() || null;
+
+    if (!(file instanceof File)) {
+      return NextResponse.json({ error: 'Champ "plan" (PDF) requis.' }, { status: 400 });
+    }
+    if (file.size > MAX_BYTES) {
+      return NextResponse.json({ error: "Fichier trop volumineux (max 15 Mo)." }, { status: 413 });
+    }
+    if (file.type && !file.type.includes("pdf")) {
+      return NextResponse.json({ error: "Format non supporté. Veuillez fournir un PDF." }, { status: 415 });
+    }
+
+    buffer = Buffer.from(await file.arrayBuffer());
+    fileName = file.name;
+    fileSize = file.size;
   }
 
-  const file = form.get("plan");
-  const email = (form.get("email") as string | null)?.trim() || null;
-
-  if (!(file instanceof File)) {
-    return NextResponse.json({ error: 'Champ "plan" (PDF) requis.' }, { status: 400 });
-  }
-  if (file.size > MAX_BYTES) {
-    return NextResponse.json(
-      { error: "Fichier trop volumineux (max 15 Mo)." },
-      { status: 413 },
-    );
-  }
-  if (file.type && !file.type.includes("pdf")) {
-    return NextResponse.json(
-      { error: "Format non supporté. Veuillez fournir un PDF." },
-      { status: 415 },
-    );
-  }
-
-  const buffer = Buffer.from(await file.arrayBuffer());
   const t0 = Date.now();
 
   let plan: PlanInput;
@@ -77,15 +111,15 @@ export async function POST(req: NextRequest) {
   const durationMs = Date.now() - t0;
   const reference = makeRef();
 
-  // Persistance best-effort dans Supabase (n'échoue pas si non configuré).
   const admin = createAdminClient();
   if (admin) {
+    // Persistance best-effort dans Supabase
     const { error } = await admin.from("devis_ai_generations").insert({
       reference,
       source: "public",
       client_email: email,
-      pdf_name: file.name,
-      pdf_size: file.size,
+      pdf_name: fileName,
+      pdf_size: fileSize,
       plan,
       devis,
       total_ht: devis.totalHT,
@@ -95,8 +129,15 @@ export async function POST(req: NextRequest) {
       duration_ms: durationMs,
     });
     if (error) {
-      // On loggue côté serveur mais on n'échoue pas la requête utilisateur.
       console.warn("[devis-auto] persistance Supabase échouée :", error.message);
+    }
+
+    // Nettoyage du fichier du bucket s'il venait de Supabase Storage
+    if (uploadedFilePath) {
+      const { error: rmError } = await admin.storage.from("plans").remove([uploadedFilePath]);
+      if (rmError) {
+        console.warn("[devis-auto] impossible de supprimer le fichier temporaire :", rmError.message);
+      }
     }
   }
 

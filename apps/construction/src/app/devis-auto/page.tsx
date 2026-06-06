@@ -17,6 +17,7 @@ import { DevisRender } from "./_components/devis-render";
 import { A4DevisRender } from "./_components/a4-devis-render";
 import { downloadDevisWord } from "./_components/export-doc";
 import { FAQ } from "./_components/faq";
+import { getBrowserClient } from "@/lib/supabase-browser";
 
 type Stage = "idle" | "processing" | "ready" | "error";
 
@@ -55,9 +56,33 @@ export default function DevisAutoPage() {
     setDevis(null);
 
     try {
-      const form = new FormData();
-      form.append("plan", file);
-      const res = await fetch("/api/devis-auto", { method: "POST", body: form });
+      let res;
+      const supabase = getBrowserClient();
+
+      if (supabase) {
+        // Envoi sécurisé via Supabase Storage pour éviter la limite Vercel
+        const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
+        const filePath = `${Date.now()}-${cleanName}`;
+        
+        const { error: uploadError } = await supabase.storage
+          .from("plans")
+          .upload(filePath, file);
+
+        if (uploadError) {
+          throw new Error(`Erreur d'envoi (vérifiez que le bucket "plans" existe) : ${uploadError.message}`);
+        }
+
+        res = await fetch("/api/devis-auto", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ filePath }),
+        });
+      } else {
+        // Fallback si pas de Supabase côté client
+        const form = new FormData();
+        form.append("plan", file);
+        res = await fetch("/api/devis-auto", { method: "POST", body: form });
+      }
       
       if (!res.ok) {
         if (res.status === 413) {
