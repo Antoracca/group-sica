@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: "Supabase non configuré côté serveur." }, { status: 500 });
       }
 
-      const { data, error } = await admin.storage.from("plans").download(uploadedFilePath);
+      const { data, error } = await admin.storage.from("plans").download(uploadedFilePath!);
       if (error || !data) {
         return NextResponse.json({ error: `Fichier introuvable sur Supabase: ${error?.message}` }, { status: 404 });
       }
