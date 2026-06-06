@@ -13,7 +13,7 @@ import { createAdminClient } from "@/lib/supabase-admin";
 */
 
 export const runtime = "nodejs";
-export const maxDuration = 60;
+export const maxDuration = 300;
 
 const MAX_BYTES = 15 * 1024 * 1024;
 
