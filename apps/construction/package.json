@@ -12,7 +12,10 @@
   },
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.19.2",
+    "@sica/devis-ai": "workspace:*",
+    "@sica/devis-engine": "workspace:*",
     "@sica/tokens": "workspace:*",
+    "@supabase/supabase-js": "^2.107.0",
     "@sica/ui": "workspace:*",
     "lucide-react": "^0.469.0",
     "motion": "^11.18.0",

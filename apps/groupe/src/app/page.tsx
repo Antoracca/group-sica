@@ -12,6 +12,7 @@ import { CtaBand } from "./_sections/cta-band";
 import { AnimatedHeroTitle } from "./_sections/animated-hero-title";
 import { HeroVideo } from "./_sections/hero-video";
 import { Pillars } from "./_sections/pillars";
+import { DevisIaSpotlight } from "./_sections/devis-ia-spotlight";
 
 /* ── Renderer next/image réutilisable ── */
 function makeImageRenderer(priority = false) {
@@ -57,6 +58,7 @@ export default function HomePage() {
           </div>
         </div>
         <Pillars />
+        <DevisIaSpotlight />
         <Stats />
         <Realisations />
         <News />

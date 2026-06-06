@@ -6,6 +6,7 @@ import { TrustStrip } from "./_sections/trust-strip";
 import { ServicesSection } from "./_sections/services";
 import { ProcessSection } from "./_sections/process";
 import { SimulateurTeaser } from "./_sections/simulateur-teaser";
+import { DevisIaSpotlight } from "./_sections/devis-ia-spotlight";
 import { SegmentsSection } from "./_sections/segments";
 import { RessourcesSection } from "./_sections/ressources";
 import { FaqSection } from "./_sections/faq";
@@ -22,6 +23,7 @@ export default function AssistanceHomePage() {
         <ServicesSection />
         <ProcessSection />
         <SimulateurTeaser />
+        <DevisIaSpotlight />
         <SegmentsSection />
         <RessourcesSection />
         <FaqSection />

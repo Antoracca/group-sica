@@ -16,9 +16,13 @@ const landingBase =
   process.env.NEXT_PUBLIC_LANDING_URL?.replace(/\/+$/, "") ||
   (isDev ? "http://localhost:3003" : "https://sica.ci");
 
+// L'espace client est hébergé dans l'app groupe sous /espace-client.
+const espaceBase = `${groupeBase}/espace-client`;
+
 export const links = {
   construction: { base: constructionBase },
   groupe: { base: groupeBase },
   assistance: { base: assistanceBase },
   landing: { base: landingBase },
+  espace: { base: espaceBase },
 };

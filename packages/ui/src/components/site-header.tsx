@@ -92,6 +92,7 @@ interface SiteHeaderProps {
    *  À activer sur les pages SANS hero vidéo plein écran — sinon la nav
    *  blanche reste invisible sur un fond blanc. */
   forceScrolled?: boolean;
+  espaceClientUrl?: string;
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -107,6 +108,7 @@ export function SiteHeader({
   hideThreshold = 480,
   className,
   forceScrolled = false,
+  espaceClientUrl = "/espace-client",
 }: SiteHeaderProps) {
   const state = useHeaderScroll({ scrolledThreshold, hideThreshold });
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -558,7 +560,7 @@ export function SiteHeader({
               </div>
 
               <a
-                href="/espace-client"
+                href={espaceClientUrl}
                 aria-label="Espace client"
                 className={cn(
                   "inline-flex items-center gap-2 text-[0.85rem] font-bold uppercase tracking-[0.04em] transition-all duration-200",
@@ -961,7 +963,7 @@ export function SiteHeader({
 
                     {/* CTA Espace client — amber, visible, premium */}
                     <a
-                      href="/espace-client"
+                      href={espaceClientUrl}
                       className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-amber px-4 py-3.5 text-[0.78rem] font-bold uppercase tracking-[0.05em] text-white shadow-[0_4px_20px_rgba(247,160,38,0.32)] transition-all hover:brightness-110 active:scale-[0.98]"
                     >
                       <UserCircle size={17} weight="light" aria-hidden />

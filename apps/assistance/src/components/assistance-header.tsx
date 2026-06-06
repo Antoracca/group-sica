@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Button, Logo, SiteHeader } from "@sica/ui";
 import { assistanceNav, assistanceTopNav } from "@/lib/nav";
+import { links } from "@/lib/links";
 
 export function AssistanceHeader({ forceScrolled = false }: { forceScrolled?: boolean }) {
   return (
@@ -9,6 +10,7 @@ export function AssistanceHeader({ forceScrolled = false }: { forceScrolled?: bo
       nav={assistanceNav}
       topNav={assistanceTopNav}
       forceScrolled={forceScrolled}
+      espaceClientUrl={links.espace.base}
       logo={
         <Logo
           brand="assistance"

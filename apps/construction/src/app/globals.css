@@ -1,1 +1,42 @@
 @import "@sica/tokens/globals.css";
+
+/*
+  Impression /devis-auto : vraies feuilles A4 paginées (logo + en-tête + filet
+  ambre + pied + numéro de page). On bascule la chrome (hidden print:block) et
+  on force le format A4 portrait + page-break entre chaque feuille.
+*/
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  body * {
+    visibility: hidden;
+  }
+  [data-print="auto-devis"],
+  [data-print="auto-devis"] * {
+    visibility: visible;
+  }
+  [data-print="auto-devis"] {
+    position: absolute;
+    inset: 0;
+  }
+  /* Garde les couleurs SICA à l'impression (logo bleu, filet ambre) */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  /* Chaque feuille A4 → page imprimée, sans bord */
+  .devis-page {
+    box-shadow: none !important;
+    ring: 0 !important;
+    page-break-after: always;
+    page-break-inside: avoid;
+    break-after: page;
+    break-inside: avoid;
+  }
+  .devis-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}

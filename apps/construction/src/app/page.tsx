@@ -8,6 +8,7 @@ import { ExpertisesSection } from "./_sections/expertises";
 import { ProjectsAZSection } from "./_sections/projects-az";
 import { ProcessSection } from "./_sections/process";
 import { ESicaSection } from "./_sections/esica";
+import { DevisIaSpotlight } from "./_sections/devis-ia-spotlight";
 import { CtaConstruction } from "./_sections/cta";
 
 export default function ConstructionHomePage() {
@@ -19,6 +20,7 @@ export default function ConstructionHomePage() {
         <HeroConstruction />
         <SectionRail />
         <ProofStrip />
+        <DevisIaSpotlight />
         <ESicaSection />
         <ExpertisesSection />
         <ProjectsAZSection />

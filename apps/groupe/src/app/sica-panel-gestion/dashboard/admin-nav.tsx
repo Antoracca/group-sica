@@ -9,6 +9,7 @@ import {
   FolderKanban,
   Inbox,
   LayoutDashboard,
+  Sparkles,
   Users,
 } from "lucide-react";
 
@@ -18,6 +19,7 @@ const ADMIN_NAV_ITEMS = [
   { href: "/sica-panel-gestion/dashboard/projets", label: "Projets", icon: FolderKanban },
   { href: "/sica-panel-gestion/dashboard/documents", label: "Documents", icon: FileText },
   { href: "/sica-panel-gestion/dashboard/demandes", label: "Demandes", icon: Inbox },
+  { href: "/sica-panel-gestion/dashboard/devis-ia", label: "Devis IA", icon: Sparkles },
   { href: "/sica-panel-gestion/dashboard/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/sica-panel-gestion/dashboard/modules", label: "Modules", icon: Database },
 ] as const;

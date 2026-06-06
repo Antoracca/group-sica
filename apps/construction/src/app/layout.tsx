@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { fontBody, fontDisplay, fontMono } from "@/lib/fonts";
 import "./globals.css";
 
@@ -41,7 +42,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr" className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}>
       <head>
-        <script
+        <Script
+          id="pageshow-reload"
           dangerouslySetInnerHTML={{
             __html: `
               window.addEventListener("pageshow", function(event) {

@@ -18,6 +18,7 @@ import {
   ReceiptText,
   Settings,
   ShieldCheck,
+  Sparkles,
   TrendingUp,
   Users,
   Wallet,
@@ -53,6 +54,7 @@ export const ADMIN_MODULES = [
   { group: "Chantiers", label: "Sous-traitants", desc: "Partenaires terrain et lots.", status: "Prévu", icon: Building2 },
   { group: "Chantiers", label: "Réception travaux", desc: "Reserves, livraison, validation.", status: "Prévu", icon: CheckCircle2 },
 
+  { group: "Documents", label: "Devis IA", desc: "Console d'apprentissage du moteur de devis IA.", status: "Actif", icon: Sparkles },
   { group: "Documents", label: "GED documents", desc: "Devis, contrats, factures.", status: "Actif", icon: FileText },
   { group: "Documents", label: "Documents a signer", desc: "Suivi des signatures client.", status: "Actif", icon: FileSignature },
   { group: "Documents", label: "Contrats", desc: "Pièces contractuelles centralisées.", status: "À connecter", icon: FileSignature },

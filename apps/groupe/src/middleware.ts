@@ -9,7 +9,11 @@ import { updateSession } from "@/espace/lib/supabase/middleware";
   - /sica-panel-gestion/* → Dashboard admin
 */
 export async function middleware(request: NextRequest) {
-  return updateSession(request);
+  try {
+    return await updateSession(request);
+  } catch (err: any) {
+    return new Response(`Middleware Error: ${err.message}`, { status: 500 });
+  }
 }
 
 export const config = {
