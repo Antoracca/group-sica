@@ -8,32 +8,32 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
   Pipeline d'agents — Version professionnelle "Aperçu Global"
   - Utilise `agent.lottie` au centre pour simuler le traitement.
   - Vraie barre de progression fluide.
-  - Estimation du temps restant.
-  - Remplace les "cartes" trop high-tech par un design sobre.
+  - Estimation du temps restant avec fallback si l'API est longue.
 */
 
 interface Agent {
   id: string;
   label: string;
   task: string;
-  targetProgress: number; // Jusqu'à quel % cet agent gère la progression
-  expectedDuration: number; // Durée estimée pour atteindre ce %
+  targetProgress: number;
+  expectedDuration: number;
 }
 
 const AGENTS: Agent[] = [
-  { id: "vision", label: "Agent Lecteur", task: "Extraction géométrique des plans", targetProgress: 35, expectedDuration: 6000 },
-  { id: "metreur", label: "Agent Métreur", task: "Quantification (m³, m², ml)", targetProgress: 65, expectedDuration: 4000 },
-  { id: "chiffreur", label: "Agent Chiffreur", task: "Application base de prix SICA", targetProgress: 85, expectedDuration: 3000 },
-  { id: "controleur", label: "Agent Contrôleur", task: "Validation benchmark FCFA/m²", targetProgress: 99, expectedDuration: 3000 },
+  { id: "vision", label: "Agent Lecteur", task: "Lecture et extraction du plan (IA)", targetProgress: 35, expectedDuration: 18000 },
+  { id: "metreur", label: "Agent Métreur", task: "Analyse des quantités et volumes (IA)", targetProgress: 65, expectedDuration: 15000 },
+  { id: "chiffreur", label: "Agent Chiffreur", task: "Application base de prix SICA", targetProgress: 85, expectedDuration: 10000 },
+  { id: "controleur", label: "Agent Contrôleur", task: "Validation benchmark et formatage", targetProgress: 99, expectedDuration: 7000 },
 ];
 
 const TOTAL_EXPECTED_TIME = AGENTS.reduce((acc, curr) => acc + curr.expectedDuration, 0);
 
 interface Props {
   finished: boolean;
+  onComplete?: () => void;
 }
 
-export function AgentsPipeline({ finished }: Props) {
+export function AgentsPipeline({ finished, onComplete }: Props) {
   const [progress, setProgress] = useState(0);
   const [activeIdx, setActiveIdx] = useState(0);
   const [timeLeft, setTimeLeft] = useState(Math.round(TOTAL_EXPECTED_TIME / 1000));
@@ -49,21 +49,22 @@ export function AgentsPipeline({ finished }: Props) {
         setProgress(100);
         setActiveIdx(AGENTS.length - 1);
         setTimeLeft(0);
+        if (onComplete) {
+          setTimeout(onComplete, 3000); // Wait 3 seconds
+        }
         return;
       }
 
       const elapsed = Date.now() - startTime.current;
       
-      // Mettre à jour le temps restant estimé
-      const remainingMs = Math.max(TOTAL_EXPECTED_TIME - elapsed, 1000); // Ne jamais afficher 0 si pas fini
+      const remainingMs = Math.max(TOTAL_EXPECTED_TIME - elapsed, 1000);
       setTimeLeft(Math.round(remainingMs / 1000));
 
-      // Calculer l'état théorique basé sur le temps
       let currentAgentIdx = 0;
       let timeAccumulator = 0;
       
       for (let i = 0; i < AGENTS.length; i++) {
-        timeAccumulator += AGENTS[i].expectedDuration;
+        timeAccumulator += AGENTS[i]!.expectedDuration;
         if (elapsed > timeAccumulator) {
           currentAgentIdx = i + 1;
         } else {
@@ -71,16 +72,14 @@ export function AgentsPipeline({ finished }: Props) {
         }
       }
 
-      // Si on dépasse le dernier agent, on le maintient actif
       if (currentAgentIdx >= AGENTS.length) {
         currentAgentIdx = AGENTS.length - 1;
       }
       
       setActiveIdx(currentAgentIdx);
 
-      // Calcul progress fin
-      const currentAgent = AGENTS[currentAgentIdx];
-      const prevAgentTarget = currentAgentIdx > 0 ? AGENTS[currentAgentIdx - 1].targetProgress : 0;
+      const currentAgent = AGENTS[currentAgentIdx]!;
+      const prevAgentTarget = currentAgentIdx > 0 ? AGENTS[currentAgentIdx - 1]!.targetProgress : 0;
       const prevAgentTime = timeAccumulator - currentAgent.expectedDuration;
       
       const timeInCurrentAgent = elapsed - prevAgentTime;
@@ -88,7 +87,6 @@ export function AgentsPipeline({ finished }: Props) {
       
       const newProgress = prevAgentTarget + (currentAgent.targetProgress - prevAgentTarget) * progressRatio;
       
-      // Assurer qu'on ne dépasse jamais 99.5% tant que pas finished
       setProgress(Math.min(newProgress, 99.5));
 
       if (!finished) {
@@ -101,9 +99,9 @@ export function AgentsPipeline({ finished }: Props) {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [finished]);
+  }, [finished, onComplete]);
 
-  const currentAgent = AGENTS[Math.min(activeIdx, AGENTS.length - 1)];
+  const currentAgent = AGENTS[Math.min(activeIdx, AGENTS.length - 1)]!;
 
   return (
     <div className="relative overflow-hidden rounded-3xl border border-white/40 bg-white/60 p-8 sm:p-12 backdrop-blur-xl shadow-2xl shadow-brand-royal/10 text-center">
@@ -119,28 +117,40 @@ export function AgentsPipeline({ finished }: Props) {
 
         {/* Textes de l'agent actif */}
         <div className="mb-8 min-h-[4rem]">
-          <motion.h3 
-            key={currentAgent.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="font-display text-2xl font-bold tracking-tight text-ink"
-          >
-            {finished ? "Génération du devis..." : currentAgent.label}
-          </motion.h3>
-          <motion.p 
-            key={`${currentAgent.id}-task`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mt-2 text-slate text-sm"
-          >
-            {finished ? "Finalisation du fichier prêt à l'export." : currentAgent.task}
-          </motion.p>
+          {finished ? (
+            <motion.h3 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="font-display text-3xl font-bold tracking-tight text-emerald-500 uppercase"
+            >
+              DEVIS CRÉÉ
+            </motion.h3>
+          ) : (
+            <>
+              <motion.h3 
+                key={currentAgent.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="font-display text-2xl font-bold tracking-tight text-ink"
+              >
+                {currentAgent.label}
+              </motion.h3>
+              <motion.p 
+                key={`${currentAgent.id}-task`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="mt-2 text-slate text-sm"
+              >
+                {currentAgent.task}
+              </motion.p>
+            </>
+          )}
         </div>
 
         {/* Real Progress Bar */}
         <div className="mb-4 relative h-3 w-full overflow-hidden rounded-full bg-slate-100 ring-1 ring-inset ring-slate-200/50">
           <motion.div
-            className="absolute bottom-0 left-0 top-0 bg-brand-royal rounded-full"
+            className={`absolute bottom-0 left-0 top-0 rounded-full transition-colors duration-500 ${finished ? 'bg-emerald-500' : 'bg-brand-royal'}`}
             initial={{ width: "0%" }}
             animate={{ width: `${progress}%` }}
             transition={{ ease: "linear", duration: 0.1 }}
@@ -154,7 +164,7 @@ export function AgentsPipeline({ finished }: Props) {
           </p>
           {!finished && (
             <p className="font-mono text-xs uppercase tracking-wider text-slate-500 font-semibold">
-              Temps restant estimé : ~{timeLeft} s
+              {timeLeft > 1 ? `Temps estimé : ~${timeLeft} s` : "Analyse approfondie en cours..."}
             </p>
           )}
         </div>
