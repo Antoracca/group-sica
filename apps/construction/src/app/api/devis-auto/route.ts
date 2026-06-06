@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
       }
 
       buffer = Buffer.from(await data.arrayBuffer());
-      fileName = uploadedFilePath.split("/").pop() || "plan.pdf";
+      fileName = uploadedFilePath!.split("/").pop() || "plan.pdf";
       fileSize = buffer.length;
     } catch (e) {
       return NextResponse.json({ error: "JSON invalide." }, { status: 400 });
