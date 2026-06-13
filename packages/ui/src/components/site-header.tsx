@@ -343,12 +343,12 @@ export function SiteHeader({
 
         {/* ══════════════════════════════════════════════════════════════
             MOBILE UTILITY STRIP — TOUJOURS visible (ne slide PAS au scroll).
-            Minimaliste : passerelles inter-sites (filtrées via hideOnMobile)
-            + sélecteur FR/EN. Compact, une seule ligne, hauteur réduite pour
-            laisser la place à la nav principale en dessous.
+            Hauteur fixe 28 px. `z-20` + fond opaque blanc pour MASQUER la
+            nav principale qui glisse derrière au scroll vers le bas (sinon
+            on continuait à voir un bout de logo qui dépassait).
         ══════════════════════════════════════════════════════════════ */}
-        <div className="relative block overflow-hidden border-b border-slate-100/80 lg:hidden">
-          {/* Base blanche */}
+        <div className="relative z-20 block overflow-hidden border-b border-slate-100/80 lg:hidden">
+          {/* Base blanche opaque */}
           <div className="absolute inset-0 bg-white" />
           {/* Nuance bleue latérale — miroir exact du desktop */}
           <div
@@ -360,10 +360,9 @@ export function SiteHeader({
             }}
           />
 
-          {/* Une seule ligne ultra-compacte (≈ 28 px de haut).
-              On force `nowrap` et `overflow-hidden` pour qu'il n'y ait jamais
-              de saut sur deux lignes même avec 2 passerelles + langue. */}
-          <div className="relative flex h-7 items-center justify-between gap-1.5 overflow-hidden px-3">
+          {/* Une seule ligne (28 px), nowrap. Tailles texte légèrement
+              augmentées pour rester lisibles sans gonfler la hauteur. */}
+          <div className="relative flex h-7 items-center justify-between gap-2 overflow-hidden px-3">
             <div className="flex min-w-0 flex-nowrap items-center gap-x-2">
               {topNav
                 ?.filter((item) => !item.hideOnMobile)
@@ -371,10 +370,10 @@ export function SiteHeader({
                   const Icon = item.icon ? TOP_ICONS[item.icon] : null;
                   return (
                     <React.Fragment key={item.label}>
-                      {idx > 0 && <span aria-hidden className="text-[0.7rem] font-light text-slate-300 select-none">|</span>}
+                      {idx > 0 && <span aria-hidden className="text-[0.78rem] font-light text-slate-300 select-none">|</span>}
                       <a
                         href={item.href}
-                        className="flex shrink-0 items-center gap-1 text-[0.68rem] font-semibold uppercase leading-none text-slate-600 transition-colors hover:text-brand-royal"
+                        className="flex shrink-0 items-center gap-1.5 text-[0.78rem] font-semibold uppercase leading-none text-slate-600 transition-colors hover:text-brand-royal"
                       >
                         {item.logoSrc ? (
                           // eslint-disable-next-line @next/next/no-img-element
@@ -382,10 +381,10 @@ export function SiteHeader({
                             src={item.logoSrc}
                             alt=""
                             aria-hidden
-                            className="h-[0.8rem] w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100"
+                            className="h-[0.95rem] w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100"
                           />
                         ) : Icon ? (
-                          <Icon size={11} weight="regular" className="text-brand-royal/50" aria-hidden />
+                          <Icon size={13} weight="regular" className="text-brand-royal/55" aria-hidden />
                         ) : null}
                         <span>{item.label}</span>
                       </a>
@@ -394,13 +393,15 @@ export function SiteHeader({
                 })}
             </div>
 
-            {/* Sélecteur de langue ultra-compact */}
-            <div className="flex shrink-0 items-center gap-0.5">
-              <Translate size={11} weight="regular" className="text-brand-royal/45" aria-hidden />
+            {/* Sélecteur de langue — agrandi pour mieux lire FR / EN.
+                Bouton tap target augmenté (touch min 36 px en largeur),
+                texte 0.66 -> 0.8 rem, icône Translate 11 -> 14 px. */}
+            <div className="flex shrink-0 items-center gap-1">
+              <Translate size={14} weight="regular" className="text-brand-royal/55" aria-hidden />
               {(["fr", "en"] as const).map((l, i) => (
                 <React.Fragment key={l}>
                   {i > 0 ? (
-                    <span aria-hidden className="select-none text-[0.6rem] text-slate-200">/</span>
+                    <span aria-hidden className="select-none text-[0.7rem] text-slate-200">/</span>
                   ) : null}
                   <button
                     type="button"
@@ -408,7 +409,7 @@ export function SiteHeader({
                     aria-pressed={currentLocale === l}
                     onClick={() => selectLocale(l)}
                     className={cn(
-                      "px-0.5 text-[0.66rem] font-bold uppercase leading-none tracking-[0.03em] transition-colors duration-200",
+                      "px-1 text-[0.8rem] font-bold uppercase leading-none tracking-[0.04em] transition-colors duration-200",
                       currentLocale === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
                     )}
                   >

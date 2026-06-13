@@ -15,20 +15,24 @@ export interface StickyCtaMobileProps {
   phoneLabel?: string;
   /** Seuil de scroll en pixels avant apparition. Par défaut 400. */
   showAfterScrollPx?: number;
+  /** Distance au bas de page (px) à partir de laquelle on cache la barre
+   *  pour libérer le footer (mentions légales, etc.). Par défaut 200 px. */
+  hideNearBottomPx?: number;
   className?: string;
 }
 
 /**
  * Barre CTA fixe en bas de l'écran, visible uniquement sur mobile (<768 px).
- * Apparaît après que l'utilisateur a scrollé `showAfterScrollPx` pixels —
- * la hero reste donc immersive au premier impact, puis la barre se présente.
+ *
+ * Cycle d'affichage :
+ *   - y < showAfterScrollPx        → cachée  (hero immersive)
+ *   - y >= showAfterScrollPx       → visible (Devis / Appeler accessibles)
+ *   - approche du footer (< hideNearBottomPx du bas)
+ *                                  → cachée  (footer respire, mentions légales
+ *                                             visibles, pas de recouvrement)
  *
  * Touch targets : 56 px de hauteur, > 44 px recommandés.
  * Respecte `env(safe-area-inset-bottom)` pour les iPhone à encoche.
- *
- * Note : la barre couvre les ~56 px du bas. Si une page risque d'avoir
- * du contenu critique tout en bas (au-delà du footer), ajouter un
- * `pb-[80px] md:pb-0` sur le wrapper concerné.
  */
 export function StickyCtaMobile({
   devisHref,
@@ -36,18 +40,28 @@ export function StickyCtaMobile({
   devisLabel = "Devis",
   phoneLabel = "Appeler",
   showAfterScrollPx = 400,
+  hideNearBottomPx = 200,
   className,
 }: StickyCtaMobileProps) {
   const [visible, setVisible] = React.useState(false);
 
   React.useEffect(() => {
-    const onScroll = () => {
-      setVisible(window.scrollY > showAfterScrollPx);
+    const compute = () => {
+      const y = window.scrollY;
+      const viewportH = window.innerHeight;
+      const docH = document.documentElement.scrollHeight;
+      const distToBottom = docH - (y + viewportH);
+      // Visible si scroll passé le seuil ET pas trop près du bas (footer).
+      setVisible(y > showAfterScrollPx && distToBottom > hideNearBottomPx);
     };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [showAfterScrollPx]);
+    compute();
+    window.addEventListener("scroll", compute, { passive: true });
+    window.addEventListener("resize", compute);
+    return () => {
+      window.removeEventListener("scroll", compute);
+      window.removeEventListener("resize", compute);
+    };
+  }, [showAfterScrollPx, hideNearBottomPx]);
 
   return (
     <div
