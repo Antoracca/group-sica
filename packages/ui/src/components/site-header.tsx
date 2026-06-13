@@ -229,20 +229,19 @@ export function SiteHeader({
 
   return (
     <>
+      {/* Note de comportement scroll :
+          - Desktop : header entier glisse (caché → réapparu) — comportement Vinci.
+          - Mobile : le bandeau utilitaire (passerelles inter-sites) reste TOUJOURS
+            visible collé en haut ; seule la nav principale glisse hors écran au
+            scroll vers le bas, et réapparaît au scroll vers le haut.
+            → mécanisme : le motion.header ne bouge plus, on anime seulement le
+              wrapper interne `<motion.div data-collapsible>` qui englobe
+              "bandeau desktop + nav principale". Le bandeau mobile est rendu
+              EN DEHORS de ce wrapper pour rester en permanence. */}
       <motion.header
         initial={false}
-        animate={{ y: isHidden ? "-100%" : "0%" }}
-        transition={{ duration: 0.22, ease: [0, 0, 0.2, 1] }}
         className={cn("fixed inset-x-0 top-0 z-50", className)}
         data-state={state}
-        /* Fond blanc garanti sur les pages sans hero vidéo.
-           Style inline = priorité maximale, impossible à écraser
-           par Tailwind ou Framer Motion. */
-        style={
-          forceScrolled
-            ? { backgroundColor: "#1E2F8A", boxShadow: "0 2px 24px rgba(7,20,74,0.28)" }
-            : undefined
-        }
       >
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-5 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-brand-royal focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white">
           Aller au contenu principal
@@ -343,9 +342,10 @@ export function SiteHeader({
         ) : null}
 
         {/* ══════════════════════════════════════════════════════════════
-            MOBILE UTILITY STRIP — visible HORS du drawer, au-dessus
-            de la barre hamburger. Minimaliste : Nos pôles | Groupe SICA
-            + sélecteur FR/EN bien visible. Même nuance bleutée que desktop.
+            MOBILE UTILITY STRIP — TOUJOURS visible (ne slide PAS au scroll).
+            Minimaliste : passerelles inter-sites (filtrées via hideOnMobile)
+            + sélecteur FR/EN. Compact, une seule ligne, hauteur réduite pour
+            laisser la place à la nav principale en dessous.
         ══════════════════════════════════════════════════════════════ */}
         <div className="relative block overflow-hidden border-b border-slate-100/80 lg:hidden">
           {/* Base blanche */}
@@ -360,52 +360,47 @@ export function SiteHeader({
             }}
           />
 
-          <div className="relative flex min-h-[3.25rem] items-start justify-between gap-2 px-3 py-2">
-            {/* Gauche : Colonne (étagères alignées) avec Kicker en haut, Liens en bas */}
-            <div className="flex flex-col gap-1.5">
-              {_brand === "construction" && (
-                <span className="text-[0.68rem] font-extrabold uppercase text-[#1E2F8A] tracking-[0.16em] leading-none mt-1">
-                  SICA Construction
-                </span>
-              )}
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                {topNav
-                  ?.filter((item) => !item.hideOnMobile)
-                  .map((item, idx) => {
-                    const Icon = item.icon ? TOP_ICONS[item.icon] : null;
-                    return (
-                      <React.Fragment key={item.label}>
-                        {idx > 0 && <span aria-hidden className="text-[0.78rem] font-light text-slate-300 select-none">|</span>}
-                        <a
-                          href={item.href}
-                          className="flex shrink-0 items-center gap-1.5 text-[0.78rem] font-semibold uppercase text-slate-600 transition-colors hover:text-brand-royal"
-                        >
-                          {item.logoSrc ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              src={item.logoSrc}
-                              alt=""
-                              aria-hidden
-                              className="h-[1.1rem] w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100"
-                            />
-                          ) : Icon ? (
-                            <Icon size={14} weight="regular" className="text-brand-royal/50" aria-hidden />
-                          ) : null}
-                          <span>{item.label}</span>
-                        </a>
-                      </React.Fragment>
-                    );
-                  })}
-              </div>
+          {/* Une seule ligne ultra-compacte (≈ 28 px de haut).
+              On force `nowrap` et `overflow-hidden` pour qu'il n'y ait jamais
+              de saut sur deux lignes même avec 2 passerelles + langue. */}
+          <div className="relative flex h-7 items-center justify-between gap-1.5 overflow-hidden px-3">
+            <div className="flex min-w-0 flex-nowrap items-center gap-x-2">
+              {topNav
+                ?.filter((item) => !item.hideOnMobile)
+                .map((item, idx) => {
+                  const Icon = item.icon ? TOP_ICONS[item.icon] : null;
+                  return (
+                    <React.Fragment key={item.label}>
+                      {idx > 0 && <span aria-hidden className="text-[0.7rem] font-light text-slate-300 select-none">|</span>}
+                      <a
+                        href={item.href}
+                        className="flex shrink-0 items-center gap-1 text-[0.68rem] font-semibold uppercase leading-none text-slate-600 transition-colors hover:text-brand-royal"
+                      >
+                        {item.logoSrc ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={item.logoSrc}
+                            alt=""
+                            aria-hidden
+                            className="h-[0.8rem] w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100"
+                          />
+                        ) : Icon ? (
+                          <Icon size={11} weight="regular" className="text-brand-royal/50" aria-hidden />
+                        ) : null}
+                        <span>{item.label}</span>
+                      </a>
+                    </React.Fragment>
+                  );
+                })}
             </div>
 
-            {/* Droite : sélecteur de langue avec icône Translate */}
-            <div className="mt-1 flex shrink-0 items-center gap-1.5">
-              <Translate size={15} weight="regular" className="text-brand-royal/45" aria-hidden />
+            {/* Sélecteur de langue ultra-compact */}
+            <div className="flex shrink-0 items-center gap-0.5">
+              <Translate size={11} weight="regular" className="text-brand-royal/45" aria-hidden />
               {(["fr", "en"] as const).map((l, i) => (
                 <React.Fragment key={l}>
                   {i > 0 ? (
-                    <span aria-hidden className="select-none text-[0.72rem] text-slate-200">/</span>
+                    <span aria-hidden className="select-none text-[0.6rem] text-slate-200">/</span>
                   ) : null}
                   <button
                     type="button"
@@ -413,7 +408,7 @@ export function SiteHeader({
                     aria-pressed={currentLocale === l}
                     onClick={() => selectLocale(l)}
                     className={cn(
-                      "text-[0.74rem] font-bold uppercase tracking-[0.04em] transition-colors duration-200",
+                      "px-0.5 text-[0.66rem] font-bold uppercase leading-none tracking-[0.03em] transition-colors duration-200",
                       currentLocale === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
                     )}
                   >
@@ -424,6 +419,26 @@ export function SiteHeader({
             </div>
           </div>
         </div>
+
+        {/* ══════════════════════════════════════════════════════════════
+            WRAPPER COLLAPSIBLE — englobe la nav principale (+ partie desktop
+            qui ne concerne pas le bandeau mobile). C'est ce wrapper qui
+            slide en y au scroll. Le bandeau mobile au-dessus reste collé.
+        ══════════════════════════════════════════════════════════════ */}
+        <motion.div
+          data-collapsible
+          initial={false}
+          animate={{ y: isHidden ? "-100%" : "0%" }}
+          transition={{ duration: 0.22, ease: [0, 0, 0.2, 1] }}
+          /* Fond bleu solide sur les pages SANS hero vidéo (forceScrolled).
+             Posé ici (pas sur le motion.header global) pour ne pas teinter
+             le bandeau utilitaire mobile qui reste blanc en permanence. */
+          style={
+            forceScrolled
+              ? { backgroundColor: "#1E2F8A", boxShadow: "0 2px 24px rgba(7,20,74,0.28)" }
+              : undefined
+          }
+        >
 
         {/* ══════════════════════════════════════════════════════════════
             MAIN NAV — Logo + nav collée à gauche + actions droite
@@ -711,6 +726,7 @@ export function SiteHeader({
             </motion.div>
           ) : null}
         </AnimatePresence>
+        </motion.div>
       </motion.header>
 
       {/* ══════════════════════════════════════════════════════════════
