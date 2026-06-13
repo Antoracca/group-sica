@@ -65,6 +65,26 @@ export function HeroConstruction() {
         <div className="absolute inset-0 bg-gradient-to-r from-brand-royal-900/92 via-brand-royal-900/62 to-brand-royal-900/10" />
         {/* Assombrissement */}
         <div className="absolute inset-0 bg-black/36" />
+        {/* Voile sombre dédié sur la zone NAVBAR (~140 px du haut) :
+            garantit la lisibilité du blanc de la nav à l'état repos sur l'image
+            hero, sans avoir à colorer la nav. Dégradé noir 72% -> 0%.
+            Filet ambre subtil sous le voile pour rappeler la marque. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-36"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(7,12,40,0.72) 0%, rgba(7,12,40,0.45) 55%, transparent 100%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-[140px] h-px"
+          style={{
+            background:
+              "linear-gradient(to right, transparent 0%, rgba(243,146,0,0.35) 50%, transparent 100%)",
+          }}
+        />
         {/* Vignette basse — ancrage du contenu */}
         <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-brand-royal-900 to-transparent" />
         {/* Halo ambre — écho de marque */}
@@ -79,17 +99,21 @@ export function HeroConstruction() {
         <div className="absolute bottom-0 right-1/4 h-24 w-1/3 rounded-full bg-brand-royal/10 blur-3xl" />
       </div>
 
-      {/* ── Contenu ── */}
-      <Container className="relative z-10 pb-16 pt-[12rem] sm:pb-20 sm:pt-28 lg:pb-24">
+      {/* ── Contenu ──
+          Padding-top augmenté pour aérer l'estimateur de la navbar :
+            mobile : pt-[14rem] (était 12rem) → +32 px d'air
+            desktop : pt-40 lg:pt-44 (était pt-28) → +64 à 80 px d'air
+          L'estimateur se trouve à droite et descendait trop haut. */}
+      <Container className="relative z-10 pb-16 pt-[14rem] sm:pb-20 sm:pt-40 lg:pb-24 lg:pt-44">
         <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="relative">
             {/* Effet de surbrillance/contraste derrière le texte */}
             <div className="absolute -inset-10 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.45)_0%,transparent_70%)] blur-md pointer-events-none" />
-            
-            {/* Accroche évolutive avec drop shadow pour un max de contraste */}
+
+            {/* Accroche évolutive — typo agrandie (de 2.6→6rem à 3→7rem) */}
             <h1
               id="hero-heading"
-              className="mt-2 font-display text-[clamp(2.6rem,7.4vw,6rem)] font-semibold leading-[1.1] tracking-[-0.03em] drop-shadow-lg"
+              className="mt-2 font-display text-[clamp(3rem,8.2vw,7rem)] font-semibold leading-[1.05] tracking-[-0.03em] drop-shadow-lg"
             >
               <span className="block text-white drop-shadow-md">Nous livrons vos</span>
               <span className="relative mt-2 block h-[1.2em]">
@@ -108,45 +132,52 @@ export function HeroConstruction() {
               </span>
             </h1>
 
-            <p className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-white sm:text-2xl font-medium drop-shadow-xl">
+            {/* Sous-titre agrandi : text-xl mobile (était lg), text-3xl desktop (était 2xl) */}
+            <p className="mt-8 max-w-2xl text-pretty text-xl leading-relaxed text-white sm:text-3xl font-medium drop-shadow-xl">
               Études, exécution, contrôle qualité.<br />
               <span className="font-semibold text-brand-amber">La maîtrise d&apos;œuvre par la preuve.</span>
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <Button asChild variant="accent" size="lg" className="group w-full sm:w-auto shadow-xl shadow-brand-amber/20">
+              <Button asChild variant="accent" size="lg" className="group w-full sm:w-auto shadow-xl shadow-brand-amber/20 h-14 px-9 text-base">
                 <a href="/devis">
                   Constituer votre devis
                   <ArrowRight className="transition-transform duration-200 group-hover:translate-x-0.5" />
                 </a>
               </Button>
-              <a href="/espace-client" className="inline-flex h-12 w-full sm:w-auto items-center justify-center rounded-full bg-white/10 px-8 text-sm font-medium text-white backdrop-blur-md transition-all hover:bg-white/20 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-white/50">
+              {/* Bouton espace client : h-12 -> h-14, px-8 -> px-9, text-sm -> text-base */}
+              <a
+                href="/espace-client"
+                className="inline-flex h-14 w-full sm:w-auto items-center justify-center rounded-full bg-white/10 px-9 text-base font-semibold text-white backdrop-blur-md transition-all hover:bg-white/20 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-white/50"
+              >
                 Connectez-vous à votre espace E-sica
               </a>
             </div>
 
-            {/* Index — Ingénierie fixé en orange */}
-            <div className="mt-14 flex max-w-sm gap-6 sm:gap-8">
+            {/* Pilastres Chantier / Ingénierie / Pilotage — agrandis
+                Cercles 48 px -> 56 px, icônes 20 -> 24, labels 10.4 -> 12 px,
+                gap 8 -> 10 pour respirer. */}
+            <div className="mt-14 flex max-w-md gap-8 sm:gap-10">
               {PILLARS.map((pillar, i) => {
                 const Icon = pillar.icon;
                 const isActive = i === ACTIVE_PILLAR;
                 return (
                   <div
                     key={pillar.label}
-                    className="flex flex-col items-center gap-2"
+                    className="flex flex-col items-center gap-2.5"
                   >
                     <div
-                      className={`flex h-12 w-12 items-center justify-center rounded-full border transition-all duration-300 ${
+                      className={`flex h-14 w-14 items-center justify-center rounded-full border transition-all duration-300 ${
                         isActive
-                          ? "border-brand-amber bg-brand-amber text-brand-royal-900 shadow-[0_0_15px_rgba(243,146,0,0.4)]"
-                          : "border-white/20 bg-white/5 text-white/50"
+                          ? "border-brand-amber bg-brand-amber text-brand-royal-900 shadow-[0_0_20px_rgba(243,146,0,0.45)]"
+                          : "border-white/25 bg-white/5 text-white/60"
                       }`}
                     >
-                      <Icon className="h-5 w-5" />
+                      <Icon className="h-6 w-6" />
                     </div>
                     <span
-                      className={`font-mono text-[0.65rem] uppercase tracking-[0.16em] ${
-                        isActive ? "text-brand-amber font-semibold" : "text-white/45"
+                      className={`font-mono text-[0.75rem] uppercase tracking-[0.18em] ${
+                        isActive ? "text-brand-amber font-semibold" : "text-white/55"
                       }`}
                     >
                       {pillar.label}
@@ -157,8 +188,8 @@ export function HeroConstruction() {
              </div>
           </div>
 
-          {/* Estimateur express */}
-          <div className="lg:pb-1">
+          {/* Estimateur express — décalé sur desktop pour ne pas coller à la nav */}
+          <div className="lg:mt-12 lg:pb-1">
             <HeroEstimator />
           </div>
         </div>
