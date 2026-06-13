@@ -13,23 +13,21 @@ export interface StickyCtaMobileProps {
   devisLabel?: string;
   /** Libellé bouton secondaire (appel). Par défaut "Appeler". */
   phoneLabel?: string;
-  /** Seuil de scroll en pixels avant apparition. Par défaut 400. */
+  /** Seuil de scroll en pixels avant la première apparition. Par défaut 400. */
   showAfterScrollPx?: number;
-  /** Distance au bas de page (px) à partir de laquelle on cache la barre
-   *  pour libérer le footer (mentions légales, etc.). Par défaut 200 px. */
-  hideNearBottomPx?: number;
+  /** Delta de scroll (px) en-dessous duquel on ignore le changement. Évite
+   *  les micro-jitters / le mouvement inertiel iOS. Par défaut 4. */
+  minDelta?: number;
   className?: string;
 }
 
 /**
  * Barre CTA fixe en bas de l'écran, visible uniquement sur mobile (<768 px).
  *
- * Cycle d'affichage :
- *   - y < showAfterScrollPx        → cachée  (hero immersive)
- *   - y >= showAfterScrollPx       → visible (Devis / Appeler accessibles)
- *   - approche du footer (< hideNearBottomPx du bas)
- *                                  → cachée  (footer respire, mentions légales
- *                                             visibles, pas de recouvrement)
+ * Comportement directionnel (miroir de la navbar) :
+ *   - Tant que y <= showAfterScrollPx → cachée (hero immersive intacte).
+ *   - Scroll VERS LE BAS (delta > 0) → cachée (libère le contenu en lecture).
+ *   - Scroll VERS LE HAUT (delta < 0) → visible (intent de revenir / agir).
  *
  * Touch targets : 56 px de hauteur, > 44 px recommandés.
  * Respecte `env(safe-area-inset-bottom)` pour les iPhone à encoche.
@@ -40,28 +38,37 @@ export function StickyCtaMobile({
   devisLabel = "Devis",
   phoneLabel = "Appeler",
   showAfterScrollPx = 400,
-  hideNearBottomPx = 200,
+  minDelta = 4,
   className,
 }: StickyCtaMobileProps) {
   const [visible, setVisible] = React.useState(false);
+  const lastY = React.useRef(0);
 
   React.useEffect(() => {
-    const compute = () => {
+    lastY.current = window.scrollY;
+
+    const onScroll = () => {
       const y = window.scrollY;
-      const viewportH = window.innerHeight;
-      const docH = document.documentElement.scrollHeight;
-      const distToBottom = docH - (y + viewportH);
-      // Visible si scroll passé le seuil ET pas trop près du bas (footer).
-      setVisible(y > showAfterScrollPx && distToBottom > hideNearBottomPx);
+      const delta = y - lastY.current;
+      // Filtre les micro-mouvements (bounce iOS / trackpad inertial).
+      if (Math.abs(delta) < minDelta) return;
+
+      if (y <= showAfterScrollPx) {
+        // En haut de page : on reste caché quelle que soit la direction.
+        setVisible(false);
+      } else if (delta < 0) {
+        // Scroll vers le haut → on affiche.
+        setVisible(true);
+      } else {
+        // Scroll vers le bas → on cache.
+        setVisible(false);
+      }
+      lastY.current = y;
     };
-    compute();
-    window.addEventListener("scroll", compute, { passive: true });
-    window.addEventListener("resize", compute);
-    return () => {
-      window.removeEventListener("scroll", compute);
-      window.removeEventListener("resize", compute);
-    };
-  }, [showAfterScrollPx, hideNearBottomPx]);
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [showAfterScrollPx, minDelta]);
 
   return (
     <div
