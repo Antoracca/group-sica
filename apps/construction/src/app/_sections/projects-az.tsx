@@ -6,6 +6,7 @@ import { motion, useInView, AnimatePresence } from "motion/react";
 import { MoveRight } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { constructionProjects, type ProjectItem } from "@/lib/projects";
+import { ProjectImageCarousel } from "@/components/project-image-carousel";
 import React from "react";
 
 /* ─── Composant : Accordéon Architectural (Concept 1 + 2) ───────────── */
@@ -309,15 +310,18 @@ function PfoInspiredGrid({ projects }: { projects: ProjectItem[] }) {
               index === 1 && "md:mt-16"
             )}
           >
-            {/* Image avec zoom lent au survol */}
-            <Image
-              src={project.media?.[0] || "/placeholder.jpg"}
+            {/* Carousel auto + Ken Burns. Décalage 2s × index. */}
+            <ProjectImageCarousel
+              images={project.media ?? []}
               alt={project.name}
-              fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              staggerIndex={index}
+              staggerMs={2000}
+              intervalMs={5500}
+              fadeMs={900}
               sizes="(max-width: 768px) 100vw, 50vw"
+              className="transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
-            
+
             {/* Dégradé sombre qui apparaît au survol */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-90" />
 

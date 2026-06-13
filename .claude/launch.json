@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "assistance",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "C:\\Users\\admin\\Sica\\sica-platform\\apps\\assistance\\node_modules\\next\\dist\\bin\\next",
+        "dev",
+        "--port",
+        "3002"
+      ],
+      "cwd": "C:\\Users\\admin\\Sica\\sica-platform\\apps\\assistance",
+      "port": 3002
+    }
+  ]
+}

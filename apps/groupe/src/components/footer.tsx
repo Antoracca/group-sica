@@ -1,46 +1,56 @@
-﻿import Image from "next/image";
+"use client";
+
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 import { Logo } from "@sica/ui";
 import { links } from "@/lib/links";
 
-/* ── Navigation interne au site Groupe SICA ──
-   Cohérent avec docs/CONTEXTE.md §8 : Réalisations n'apparaît PAS
-   ici car c'est du contenu Construction, pas Groupe. */
-const NAV_LINKS = [
-  { label: "Le Groupe", href: "/groupe" },
-  { label: "Actualites", href: "/actualites" },
-  { label: "Partenaires", href: "/partenaires" },
-  { label: "Carrieres", href: "/carrieres" },
-  { label: "Contact", href: "/contact" },
-] as const;
-
-/* ── Accès rapide client + liens légaux ── */
-const CLIENT_LINKS = [
-  { label: "Connexion client", href: "/espace-client", highlight: true },
-  { label: "Demander un devis", href: links.construction.devis },
-  { label: "Mentions legales", href: "/mentions-legales" },
-  { label: "Confidentialite", href: "/confidentialite" },
-  { label: "Cookies", href: "/cookies" },
-] as const;
-
-const POLES = [
-  {
-    name: "SICA Construction",
-    tagline: "BTP - Genie civil - Geobeton",
-    href: links.construction.base,
-    logoSrc: "/logo-construction.png",
-    logoAlt: "Logo SICA Construction",
-  },
-  {
-    name: "SICA Assistance",
-    tagline: "Comptabilite - Fiscalite - Paie",
-    href: "https://sicaassistance.ci",
-    logoSrc: "/logo-assistance.png",
-    logoAlt: "Logo SICA Assistance",
-  },
-] as const;
+/* ── Footer du site Groupe ──────────────────────────────────────────────
+   Libellés traduits via next-intl ; liens INTERNES préfixés par la locale
+   active (sauf l'espace client, mono-langue) ; liens EXTERNES inchangés.
+   Cohérent avec docs/CONTEXTE.md §8 : Réalisations n'apparaît PAS ici car
+   c'est du contenu Construction, pas Groupe.
+───────────────────────────────────────────────────────────────────────── */
 
 export function Footer() {
+  const t = useTranslations("Footer");
+  const locale = useLocale();
   const year = new Date().getFullYear();
+  const loc = (path: string) => `/${locale}${path}`;
+
+  const NAV_LINKS = [
+    { label: t("nav.group"), href: loc("/groupe") },
+    { label: t("nav.news"), href: loc("/actualites") },
+    { label: t("nav.partners"), href: loc("/partenaires") },
+    { label: t("nav.careers"), href: loc("/carrieres") },
+    { label: t("nav.contact"), href: loc("/contact") },
+  ];
+
+  const CLIENT_LINKS = [
+    // Espace client : route mono-langue (non préfixée).
+    { label: t("access.client"), href: "/espace-client", highlight: true as const },
+    { label: t("access.quote"), href: links.construction.devis },
+    { label: t("access.legal"), href: loc("/mentions-legales") },
+    { label: t("access.privacy"), href: loc("/confidentialite") },
+    { label: t("access.cookies"), href: loc("/cookies") },
+  ];
+
+  const POLES = [
+    {
+      name: "SICA Construction",
+      tagline: t("poles.constructionTagline"),
+      href: links.construction.base,
+      logoSrc: "/logo-construction.png",
+      logoAlt: "Logo SICA Construction",
+    },
+    {
+      name: "SICA Assistance",
+      tagline: t("poles.assistanceTagline"),
+      href: links.assistance.base,
+      logoSrc: "/logo-assistance.png",
+      logoAlt: "Logo SICA Assistance",
+    },
+  ];
 
   return (
     <footer className="bg-ink text-white/60" role="contentinfo">
@@ -58,7 +68,7 @@ export function Footer() {
           <div className="flex flex-col gap-4">
             <Logo
               brand="groupe"
-              href="/"
+              href={loc("/")}
               imgClassName="h-16 w-auto select-none sm:h-16 lg:h-16 xl:h-20"
               imageRenderer={({ src, alt, width, height, className }) => (
                 <Image
@@ -71,19 +81,18 @@ export function Footer() {
               )}
             />
             <p className="max-w-[34ch] text-sm leading-relaxed text-white/60">
-              Construction, génie civil, BTP et assistance : création, modification,
-              comptabilité, conseil. Une équipe ivoirienne depuis 2020.
+              {t("intro")}
             </p>
             <div className="text-xs leading-relaxed text-white/55">
-              <span className="font-medium text-white/70">Abidjan</span> — Cocody, Centre, en face Cité 48 Logements V1
+              <span className="font-medium text-white/70">Abidjan</span> — {t("addresses.abidjan")}
               <br />
-              <span className="font-medium text-white/70">Yamoussoukro</span> — Morofé, 24 ampoules
+              <span className="font-medium text-white/70">Yamoussoukro</span> — {t("addresses.yamoussoukro")}
             </div>
           </div>
 
-          <nav aria-label="Navigation du pied de page">
+          <nav aria-label={t("aria.footerNav")}>
             <p className="mb-4 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-brand-amber/70">
-              Navigation
+              {t("headings.navigation")}
             </p>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5 xl:grid-cols-1">
               {NAV_LINKS.map((item) => (
@@ -99,10 +108,9 @@ export function Footer() {
             </ul>
           </nav>
 
-          {/* Colonne Accès Client + liens légaux */}
-          <nav aria-label="Accès client et liens légaux">
+          <nav aria-label={t("aria.clientNav")}>
             <p className="mb-4 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-brand-amber/70">
-              Accès
+              {t("headings.access")}
             </p>
             <ul className="flex flex-col gap-2.5">
               {CLIENT_LINKS.map((item) => (
@@ -117,7 +125,6 @@ export function Footer() {
                         boxShadow: "0 2px 12px rgba(30,47,138,0.35)",
                       }}
                     >
-                      {/* Petit cadenas */}
                       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                         <rect x="3" y="11" width="18" height="11" rx="2" />
                         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
@@ -140,7 +147,7 @@ export function Footer() {
           <div className="flex flex-col gap-7">
             <div>
               <p className="mb-4 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-brand-amber/70">
-                Nos poles
+                {t("headings.poles")}
               </p>
               <ul className="flex flex-col gap-3">
                 {POLES.map((pole) => (
@@ -175,7 +182,7 @@ export function Footer() {
 
             <div>
               <p className="mb-3 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-brand-amber/70">
-                Contact direct
+                {t("headings.contact")}
               </p>
               <ul className="flex flex-col gap-2">
                 <li>
@@ -212,13 +219,13 @@ export function Footer() {
 
         <div className="flex flex-col gap-2 border-t border-white/[0.07] py-5 md:flex-row md:items-center md:justify-between">
           <p className="text-[0.75rem] text-white/55">
-            &copy; {year} Groupe SICA - RCCM CI-ABJ-03-2020-B13-17592 - Abidjan, Cote d'Ivoire
+            &copy; {year} {t("legal.copyright")}
           </p>
-          <nav aria-label="Navigation legale">
+          <nav aria-label={t("aria.legalNav")}>
             <ul className="flex gap-4">
               {[
-                { label: "Mentions legales", href: "/mentions-legales" },
-                { label: "Confidentialite", href: "/confidentialite" },
+                { label: t("access.legal"), href: loc("/mentions-legales") },
+                { label: t("access.privacy"), href: loc("/confidentialite") },
               ].map((item) => (
                 <li key={item.href}>
                   <a

@@ -93,6 +93,11 @@ interface SiteHeaderProps {
    *  blanche reste invisible sur un fond blanc. */
   forceScrolled?: boolean;
   espaceClientUrl?: string;
+  /** Locale active. Si fourni avec onLocaleChange, le sélecteur FR/EN devient
+   *  fonctionnel (bascule réelle de langue). Sinon il reste cosmétique. */
+  activeLocale?: "fr" | "en";
+  /** Callback de changement de langue (fourni par l'app qui gère le routing i18n). */
+  onLocaleChange?: (locale: "fr" | "en") => void;
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -109,6 +114,8 @@ export function SiteHeader({
   className,
   forceScrolled = false,
   espaceClientUrl = "/espace-client",
+  activeLocale,
+  onLocaleChange,
 }: SiteHeaderProps) {
   const state = useHeaderScroll({ scrolledThreshold, hideThreshold });
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -116,6 +123,10 @@ export function SiteHeader({
   const [searchOpen, setSearchOpen] = React.useState(false);
   const [desktopOpenLabel, setDesktopOpenLabel] = React.useState<string | null>(null);
   const [lang, setLang] = React.useState<"fr" | "en">("fr");
+  // Si l'app fournit la locale + le callback → sélecteur fonctionnel.
+  // Sinon (autres sites sans i18n) → état local cosmétique inchangé.
+  const currentLocale: "fr" | "en" = activeLocale ?? lang;
+  const selectLocale: (l: "fr" | "en") => void = onLocaleChange ?? setLang;
   const searchRef = React.useRef<HTMLInputElement>(null);
   const closeMenuTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -309,11 +320,11 @@ export function SiteHeader({
                       <button
                         type="button"
                         aria-label={l === "fr" ? "Version francaise" : "English version"}
-                        aria-pressed={lang === l}
-                        onClick={() => setLang(l)}
+                        aria-pressed={currentLocale === l}
+                        onClick={() => selectLocale(l)}
                         className={cn(
                           "text-[0.875rem] font-semibold uppercase tracking-[0.05em] transition-colors duration-200",
-                          lang === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
+                          currentLocale === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
                         )}
                       >
                         {l === "fr" ? "Français" : "English"}
@@ -393,11 +404,11 @@ export function SiteHeader({
                   <button
                     type="button"
                     aria-label={l === "fr" ? "Version francaise" : "English version"}
-                    aria-pressed={lang === l}
-                    onClick={() => setLang(l)}
+                    aria-pressed={currentLocale === l}
+                    onClick={() => selectLocale(l)}
                     className={cn(
                       "text-[0.74rem] font-bold uppercase tracking-[0.04em] transition-colors duration-200",
-                      lang === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
+                      currentLocale === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
                     )}
                   >
                     {l.toUpperCase()}
@@ -563,13 +574,13 @@ export function SiteHeader({
                 href={espaceClientUrl}
                 aria-label="Espace client"
                 className={cn(
-                  "inline-flex items-center gap-2 text-[0.85rem] font-bold uppercase tracking-[0.04em] transition-all duration-200",
-                  "lg:rounded-full lg:border lg:px-5 lg:py-2.5",
-                  /* Mobile : toujours blanc — la navbar mobile est soit transparente
-                     sur hero sombre, soit bleue au scroll : dans les deux cas blanc
-                     est le seul choix lisible. Bleu royal sur bleu = invisible (bug). */
-                  "text-white",
-                  "lg:text-white lg:border-brand-amber lg:bg-brand-amber lg:hover:brightness-110 lg:shadow-[0_2px_14px_rgba(247,160,38,0.30)]",
+                  "inline-flex items-center justify-center gap-2 text-[0.85rem] font-bold uppercase tracking-[0.04em] transition-all duration-200",
+                  /* Bouton orange plein dans TOUS les états (repos/transparent,
+                     scroll/bleu, mobile/desktop). L'amber #F39200 reste lisible
+                     sur fond clair, sombre ou bleu royal → fini le blanc-sur-blanc. */
+                  "rounded-full border border-brand-amber bg-brand-amber text-white shadow-[0_2px_14px_rgba(247,160,38,0.35)] hover:brightness-110",
+                  /* Mobile : pastille ronde (icône seule). Desktop : pilule avec libellé. */
+                  "size-11 lg:size-auto lg:px-5 lg:py-2.5",
                 )}
               >
                 <UserCircle size={22} weight="regular" className="shrink-0" aria-hidden />
@@ -825,12 +836,12 @@ export function SiteHeader({
                     {/* Chip langue dans la barre utilitaire mobile */}
                     <button
                       type="button"
-                      onClick={() => setLang((l) => (l === "fr" ? "en" : "fr"))}
+                      onClick={() => selectLocale(currentLocale === "fr" ? "en" : "fr")}
                       className="group flex shrink-0 items-center gap-1.5 rounded-full border border-brand-royal/10 bg-white/80 px-3 py-1.5 text-[0.68rem] font-semibold text-brand-royal/80 shadow-[0_1px_4px_rgba(7,20,74,0.06)] transition-all hover:border-brand-royal/20 hover:bg-brand-royal hover:text-white"
                       aria-label="Changer la langue"
                     >
                       <Globe size={12} weight="light" className="text-brand-amber transition-colors group-hover:text-white/90" />
-                      <span>{lang.toUpperCase()}</span>
+                      <span>{currentLocale.toUpperCase()}</span>
                     </button>
                   </div>
                 </div>
@@ -947,10 +958,10 @@ export function SiteHeader({
                           <button
                             key={l}
                             type="button"
-                            onClick={() => setLang(l)}
+                            onClick={() => selectLocale(l)}
                             className={cn(
                               "rounded-full px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.06em] transition-all duration-200",
-                              lang === l
+                              currentLocale === l
                                 ? "bg-brand-royal text-white shadow-sm"
                                 : "text-slate-400 hover:text-brand-royal",
                             )}

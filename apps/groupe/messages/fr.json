@@ -1,0 +1,363 @@
+{
+  "Home": {
+    "hero": {
+      "subtitleMobile": "Vos chantiers et votre paperasse.",
+      "subtitleMobileSecond": "SICA s'en occupe, depuis 2020 en Côte d'Ivoire.",
+      "subtitleDesktop": "Construire un immeuble ou monter sa boîte, c'est le même combat : il faut des fondations solides. SICA s'occupe de vos chantiers et de votre paperasse."
+    },
+    "heroTitle": {
+      "prefix": "Votre ambition en Côte d'Ivoire, on",
+      "phrase1": "la bâtit de A à Z.",
+      "phrase2": "la structure à 100 %.",
+      "phrase3": "la sort de terre.",
+      "phrase4": "gère sa compta.",
+      "phrase5": "en fait une réalité."
+    },
+    "stats": {
+      "ariaLabel": "Chiffres clés du Groupe SICA",
+      "eyebrow": "Le Groupe SICA en chiffres",
+      "s1": {
+        "line1": "ANNÉES",
+        "line2": "D'EXPERTISE",
+        "sub": "Fondé en 2020"
+      },
+      "s2": {
+        "line1": "PROJETS",
+        "line2": "LIVRÉS",
+        "sub": "BTP · Génie civil · Géobéton"
+      },
+      "s3": {
+        "line1": "VILLES",
+        "line2": "COUVERTES",
+        "sub": "Abidjan · Yamoussoukro"
+      },
+      "s4": {
+        "line1": "CLIENTS",
+        "line2": "ACCOMPAGNÉS",
+        "sub": "PME · Particuliers · Promoteurs"
+      }
+    },
+    "pillars": {
+      "eyebrow": "Deux pôles, une exigence",
+      "headingMain": "Construire le bâti.",
+      "headingItalic": "Structurer l'entreprise.",
+      "construction": {
+        "tagline": "BTP · Génie civil · Géobéton",
+        "cta": "Découvrir SICA Construction",
+        "s1": "Études architecturales & techniques",
+        "s2": "Villas & immeubles résidentiels",
+        "s3": "Géobéton : matériau signature SICA",
+        "s4": "Plomberie · Électricité · VRD"
+      },
+      "assistance": {
+        "tagline": "Création · Conseil · Comptabilité",
+        "cta": "Découvrir SICA Assistance",
+        "s1": "Création & modification d'entreprises",
+        "s2": "Comptabilité & déclarations fiscales",
+        "s3": "Conseil en gestion de PME",
+        "s4": "Accompagnement porteurs de projets"
+      }
+    },
+    "actionPanel": {
+      "tabs": {
+        "client": { "label": "Espace Client", "short": "Client" },
+        "construction": { "label": "Devis Construction", "short": "Devis" },
+        "assistance": { "label": "Conseil Assistance", "short": "Conseil" },
+        "realisations": { "label": "Nos Réalisations", "short": "Dossiers" }
+      },
+      "placeholders": {
+        "clientId": "Identifiant / Email",
+        "password": "Mot de passe",
+        "buildWhat": "Je veux construire...",
+        "inCity": "Dans la ville de...",
+        "myNeed": "Mon besoin...",
+        "companyName": "Nom de l'entreprise",
+        "lookingFor": "Je cherche...",
+        "byCity": "Par ville..."
+      },
+      "constructionTypes": {
+        "villa": "Villa",
+        "house": "Maison individuelle",
+        "duplex": "Duplex",
+        "apartment": "Appartement",
+        "buildingR2": "Immeuble R+2",
+        "buildingR4": "Immeuble R+4",
+        "residence": "Résidence",
+        "headquarters": "Siège social",
+        "office": "Bureau professionnel",
+        "shop": "Local commercial",
+        "warehouse": "Entrepôt / Hangar",
+        "fencing": "Clôture & aménagement"
+      },
+      "assistanceNeeds": {
+        "creation": "Création d'entreprise",
+        "accounting": "Comptabilité",
+        "tax": "Déclaration fiscale",
+        "legal": "Accompagnement juridique",
+        "advisory": "Conseil en gestion",
+        "structuring": "Structuration d'activité",
+        "financialReport": "Bilan comptable",
+        "audit": "Audit interne",
+        "hr": "Ressources humaines",
+        "businessPlan": "Plan d'affaires"
+      },
+      "realisationsCategories": {
+        "construction": "Construction",
+        "assistance": "Assistance conseil",
+        "villa": "Villa",
+        "building": "Immeuble",
+        "soilStudy": "Étude de sol",
+        "civilEngineering": "Génie civil",
+        "creation": "Création d'entreprise",
+        "commercial": "Bâtiment commercial"
+      },
+      "feedback": {
+        "missingCredentials": "Veuillez renseigner identifiant et mot de passe.",
+        "loginSuccess": "Connexion réussie. Redirection en cours…",
+        "loginError": "Identifiant ou mot de passe incorrect.",
+        "pickConstructionType": "Veuillez sélectionner un type de construction.",
+        "pickCity": "Veuillez sélectionner une ville.",
+        "pickNeed": "Veuillez sélectionner votre besoin.",
+        "pickAtLeastOne": "Sélectionnez au moins un critère de recherche."
+      },
+      "aria": {
+        "clearSelection": "Effacer la sélection",
+        "submit": "Valider",
+        "pickAction": "Choisir une action",
+        "selectAction": "Sélectionner une action"
+      },
+      "optional": "facultatif"
+    },
+    "devisIa": {
+      "eyebrow": "Innovation Groupe SICA",
+      "headingPart1": "Le devis structuré,",
+      "headingPart2": "généré à partir d'un",
+      "headingHighlight": "plan",
+      "body": "Premier service du Groupe SICA exploitant l'analyse structurelle pour accélérer le pré-cadrage de vos projets. Importez vos plans architecturaux et obtenez instantanément un Devis Quantitatif Estimatif (DQE) structuré en 11 lots selon notre base de prix officielle.",
+      "openTool": "Ouvrir l'outil",
+      "availableOn": "Disponible sur SICA Construction",
+      "node1": {
+        "title": "Analyse des plans PDF",
+        "body": "Extraction ultra-précise des surfaces, volumes et caractéristiques géométriques du bâtiment."
+      },
+      "node2": {
+        "title": "Structuration par lots",
+        "body": "Application stricte des règles de l'art pour le gros œuvre et l'ensemble du second œuvre."
+      },
+      "node3": {
+        "title": "Génération du DQE",
+        "body": "Un devis chiffré complet de 11 lots, prêt à être édité et exploité pour votre financement."
+      }
+    },
+    "testimonials": {
+      "eyebrow": "Confiance",
+      "heading": "Des preuves concrètes, sur le terrain.",
+      "subtitle": "Nos collaborations, nos inaugurations, et surtout une équipe engagée pour chaque client.",
+      "typewriter": "TOUTE UNE EQUIPE PRETE POUR VOUS"
+    },
+    "cta": {
+      "eyebrow": "Travaillons ensemble",
+      "trustLead": "Faites confiance à SICA pour",
+      "services": {
+        "constructions": "vos constructions",
+        "civilEngineering": "votre génie civil",
+        "geobeton": "le géobéton",
+        "utilities": "vos travaux VRD",
+        "plumbing": "votre plomberie",
+        "accounting": "votre comptabilité",
+        "tax": "votre fiscalité",
+        "smeAdvice": "votre conseil PME"
+      },
+      "subtext": "Une équipe ivoirienne engagée, disponible six jours sur sept à Abidjan.",
+      "start": "Commencer",
+      "contact": "Nous contacter →"
+    }
+  },
+  "Nav": {
+    "corporate": {
+      "label": "Corporate",
+      "tagline": "Qui nous sommes, d'où nous venons",
+      "about": "À propos",
+      "aboutDesc": "Dirigeant, organigramme et implantations du Groupe SICA.",
+      "news": "Actualités",
+      "newsDesc": "Toute l'activité récente du Groupe et de ses pôles.",
+      "careers": "Carrières",
+      "careersDesc": "Rejoindre les équipes SICA en Côte d'Ivoire.",
+      "awards": "Prix & récompenses",
+      "awardsDesc": "Distinctions, trophées et certifications du Groupe SICA.",
+      "partners": "Partenaires",
+      "partnersDesc": "Réseau d'entreprises et institutions associées.",
+      "contact": "Contact",
+      "contactDesc": "Nous joindre à Abidjan et Yamoussoukro."
+    },
+    "construction": {
+      "label": "Construction",
+      "tagline": "Du sol au toit : BTP, géobéton, génie civil",
+      "home": "Accueil Construction",
+      "homeDesc": "Présentation du pôle BTP : études, génie civil, géobéton.",
+      "services": "Services BTP",
+      "servicesDesc": "Études, terrassement, structure, charpente, plomberie, électricité, VRD.",
+      "geobeton": "Géobéton",
+      "geobetonDesc": "Notre matériau signature : brique BTCS à haute densité.",
+      "soil": "Études de sol",
+      "soilDesc": "Sondages pressiométriques et dimensionnement des fondations.",
+      "projects": "Réalisations",
+      "projectsDesc": "Villas, sièges institutionnels et chantiers en cours.",
+      "quote": "Demander un devis",
+      "quoteDesc": "Estimation rapide, cadrage du budget et lancement du projet.",
+      "client": "Espace client",
+      "clientDesc": "Suivi d'avancement, documents et points chantier."
+    },
+    "assistance": {
+      "label": "Assistance",
+      "tagline": "Créer, gérer et sécuriser votre activité",
+      "home": "Accueil Assistance",
+      "homeDesc": "Création, comptabilité, juridique et conseil PME.",
+      "creation": "Création d'entreprise",
+      "creationDesc": "Constitution légale, RCCM et formalités administratives.",
+      "accounting": "Comptabilité & fiscalité",
+      "accountingDesc": "Tenue comptable, déclarations fiscales et sociales.",
+      "legal": "Juridique",
+      "legalDesc": "Suivi administratif et sécurisation des actes.",
+      "advice": "Conseil en gestion",
+      "adviceDesc": "Structuration, pilotage et accompagnement des dirigeants.",
+      "client": "Espace client",
+      "clientDesc": "Suivi dossier, pièces attendues et factures."
+    },
+    "news": {
+      "label": "Actualités",
+      "tagline": "Informations récentes du Groupe et des pôles"
+    }
+  },
+  "TopNav": {
+    "corporate": "Corporate",
+    "partners": "Partenaires",
+    "contact": "Contact"
+  },
+  "Footer": {
+    "intro": "Construction, génie civil, BTP et assistance : création, modification, comptabilité, conseil. Une équipe ivoirienne depuis 2020.",
+    "addresses": {
+      "abidjan": "Cocody, Centre, en face Cité 48 Logements V1",
+      "yamoussoukro": "Morofé, 24 ampoules"
+    },
+    "headings": {
+      "navigation": "Navigation",
+      "access": "Accès",
+      "poles": "Nos pôles",
+      "contact": "Contact direct"
+    },
+    "nav": {
+      "group": "Le Groupe",
+      "news": "Actualités",
+      "partners": "Partenaires",
+      "careers": "Carrières",
+      "contact": "Contact"
+    },
+    "access": {
+      "client": "Connexion client",
+      "quote": "Demander un devis",
+      "legal": "Mentions légales",
+      "privacy": "Confidentialité",
+      "cookies": "Cookies"
+    },
+    "poles": {
+      "constructionTagline": "BTP, génie civil, géobéton",
+      "assistanceTagline": "Comptabilité, fiscalité, paie"
+    },
+    "legal": {
+      "copyright": "Groupe SICA · RCCM CI-ABJ-03-2020-B13-17592 · Abidjan, Côte d'Ivoire"
+    },
+    "aria": {
+      "footerNav": "Navigation du pied de page",
+      "clientNav": "Accès client et liens légaux",
+      "legalNav": "Navigation légale"
+    }
+  },
+  "Awards": {
+    "metaTitle": "Prix & récompenses",
+    "metaDescription": "Distinctions, trophées et certifications décernés au Directeur Général du Groupe SICA, M. N'GORAN Koffi Victor Ivan, et au Groupe pour son engagement et son excellence.",
+    "hero": {
+      "eyebrow": "Distinctions & reconnaissances",
+      "title": "Une exigence qui",
+      "titleAccent": "se distingue",
+      "subtitle": "Les institutions panafricaines et ivoiriennes ont salué l'engagement du Groupe SICA et de son Directeur Général. Voici les distinctions reçues pour notre rigueur, notre éthique et notre contribution au développement de la Côte d'Ivoire."
+    },
+    "figures": {
+      "ariaLabel": "Chiffres clés des distinctions",
+      "distinctions": "Distinctions reçues",
+      "trophies": "Trophées",
+      "certificates": "Diplômes & attestations",
+      "years": "Années de reconnaissance"
+    },
+    "gallery": {
+      "eyebrow": "La galerie des distinctions",
+      "title": "Chaque distinction raconte un engagement tenu.",
+      "intro": "Diplômes officiels, attestations panafricaines et trophées de prestige — autant de symboles d'une trajectoire reconnue par ses pairs et par les institutions."
+    },
+    "kinds": {
+      "diploma": "Diplôme officiel",
+      "attestation": "Attestation",
+      "trophy": "Trophée",
+      "tribute": "Hommage public",
+      "certificate": "Certificat"
+    },
+    "citation": {
+      "ariaLabel": "Citation du Directeur Général",
+      "text": "Ces distinctions n'appartiennent pas à un homme : elles consacrent le travail d'une équipe et la confiance de toute une nation. Nous les recevons avec humilité, et nous continuons à bâtir.",
+      "name": "M. N'GORAN Koffi Victor Ivan",
+      "role": "Directeur Général · Groupe SICA"
+    },
+    "items": {
+      "grandPrixEmergence": {
+        "title": "Grand Prix de l'Émergence — Prix du Mérite",
+        "organism": "Afrique Vérité pour la Promotion de la Bonne Gouvernance",
+        "description": "Super prix d'excellence et du mérite professionnel pour l'expertise, la rigueur, l'éthique et le suivi dans le secteur de l'immobilier en Côte d'Ivoire."
+      },
+      "afriqueVeriteTrophy": {
+        "title": "Trophée Afrique Vérité",
+        "organism": "Afrique Vérité",
+        "description": "Trophée honorifique décerné pour la promotion de la bonne gouvernance et l'engagement exemplaire dans le secteur immobilier ivoirien."
+      },
+      "superPrixElephantOr": {
+        "title": "Super Prix National Éléphant d'Or 2026",
+        "organism": "OPAJEF — Organisation Panafricaine de la Jeunesse Francophone",
+        "description": "Distinction décernée à titre honorifique au meilleur agent de développement de Côte d'Ivoire pour son dévouement à la cause de la nation ivoirienne."
+      },
+      "opajefAmbassadeur": {
+        "title": "Ambassadeur de la Paix et du Développement",
+        "organism": "OPAJEF — Organisation Panafricaine de la Jeunesse Francophone",
+        "description": "Attestation officielle pour les services rendus à l'Afrique en général et à la Côte d'Ivoire en particulier dans les domaines de l'éducation, de la santé, du social et de la promotion de la paix."
+      },
+      "ipabCommandeur": {
+        "title": "Commandeur de l'Ordre Africain de la Valeur",
+        "organism": "IPAB — Institut Panafricain de la Biographie",
+        "description": "Nomination au grade de Commandeur de l'Ordre Africain de la Valeur pour services rendus à la Côte d'Ivoire."
+      },
+      "ipabTrophee": {
+        "title": "Trophée Grand Officier de l'Ordre Africain",
+        "organism": "IPAB — Institut Panafricain de la Biographie",
+        "description": "Trophée d'or remis lors de la cérémonie officielle de remise des distinctions panafricaines."
+      },
+      "meilleurJeuneEntrepreneur1": {
+        "title": "Meilleur Jeune Entrepreneur — Industrie",
+        "organism": "Comité d'attribution national",
+        "description": "Reconnaissance du leadership entrepreneurial et de la contribution à la dynamique industrielle ivoirienne."
+      },
+      "meilleurJeuneEntrepreneur2": {
+        "title": "Meilleur Jeune Entrepreneur — Industrie",
+        "organism": "Comité d'attribution national",
+        "description": "Médaille tricolore et trophée d'or célébrant l'excellence et l'innovation dans le secteur de l'industrie."
+      },
+      "hommagePublic": {
+        "title": "À toi Homme Public Vertueux",
+        "organism": "Acrostiche officiel",
+        "description": "Hommage rendu au Directeur Général pour ses qualités humaines, son intégrité et sa contribution à la jeunesse ivoirienne. Mentions : Super Lauréat des Prix Éléphants d'Or, Commandeur de l'Ordre Africain de la Valeur, Ambassadeur de la Paix et du Développement."
+      },
+      "ukamiFormation": {
+        "title": "Certificat de Participation — UKAMI",
+        "organism": "UKAMI · Former · Transformer · Réaliser",
+        "description": "Animation d'une séance de formation sur le thème « L'excellence au cœur de la réussite », sous-thème : formalités, gestion et fiscalité d'entreprise en Côte d'Ivoire."
+      }
+    }
+  }
+}

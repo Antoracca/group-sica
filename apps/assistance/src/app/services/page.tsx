@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@sica/ui";
 import { AssistanceHeader } from "@/components/assistance-header";
 import { FooterAssistance } from "@/components/footer-assistance";
 import { PageHero } from "@/components/page-hero";
 import { ASSISTANCE_SERVICES } from "@/lib/services";
+import { getServiceDetailByServiceId } from "@/lib/service-details";
 
 export const metadata: Metadata = {
   title: "Nos services",
@@ -28,6 +30,7 @@ export default function ServicesPage() {
             <div className="grid gap-5 sm:grid-cols-2 lg:gap-6">
               {ASSISTANCE_SERVICES.map((service) => {
                 const Icon = service.icon;
+                const detail = getServiceDetailByServiceId(service.id);
                 return (
                   <article
                     key={service.id}
@@ -61,6 +64,19 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
+
+                    {detail ? (
+                      <Link
+                        href={`/services/${detail.slug}`}
+                        className="group mt-5 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-brand-royal transition-colors hover:text-brand-royal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-royal focus-visible:ring-offset-2"
+                      >
+                        En savoir plus
+                        <ArrowRight
+                          className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                          aria-hidden
+                        />
+                      </Link>
+                    ) : null}
                   </article>
                 );
               })}

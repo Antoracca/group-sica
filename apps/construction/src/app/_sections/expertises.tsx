@@ -4,231 +4,108 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useInView } from "motion/react";
 import { Button, Container, cn } from "@sica/ui";
 import {
-  DraftingCompass,
   Layers3,
+  Microscope,
+  PenTool,
+  Compass,
+  Calculator,
+  FileSignature,
   Home,
-  Waypoints,
-  Scan,
-  Award,
+  Building2,
   ArrowRight,
   ChevronDown,
-  X,
-  CheckCircle2,
 } from "lucide-react";
 
-/* ─────────────────────────────────────────────
-   DATA (Ultra-court, 1 phrase) + Contenu Modale
-───────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════════════════
+   EXPERTISES MÉTIER — SICA Construction
+   ────────────────────────────────────────────────────────────────────────
+   Refonte alignée sur les 8 activités réelles. Mode accordéon conservé.
+   Le bloc "Notre Méthodologie d'Étude" + "Points de contrôle" a été
+   retiré (redondant avec les expertises ci-dessous).
+═══════════════════════════════════════════════════════════════════════ */
 
 const expertises = [
   {
-    id: "etudes",
-    icon: DraftingCompass,
-    title: "Études et préconisations",
+    id: "etudes-sol",
+    icon: Microscope,
+    title: "Études de Sol",
     shortTitle: "Études",
-    description: "Analyse topographique et clauses techniques arrêtées avant tout engagement budgétaire.",
-    linkText: "Découvrir la méthode",
-    modal: {
-      title: "Notre Méthodologie d'Étude",
-      subtitle: "La garantie d'un projet sécurisé en amont",
-      content: "Avant le premier coup de pioche, notre bureau d'études sécurise chaque aspect technique et financier de votre projet pour garantir le respect de votre budget initial.",
-      points: [
-        "Études de sol géotechniques approfondies",
-        "Relevés topographiques de précision",
-        "Dimensionnement structurel parasismique",
-        "Validation des plans d'exécution (PE)"
-      ]
-    }
+    description:
+      "Analyse géotechnique et caractérisation du terrain afin de garantir la stabilité, la sécurité et la durabilité des ouvrages avant tout démarrage de chantier.",
+    linkText: "Découvrir l'expertise",
+    href: "/devis",
   },
   {
-    id: "structure",
+    id: "geobeton",
     icon: Layers3,
-    title: "Géobéton et structure",
-    shortTitle: "Structure",
-    description: "Ferraillage et coffrage contrôlés par points d'arrêt stricts avant chaque coulage.",
-    linkText: "Les normes appliquées",
-    modal: {
-      title: "Normes & Gros Œuvre",
-      subtitle: "Des fondations conçues pour durer",
-      content: "La pérennité de votre ouvrage repose sur l'intégrité de sa structure. Nous ne faisons aucun compromis sur la qualité des matériaux et le respect des normes internationales.",
-      points: [
-        "Traçabilité des bétons et tests d'écrasement",
-        "Vérification systématique du ferraillage",
-        "Respect strict des Eurocodes (calculs de charge)",
-        "Points d'arrêt validés par bureau de contrôle"
-      ]
-    }
+    title: "Production de Briques Géobéton",
+    shortTitle: "Géobéton",
+    description:
+      "Fabrication de briques écologiques et performantes offrant une excellente isolation thermique, une meilleure durabilité et une réduction significative des coûts de construction.",
+    linkText: "Découvrir l'expertise",
+    href: "/devis",
   },
   {
-    id: "residentiel",
+    id: "architecture",
+    icon: PenTool,
+    title: "Conception Architecturale",
+    shortTitle: "Architecture",
+    description:
+      "Création de plans architecturaux modernes, fonctionnels et adaptés aux exigences techniques, esthétiques et budgétaires de chaque projet.",
+    linkText: "Découvrir l'expertise",
+    href: "/devis",
+  },
+  {
+    id: "ingenierie",
+    icon: Compass,
+    title: "Ingénierie & Structure",
+    shortTitle: "Ingénierie",
+    description:
+      "Études structurelles, calculs techniques et dimensionnement des ouvrages garantissant la conformité, la sécurité et la pérennité des constructions.",
+    linkText: "Découvrir l'expertise",
+    href: "/devis",
+  },
+  {
+    id: "dqe",
+    icon: Calculator,
+    title: "Élaboration de Devis Quantitatifs et Estimatifs (DQE)",
+    shortTitle: "DQE",
+    description:
+      "Évaluation précise des coûts, quantités et ressources nécessaires afin d'assurer une parfaite maîtrise budgétaire du projet.",
+    linkText: "Découvrir l'expertise",
+    href: "/devis-auto",
+  },
+  {
+    id: "permis",
+    icon: FileSignature,
+    title: "Permis de Construire",
+    shortTitle: "Permis",
+    description:
+      "Accompagnement administratif complet pour l'obtention des autorisations et démarches réglementaires nécessaires à la réalisation des projets.",
+    linkText: "Découvrir l'expertise",
+    href: "/contact",
+  },
+  {
+    id: "villas-basses",
     icon: Home,
-    title: "Bâtiment résidentiel",
-    shortTitle: "Résidentiel",
-    description: "Gestion intégrale du second œuvre en coordination serrée avec tous les corps d'état.",
-    linkText: "Voir nos réalisations",
-    href: "/realisations", // Lien direct, pas de modale
+    title: "Réalisation de Villas Basses",
+    shortTitle: "Villas",
+    description:
+      "Construction clé en main de villas individuelles répondant aux standards de qualité, de confort et de durabilité de SICA Construction.",
+    linkText: "Découvrir l'expertise",
+    href: "/realisations",
   },
   {
-    id: "pilotage",
-    icon: Waypoints,
-    title: "Pilotage de chantier",
-    shortTitle: "Pilotage",
-    description: "Tableaux de bord et anticipation proactive pour corriger tout écart à J-7.",
-    linkText: "Comprendre le pilotage",
-    modal: {
-      title: "Pilotage & OPC",
-      subtitle: "Maîtriser le temps, anticiper les risques",
-      content: "L'Ordonnancement, le Pilotage et la Coordination (OPC) sont le moteur de notre efficacité. Nous synchronisons tous les intervenants pour éliminer les temps morts.",
-      points: [
-        "Plannings décisionnels dynamiques",
-        "Réunions de chantier avec compte-rendu sous 24h",
-        "Anticipation des approvisionnements (J-15)",
-        "Gestion proactive des aléas climatiques"
-      ]
-    }
-  },
-  {
-    id: "metriques",
-    icon: Scan,
-    title: "Contrôle des métriques",
-    shortTitle: "Métriques",
-    description: "Traçabilité des matériaux et traitement des non-conformités en temps réel.",
-    linkText: "Explorer nos outils",
-    modal: {
-      title: "Outils & Data",
-      subtitle: "La donnée au service de la performance",
-      content: "La gestion moderne de chantier s'appuie sur des données précises. Nous mesurons l'avancement financier et physique pour vous offrir une transparence totale.",
-      points: [
-        "Suivi financier en temps réel (budget vs réel)",
-        "Tableaux de bord d'avancement physique",
-        "Traçabilité de la chaîne logistique",
-        "Outils collaboratifs pour le client"
-      ]
-    }
-  },
-  {
-    id: "livraison",
-    icon: Award,
-    title: "Sécurité et livraison",
-    shortTitle: "Livraison",
-    description: "Application des protocoles stricts et remise du dossier technique exhaustif.",
-    linkText: "La charte qualité",
-    modal: {
-      title: "Charte Qualité",
-      subtitle: "Une réception sans mauvaise surprise",
-      content: "La remise des clés n'est pas une fin, mais l'aboutissement d'un processus d'autocontrôle continu mené tout au long du chantier.",
-      points: [
-        "Opérations Préalables à la Réception (OPR) strictes",
-        "Engagement zéro réserve à la livraison",
-        "Remise du Dossier des Ouvrages Exécutés (DOE)",
-        "Suivi et réactivité durant l'année de parfait achèvement"
-      ]
-    }
+    id: "duplex-immeubles",
+    icon: Building2,
+    title: "Réalisation de Villas Duplex et Immeubles",
+    shortTitle: "Immeubles",
+    description:
+      "Conception et réalisation de bâtiments résidentiels, commerciaux et immeubles de plusieurs niveaux avec une gestion rigoureuse des délais, des coûts et de la qualité.",
+    linkText: "Découvrir l'expertise",
+    href: "/realisations",
   },
 ];
-
-/* ─────────────────────────────────────────────
-   PANNEAU LATÉRAL (SIDE-PANEL MODAL)
-───────────────────────────────────────────── */
-function SidePanel({ 
-  item, 
-  onClose 
-}: { 
-  item: typeof expertises[0] | null; 
-  onClose: () => void 
-}) {
-  useEffect(() => {
-    if (item && item.modal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [item]);
-
-  return (
-    <AnimatePresence>
-      {item && item.modal && (
-        <div className="fixed inset-0 z-[100] flex justify-end">
-          {/* Backdrop sombre flouté */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
-          />
-
-          {/* Panneau latéral */}
-          <motion.div
-            initial={{ x: "100%", opacity: 0.5 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: "100%", opacity: 0.5 }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="relative flex h-full w-full max-w-md flex-col bg-white shadow-2xl"
-          >
-            {/* Header avec icône */}
-            <div className="flex items-center justify-between border-b border-black/5 p-6">
-              <div className="flex items-center gap-3">
-                <div className="flex size-10 items-center justify-center rounded-lg bg-brand-royal/10 text-brand-royal">
-                  <item.icon className="size-5" />
-                </div>
-                <span className="font-mono text-[0.65rem] font-bold uppercase tracking-widest text-brand-amber">
-                  Expertise
-                </span>
-              </div>
-              <button
-                onClick={onClose}
-                className="flex size-8 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-ink"
-              >
-                <X className="size-5" />
-              </button>
-            </div>
-
-            {/* Contenu défilable */}
-            <div className="flex-1 overflow-y-auto p-6 sm:p-8">
-              <h3 className="font-display text-2xl font-bold leading-tight text-ink">
-                {item.modal.title}
-              </h3>
-              <p className="mt-2 text-sm font-semibold text-brand-royal">
-                {item.modal.subtitle}
-              </p>
-              
-              <div className="my-6 h-px w-12 bg-brand-amber" />
-
-              <p className="text-[0.95rem] leading-relaxed text-slate-600">
-                {item.modal.content}
-              </p>
-
-              <div className="mt-8 rounded-xl border border-black/5 bg-slate-50 p-5">
-                <h4 className="mb-4 font-mono text-[0.7rem] font-bold uppercase tracking-widest text-slate-500">
-                  Points de contrôle
-                </h4>
-                <ul className="space-y-3">
-                  {item.modal.points.map((point, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-brand-amber" />
-                      <span className="text-sm text-slate-700">{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className="border-t border-black/5 bg-slate-50/50 p-6">
-              <Button asChild className="w-full" variant="accent">
-                <a href="/devis">Démarrer mon projet</a>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
-  );
-}
 
 /* ─────────────────────────────────────────────
    MAIN SECTION : ACCORDION MINIMALISTE
@@ -236,7 +113,6 @@ function SidePanel({
 
 export function ExpertisesSection() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [activeModal, setActiveModal] = useState<typeof expertises[0] | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px 0px" });
 
@@ -249,25 +125,21 @@ export function ExpertisesSection() {
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  // Écoute du hash pour ouvrir la modale depuis la navbar
+  // Ouverture d'une expertise via hash dans l'URL (#etudes-sol etc.)
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace("#", "");
       if (!hash) return;
-      
-      const found = expertises.find((exp) => exp.id === hash);
-      if (found && found.modal) {
-        setActiveModal(found);
-        // On remonte un peu pour voir la section
+
+      const idx = expertises.findIndex((exp) => exp.id === hash);
+      if (idx >= 0) {
+        setActiveIndex(idx);
         const section = document.getElementById("expertises");
         if (section) section.scrollIntoView({ behavior: "smooth" });
       }
     };
 
-    // Vérifier au montage
     handleHashChange();
-
-    // Écouter les changements
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
@@ -276,24 +148,58 @@ export function ExpertisesSection() {
     <section id="expertises" className="bg-paper pt-8 pb-20 sm:pt-12 sm:pb-28 lg:pt-16 lg:pb-36">
       <Container>
         {/* ── Section Header ── */}
-        <div className="mb-10 max-w-3xl lg:mb-16">
+        <div className="mb-10 max-w-3xl lg:mb-14">
           <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-brand-amber">
             Expertises métier
           </p>
           <h2 className="mt-5 font-display text-[clamp(2.2rem,4vw,3.5rem)] font-bold leading-[1.1] tracking-tight text-ink text-balance">
-            L&apos;ingénierie de votre{" "}
+            L&apos;ingénierie de votre projet, structurée pour garantir{" "}
             <span className="relative inline-block">
-              CHANTIER
+              qualité
               <span
                 aria-hidden
                 className="absolute -bottom-1 left-0 h-[4px] w-full bg-brand-amber"
               />
             </span>
-            , structurée comme un système infaillible.
+            , maîtrise des coûts et respect des délais.
           </h2>
-          <p className="mt-8 text-pretty text-base leading-relaxed text-slate lg:text-lg">
-            Chaque phase possède ses points de contrôle et son livrable. C&apos;est ce qui sécurise vos délais et votre budget de bout en bout.
-          </p>
+        </div>
+
+        {/* ── Introduction institutionnelle ── */}
+        <div className="mb-12 grid gap-8 border-y border-slate-200/70 py-10 lg:mb-16 lg:grid-cols-[1fr_1.2fr] lg:gap-16 lg:py-12">
+          <div>
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-brand-royal">
+              Le Groupe SICA
+            </p>
+            <p className="mt-4 text-[0.95rem] leading-relaxed text-slate-700">
+              Le GROUPE SICA, à travers son département{" "}
+              <strong className="text-ink">SICA Construction</strong>, est une
+              Société à Responsabilité Limitée spécialisée dans la construction
+              de bâtiments et travaux publics utilisant les technologies de
+              construction en agglos/parpaings, BTCS/Géobéton, métal, aluminium
+              et autres solutions innovantes.
+            </p>
+          </div>
+          <div>
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-brand-royal">
+              Notre positionnement
+            </p>
+            <p className="mt-4 text-[0.95rem] leading-relaxed text-slate-700">
+              SICA accompagne entreprises, investisseurs, institutions et
+              particuliers à chaque étape de leurs projets, des études techniques
+              jusqu&apos;à la livraison complète des ouvrages.
+            </p>
+            <p className="mt-4 border-l-2 border-brand-amber pl-4 font-display text-[0.95rem] italic leading-relaxed text-ink/85">
+              SICA se définit comme une{" "}
+              <strong className="not-italic text-ink">
+                Société Ivoirienne de Construction, de Consultance et
+                d&apos;Assistance
+              </strong>
+              , dédiée à l&apos;accompagnement des entreprises,
+              entrepreneur(e)s et particuliers aux niveaux national et
+              international.
+            </p>
+          </div>
         </div>
 
         {/* ── Expanding Accordion Minimaliste (Lignes Droites) ── */}
@@ -302,7 +208,7 @@ export function ExpertisesSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="flex h-[600px] w-full flex-col border-y border-slate-200/80 lg:h-[500px] lg:flex-row lg:border-x lg:border-y-0"
+          className="flex h-[640px] w-full flex-col border-y border-slate-200/80 lg:h-[520px] lg:flex-row lg:border-x lg:border-y-0"
         >
           {expertises.map((item, index) => {
             const isActive = activeIndex === index;
@@ -317,12 +223,12 @@ export function ExpertisesSection() {
                 className={cn(
                   "relative flex cursor-pointer overflow-hidden transition-colors duration-500",
                   !isLast && "border-b border-slate-200/80 lg:border-b-0 lg:border-r",
-                  isActive ? "bg-white" : "bg-slate-50/40 hover:bg-slate-100/60"
+                  isActive ? "bg-white" : "bg-slate-50/40 hover:bg-slate-100/60",
                 )}
                 animate={{ flex: isActive ? (isDesktop ? 5 : 4) : 1 }}
                 transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
               >
-                {/* TOUCHE SPÉCIALE : Grille Architecturale (Blueprint) en fond du panneau actif */}
+                {/* Grille Architecturale (Blueprint) en fond du panneau actif */}
                 <AnimatePresence>
                   {isActive && (
                     <motion.div
@@ -332,8 +238,9 @@ export function ExpertisesSection() {
                       transition={{ duration: 0.8 }}
                       className="pointer-events-none absolute inset-0 z-0"
                       style={{
-                        backgroundImage: "linear-gradient(to right, #cbd5e1 1px, transparent 1px), linear-gradient(to bottom, #cbd5e1 1px, transparent 1px)",
-                        backgroundSize: "24px 24px"
+                        backgroundImage:
+                          "linear-gradient(to right, #cbd5e1 1px, transparent 1px), linear-gradient(to bottom, #cbd5e1 1px, transparent 1px)",
+                        backgroundSize: "24px 24px",
                       }}
                     />
                   )}
@@ -349,18 +256,21 @@ export function ExpertisesSection() {
                       transition={{ duration: 0.3, delay: 0.1 }}
                       className="relative z-10 flex h-full w-full flex-col justify-end p-5 lg:p-10"
                     >
-                      <div className="mb-auto">
+                      <div className="mb-auto flex items-start justify-between gap-4">
                         <div className="flex size-14 items-center justify-center rounded-none bg-brand-royal-900 text-brand-amber">
                           <Icon className="size-6" strokeWidth={1.5} />
                         </div>
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-brand-amber/80">
+                          {String(index + 1).padStart(2, "0")} / {String(expertises.length).padStart(2, "0")}
+                        </span>
                       </div>
-                      
+
                       {/* Ligne orange dynamique au-dessus du titre */}
-                      <motion.div 
-                        initial={{ width: 0 }} 
-                        animate={{ width: 48 }} 
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: 48 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className="mb-6 h-[2px] bg-brand-amber" 
+                        className="mb-6 h-[2px] bg-brand-amber"
                       />
 
                       <h3 className="mb-4 font-display text-2xl font-bold leading-tight text-brand-royal-900 lg:text-3xl">
@@ -370,32 +280,16 @@ export function ExpertisesSection() {
                         {item.description}
                       </p>
                       <div>
-                        {item.href ? (
-                          <a
-                            href={item.href}
-                            onClick={(e) => e.stopPropagation()}
-                            className="group/btn inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-royal-900 transition-all hover:text-brand-amber"
-                          >
-                            <span className="border-b border-brand-royal-900/30 pb-1 transition-colors group-hover/btn:border-brand-amber">
-                              {item.linkText}
-                            </span>
-                            <ArrowRight className="size-4 transition-transform group-hover/btn:translate-x-1" />
-                          </a>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setActiveModal(item);
-                            }}
-                            className="group/btn inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-royal-900 transition-all hover:text-brand-amber"
-                          >
-                            <span className="border-b border-brand-royal-900/30 pb-1 transition-colors group-hover/btn:border-brand-amber">
-                              {item.linkText}
-                            </span>
-                            <ArrowRight className="size-4 transition-transform group-hover/btn:translate-x-1" />
-                          </button>
-                        )}
+                        <a
+                          href={item.href}
+                          onClick={(e) => e.stopPropagation()}
+                          className="group/btn inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-royal-900 transition-all hover:text-brand-amber"
+                        >
+                          <span className="border-b border-brand-royal-900/30 pb-1 transition-colors group-hover/btn:border-brand-amber">
+                            {item.linkText}
+                          </span>
+                          <ArrowRight className="size-4 transition-transform group-hover/btn:translate-x-1" />
+                        </a>
                       </div>
                     </motion.div>
                   ) : (
@@ -413,7 +307,7 @@ export function ExpertisesSection() {
                       <span className="font-display text-sm font-bold tracking-widest text-slate-400 whitespace-nowrap uppercase lg:-rotate-180 lg:[writing-mode:vertical-rl] lg:text-[11px]">
                         {item.shortTitle}
                       </span>
-                      
+
                       {/* Flèche flottante au centre/bas */}
                       <motion.div
                         animate={{ y: [0, 4, 0] }}
@@ -438,15 +332,10 @@ export function ExpertisesSection() {
             </p>
           </div>
           <Button asChild variant="accent" size="lg" className="shrink-0 shadow-lg shadow-brand-amber/10 group">
-            <a href="/devis">
-              Configurer mon projet
-            </a>
+            <a href="/devis">Configurer mon projet</a>
           </Button>
         </div>
       </Container>
-      
-      {/* Intégration du panneau latéral en dehors du flux */}
-      <SidePanel item={activeModal} onClose={() => setActiveModal(null)} />
     </section>
   );
 }
