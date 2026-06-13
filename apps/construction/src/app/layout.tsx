@@ -4,7 +4,7 @@ import { fontBody, fontDisplay, fontMono } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sicaconstruction.ci"),
+  metadataBase: new URL("https://sicaconstruction.com"),
   title: {
     default: "SICA Construction — BTP, Génie Civil, Géobéton",
     template: "%s · SICA Construction",

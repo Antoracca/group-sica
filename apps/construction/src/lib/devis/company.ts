@@ -16,6 +16,6 @@ export const COMPANY = {
   siege: "Cocody Centre, en face Cité 48 Logements V1, Abidjan",
   succursale: "Morofé, 24 ampoules, Yamoussoukro",
   telephones: ["+225 07 09 88 32 93", "+225 01 02 44 28 94"],
-  email: "groupesica@gmail.com",
+  email: "secretariat@groupe-sica.com",
   directeur: "Ngoran Ivan",
 } as const;

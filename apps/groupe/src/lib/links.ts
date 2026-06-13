@@ -2,17 +2,17 @@ const isDev = process.env.NODE_ENV === "development";
 
 const constructionBase =
   process.env.NEXT_PUBLIC_CONSTRUCTION_URL?.replace(/\/+$/, "") ||
-  (isDev ? "http://localhost:3001" : "https://sicaconstruction.ci");
+  (isDev ? "http://localhost:3001" : "https://sicaconstruction.com");
 
 const groupeBase =
   process.env.NEXT_PUBLIC_GROUPE_URL?.replace(/\/+$/, "") ||
-  (isDev ? "http://localhost:3000" : "https://groupesica.ci");
+  (isDev ? "http://localhost:3000" : "https://groupe-sica.com");
 
 const assistanceBase =
   process.env.NEXT_PUBLIC_ASSISTANCE_URL?.replace(/\/+$/, "") ||
-  (isDev ? "http://localhost:3002" : "https://sicaassistance.ci");
+  (isDev ? "http://localhost:3002" : "https://sicaassistance.com");
 
-const landingBase = "https://sica.ci";
+const landingBase = "https://sica.com";
 
 // L'espace client est intégré à l'app groupe : connexion sous /espace-client.
 const espaceBase = `${groupeBase}/espace-client`;

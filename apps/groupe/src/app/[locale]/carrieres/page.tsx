@@ -203,7 +203,7 @@ export default function CarrieresPage() {
               {/* CTA + info */}
               <div className="flex flex-col items-start gap-5 lg:items-center lg:pl-8">
                 <a
-                  href="mailto:groupesica@gmail.com?subject=Candidature%20spontan%C3%A9e"
+                  href="mailto:secretariat@groupe-sica.com?subject=Candidature%20spontan%C3%A9e"
                   className="group inline-flex items-center gap-2.5 rounded-2xl px-8 py-4 text-[0.9375rem] font-semibold text-white transition-all hover:opacity-92"
                   style={{
                     background: "linear-gradient(135deg, #F39200 0%, #D87D00 100%)",
@@ -214,7 +214,7 @@ export default function CarrieresPage() {
                   <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
                 </a>
                 <p className="text-[0.78rem] text-white/32 lg:text-center">
-                  groupesica@gmail.com
+                  secretariat@groupe-sica.com
                   <br />
                   Réponse sous 15 jours ouvrés
                 </p>

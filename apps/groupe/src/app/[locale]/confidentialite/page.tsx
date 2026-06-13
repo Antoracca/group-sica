@@ -17,10 +17,10 @@ export default function ConfidentialitePage() {
           heading: "Responsable du traitement",
           body: (
             <p>
-              Le responsable du traitement des données personnelles collectées sur groupesica.ci est
+              Le responsable du traitement des données personnelles collectées sur groupe-sica.com est
               le <strong>Groupe SICA</strong> (RCCM CI-ABJ-03-2020-B13-17592), représenté par son
               directeur Ngoran Ivan. Toute demande relative à vos données peut être adressée à{" "}
-              <a href="mailto:groupesica@gmail.com" className="text-[#1E2F8A] underline hover:text-brand-amber">groupesica@gmail.com</a>.
+              <a href="mailto:secretariat@groupe-sica.com" className="text-[#1E2F8A] underline hover:text-brand-amber">secretariat@groupe-sica.com</a>.
             </p>
           ),
         },
@@ -84,7 +84,7 @@ export default function ConfidentialitePage() {
               </ul>
               <p>
                 Pour exercer ces droits, écrivez à{" "}
-                <a href="mailto:groupesica@gmail.com" className="text-[#1E2F8A] underline hover:text-brand-amber">groupesica@gmail.com</a>.
+                <a href="mailto:secretariat@groupe-sica.com" className="text-[#1E2F8A] underline hover:text-brand-amber">secretariat@groupe-sica.com</a>.
                 Nous répondons sous 30 jours.
               </p>
             </>

@@ -195,10 +195,10 @@ export function Footer() {
                 </li>
                 <li>
                   <a
-                    href="mailto:groupesica@gmail.com"
+                    href="mailto:secretariat@groupe-sica.com"
                     className="text-sm text-white/52 transition-colors duration-200 hover:text-white"
                   >
-                    groupesica@gmail.com
+                    secretariat@groupe-sica.com
                   </a>
                 </li>
                 <li>
@@ -217,7 +217,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 border-t border-white/[0.07] py-5 md:flex-row md:items-center md:justify-between">
+        <div className="mt-6 flex flex-col gap-3 border-t border-white/[0.07] pb-8 pt-6 sm:mt-4 md:mt-0 md:flex-row md:items-center md:justify-between md:gap-2 md:py-5">
           <p className="text-[0.75rem] text-white/55">
             &copy; {year} {t("legal.copyright")}
           </p>

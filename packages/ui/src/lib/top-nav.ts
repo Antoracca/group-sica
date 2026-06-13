@@ -33,8 +33,10 @@ export function getTopNav(brand: SiteBrand, options: TopNavOptions = {}): TopNav
   const landingUrl = options.landingUrl ?? DEFAULTS.landingUrl;
 
   /* ── Site GROUPE ───────────────────────────────────────────────────────
-     Corporate (interne) + cross-links Construction / Assistance / SICA
-     + Partenaires + Contact. Pas de Carrières, pas de Réalisations dans topNav.
+     Desktop : Corporate + cross-links + Partenaires + Contact.
+     Mobile  : on garde UNIQUEMENT les passerelles vers les sites du Groupe
+               (Construction, Assistance). Le reste passe en hideOnMobile
+               et reste accessible dans le drawer hamburger / la nav principale.
   ───────────────────────────────────────────────────────────────────── */
   if (brand === "groupe") {
     return [
@@ -42,6 +44,7 @@ export function getTopNav(brand: SiteBrand, options: TopNavOptions = {}): TopNav
         label: "Corporate",
         href: "/a-propos",
         logoSrc: "/logo-groupe.png",
+        hideOnMobile: true,
       },
       {
         label: "Construction",
@@ -60,21 +63,29 @@ export function getTopNav(brand: SiteBrand, options: TopNavOptions = {}): TopNav
         href: landingUrl,
         external: true,
         icon: "compass",
+        hideOnMobile: true,
       },
       {
         label: "Partenaires",
         href: "/partenaires",
         icon: "users",
+        hideOnMobile: true,
       },
       {
         label: "Contact",
         href: "/contact",
         icon: "phone",
+        hideOnMobile: true,
       },
     ];
   }
 
-  /* ── Sites Construction / Assistance — cross-links + utilitaires ────── */
+  /* ── Sites Construction / Assistance ──────────────────────────────────
+     Desktop : cross-links Groupe + (autre site) + SICA + Contact.
+     Mobile  : UNIQUEMENT les deux passerelles vers les sites du Groupe.
+               (Contact + SICA landing → hideOnMobile, restent dans le
+               drawer hamburger).
+  ───────────────────────────────────────────────────────────────────── */
   const items: TopNavItem[] = [];
 
   // Toujours afficher le lien Groupe SICA avec son logo
@@ -103,15 +114,21 @@ export function getTopNav(brand: SiteBrand, options: TopNavOptions = {}): TopNav
     });
   }
 
-  // Lien SICA landing — toujours présent
+  // Lien SICA landing — toujours présent en desktop, hors bandeau mobile
   items.push({
     label: "SICA",
     href: landingUrl,
     external: true,
     icon: "compass",
+    hideOnMobile: true,
   });
 
-  items.push({ label: "Contact", href: "/contact", icon: "phone" });
+  items.push({
+    label: "Contact",
+    href: "/contact",
+    icon: "phone",
+    hideOnMobile: true,
+  });
 
   return items;
 }

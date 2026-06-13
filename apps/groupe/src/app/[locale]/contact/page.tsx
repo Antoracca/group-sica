@@ -329,7 +329,7 @@ export default function ContactPage() {
                 </p>
                 <div className="flex flex-col gap-4">
                   <a
-                    href="mailto:groupesica@gmail.com"
+                    href="mailto:secretariat@groupe-sica.com"
                     className="group inline-flex items-center gap-3 text-[0.9375rem] text-white/70 transition-colors hover:text-white"
                   >
                     <span
@@ -338,7 +338,7 @@ export default function ContactPage() {
                     >
                       <Mail size={14} strokeWidth={2} style={{ color: "#F39200" }} />
                     </span>
-                    groupesica@gmail.com
+                    secretariat@groupe-sica.com
                   </a>
                   <a
                     href="https://facebook.com/SicaConstruction"

@@ -164,10 +164,10 @@ export function FooterConstruction() {
                 </li>
                 <li>
                   <a
-                    href="mailto:groupesica@gmail.com"
+                    href="mailto:secretariat@groupe-sica.com"
                     className="text-sm text-white/52 transition-colors duration-200 hover:text-white"
                   >
-                    groupesica@gmail.com
+                    secretariat@groupe-sica.com
                   </a>
                 </li>
                 <li>

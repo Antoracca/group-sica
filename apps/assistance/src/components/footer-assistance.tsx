@@ -76,7 +76,7 @@ export function FooterAssistance() {
             <ul className="space-y-2 text-sm">
               <li><a href="tel:+2250709883293" className="text-white/60 hover:text-white">+225 07 09 88 32 93</a></li>
               <li><a href="tel:+2250102442894" className="text-white/60 hover:text-white">+225 01 02 44 28 94</a></li>
-              <li><a href="mailto:groupesica@gmail.com" className="text-white/60 hover:text-white">groupesica@gmail.com</a></li>
+              <li><a href="mailto:secretariat@groupe-sica.com" className="text-white/60 hover:text-white">secretariat@groupe-sica.com</a></li>
             </ul>
             <p className="mt-4 text-xs leading-relaxed text-white/45">
 Cocody Centre, en face Cité 48 Logements V1, Abidjan

@@ -22,8 +22,8 @@ const COORDS = [
   {
     icon: Mail,
     label: "E-mail",
-    lines: ["groupesica@gmail.com"],
-    hrefs: ["mailto:groupesica@gmail.com"],
+    lines: ["secretariat@groupe-sica.com"],
+    hrefs: ["mailto:secretariat@groupe-sica.com"],
   },
   {
     icon: MapPin,

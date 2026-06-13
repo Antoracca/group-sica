@@ -10,7 +10,7 @@ export default function MentionsLegalesPage() {
   return (
     <LegalPage
       title="Mentions légales"
-      intro="Conformément à la législation ivoirienne en vigueur, vous trouverez ci-dessous les mentions obligatoires relatives à l'éditeur du site groupesica.ci et à ses pôles."
+      intro="Conformément à la législation ivoirienne en vigueur, vous trouverez ci-dessous les mentions obligatoires relatives à l'éditeur du site groupe-sica.com et à ses pôles."
       updatedAt="15 mai 2026"
       sections={[
         {
@@ -54,7 +54,7 @@ export default function MentionsLegalesPage() {
           body: (
             <>
               <p>
-                Email : <a href="mailto:groupesica@gmail.com" className="text-[#1E2F8A] underline hover:text-brand-amber">groupesica@gmail.com</a>
+                Email : <a href="mailto:secretariat@groupe-sica.com" className="text-[#1E2F8A] underline hover:text-brand-amber">secretariat@groupe-sica.com</a>
               </p>
               <p>
                 Téléphones : +225 0709883293 · +225 0102442894 · +225 2722247445
@@ -77,7 +77,7 @@ export default function MentionsLegalesPage() {
           heading: "Propriété intellectuelle",
           body: (
             <p>
-              L'ensemble des éléments du site groupesica.ci — textes, images, logos, charte
+              L'ensemble des éléments du site groupe-sica.com — textes, images, logos, charte
               graphique, code source — sont la propriété exclusive du Groupe SICA, sauf mention
               contraire explicite. Toute reproduction, distribution ou modification sans
               autorisation écrite préalable est interdite.

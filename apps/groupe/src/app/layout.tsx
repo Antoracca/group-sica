@@ -4,7 +4,7 @@ import { fontBody, fontDisplay, fontMono } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://groupesica.ci"),
+  metadataBase: new URL("https://groupe-sica.com"),
   title: {
     default: "Groupe SICA — Construction & Assistance en Côte d'Ivoire",
     template: "%s · Groupe SICA",

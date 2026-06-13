@@ -357,196 +357,162 @@ function DirecteurSection() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   4. ORGANIGRAMME — arbre animé
+   4. ORGANIGRAMME — refonte : un rendu unique responsive
+   ────────────────────────────────────────────────────────────────────────────
+   Objectifs : lisibilité maximale (contraste fort sur fond bleu marine,
+   typo >= 14 px partout, hiérarchie claire), aération, design soigné.
 ═══════════════════════════════════════════════════════════════════════════ */
+
 const POLES = [
   {
     key: "commercial",
     label: "Pôle Commercial",
-    sub: ["Vente Construction", "Vente Assistance", "Prospection & Marketing"],
+    role: "Vente & Croissance",
+    items: [
+      "Vente Construction",
+      "Vente Assistance",
+      "Prospection & Marketing",
+    ],
   },
   {
     key: "technique",
     label: "Pôle Technique",
-    sub: ["Études & conception", "Production chantier", "Génie civil & Géobéton", "Contrôle qualité"],
+    role: "Études, chantier & matériaux",
+    items: [
+      "Études & conception",
+      "Production chantier",
+      "Génie civil & Géobéton",
+      "Contrôle qualité",
+    ],
   },
   {
     key: "administratif",
     label: "Pôle Administratif",
-    sub: ["Comptabilité & Finance", "Ressources humaines", "Juridique & Conformité", "Achats & Logistique"],
+    role: "Conformité & support",
+    items: [
+      "Comptabilité & Finance",
+      "Ressources humaines",
+      "Juridique & Conformité",
+      "Achats & Logistique",
+    ],
   },
-];
+] as const;
 
-/* SVG arbre pour desktop */
-function OrgSVG({ inView }: { inView: boolean }) {
-  const vertAnim = (delay: number) => ({
-    initial: { pathLength: 0, opacity: 0 },
-    animate: inView ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 },
-    transition: { duration: 0.45, delay, ease: "easeOut" as const },
-  });
-
-  /* Positions : cx = centre de chaque pôle dans un viewBox 1000×330 */
-  const NODES = [
-    {
-      cx: 160, x: 35, w: 250, label: "COMMERCIAL",
-      sub: ["Vente Construction", "Vente Assistance", "Prospection & Marketing"],
-    },
-    {
-      cx: 500, x: 375, w: 250, label: "TECHNIQUE",
-      sub: ["Études & conception", "Production chantier", "Génie civil · Géobéton"],
-    },
-    {
-      cx: 840, x: 715, w: 250, label: "ADMINISTRATIF",
-      sub: ["Comptabilité & Finance", "Ressources humaines", "Juridique & Conformité"],
-    },
-  ];
-
+function OrgChart({ inView }: { inView: boolean }) {
   return (
-    <svg
-      viewBox="0 0 1000 330"
-      className="w-full"
-      preserveAspectRatio="xMidYMid meet"
-      aria-hidden
-      style={{ overflow: "visible" }}
-    >
-      {/* ── Nœud racine : Direction ── */}
-      <motion.g
-        initial={{ opacity: 0, y: -8 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5 }}
-      >
-        <rect x="360" y="14" width="280" height="62" rx="10"
-          stroke="#F39200" strokeWidth="1.5" fill="rgba(243,146,0,0.09)" />
-        <text x="500" y="41" textAnchor="middle"
-          fill="#F39200" fontSize="11" fontWeight="800" letterSpacing="3" fontFamily="sans-serif">
-          DIRECTION
-        </text>
-        <text x="500" y="59" textAnchor="middle"
-          fill="rgba(243,146,0,0.62)" fontSize="10" fontFamily="sans-serif">
-          Ngoran Ivan
-        </text>
-      </motion.g>
-
-      {/* ── Ligne verticale principale ── */}
-      <motion.path d="M500,76 L500,124" stroke="#F39200" strokeWidth="1.5"
-        fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke"
-        {...vertAnim(0.38)} />
-
-      {/* ── Ligne horizontale complète (opacité, pas pathLength) ── */}
-      <motion.line
-        x1="160" y1="124" x2="840" y2="124"
-        stroke="rgba(243,146,0,0.45)" strokeWidth="1.2"
-        strokeLinecap="round" vectorEffect="non-scaling-stroke"
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.4, delay: 0.62 }}
-      />
-
-      {/* ── Descentes vers les pôles ── */}
-      {NODES.map(({ cx }, i) => (
-        <motion.path key={`drop-${cx}`}
-          d={`M${cx},124 L${cx},180`}
-          stroke="rgba(243,146,0,0.45)" strokeWidth="1.2"
-          fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke"
-          {...vertAnim(0.78 + i * 0.06)} />
-      ))}
-
-      {/* ── Nœuds pôles ── */}
-      {NODES.map(({ cx, x, w, label }, i) => (
-        <motion.g
-          key={label}
-          initial={{ opacity: 0, y: 8 }}
+    <div>
+      {/* ── Nœud racine : Direction ─────────────────────────────────────── */}
+      <div className="flex justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.45, delay: 0.92 + i * 0.07 }}
+          transition={{ duration: 0.5, ease: E }}
+          className="relative w-full max-w-md rounded-2xl border-2 border-[#F39200]/70 bg-gradient-to-br from-[#F39200]/15 via-[#F39200]/8 to-transparent px-7 py-5 text-center shadow-[0_10px_40px_-15px_rgba(243,146,0,0.45)]"
         >
-          <rect x={x} y="180" width={w} height="54" rx="8"
-            stroke="rgba(255,255,255,0.14)" strokeWidth="1" fill="rgba(30,47,138,0.42)" />
-          <text x={cx} y="213" textAnchor="middle"
-            fill="rgba(255,255,255,0.85)" fontSize="10" fontWeight="700"
-            letterSpacing="2" fontFamily="sans-serif">
-            {label}
-          </text>
-        </motion.g>
-      ))}
+          <p
+            className="font-mono text-[0.72rem] font-bold uppercase tracking-[0.28em] text-[#F39200]"
+          >
+            Direction Générale
+          </p>
+          <p
+            className="mt-2 text-base font-semibold text-white sm:text-lg"
+            style={{ fontFamily: "'DM Serif Display', serif" }}
+          >
+            M. N&apos;GORAN Koffi Victor Ivan
+          </p>
+          <p className="mt-1 text-sm text-white/70">Fondateur · Directeur Général</p>
+        </motion.div>
+      </div>
 
-      {/* ── Lignes sous-items ── */}
-      {NODES.map(({ cx }, i) => (
-        <motion.path key={`sub-line-${cx}`}
-          d={`M${cx},234 L${cx},252`}
-          stroke="rgba(255,255,255,0.14)" strokeWidth="1"
-          fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke"
-          {...vertAnim(1.18 + i * 0.05)} />
-      ))}
-
-      {/* ── Textes sous-items ── */}
-      {NODES.map(({ cx, sub }, i) => (
-        <motion.g key={`sub-text-${cx}`}
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.38, delay: 1.32 + i * 0.06 }}
-        >
-          {sub.map((line, j) => (
-            <text key={j} x={cx} y={265 + j * 14} textAnchor="middle"
-              fill={j === 0 ? "rgba(255,255,255,0.42)" : "rgba(255,255,255,0.28)"}
-              fontSize="8.5" fontFamily="sans-serif">
-              {line}
-            </text>
+      {/* ── Filets connecteurs ──────────────────────────────────────────── */}
+      <div className="relative mx-auto mt-0 hidden lg:block">
+        {/* Trait vertical depuis la racine */}
+        <motion.div
+          aria-hidden
+          initial={{ scaleY: 0 }}
+          animate={inView ? { scaleY: 1 } : {}}
+          transition={{ duration: 0.45, delay: 0.35, ease: E }}
+          className="mx-auto h-10 w-px origin-top bg-[#F39200]/55"
+        />
+        {/* Trait horizontal */}
+        <motion.div
+          aria-hidden
+          initial={{ scaleX: 0 }}
+          animate={inView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.55, delay: 0.55, ease: E }}
+          className="mx-auto h-px w-2/3 origin-center bg-[#F39200]/40"
+        />
+        {/* 3 descentes vers les pôles */}
+        <div className="mx-auto grid w-2/3 grid-cols-3">
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={i}
+              aria-hidden
+              initial={{ scaleY: 0 }}
+              animate={inView ? { scaleY: 1 } : {}}
+              transition={{ duration: 0.35, delay: 0.85 + i * 0.08, ease: E }}
+              className="mx-auto h-10 w-px origin-top bg-[#F39200]/40"
+            />
           ))}
-        </motion.g>
-      ))}
-    </svg>
-  );
-}
+        </div>
+      </div>
 
-/* Arbre vertical pour mobile */
-function OrgMobile({ inView }: { inView: boolean }) {
-  return (
-    <div className="flex flex-col items-center">
-      {/* Racine */}
+      {/* Mobile : un seul filet vertical au-dessus de la grille */}
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5 }}
-        className="rounded-xl border border-[#F39200]/50 bg-[#F39200]/10 px-8 py-3.5 text-center"
-      >
-        <p className="text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#F39200]">Direction</p>
-        <p className="mt-0.5 text-[0.72rem] text-white/50">Ngoran Ivan</p>
-      </motion.div>
-
-      {/* Ligne */}
-      <motion.div
-        className="h-8 w-px origin-top bg-[#F39200]/35"
+        aria-hidden
         initial={{ scaleY: 0 }}
         animate={inView ? { scaleY: 1 } : {}}
-        transition={{ duration: 0.35, delay: 0.4 }}
+        transition={{ duration: 0.4, delay: 0.4, ease: E }}
+        className="mx-auto h-8 w-px origin-top bg-[#F39200]/55 lg:hidden"
       />
 
-      {/* Pôles */}
-      <div className="flex w-full flex-col items-center gap-0">
-        {POLES.map((p, i) => (
-          <React.Fragment key={p.key}>
-            <motion.div
-              initial={{ opacity: 0, x: -12 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.55 + i * 0.1 }}
-              className="w-full max-w-[320px] rounded-xl border border-white/12 bg-[#1E2F8A]/40 px-5 py-3 text-center"
+      {/* ── 3 cartes pôles ──────────────────────────────────────────────── */}
+      <div className="mt-2 grid gap-5 lg:grid-cols-3 lg:gap-6">
+        {POLES.map((pole, i) => (
+          <motion.div
+            key={pole.key}
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.55, delay: 1.05 + i * 0.1, ease: E }}
+            className="relative flex flex-col rounded-2xl border border-white/15 bg-white/[0.06] p-6 backdrop-blur-sm transition-colors duration-300 hover:border-[#F39200]/45 hover:bg-white/[0.08] sm:p-7"
+          >
+            {/* Badge numéro + label */}
+            <div className="flex items-baseline justify-between gap-3">
+              <p className="font-mono text-[0.7rem] font-bold uppercase tracking-[0.22em] text-[#F39200]">
+                {pole.label}
+              </p>
+              <span className="font-mono text-[0.7rem] font-bold tracking-[0.16em] text-white/40">
+                {String(i + 1).padStart(2, "0")} / 03
+              </span>
+            </div>
+
+            {/* Rôle court */}
+            <p
+              className="mt-3 text-xl font-semibold leading-snug text-white sm:text-[1.35rem]"
+              style={{ fontFamily: "'DM Serif Display', serif" }}
             >
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white/78">
-                {p.label}
-              </p>
-              <p className="mt-1 text-[0.65rem] text-white/38">
-                {p.sub.join("  ·  ")}
-              </p>
-            </motion.div>
-            {i < POLES.length - 1 && (
-              <motion.div
-                className="h-4 w-px bg-white/12"
-                initial={{ scaleY: 0 }}
-                animate={inView ? { scaleY: 1 } : {}}
-                transition={{ duration: 0.25, delay: 0.7 + i * 0.1 }}
-              />
-            )}
-          </React.Fragment>
+              {pole.role}
+            </p>
+
+            {/* Filet de séparation */}
+            <span aria-hidden className="my-5 block h-px w-12 bg-[#F39200]/70" />
+
+            {/* Liste des sous-services — bien lisible */}
+            <ul className="space-y-2.5">
+              {pole.items.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 text-[0.95rem] leading-relaxed text-white/85"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-2 size-1.5 shrink-0 rounded-full bg-[#F39200]"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
         ))}
       </div>
     </div>
@@ -584,13 +550,13 @@ function OrgSection() {
 
       <Container className="relative">
         <Reveal>
-          <p className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+          <p className="mb-4 text-[0.7rem] font-bold uppercase tracking-[0.32em] text-[#F39200]">
             Organisation
           </p>
         </Reveal>
         <Reveal delay={0.08}>
           <h2
-            className="mb-14 max-w-xl text-balance text-[clamp(1.875rem,4vw,2.875rem)] font-bold leading-tight tracking-tight text-white"
+            className="mb-4 max-w-2xl text-balance text-[clamp(1.875rem,4vw,2.875rem)] font-bold leading-tight tracking-tight text-white"
             style={{ fontFamily: "'DM Serif Display', serif" }}
           >
             Une structure pensée
@@ -598,16 +564,15 @@ function OrgSection() {
             pour la performance.
           </h2>
         </Reveal>
+        <Reveal delay={0.16}>
+          <p className="mb-14 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
+            Une direction unique, trois pôles complémentaires. Chaque pôle
+            possède son périmètre clair, ses livrables et ses interlocuteurs
+            dédiés pour vous accompagner avec rigueur.
+          </p>
+        </Reveal>
 
-        {/* Desktop : SVG animé */}
-        <div className="hidden lg:block">
-          <OrgSVG inView={inView} />
-        </div>
-
-        {/* Mobile : flux vertical */}
-        <div className="lg:hidden">
-          <OrgMobile inView={inView} />
-        </div>
+        <OrgChart inView={inView} />
       </Container>
     </section>
   );

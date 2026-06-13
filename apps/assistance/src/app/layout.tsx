@@ -3,7 +3,7 @@ import { fontBody, fontDisplay, fontMono } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sicaassistance.ci"),
+  metadataBase: new URL("https://sicaassistance.com"),
   title: {
     default: "SICA Assistance — Création d'entreprise, comptabilité, conseil en Côte d'Ivoire",
     template: "%s · SICA Assistance",

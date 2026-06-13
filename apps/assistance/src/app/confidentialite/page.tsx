@@ -36,7 +36,7 @@ export default function ConfidentialitePage() {
         {
           heading: "Vos droits",
           paragraphs: [
-            "Vous pouvez demander l'accès, la rectification ou la suppression de vos données en écrivant à groupesica@gmail.com.",
+            "Vous pouvez demander l'accès, la rectification ou la suppression de vos données en écrivant à secretariat@groupe-sica.com.",
             "Nous traitons votre demande dans les meilleurs délais.",
           ],
         },

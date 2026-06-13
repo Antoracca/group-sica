@@ -74,7 +74,7 @@ export default function CookiesPage() {
           body: (
             <p>
               Pour toute question relative à cette politique cookies, écrivez à{" "}
-              <a href="mailto:groupesica@gmail.com" className="text-[#1E2F8A] underline hover:text-brand-amber">groupesica@gmail.com</a>.
+              <a href="mailto:secretariat@groupe-sica.com" className="text-[#1E2F8A] underline hover:text-brand-amber">secretariat@groupe-sica.com</a>.
             </p>
           ),
         },

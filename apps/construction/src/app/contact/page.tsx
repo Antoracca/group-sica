@@ -10,7 +10,7 @@ export default function ContactPage() {
         <Container className="space-y-4">
           <h1 className="font-display text-4xl font-bold text-ink">Contact chantier</h1>
           <p className="text-slate">
-            Appelez le +225 07 09 88 32 93 ou écrivez à groupesica@gmail.com.
+            Appelez le +225 07 09 88 32 93 ou écrivez à secretariat@groupe-sica.com.
           </p>
         </Container>
       </main>

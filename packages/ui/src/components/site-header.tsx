@@ -61,6 +61,10 @@ export interface TopNavItem {
   icon?: TopNavIcon;
   /** Chemin vers un logo image à afficher à la place de l'icône Phosphor */
   logoSrc?: string;
+  /** Masquer cet item dans le bandeau utilitaire mobile (il reste dans le
+   *  drawer hamburger via la nav principale ou les chips). Permet de garder
+   *  le bandeau mobile très court (uniquement les passerelles de marque). */
+  hideOnMobile?: boolean;
 }
 
 const TOP_ICONS: Record<
@@ -365,31 +369,33 @@ export function SiteHeader({
                 </span>
               )}
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                {topNav?.map((item, idx) => {
-                  const Icon = item.icon ? TOP_ICONS[item.icon] : null;
-                  return (
-                    <React.Fragment key={item.label}>
-                      {idx > 0 && <span aria-hidden className="text-[0.78rem] font-light text-slate-300 select-none">|</span>}
-                      <a
-                        href={item.href}
-                        className="flex shrink-0 items-center gap-1.5 text-[0.78rem] font-semibold uppercase text-slate-600 transition-colors hover:text-brand-royal"
-                      >
-                        {item.logoSrc ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={item.logoSrc}
-                            alt=""
-                            aria-hidden
-                            className="h-[1.1rem] w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100"
-                          />
-                        ) : Icon ? (
-                          <Icon size={14} weight="regular" className="text-brand-royal/50" aria-hidden />
-                        ) : null}
-                        <span>{item.label}</span>
-                      </a>
-                    </React.Fragment>
-                  );
-                })}
+                {topNav
+                  ?.filter((item) => !item.hideOnMobile)
+                  .map((item, idx) => {
+                    const Icon = item.icon ? TOP_ICONS[item.icon] : null;
+                    return (
+                      <React.Fragment key={item.label}>
+                        {idx > 0 && <span aria-hidden className="text-[0.78rem] font-light text-slate-300 select-none">|</span>}
+                        <a
+                          href={item.href}
+                          className="flex shrink-0 items-center gap-1.5 text-[0.78rem] font-semibold uppercase text-slate-600 transition-colors hover:text-brand-royal"
+                        >
+                          {item.logoSrc ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={item.logoSrc}
+                              alt=""
+                              aria-hidden
+                              className="h-[1.1rem] w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100"
+                            />
+                          ) : Icon ? (
+                            <Icon size={14} weight="regular" className="text-brand-royal/50" aria-hidden />
+                          ) : null}
+                          <span>{item.label}</span>
+                        </a>
+                      </React.Fragment>
+                    );
+                  })}
               </div>
             </div>
 

@@ -191,7 +191,7 @@ export default function LandingPage() {
         </p>
         <div className="flex gap-6">
           <a
-            href="mailto:groupesica@gmail.com"
+            href="mailto:secretariat@groupe-sica.com"
             className="text-[0.7rem] font-medium text-white/30 transition-colors hover:text-white/70"
           >
             Contactez-nous
