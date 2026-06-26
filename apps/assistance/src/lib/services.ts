@@ -1,13 +1,13 @@
 import {
-  Building2,
-  Scale,
+  Buildings,
+  Scales,
   Calculator,
-  FileCheck2,
-  TrendingUp,
-  FolderCheck,
-  Rocket,
-  type LucideIcon,
-} from "lucide-react";
+  FileText,
+  TrendUp,
+  FolderStar,
+  RocketLaunch,
+  type Icon,
+} from "@phosphor-icons/react";
 
 export interface AssistanceService {
   id: string;
@@ -15,7 +15,7 @@ export interface AssistanceService {
   label: string;
   short: string;
   description: string;
-  icon: LucideIcon;
+  icon: Icon;
   points: string[];
 }
 
@@ -32,7 +32,7 @@ export const ASSISTANCE_SERVICES: AssistanceService[] = [
     short: "Création d'entreprise",
     description:
       "Nous montons votre société du début à la fin : choix de la forme juridique, rédaction des statuts, immatriculation au RCCM et obtention de vos identifiants fiscaux.",
-    icon: Building2,
+    icon: Buildings,
     points: ["Choix de la forme juridique", "Rédaction des statuts", "Immatriculation RCCM"],
   },
   {
@@ -42,7 +42,7 @@ export const ASSISTANCE_SERVICES: AssistanceService[] = [
     short: "Administratif et juridique",
     description:
       "Nous prenons en charge vos formalités auprès des administrations et nous sécurisons vos actes au quotidien, sans que vous ayez à courir les guichets.",
-    icon: Scale,
+    icon: Scales,
     points: ["Formalités administratives", "Sécurisation des actes", "Démarches auprès des administrations"],
   },
   {
@@ -62,7 +62,7 @@ export const ASSISTANCE_SERVICES: AssistanceService[] = [
     short: "Déclarations",
     description:
       "Préparation et dépôt de vos déclarations dans les délais, pour éviter les oublis et les pénalités liées au retard.",
-    icon: FileCheck2,
+    icon: FileText,
     points: ["Déclarations fiscales", "Déclarations sociales", "Respect des échéances"],
   },
   {
@@ -72,7 +72,7 @@ export const ASSISTANCE_SERVICES: AssistanceService[] = [
     short: "Conseil en gestion",
     description:
       "Un regard extérieur sur vos chiffres et votre organisation pour décider sereinement et faire grandir votre activité.",
-    icon: TrendingUp,
+    icon: TrendUp,
     points: ["Lecture des chiffres", "Organisation interne", "Aide à la décision"],
   },
   {
@@ -82,7 +82,7 @@ export const ASSISTANCE_SERVICES: AssistanceService[] = [
     short: "Suivi administratif",
     description:
       "Nous tenons votre dossier à jour : modifications statutaires, renouvellements, obligations annuelles et classement de vos pièces.",
-    icon: FolderCheck,
+    icon: FolderStar,
     points: ["Modifications statutaires", "Obligations annuelles", "Classement des pièces"],
   },
   {
@@ -92,7 +92,7 @@ export const ASSISTANCE_SERVICES: AssistanceService[] = [
     short: "Accompagnement",
     description:
       "De l'idée au lancement : étude de faisabilité, plan d'affaires et mise en relation pour concrétiser votre projet.",
-    icon: Rocket,
+    icon: RocketLaunch,
     points: ["Étude de faisabilité", "Plan d'affaires", "Mise en relation"],
   },
 ];

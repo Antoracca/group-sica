@@ -1,178 +1,127 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "motion/react";
+import { motion, useInView } from "motion/react";
 import { ArrowRight } from "lucide-react";
-import { Container, SectionHeader, cn } from "@sica/ui";
+import { Container, cn } from "@sica/ui";
 import { ASSISTANCE_SERVICES } from "@/lib/services";
 
 export function ServicesSection() {
-  const reduce = useReducedMotion();
-  const headerRef = useRef<HTMLDivElement>(null);
-  const listRef = useRef<HTMLOListElement>(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
-  const listInView = useInView(listRef, { once: true, margin: "-60px" });
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section
       id="services"
       aria-labelledby="services-heading"
-      className="bg-background"
+      className="relative overflow-hidden bg-white py-24 sm:py-32"
     >
-      <Container className="py-20 sm:py-24 lg:py-32">
-        {/* En-tête de section */}
-        <motion.div
-          ref={headerRef}
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : undefined}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <SectionHeader
-            eyebrow="Nos services"
-            heading="Tout l'administratif de votre entreprise, au même endroit."
-            description="De la création de votre société jusqu'au suivi quotidien de vos obligations, SICA Assistance prend en charge chaque étape pour que vous restiez concentré sur votre activité."
-            headingClassName="text-ink"
-            className="max-w-2xl"
-          />
-        </motion.div>
+      {/* Subtle Stripe-like ambient background gradient (blanc, bleu, orange) */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(243,146,0,0.08),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(13,26,74,0.06),transparent_50%)]" />
 
-        {/* Liste éditoriale des 7 services */}
-        <ol
-          ref={listRef}
-          className="mt-14 divide-y divide-brand-royal/8 sm:mt-16"
-          aria-label="Liste des services SICA Assistance"
+      <Container className="relative z-10">
+        <div className="mx-auto max-w-2xl text-center">
+          <motion.span 
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 rounded-full bg-brand-royal/5 px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-brand-royal"
+          >
+            Nos Services
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            id="services-heading"
+            className="mt-6 font-display text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-zinc-950"
+          >
+            Tout l&apos;administratif, <br />
+            <span className="bg-gradient-to-r from-brand-royal to-brand-amber bg-clip-text text-transparent">au même endroit.</span>
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-6 text-lg leading-relaxed text-zinc-600"
+          >
+            De la création de votre société jusqu&apos;au suivi quotidien de vos obligations, 
+            nous prenons en charge chaque étape dans un espace épuré et professionnel.
+          </motion.p>
+        </div>
+
+        <div 
+          ref={ref}
+          className="mx-auto mt-20 grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {ASSISTANCE_SERVICES.map((service, i) => {
             const Icon = service.icon;
-            const isEven = i % 2 === 0;
+            // The first item can take 2 columns on tablet/desktop to break the monotony
+            const isFeatured = i === 0;
 
             return (
-              <motion.li
+              <motion.div
                 key={service.id}
-                initial={reduce ? false : { opacity: 0, x: isEven ? -20 : 20 }}
-                animate={listInView ? { opacity: 1, x: 0 } : undefined}
-                transition={{
-                  duration: 0.5,
-                  delay: i * 0.07,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="group relative py-8 sm:py-10"
+                initial={{ opacity: 0, y: 30 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className={cn(
+                  "group relative flex flex-col overflow-hidden rounded-[2rem] bg-white p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] ring-1 ring-zinc-950/5 transition-all duration-500",
+                  "hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(243,146,0,0.15)] hover:ring-brand-amber/30",
+                  isFeatured ? "sm:col-span-2 lg:col-span-2 lg:flex-row lg:items-center lg:gap-10" : ""
+                )}
               >
-                {/* Filet amber hover — accents ponctuels */}
-                <span
-                  aria-hidden
-                  className={cn(
-                    "pointer-events-none absolute inset-y-0 left-0 w-[3px] rounded-full bg-brand-amber",
-                    "scale-y-0 origin-top transition-transform duration-300 ease-out",
-                    "group-hover:scale-y-100",
-                  )}
-                />
-
-                <div className="flex flex-col gap-5 pl-0 sm:flex-row sm:items-start sm:gap-8 md:gap-12 sm:pl-6">
-                  {/* Numéro + Icône */}
-                  <div className="flex shrink-0 items-center gap-4 sm:flex-col sm:items-start sm:gap-3">
-                    <span
-                      className="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-brand-royal/40"
-                      aria-hidden
-                    >
-                      {service.num}
-                    </span>
-                    <div
-                      className={cn(
-                        "flex size-11 items-center justify-center rounded-xl",
-                        "bg-brand-royal/5 text-brand-royal",
-                        "transition-colors duration-200 group-hover:bg-brand-royal/10",
-                      )}
-                    >
-                      <Icon className="size-5" aria-hidden />
-                    </div>
-                  </div>
-
-                  {/* Corps éditorial */}
-                  <div className="flex-1">
-                    {/* Label + description */}
-                    <div className="lg:grid lg:grid-cols-[1fr_1.1fr] lg:gap-10">
-                      <div>
-                        <h3
-                          id={`service-${service.id}`}
-                          className="font-display text-lg font-semibold leading-snug tracking-[-0.01em] text-ink sm:text-xl"
-                        >
-                          {service.label}
-                        </h3>
-                        <p className="mt-2.5 text-base leading-relaxed text-slate">
-                          {service.description}
-                        </p>
-                      </div>
-
-                      {/* Points clés */}
-                      <ul
-                        aria-label={`Points clés — ${service.label}`}
-                        className="mt-4 flex flex-wrap gap-2 lg:mt-0 lg:content-start lg:self-center"
-                      >
-                        {service.points.map((point) => (
-                          <li
-                            key={point}
-                            className={cn(
-                              "inline-flex items-center gap-1.5 rounded-full",
-                              "border border-brand-royal/12 bg-mist/60",
-                              "px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-brand-royal",
-                            )}
-                          >
-                            <span
-                              aria-hidden
-                              className="size-1 shrink-0 rounded-full bg-brand-amber"
-                            />
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
+                {/* Hoverlay orange animated effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-amber/0 via-brand-amber/0 to-brand-amber/[0.08] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                
+                {/* Icon wrapper */}
+                <div className={cn(
+                  "relative flex size-14 shrink-0 items-center justify-center rounded-2xl bg-brand-royal/5 text-brand-royal transition-all duration-500 group-hover:scale-110 group-hover:bg-brand-amber group-hover:text-white group-hover:shadow-[0_0_20px_rgba(243,146,0,0.4)]",
+                  isFeatured ? "lg:size-20 lg:rounded-[1.5rem]" : ""
+                )}>
+                  <Icon weight="duotone" className={cn("size-7 transition-transform duration-500", isFeatured ? "lg:size-10" : "")} aria-hidden />
                 </div>
-              </motion.li>
+
+                <div className="relative z-10 mt-6 flex flex-1 flex-col lg:mt-0">
+                  <h3 className={cn(
+                    "font-display font-bold tracking-tight text-zinc-950 transition-colors group-hover:text-brand-royal",
+                    isFeatured ? "text-2xl lg:text-3xl" : "text-xl"
+                  )}>
+                    {service.label}
+                  </h3>
+                  <p className="mt-3 text-base leading-relaxed text-zinc-600">
+                    {service.description}
+                  </p>
+                  
+                  <ul className="mt-6 flex flex-wrap gap-2">
+                    {service.points.map((point) => (
+                      <li
+                        key={point}
+                        className="inline-flex items-center rounded-lg bg-zinc-50 px-2.5 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-zinc-500 transition-colors group-hover:bg-brand-amber/10 group-hover:text-brand-amber-700"
+                      >
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
             );
           })}
-        </ol>
+        </div>
 
-        {/* CTA bas de section */}
         <motion.div
-          initial={reduce ? false : { opacity: 0, y: 12 }}
-          animate={listInView ? { opacity: 1, y: 0 } : undefined}
-          transition={{ duration: 0.5, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-12 flex flex-col items-start gap-4 border-t border-brand-royal/10 pt-10 sm:flex-row sm:items-center sm:justify-between"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mx-auto mt-20 text-center"
         >
-          <p className="max-w-sm text-base leading-relaxed text-slate">
-            Un service qui ne figure pas dans la liste ? Contactez-nous, nous
-            étudions chaque situation.
-          </p>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <a
-              href="/#contact"
-              className={cn(
-                "group inline-flex min-h-[48px] items-center justify-center gap-2",
-                "rounded-full bg-brand-royal px-6 text-sm font-semibold text-white",
-                "transition-colors duration-200 hover:bg-brand-royal-700",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-royal focus-visible:ring-offset-2",
-              )}
-            >
-              Parler à un conseiller
-              <ArrowRight
-                className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
-                aria-hidden
-              />
-            </a>
-            <a
-              href="/#contact"
-              className={cn(
-                "inline-flex min-h-[48px] items-center justify-center gap-2",
-                "rounded-full border border-brand-royal/20 px-6 text-sm font-semibold text-brand-royal",
-                "transition-colors duration-200 hover:bg-brand-royal/5",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-royal focus-visible:ring-offset-2",
-              )}
-            >
-              Démarrer mon dossier
-            </a>
-          </div>
+          <a
+            href="/#contact"
+            className="group inline-flex min-h-[56px] items-center justify-center gap-3 rounded-full bg-zinc-950 px-8 text-sm font-bold text-white shadow-xl shadow-zinc-950/10 transition-all hover:-translate-y-1 hover:bg-brand-royal hover:shadow-brand-royal/20 active:translate-y-0"
+          >
+            Démarrer mon dossier
+            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+          </a>
         </motion.div>
       </Container>
     </section>
