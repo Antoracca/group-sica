@@ -97,7 +97,7 @@ export default function LandingPage() {
             <span aria-hidden className="text-[#F39200]">↗</span>
           </a>
           <a
-            href="https://sicaconstruction.ci"
+            href="https://sicaconstruction.com"
             className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] px-5 py-3 text-[0.82rem] font-semibold tracking-wide text-white transition-all hover:bg-white/[0.08]"
           >
             Pôle Construction

@@ -20,10 +20,10 @@ interface TopNavOptions {
 }
 
 const DEFAULTS = {
-  groupeUrl: "https://groupesica.ci",
-  constructionUrl: "https://sicaconstruction.ci",
-  assistanceUrl: "https://sicaassistance.ci",
-  landingUrl: "https://sica.ci",
+  groupeUrl: "https://groupe-sica.com",
+  constructionUrl: "https://sicaconstruction.com",
+  assistanceUrl: "https://sicaassistance.com",
+  landingUrl: "https://sica.com",
 } as const;
 
 export function getTopNav(brand: SiteBrand, options: TopNavOptions = {}): TopNavItem[] {

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pochette Verticale VIP - DZK TRAVEL</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@200;300;400;500;600;700&display=swap');
+
+  :root {
+    --navy: #050d1a;
+    --navy-light: #0a1930;
+    --navy-accent: #112a52;
+    --gold-1: #d4af37;
+    --gold-2: #ebd197;
+    --gold-gradient: linear-gradient(135deg, #f9d976 0%, #e9b646 25%, #fff1ba 50%, #e9b646 75%, #aa771c 100%);
+    --text-white: #f0f4f8;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #2c3e50;
+    font-family: 'Montserrat', sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  .sheet {
+    width: 297mm;
+    height: 210mm;
+    background: #1a252f;
+    margin: 10mm auto;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  @media print {
+    body { background: none; }
+    .sheet { margin: 0; box-shadow: none; background: white; }
+    .cutting-instructions { display: none !important; }
+  }
+
+  .text-gold {
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .border-gold {
+    border-color: var(--gold-1);
+  }
+
+  /* =======================================================
+     LE GABARIT VERTICAL (245mm x 205mm)
+     ======================================================= */
+  .die-cut {
+    width: 245mm;
+    height: 205mm;
+    position: relative;
+    background-color: transparent;
+  }
+
+  /* Ajout d'une très légère texture "papier de luxe" sur tout le gabarit */
+  .die-cut::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  /* Languette du BAS */
+  .bottom-flap {
+    position: absolute;
+    top: 190mm;
+    left: 0;
+    width: 115mm;
+    height: 15mm;
+    background: var(--navy-light);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 10mm) 100%, 10mm 100%);
+    border-top: 1px dashed rgba(255,255,255,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+  }
+
+  /* Languette LATÉRALE */
+  .side-flap {
+    position: absolute;
+    top: 0;
+    left: 230mm;
+    width: 15mm;
+    height: 190mm;
+    background: var(--navy-light);
+    clip-path: polygon(0 0, 100% 10mm, 100% calc(100% - 10mm), 0 100%);
+    border-left: 1px dashed rgba(255,255,255,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+  }
+
+  .glue-text {
+    font-size: 7px;
+    color: rgba(255,255,255,0.3);
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .glue-text-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  /* =======================================================
+     FACE ARRIÈRE (À GAUCHE)
+     ======================================================= */
+  .back-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 115mm;
+    height: 190mm;
+    background: radial-gradient(circle at 50% 100%, rgba(17,42,82,0.8) 0%, var(--navy) 90%);
+    border-right: 1px dashed rgba(255,255,255,0.4);
+    box-sizing: border-box;
+    padding: 15mm 10mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .bp-header {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 25px;
+  }
+  .bp-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 2px;
+  }
+  .bp-logo span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 4px;
+    margin-left: 5px;
+    color: var(--text-white);
+  }
+  .bp-membership {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: var(--gold-2);
+    text-transform: uppercase;
+    border: 1px solid rgba(212,175,55,0.4);
+    padding: 4px;
+    margin-top: 10px;
+    display: inline-block;
+  }
+
+  .bp-contacts {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+  .contact-box {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.03);
+    padding: 10px;
+    border-radius: 4px;
+  }
+  .contact-title {
+    color: var(--gold-1);
+    font-family: 'Playfair Display', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  .contact-text {
+    font-size: 9px;
+    color: var(--text-white);
+    letter-spacing: 1px;
+    line-height: 1.6;
+  }
+
+  .bp-legal {
+    position: relative;
+    z-index: 10;
+    margin-top: auto;
+    font-size: 7px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 1px;
+    line-height: 1.5;
+  }
+
+  /* =======================================================
+     FACE AVANT (À DROITE)
+     ======================================================= */
+  .front-panel {
+    position: absolute;
+    top: 0;
+    left: 115mm;
+    width: 115mm;
+    height: 190mm;
+    background: 
+      linear-gradient(to bottom, rgba(5,13,26,0.5) 0%, rgba(17,42,82,0.95) 100%),
+      url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?q=80&w=1200&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box;
+    padding: 15mm 10mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Subtilité de design : Un fin cadre doré très élégant à l'intérieur de la face avant */
+  .front-panel::before {
+    content: '';
+    position: absolute;
+    top: 6mm; left: 6mm; right: 6mm; bottom: 6mm;
+    border: 1px solid rgba(212,175,55,0.25);
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .fp-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    z-index: 20;
+  }
+
+  .fp-flight-tag {
+    font-size: 8px;
+    color: var(--text-white);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: left;
+  }
+  .fp-flight-tag span {
+    color: var(--gold-1);
+    font-weight: 700;
+    font-size: 10px;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .fake-barcode {
+    width: 15px;
+    height: 45px;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.8),
+      rgba(255,255,255,0.8) 1.5px,
+      transparent 1.5px,
+      transparent 3px,
+      rgba(255,255,255,0.8) 3px,
+      rgba(255,255,255,0.8) 4.5px,
+      transparent 4.5px,
+      transparent 6.5px,
+      rgba(255,255,255,0.8) 6.5px,
+      rgba(255,255,255,0.8) 9px,
+      transparent 9px,
+      transparent 11px
+    );
+    opacity: 0.6;
+  }
+
+  .fp-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 20;
+  }
+
+  .main-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: 2px;
+    text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  }
+  .main-logo span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 8px;
+    display: block;
+    margin-top: 5px;
+  }
+
+  .gold-divider {
+    margin: 20px 0;
+    height: 40px;
+    width: 1px;
+    background: var(--gold-gradient);
+    position: relative;
+  }
+  .icon-plane {
+    width: 16px;
+    height: 16px;
+    fill: var(--gold-1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    background: var(--navy-accent);
+    border-radius: 50%;
+    padding: 4px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  }
+
+  .fp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-style: italic;
+    color: var(--text-white);
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: 2px;
+  }
+
+  .fp-footer {
+    width: 100%;
+    position: relative;
+    z-index: 20;
+  }
+
+  .fp-slogan {
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: var(--gold-2);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-top: 1px solid rgba(212,175,55,0.3);
+    padding-top: 10px;
+  }
+
+  .cutting-instructions {
+    position: absolute;
+    top: 5mm;
+    left: 5mm;
+    font-size: 10px;
+    color: #e74c3c;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px 15px;
+    border-left: 4px solid #e74c3c;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    max-width: 250px;
+    z-index: 200;
+    border-radius: 4px;
+    line-height: 1.5;
+  }
+
+</style>
+</head>
+<body>
+
+  <div class="sheet">
+    
+    <div class="cutting-instructions">
+      <strong style="font-size:12px; text-transform:uppercase;">Montage Format Vertical</strong><br><br>
+      1. Imprimer sur A4 Paysage.<br>
+      2. Découper le contour extérieur global.<br>
+      3. Plier la languette du BAS vers l'intérieur.<br>
+      4. Plier la languette de DROITE vers l'intérieur.<br>
+      5. Plier le patron en deux (ligne centrale pointillée) pour fermer la pochette comme un livre.<br>
+      6. Coller les deux languettes.
+    </div>
+
+    <!-- LE GABARIT -->
+    <div class="die-cut">
+      
+      <!-- FACE ARRIÈRE (Gauche) -->
+      <div class="back-panel">
+        
+        <div class="bp-header">
+          <h2 class="bp-logo text-gold">DZK <span>TRAVEL</span></h2>
+          <div class="bp-membership border-gold">Premium Services</div>
+        </div>
+
+        <div class="bp-contacts">
+          <div class="contact-box">
+            <div class="contact-title">SIÈGE SOCIAL</div>
+            <div class="contact-text">Centre-ville, 1er Arrondissement<br>Bangui-Centre, République Centrafricaine</div>
+          </div>
+          <div class="contact-box">
+            <div class="contact-title">TÉLÉPHONE</div>
+            <div class="contact-text">+236 75 06 37 37<br>+236 72 06 37 37</div>
+          </div>
+          <div class="contact-box">
+            <div class="contact-title">EN LIGNE</div>
+            <div class="contact-text">contact@dzkglobalservices.com<br>www.dzkglobalservices.com</div>
+          </div>
+        </div>
+
+        <div class="bp-legal">
+          DZK TRAVEL (SARLU) &bull; NIU : 2362024M85743X &bull; RCCM : CA/BG/2023B292 &bull; Capital : 1M FCFA
+        </div>
+      </div>
+
+      <!-- Languette du BAS (attachée sous la face arrière) -->
+      <div class="bottom-flap"><span class="glue-text">ZONE DE COLLAGE</span></div>
+
+      <!-- FACE AVANT (Droite) -->
+      <div class="front-panel">
+        
+        <div class="fp-header">
+          <div class="fp-flight-tag">Boarding Pass<span>DZK-001</span></div>
+          <div class="fake-barcode"></div>
+        </div>
+        
+        <div class="fp-center">
+          <h1 class="main-logo text-gold">DZK <span>TRAVEL</span></h1>
+          
+          <div class="gold-divider">
+            <svg class="icon-plane" viewBox="0 0 24 24">
+              <path d="M21,16V14L13,9V3.5C13,2.67 12.33,2 11.5,2C10.67,2 10,2.67 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z" />
+            </svg>
+          </div>
+          
+          <h2 class="fp-title">Carnet de<br>Voyage</h2>
+        </div>
+
+        <div class="fp-footer">
+          <div class="fp-slogan">L'excellence pour vous</div>
+        </div>
+
+      </div>
+
+      <!-- Languette de DROITE (attachée à la face avant) -->
+      <div class="side-flap"><span class="glue-text glue-text-vertical">ZONE DE COLLAGE</span></div>
+
+    </div>
+  </div>
+
+</body>
+</html>
