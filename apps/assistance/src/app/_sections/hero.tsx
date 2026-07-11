@@ -55,22 +55,24 @@ export function AssistanceHero() {
     <section
       id="hero"
       aria-labelledby="hero-heading"
-      className="relative isolate min-h-[100svh] overflow-hidden bg-zinc-950 font-sans"
+      className="relative isolate min-h-[100svh] overflow-hidden bg-white font-sans"
     >
-      {/* ── Background image + light overlay ───────────────────────── */}
+      {/* ── Background image + light white overlay ─────────────────── */}
       <div aria-hidden className="absolute inset-0 -z-10">
         <Image
           src="/hero/Personal-assistant.jpg"
           alt=""
           fill
           priority
-          className="object-cover object-[center_35%] opacity-80"
+          className="object-cover object-[center_35%]"
           sizes="100vw"
-          quality={80}
+          quality={85}
         />
-        {/* Cleaner, lighter overlay: Dark on the left for text, transparent on the right for the image */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B1020]/95 via-[#0B1020]/60 to-[#0B1020]/10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B1020] via-transparent to-transparent opacity-80" />
+        {/* Voile blanc lumineux — dégradé clair, plus dense à gauche pour la lisibilité du texte,
+            plus transparent à droite pour laisser respirer l'image. */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/75 to-white/40" />
+        {/* Léger halo blanc en bas pour raccorder à la section suivante sans ombre sombre. */}
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
       </div>
 
       {/* ── Content ─────────────────────────────────────────────────── */}
@@ -88,7 +90,7 @@ export function AssistanceHero() {
             <motion.h1
               variants={itemVariants}
               id="hero-heading"
-              className="font-display text-[clamp(2.5rem,7vw,5rem)] font-medium leading-[0.9] tracking-tighter text-white"
+              className="font-display text-[clamp(3rem,8.5vw,6.25rem)] font-semibold leading-[0.95] tracking-tighter text-zinc-950"
             >
               <span className="block">Nous portons vos</span>
               <span className="relative mt-2 block h-[1.1em] overflow-hidden">
@@ -99,7 +101,7 @@ export function AssistanceHero() {
                     animate={{ y: "0%", opacity: 1 }}
                     exit={{ y: "-100%", opacity: 0 }}
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute inset-x-0 top-0 block bg-gradient-to-br from-white via-white to-brand-amber bg-clip-text text-transparent drop-shadow-sm"
+                    className="absolute inset-x-0 top-0 block bg-gradient-to-br from-zinc-900 via-zinc-800 to-brand-amber bg-clip-text text-transparent"
                   >
                     {displayWord}
                   </motion.span>
@@ -110,20 +112,20 @@ export function AssistanceHero() {
             {/* Description */}
             <motion.p
               variants={itemVariants}
-              className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-300 drop-shadow-md"
+              className="mt-8 max-w-xl text-xl leading-relaxed text-zinc-700 sm:text-2xl"
             >
               Création d&apos;entreprise, comptabilité, fiscalité et conseil.
               Vous avancez sur votre activité, nous tenons l&apos;administratif.
             </motion.p>
 
             {/* Trust badges */}
-            <motion.div variants={itemVariants} className="mt-8 flex flex-wrap gap-2">
+            <motion.div variants={itemVariants} className="mt-10 flex flex-wrap gap-2.5">
               {TRUST_BADGES.map((b) => (
                 <div
                   key={b}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[10px] font-medium tracking-wide text-zinc-200 backdrop-blur-md"
+                  className="inline-flex items-center gap-2 rounded-full border border-zinc-900/10 bg-white/80 px-4 py-1.5 text-xs font-semibold tracking-wide text-zinc-800 shadow-sm backdrop-blur-md"
                 >
-                  <CheckCircle2 className="h-3 w-3 text-brand-amber" />
+                  <CheckCircle2 className="h-3.5 w-3.5 text-brand-amber" />
                   {b}
                 </div>
               ))}
@@ -132,18 +134,18 @@ export function AssistanceHero() {
             {/* CTAs */}
             <motion.div
               variants={itemVariants}
-              className="mt-8 hidden flex-col gap-4 sm:flex sm:flex-row"
+              className="mt-10 hidden flex-col gap-4 sm:flex sm:flex-row"
             >
               <a
                 href="/#contact"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-zinc-950 shadow-lg shadow-white/10 transition-all hover:-translate-y-0.5 hover:bg-zinc-100 active:translate-y-0"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-zinc-950 px-9 py-4 text-base font-bold text-white shadow-lg shadow-zinc-950/10 transition-all hover:-translate-y-0.5 hover:bg-zinc-900 active:translate-y-0"
               >
                 Démarrer mon dossier
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </a>
               <a
                 href="tel:+2250709883293"
-                className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-black/30 px-8 py-4 text-sm font-semibold text-white backdrop-blur-md transition-all hover:-translate-y-0.5 hover:bg-black/50"
+                className="group inline-flex items-center justify-center gap-2 rounded-full border border-zinc-900/15 bg-white/80 px-9 py-4 text-base font-semibold text-zinc-900 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:bg-white"
               >
                 <Phone className="h-4 w-4 fill-current" />
                 Nous appeler
@@ -156,17 +158,17 @@ export function AssistanceHero() {
             initial={reduce ? false : { opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="relative overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 p-6 shadow-2xl backdrop-blur-xl lg:mt-6"
+            className="relative overflow-hidden rounded-[2rem] border border-zinc-900/10 bg-white/85 p-6 shadow-2xl shadow-zinc-900/10 backdrop-blur-xl lg:mt-6"
           >
             {/* Ambient Card Light */}
-            <div className="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full bg-white/20 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-brand-amber/10 blur-3xl" />
+            <div className="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full bg-brand-amber/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-brand-amber/15 blur-3xl" />
 
             <div className="relative z-10">
-              <p className="mb-5 px-2 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white/80">
+              <p className="mb-5 px-2 font-mono text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">
                 Je suis…
               </p>
-              
+
               <div className="grid grid-cols-2 gap-3">
                 {PROFILES.map((p) => {
                   const Icon = p.icon;
@@ -177,13 +179,13 @@ export function AssistanceHero() {
                       type="button"
                       aria-pressed={selected}
                       onClick={() => setProfile(selected ? null : p.id)}
-                      className={`group flex min-h-[56px] items-center gap-3 rounded-2xl border p-4 text-left text-sm font-bold transition-all duration-300 hover:scale-[1.02] ${
+                      className={`group flex min-h-[60px] items-center gap-3 rounded-2xl border p-4 text-left text-sm font-bold transition-all duration-300 hover:scale-[1.02] ${
                         selected
-                          ? "border-brand-amber bg-brand-amber/20 text-white shadow-[0_0_30px_-5px_rgba(243,146,0,0.4)]"
-                          : "border-white/10 bg-black/20 text-zinc-200 hover:border-white/30 hover:bg-white/10 hover:text-white"
+                          ? "border-brand-amber bg-brand-amber/15 text-zinc-950 shadow-[0_0_30px_-5px_rgba(243,146,0,0.35)]"
+                          : "border-zinc-900/10 bg-white/70 text-zinc-800 hover:border-zinc-900/20 hover:bg-white hover:text-zinc-950"
                       }`}
                     >
-                      <div className={`flex items-center justify-center rounded-xl p-2 transition-colors ${selected ? "bg-brand-amber text-white" : "bg-white/5 text-zinc-400 group-hover:bg-white/10 group-hover:text-white"}`}>
+                      <div className={`flex items-center justify-center rounded-xl p-2 transition-colors ${selected ? "bg-brand-amber text-white" : "bg-zinc-100 text-zinc-600 group-hover:bg-zinc-200 group-hover:text-zinc-900"}`}>
                         <Icon weight={selected ? "fill" : "duotone"} className="h-5 w-5 shrink-0" />
                       </div>
                       {p.label}
@@ -193,7 +195,7 @@ export function AssistanceHero() {
               </div>
 
               {/* Contextual need — animated swap */}
-              <div className="mt-6 min-h-[4rem] rounded-2xl border border-white/5 bg-black/30 p-5 backdrop-blur-md">
+              <div className="mt-6 min-h-[4rem] rounded-2xl border border-zinc-900/5 bg-white/60 p-5 backdrop-blur-md">
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={active?.id ?? "default"}
@@ -201,7 +203,7 @@ export function AssistanceHero() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.3 }}
-                    className="text-sm font-medium leading-relaxed text-zinc-300"
+                    className="text-base font-medium leading-relaxed text-zinc-700"
                   >
                     {active
                       ? active.need
@@ -214,14 +216,14 @@ export function AssistanceHero() {
               <div className="mt-6 flex flex-col gap-3 sm:hidden">
                 <a
                   href="/#contact"
-                  className="group inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-zinc-950 shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  className="group inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full bg-zinc-950 px-6 text-base font-bold text-white shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                   Démarrer mon dossier
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </a>
                 <a
                   href="tel:+2250709883293"
-                  className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-black/40 px-6 text-sm font-semibold text-white backdrop-blur-md transition-all hover:bg-black/60"
+                  className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full border border-zinc-900/15 bg-white/80 px-6 text-base font-semibold text-zinc-900 backdrop-blur-md transition-all hover:bg-white"
                 >
                   <Phone className="h-4 w-4 fill-current" />
                   Nous appeler

@@ -1,14 +1,15 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "motion/react";
-import { ArrowRight } from "lucide-react";
+import { useRef, useState } from "react";
+import { AnimatePresence, motion, useInView } from "motion/react";
+import { ArrowRight, Plus } from "lucide-react";
 import { Container, cn } from "@sica/ui";
 import { ASSISTANCE_SERVICES } from "@/lib/services";
 
 export function ServicesSection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [openId, setOpenId] = useState<string | null>(ASSISTANCE_SERVICES[0]?.id ?? null);
 
   return (
     <section
@@ -16,12 +17,11 @@ export function ServicesSection() {
       aria-labelledby="services-heading"
       className="relative overflow-hidden bg-white py-24 sm:py-32"
     >
-      {/* Subtle Stripe-like ambient background gradient (blanc, bleu, orange) */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(243,146,0,0.08),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(13,26,74,0.06),transparent_50%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(243,146,0,0.06),transparent_55%),radial-gradient(ellipse_at_bottom_left,rgba(13,26,74,0.05),transparent_55%)]" />
 
       <Container className="relative z-10">
         <div className="mx-auto max-w-2xl text-center">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
@@ -39,74 +39,117 @@ export function ServicesSection() {
             Tout l&apos;administratif, <br />
             <span className="bg-gradient-to-r from-brand-royal to-brand-amber bg-clip-text text-transparent">au même endroit.</span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-6 text-lg leading-relaxed text-zinc-600"
           >
-            De la création de votre société jusqu&apos;au suivi quotidien de vos obligations, 
+            De la création de votre société jusqu&apos;au suivi quotidien de vos obligations,
             nous prenons en charge chaque étape dans un espace épuré et professionnel.
           </motion.p>
         </div>
 
-        <div 
-          ref={ref}
-          className="mx-auto mt-20 grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {ASSISTANCE_SERVICES.map((service, i) => {
-            const Icon = service.icon;
-            // The first item can take 2 columns on tablet/desktop to break the monotony
-            const isFeatured = i === 0;
+        {/* Liste verticale — pleine largeur, sans carte, séparateurs fins */}
+        <div ref={ref} className="mx-auto mt-20 max-w-5xl">
+          {/* Trait supérieur */}
+          <div
+            className="h-px w-full bg-gradient-to-r from-transparent via-zinc-900/15 to-transparent"
+            aria-hidden
+          />
 
-            return (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className={cn(
-                  "group relative flex flex-col overflow-hidden rounded-[2rem] bg-white p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] ring-1 ring-zinc-950/5 transition-all duration-500",
-                  "hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(243,146,0,0.15)] hover:ring-brand-amber/30",
-                  isFeatured ? "sm:col-span-2 lg:col-span-2 lg:flex-row lg:items-center lg:gap-10" : ""
-                )}
-              >
-                {/* Hoverlay orange animated effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-amber/0 via-brand-amber/0 to-brand-amber/[0.08] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                
-                {/* Icon wrapper */}
-                <div className={cn(
-                  "relative flex size-14 shrink-0 items-center justify-center rounded-2xl bg-brand-royal/5 text-brand-royal transition-all duration-500 group-hover:scale-110 group-hover:bg-brand-amber group-hover:text-white group-hover:shadow-[0_0_20px_rgba(243,146,0,0.4)]",
-                  isFeatured ? "lg:size-20 lg:rounded-[1.5rem]" : ""
-                )}>
-                  <Icon weight="duotone" className={cn("size-7 transition-transform duration-500", isFeatured ? "lg:size-10" : "")} aria-hidden />
-                </div>
+          <ul>
+            {ASSISTANCE_SERVICES.map((service, i) => {
+              const isOpen = openId === service.id;
 
-                <div className="relative z-10 mt-6 flex flex-1 flex-col lg:mt-0">
-                  <h3 className={cn(
-                    "font-display font-bold tracking-tight text-zinc-950 transition-colors group-hover:text-brand-royal",
-                    isFeatured ? "text-2xl lg:text-3xl" : "text-xl"
-                  )}>
-                    {service.label}
-                  </h3>
-                  <p className="mt-3 text-base leading-relaxed text-zinc-600">
-                    {service.description}
-                  </p>
-                  
-                  <ul className="mt-6 flex flex-wrap gap-2">
-                    {service.points.map((point) => (
-                      <li
-                        key={point}
-                        className="inline-flex items-center rounded-lg bg-zinc-50 px-2.5 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-zinc-500 transition-colors group-hover:bg-brand-amber/10 group-hover:text-brand-amber-700"
+              return (
+                <motion.li
+                  key={service.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative"
+                >
+                  {/* Barre latérale ambre visible quand ouvert */}
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "pointer-events-none absolute inset-y-0 left-0 w-[3px] origin-top rounded-full bg-brand-amber transition-transform duration-500",
+                      isOpen ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"
+                    )}
+                  />
+
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={`svc-panel-${service.id}`}
+                    onClick={() => setOpenId(isOpen ? null : service.id)}
+                    className="flex w-full items-center gap-6 py-8 pl-4 pr-2 text-left transition-colors sm:py-10 sm:pl-8 sm:pr-4"
+                  >
+                    <span className="min-w-0 flex-1">
+                      <h3
+                        className={cn(
+                          "font-display text-2xl font-semibold leading-tight tracking-tight transition-colors sm:text-3xl lg:text-[2.25rem]",
+                          isOpen ? "text-brand-royal" : "text-zinc-900 group-hover:text-zinc-950"
+                        )}
                       >
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            );
-          })}
+                        {service.label}
+                      </h3>
+                    </span>
+
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "flex size-12 shrink-0 items-center justify-center rounded-full border transition-all duration-500 sm:size-14",
+                        isOpen
+                          ? "rotate-45 border-brand-amber bg-brand-amber text-white shadow-[0_10px_25px_-8px_rgba(243,146,0,0.5)]"
+                          : "border-zinc-900/15 bg-transparent text-zinc-700 group-hover:border-zinc-900/30 group-hover:bg-zinc-950 group-hover:text-white"
+                      )}
+                    >
+                      <Plus className="size-5" />
+                    </span>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        id={`svc-panel-${service.id}`}
+                        role="region"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="max-w-3xl pb-10 pl-4 pr-2 sm:pl-8 sm:pr-4">
+                          <p className="text-lg leading-relaxed text-zinc-700 sm:text-xl">
+                            {service.description}
+                          </p>
+
+                          <ul className="mt-6 flex flex-wrap gap-2.5">
+                            {service.points.map((point) => (
+                              <li
+                                key={point}
+                                className="inline-flex items-center rounded-full border border-brand-amber/25 bg-brand-amber/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-brand-amber-700"
+                              >
+                                {point}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Séparateur — plein largeur */}
+                  <div
+                    className="h-px w-full bg-gradient-to-r from-transparent via-zinc-900/15 to-transparent"
+                    aria-hidden
+                  />
+                </motion.li>
+              );
+            })}
+          </ul>
         </div>
 
         <motion.div

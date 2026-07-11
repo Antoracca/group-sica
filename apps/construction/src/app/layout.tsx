@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   description:
     "SICA Construction pilote vos chantiers de A à Z : études, gros oeuvre, second oeuvre, géobéton, suivi qualité et livraison.",
   applicationName: "SICA Construction",
+  icons: { icon: "/logo-construction.png", shortcut: "/logo-construction.png", apple: "/logo-construction.png" },
   openGraph: {
     type: "website",
     locale: "fr_CI",
