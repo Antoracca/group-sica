@@ -608,11 +608,11 @@ export function SiteHeader({
                      sur fond clair, sombre ou bleu royal → fini le blanc-sur-blanc. */
                   "rounded-full border border-brand-amber bg-brand-amber text-white shadow-[0_2px_14px_rgba(247,143,38,0.35)] hover:brightness-110",
                   /* Mobile : pastille ronde (icône seule). Desktop : pilule avec libellé. */
-                  "size-11 lg:size-auto lg:px-5 lg:py-2.5",
+                  compactNav ? "size-11 3xl:size-auto 3xl:px-5 3xl:py-2.5" : "size-11 lg:size-auto lg:px-5 lg:py-2.5",
                 )}
               >
                 <UserCircle size={22} weight="regular" className="shrink-0" aria-hidden />
-                <span className="hidden lg:inline">Espace client</span>
+                <span className={cn("hidden", compactNav ? "3xl:inline" : "lg:inline")}>Espace client</span>
               </a>
             </div>
           </div>
