@@ -256,7 +256,7 @@ export function SiteHeader({
             Icônes Phosphor light + séparateurs pipe + icône Translate langue
         ══════════════════════════════════════════════════════════════ */}
         {topNav && topNav.length > 0 ? (
-          <div className="relative hidden lg:block overflow-hidden border-b border-slate-100">
+          <div className={cn("relative hidden overflow-hidden border-b border-slate-100", state === "top" || menuOpen ? "lg:block" : "lg:hidden")}>
             {/* Base blanche */}
             <div className="absolute inset-0 bg-white" />
             {/* Nuance dégradée bleu — très subtile, juste un soufflé de couleur aux bords */}
@@ -478,7 +478,7 @@ export function SiteHeader({
                 libérer l'espace. Le hamburger reste toujours visible.        */}
             <div className={cn(
               "flex items-center rounded-2xl bg-white",
-              compactNav ? "3xl:hidden" : "lg:hidden",
+              compactNav ? "2xl:hidden" : "lg:hidden",
               "transition-[filter] duration-300",
               isTop ? "[filter:drop-shadow(0_4px_20px_rgba(0,0,0,0.22))]" : "[filter:drop-shadow(0_0px_0px_transparent)]",
             )}>
@@ -506,7 +506,7 @@ export function SiteHeader({
             {/* Desktop : logo */}
             <div className={cn(
               "hidden shrink-0 items-center transition-[filter] duration-300",
-              compactNav ? "3xl:flex" : "lg:flex",
+              compactNav ? "2xl:flex" : "lg:flex",
               /* Sur fond bleu ou transparent → ombre blanche pour faire ressortir le logo */
               "[filter:drop-shadow(0_2px_12px_rgba(255,255,255,0.18))]",
             )}>
@@ -514,7 +514,7 @@ export function SiteHeader({
             </div>
 
             {/* Desktop : nav collée au logo (ml-8) — pas centrée */}
-            <nav aria-label="Navigation principale" className={cn("hidden items-center", compactNav ? "ml-5 3xl:flex 4xl:ml-10" : "ml-8 lg:flex xl:ml-10")}>
+            <nav aria-label="Navigation principale" className={cn("hidden items-center", compactNav ? "ml-4 2xl:flex 4xl:ml-10" : "ml-8 lg:flex xl:ml-10")}>
               <ul className="flex items-center gap-0.5">
                 {nav.map((item) => {
                   const hasChildren = Boolean(item.children?.length);
@@ -531,7 +531,7 @@ export function SiteHeader({
                         {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                         className={cn(
                           "group relative inline-flex items-center gap-1.5 whitespace-nowrap py-3.5",
-                          compactNav ? "px-2 text-[0.82rem] 4xl:px-3.5 4xl:text-[0.93rem]" : "px-3.5 text-[0.95rem] xl:px-4",
+                          compactNav ? "px-1.5 text-[0.8rem] 3xl:px-2.5 3xl:text-[0.86rem] 4xl:px-3.5 4xl:text-[0.93rem]" : "px-3.5 text-[0.95rem] xl:px-4",
                           "font-semibold tracking-[0.01em] transition-colors duration-200",
                           /* Sur fond bleu (solidBg ou forceScrolled) → texte blanc.
                              Sur fond transparent (hero) → texte blanc aussi. Toujours blanc. */
@@ -634,7 +634,7 @@ export function SiteHeader({
               onMouseLeave={closeDesktopMenu}
               className={cn(
                 "absolute inset-x-0 top-full hidden overflow-hidden",
-                compactNav ? "3xl:block" : "lg:block",
+                compactNav ? "2xl:block" : "lg:block",
                 "shadow-[0_24px_60px_rgba(2,25,84,0.35)]",
                 "bg-[#0633B0]",
                 "border-t border-white/10",
@@ -754,7 +754,7 @@ export function SiteHeader({
             role="dialog"
             aria-modal="true"
             aria-label="Menu de navigation"
-            className={cn("fixed inset-0 z-[60]", compactNav ? "3xl:hidden" : "lg:hidden")}
+            className={cn("fixed inset-0 z-[60]", compactNav ? "2xl:hidden" : "lg:hidden")}
           >
             {/* Backdrop */}
             <motion.div
