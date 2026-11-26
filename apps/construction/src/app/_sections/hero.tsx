@@ -65,6 +65,8 @@ export function HeroConstruction() {
         <div className="absolute inset-0 bg-gradient-to-r from-brand-royal-900/92 via-brand-royal-900/62 to-brand-royal-900/10" />
         {/* Assombrissement */}
         <div className="absolute inset-0 bg-black/36" />
+        {/* Voile en haut : lisibilité de la barre de navigation sur la photo */}
+        <div className="absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-brand-royal-900/90 via-brand-royal-900/50 to-transparent" />
         {/* Vignette basse — ancrage du contenu */}
         <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-brand-royal-900 to-transparent" />
         {/* Halo ambre — écho de marque */}
@@ -80,7 +82,7 @@ export function HeroConstruction() {
       </div>
 
       {/* ── Contenu ── */}
-      <Container className="relative z-10 pb-16 pt-[12rem] sm:pb-20 sm:pt-28 lg:pb-24">
+      <Container className="relative z-10 pb-16 pt-[12rem] sm:pb-20 sm:pt-40 lg:pb-24 lg:pt-44">
         <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="relative">
             {/* Effet de surbrillance/contraste derrière le texte */}
@@ -89,7 +91,7 @@ export function HeroConstruction() {
             {/* Accroche évolutive avec drop shadow pour un max de contraste */}
             <h1
               id="hero-heading"
-              className="mt-2 font-display text-[clamp(2.6rem,7.4vw,6rem)] font-semibold leading-[1.1] tracking-[-0.03em] drop-shadow-lg"
+              className="mt-2 font-display text-[clamp(2.4rem,5.6vw,5.25rem)] font-semibold leading-[1.05] tracking-[-0.03em] drop-shadow-lg"
             >
               <span className="block text-white drop-shadow-md">Nous livrons vos</span>
               <span className="relative mt-2 block h-[1.2em]">
@@ -100,7 +102,7 @@ export function HeroConstruction() {
                     animate={{ y: "0%", opacity: 1 }}
                     exit={{ y: "-80%", opacity: 0 }}
                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute inset-x-0 top-0 block text-brand-amber drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
+                    className="absolute inset-x-0 top-0 block whitespace-nowrap text-brand-amber drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
                   >
                     {displayWord}
                   </motion.span>

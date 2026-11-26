@@ -143,6 +143,9 @@ export function SiteHeader({
   const solidBg = forceScrolled || state === "scrolled" || menuOpen;
   const floating = !forceScrolled && state === "scrolled" && !menuOpen;
   const isTop = !forceScrolled && state === "top" && !menuOpen;
+  /* Menu long (plus de 6 entrées, ex. menu imposé Construction) : liens resserrés,
+     sur une seule ligne, et bascule du menu desktop à xl (1440 px) au lieu de lg. */
+  const compactNav = nav.length > 6;
 
   // ── Search focus ──
   React.useEffect(() => {
@@ -474,7 +477,8 @@ export function SiteHeader({
                 Quand la barre de recherche est ouverte → logo masqué pour
                 libérer l'espace. Le hamburger reste toujours visible.        */}
             <div className={cn(
-              "flex items-center rounded-2xl bg-white lg:hidden",
+              "flex items-center rounded-2xl bg-white",
+              compactNav ? "3xl:hidden" : "lg:hidden",
               "transition-[filter] duration-300",
               isTop ? "[filter:drop-shadow(0_4px_20px_rgba(0,0,0,0.22))]" : "[filter:drop-shadow(0_0px_0px_transparent)]",
             )}>
@@ -501,7 +505,8 @@ export function SiteHeader({
 
             {/* Desktop : logo */}
             <div className={cn(
-              "hidden shrink-0 items-center lg:flex transition-[filter] duration-300",
+              "hidden shrink-0 items-center transition-[filter] duration-300",
+              compactNav ? "3xl:flex" : "lg:flex",
               /* Sur fond bleu ou transparent → ombre blanche pour faire ressortir le logo */
               "[filter:drop-shadow(0_2px_12px_rgba(255,255,255,0.18))]",
             )}>
@@ -509,7 +514,7 @@ export function SiteHeader({
             </div>
 
             {/* Desktop : nav collée au logo (ml-8) — pas centrée */}
-            <nav aria-label="Navigation principale" className="ml-8 hidden items-center lg:flex xl:ml-10">
+            <nav aria-label="Navigation principale" className={cn("hidden items-center", compactNav ? "ml-5 3xl:flex 4xl:ml-10" : "ml-8 lg:flex xl:ml-10")}>
               <ul className="flex items-center gap-0.5">
                 {nav.map((item) => {
                   const hasChildren = Boolean(item.children?.length);
@@ -525,8 +530,9 @@ export function SiteHeader({
                         aria-current={item.current ? "page" : undefined}
                         {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                         className={cn(
-                          "group relative inline-flex items-center gap-1.5 px-3.5 py-3.5 xl:px-4",
-                          "text-[0.95rem] font-semibold tracking-[0.01em] transition-colors duration-200",
+                          "group relative inline-flex items-center gap-1.5 whitespace-nowrap py-3.5",
+                          compactNav ? "px-2 text-[0.82rem] 4xl:px-3.5 4xl:text-[0.93rem]" : "px-3.5 text-[0.95rem] xl:px-4",
+                          "font-semibold tracking-[0.01em] transition-colors duration-200",
                           /* Sur fond bleu (solidBg ou forceScrolled) → texte blanc.
                              Sur fond transparent (hero) → texte blanc aussi. Toujours blanc. */
                           "text-white/90 hover:text-white",
@@ -627,7 +633,8 @@ export function SiteHeader({
               onMouseEnter={() => openDesktopMenu(desktopOpenItem.label)}
               onMouseLeave={closeDesktopMenu}
               className={cn(
-                "absolute inset-x-0 top-full hidden overflow-hidden lg:block",
+                "absolute inset-x-0 top-full hidden overflow-hidden",
+                compactNav ? "3xl:block" : "lg:block",
                 "shadow-[0_24px_60px_rgba(2,25,84,0.35)]",
                 "bg-[#0633B0]",
                 "border-t border-white/10",
@@ -747,7 +754,7 @@ export function SiteHeader({
             role="dialog"
             aria-modal="true"
             aria-label="Menu de navigation"
-            className="fixed inset-0 z-[60] lg:hidden"
+            className={cn("fixed inset-0 z-[60]", compactNav ? "3xl:hidden" : "lg:hidden")}
           >
             {/* Backdrop */}
             <motion.div
