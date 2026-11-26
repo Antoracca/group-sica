@@ -197,7 +197,7 @@ export function AssistantSica() {
         tabIndex={ouvert ? -1 : 0}
         data-etat={etat}
         className={cn(
-          "sica-ia group fixed bottom-20 right-3 z-40 flex items-end gap-2 outline-none sm:right-6 lg:bottom-0",
+          "sica-ia group fixed bottom-[calc(4.25rem+env(safe-area-inset-bottom))] right-[max(0.625rem,env(safe-area-inset-right))] z-40 flex items-end gap-2 outline-none md:bottom-5 sm:right-6 lg:bottom-0",
           "transition-[opacity,visibility] duration-300",
           ouvert ? "invisible opacity-0" : "visible opacity-100",
         )}
@@ -210,7 +210,7 @@ export function AssistantSica() {
 
         <span className="flex flex-col items-center">
           {/* Fenêtre coupée au ras du haut du bandeau : le bonhomme disparaît vraiment derrière */}
-          <span className="sica-ia-fenetre relative block h-24 w-[84px] sm:h-28 sm:w-24">
+          <span className="sica-ia-fenetre relative block h-14 w-12 sm:h-28 sm:w-24">
             <span className="sica-ia-corps absolute inset-0 block">
               <span className="sica-ia-ressort block h-full w-full">
                 <Bonhomme className="h-full w-full drop-shadow-xl" />
@@ -221,13 +221,13 @@ export function AssistantSica() {
           {/* Petit bandeau blanc, devant le bonhomme */}
           <span
             className={cn(
-              "sica-ia-bandeau relative z-10 flex h-11 items-center justify-center gap-1.5 whitespace-nowrap rounded-2xl bg-white px-4 lg:rounded-b-none lg:rounded-t-2xl",
-              "shadow-[0_-4px_22px_-6px_rgba(10,17,48,0.28)] ring-1 ring-black/5",
+              "sica-ia-bandeau relative z-10 flex h-7 items-center justify-center gap-1.5 whitespace-nowrap rounded-full bg-white/95 px-2.5 backdrop-blur sm:h-11 sm:rounded-2xl sm:px-4 lg:rounded-b-none lg:rounded-t-2xl",
+              "shadow-[0_4px_14px_-4px_rgba(10,17,48,0.3)] sm:shadow-[0_-4px_22px_-6px_rgba(10,17,48,0.28)] ring-1 ring-black/5",
               "group-focus-visible:ring-2 group-focus-visible:ring-brand-amber",
             )}
           >
-            <span aria-hidden className="absolute inset-x-6 top-0 h-[3px] rounded-b-full bg-brand-royal" />
-            <span className="f-titre text-[11px] font-extrabold uppercase tracking-[0.12em] text-brand-royal">SICA ASSISTANCE</span>
+            <span aria-hidden className="absolute inset-x-4 top-0 hidden h-[3px] sm:block sm:inset-x-6 rounded-b-full bg-brand-royal" />
+            <span className="f-titre text-[8.5px] font-extrabold uppercase tracking-[0.1em] text-brand-royal sm:text-[11px] sm:tracking-[0.12em]"><span className="sm:hidden">Aide</span><span className="hidden sm:inline">SICA ASSISTANCE</span></span>
           </span>
         </span>
       </button>
