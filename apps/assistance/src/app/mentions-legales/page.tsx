@@ -16,16 +16,16 @@ export default function MentionsLegalesPage() {
         {
           heading: "Éditeur du site",
           paragraphs: [
-            "Le site sicaassistance.ci est édité par le Groupe SICA, société à responsabilité limitée (SARL) de droit ivoirien.",
+            "Le site www.sicaassistance.com est édité par GROUPE SICA – SARLU, société à responsabilité limitée unipersonnelle de droit ivoirien.",
             "RCCM : CI-ABJ-03-2020-B13-17592. Capital social : 2 500 000 FCFA. Compte contribuable : 2054314X.",
-            "Siège social : Cocody Centre, en face Cité 48 Logements V1, Abidjan, Côte d'Ivoire. Succursale : Morofé, 24 ampoules, Yamoussoukro.",
+            "Siège social : Cocody Centre / PMI, Abidjan, Côte d'Ivoire. Succursale : Morofé / 24 Ampoules, Yamoussoukro.",
             "Directeur de la publication : Ngoran Ivan.",
           ],
         },
         {
           heading: "Contact",
           paragraphs: [
-            "Téléphone : +225 07 09 88 32 93 et +225 01 02 44 28 94.",
+            "Téléphones : (+225) 07 09 88 32 93 · (+225) 27 22 24 74 45 · (+225) 01 02 44 28 94.",
             "Adresse e-mail : groupesica@gmail.com.",
           ],
         },

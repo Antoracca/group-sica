@@ -68,7 +68,7 @@ export default async function AdminAnalyticsPage() {
       <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1E2F8A]">Lecture direction</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0633B0]">Lecture direction</p>
             <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-slate-950">Analytics admin</h1>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
               Une synthèse courte pour comprendre la charge, les pôles actifs et le niveau de maturité du futur ERP SICA.

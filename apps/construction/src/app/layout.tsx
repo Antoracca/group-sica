@@ -4,13 +4,13 @@ import { fontBody, fontDisplay, fontMono } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sicaconstruction.ci"),
+  metadataBase: new URL("https://www.sicaconstruction.com"),
   title: {
-    default: "SICA Construction — BTP, Génie Civil, Géobéton",
+    default: "SICA Construction — Entreprise de construction à Abidjan et Yamoussoukro",
     template: "%s · SICA Construction",
   },
   description:
-    "SICA Construction pilote vos chantiers de A à Z : études, gros oeuvre, second oeuvre, géobéton, suivi qualité et livraison.",
+    "SICA CONSTRUCTION accompagne les particuliers, entreprises et investisseurs de la conception aux travaux de finition : étude de sol, étude de structure, villas, immeubles, géobéton, suivi de chantier. Abidjan et Yamoussoukro.",
   applicationName: "SICA Construction",
   openGraph: {
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "SICA Construction",
     title: "SICA Construction",
     description:
-      "BTP, génie civil, géobéton, pilotage chantier. Une exécution maîtrisée du sol à la livraison.",
+      "L'exigence technique au service de vos constructions.",
   },
   twitter: {
     card: "summary_large_image",
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f8f9fc" },
-    { media: "(prefers-color-scheme: dark)", color: "#0F1956" },
+    { media: "(prefers-color-scheme: light)", color: "#F7F9FD" },
+    { media: "(prefers-color-scheme: dark)", color: "#031F68" },
   ],
   width: "device-width",
   initialScale: 1,

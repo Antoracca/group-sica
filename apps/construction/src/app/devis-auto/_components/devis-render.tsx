@@ -19,7 +19,7 @@ interface Props {
 
 export function DevisRender({ devis, reference }: Props) {
   return (
-    <article className="overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-[0_12px_40px_-18px_rgba(13,26,74,0.32)]">
+    <article className="overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-[0_12px_40px_-18px_rgba(2,27,90,0.32)]">
       {/* En-tête */}
       <header className="flex items-start justify-between border-b border-ink/8 bg-paper px-6 py-5">
         <div>

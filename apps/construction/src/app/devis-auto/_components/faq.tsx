@@ -46,7 +46,7 @@ export function FAQ() {
               initial={false}
               animate={{
                 backgroundColor: isOpen ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.4)",
-                borderColor: isOpen ? "rgba(30,47,138,0.15)" : "rgba(15,23,42,0.05)"
+                borderColor: isOpen ? "rgba(6,51,176,0.15)" : "rgba(9,21,51,0.05)"
               }}
               className="overflow-hidden rounded-2xl border backdrop-blur-sm transition-colors hover:bg-white/80"
             >

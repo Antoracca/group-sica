@@ -1,71 +1,34 @@
 import { getTopNav, type NavItem } from "@sica/ui";
 import { links } from "@/lib/links";
 
+/* Menu imposé par le document « 12 améliorations » (17/11/2026), point 1. */
 export const constructionNav: NavItem[] = [
+  { label: "Accueil", href: "/" },
+  { label: "Qui sommes-nous ?", href: "/qui-sommes-nous" },
   {
-    label: "Accueil",
-    href: "/",
-  },
-  {
-    label: "Expertises",
-    href: "/#expertises",
-    tagline: "Nos domaines d'intervention",
+    label: "Nos expertises",
+    href: "/expertises",
+    tagline: "Trois domaines d'expertise",
     children: [
-      {
-        label: "Découvrir la méthode",
-        href: "/#etudes",
-        description: "Études et préconisations avant projet.",
-      },
-      {
-        label: "Les normes appliquées",
-        href: "/#structure",
-        description: "Géobéton, structure et respect des normes.",
-      },
-      {
-        label: "Comprendre le pilotage",
-        href: "/#pilotage",
-        description: "Ordonnancement, pilotage et coordination.",
-      },
-      {
-        label: "Explorer nos outils",
-        href: "/#metriques",
-        description: "Contrôle des métriques et tableaux de bord.",
-      },
-      {
-        label: "La charte qualité",
-        href: "/#livraison",
-        description: "Sécurité, OPR et livraison.",
-      },
+      { label: "A. Études & conception", href: "/expertises#etudes", description: "Étude de sol, structure, plans, métrés, devis." },
+      { label: "B. Technique & réalisation", href: "/expertises#technique", description: "Villas, immeubles, gros et second œuvre, géobéton." },
+      { label: "C. Suivi, contrôle & accompagnement", href: "/expertises#suivi", description: "Suivi de chantier, contrôle qualité, réception." },
     ],
   },
+  { label: "Nos réalisations", href: "/realisations" },
+  { label: "Nos services", href: "/solutions", tagline: "Solutions constructives" },
+  { label: "Nos agences", href: "/agences" },
+  { label: "Espace client E-SICA", href: links.espace.base },
   {
-    label: "Projets de A à Z",
-    href: "/#projets-az",
-  },
-  {
-    label: "Réalisations",
-    href: "/realisations",
-  },
-  {
-    label: "Devis",
-    href: "/devis",
-    tagline: "Pré-cadrage et chiffrage",
-    children: [
-      {
-        label: "Demander un devis",
-        href: "/devis",
-        description: "Accéder au simulateur en ligne.",
-      },
-      {
-        label: "Parler à un expert",
-        href: "tel:+2250709883293",
-        description: "Échange direct avec un responsable.",
-      },
-    ],
-  },
-  {
-    label: "Contact",
+    label: "Contact / Devis",
     href: "/contact",
+    tagline: "Demander un devis",
+    children: [
+      { label: "Demander un devis", href: "/devis", description: "Estimation indicative en ligne." },
+      { label: "Devis à partir de plans", href: "/devis-auto", description: "Envoyez vos plans PDF." },
+      { label: "Parler à un conseiller", href: "tel:+2250709883293", description: "(+225) 07 09 88 32 93" },
+      { label: "Prendre rendez-vous", href: "/contact#rendez-vous", description: "Abidjan ou Yamoussoukro." },
+    ],
   },
 ];
 

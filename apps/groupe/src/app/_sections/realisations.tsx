@@ -41,7 +41,7 @@ const PROJETS: readonly Projet[] = [
     annee: "2024",
     mission: "Mission complète",
     description:
-      "Une villa de 380 m² avec sous-sol technique. Fondations profondes, structure béton armé, volumes ouverts sur jardin. Tout a été pensé jusqu'au dernier détail.",
+      "Une villa basse avec sous-sol. Fondations profondes, structure béton armé, volumes ouverts sur jardin. Tout a été pensé jusqu'au dernier détail.",
     statut: "Livré",
     imgs: ["/projets/dabre-01.jpg", "/projets/dabre-02.jpg", "/projets/dabre-03.jpg"],
   },
@@ -153,11 +153,11 @@ const FIRST_REVEAL_DURATION = 2400; // après ce délai, on bascule sur transiti
 function buildStatusPhrase(p: Projet): string {
   switch (p.statut) {
     case "Livré":
-      return `Chantier livré en ${p.annee}`;
+      return "Chantier livré · année à confirmer";
     case "En cours":
-      return `Chantier en cours · livraison prévue 2026`;
+      return "Chantier en cours";
     case "Étude":
-      return `Étude livrée en ${p.annee}`;
+      return "Étude de sol · année à confirmer";
   }
 }
 
@@ -171,15 +171,15 @@ function statutCfg(statut: Statut) {
       };
     case "En cours":
       return {
-        Icon: Clock, color: "#A85C00",
-        bgSoft: "rgba(168,92,0,0.12)", ring: "rgba(168,92,0,0.28)",
-        glow: "rgba(245,158,11,0.40)", label: "En cours",
+        Icon: Clock, color: "#A84E00",
+        bgSoft: "rgba(168,78,0,0.12)", ring: "rgba(168,78,0,0.28)",
+        glow: "rgba(245,138,11,0.40)", label: "En cours",
       };
     case "Étude":
       return {
-        Icon: FileSearch, color: "#1E2F8A",
-        bgSoft: "rgba(30,47,138,0.12)", ring: "rgba(30,47,138,0.28)",
-        glow: "rgba(107,133,240,0.40)", label: "Étude",
+        Icon: FileSearch, color: "#0633B0",
+        bgSoft: "rgba(6,51,176,0.12)", ring: "rgba(6,51,176,0.28)",
+        glow: "rgba(96,140,251,0.40)", label: "Étude",
       };
   }
 }
@@ -248,7 +248,7 @@ export function Realisations() {
       ref={sectionRef}
       aria-label="Réalisations SICA Construction"
       className="relative overflow-hidden py-20 sm:py-28 lg:py-32"
-      style={{ backgroundColor: "#F7F8FC" }}
+      style={{ backgroundColor: "#F6F8FD" }}
     >
       {/* ═══════════════════════════════════════════════════════
           BACKGROUND DIAGONAL — Innovant CSS pur, zéro asset
@@ -264,7 +264,7 @@ export function Realisations() {
         style={{
           clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
           background:
-            "linear-gradient(135deg, rgba(232,238,250,0.55) 0%, rgba(218,228,248,0.85) 100%)",
+            "linear-gradient(135deg, rgba(228,235,254,0.55) 0%, rgba(212,224,254,0.85) 100%)",
         }}
       />
 
@@ -274,7 +274,7 @@ export function Realisations() {
         className="pointer-events-none absolute inset-0"
         style={{
           clipPath: "polygon(0 0, 100% 0, 0 100%)",
-          backgroundColor: "rgba(255,253,248,0.4)",
+          backgroundColor: "rgba(255,252,248,0.4)",
           backgroundImage:
             "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44'><g stroke='%231E2F8A' stroke-width='0.5' fill='none' opacity='0.085'><path d='M44 0H0V44'/><circle cx='0' cy='0' r='1.5' fill='%231E2F8A' opacity='0.4'/><circle cx='44' cy='44' r='1.5' fill='%231E2F8A' opacity='0.4'/></g></svg>\")",
           backgroundSize: "44px 44px",
@@ -290,7 +290,7 @@ export function Realisations() {
       >
         <line
           x1="100" y1="0" x2="0" y2="100"
-          stroke="#1E2F8A" strokeWidth="0.08" opacity="0.22"
+          stroke="#0633B0" strokeWidth="0.08" opacity="0.22"
           vectorEffect="non-scaling-stroke"
         />
       </svg>
@@ -301,8 +301,8 @@ export function Realisations() {
         className="pointer-events-none absolute inset-0"
         style={{
           background: [
-            "radial-gradient(ellipse 60% 50% at 92% 8%, rgba(30,47,138,0.06) 0%, transparent 70%)",
-            "radial-gradient(ellipse 55% 45% at 6% 92%, rgba(243,146,0,0.055) 0%, transparent 65%)",
+            "radial-gradient(ellipse 60% 50% at 92% 8%, rgba(6,51,176,0.06) 0%, transparent 70%)",
+            "radial-gradient(ellipse 55% 45% at 6% 92%, rgba(247,127,0,0.055) 0%, transparent 65%)",
           ].join(", "),
         }}
       />
@@ -336,15 +336,15 @@ export function Realisations() {
           }}
           className="mb-14 sm:mb-16 lg:mb-20"
         >
-          <p className="mb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-[#1E2F8A]">
+          <p className="mb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-[#0633B0]">
             Voici ce que nous construisons.
           </p>
-          <h2 className="max-w-3xl text-balance text-[2rem] font-bold leading-[1.08] tracking-tight text-[#0D1A4A] sm:text-[2.75rem] lg:text-[3.25rem]">
+          <h2 className="max-w-3xl text-balance text-[2rem] font-bold leading-[1.08] tracking-tight text-[#021B5A] sm:text-[2.75rem] lg:text-[3.25rem]">
             Chaque chantier,{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
-                backgroundImage: "linear-gradient(120deg, #1E2F8A 30%, #3B62F5 100%)",
+                backgroundImage: "linear-gradient(120deg, #0633B0 30%, #366EFA 100%)",
               }}
             >
               une promesse tenue.
@@ -394,8 +394,8 @@ export function Realisations() {
             href="/realisations"
             className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:gap-4"
             style={{
-              background: "linear-gradient(135deg, #1E2F8A 0%, #2A52C0 100%)",
-              boxShadow: "0 4px 20px rgba(30,47,138,0.28), 0 1px 0 rgba(255,255,255,0.12) inset",
+              background: "linear-gradient(135deg, #0633B0 0%, #084AF0 100%)",
+              boxShadow: "0 4px 20px rgba(6,51,176,0.28), 0 1px 0 rgba(255,255,255,0.12) inset",
             }}
           >
             <span
@@ -467,7 +467,7 @@ function ProjectShowcase({
 
   /* Style commun conteneurs image — fond bleu très clair pour éviter
      le flash blanc même si l'image n'est pas encore en cache */
-  const imgBg = { backgroundColor: "#E8EDF7" };
+  const imgBg = { backgroundColor: "#E5EBFA" };
 
   return (
     <div className="col-start-1 row-start-1 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
@@ -481,7 +481,7 @@ function ProjectShowcase({
 
         {/* ── Mobile : mosaïque seamless — hero + 2 soudées ── */}
         <div className="relative overflow-hidden rounded-2xl lg:hidden"
-          style={{ boxShadow: "0 20px 56px rgba(13,26,74,0.18), 0 4px 16px rgba(13,26,74,0.08)" }}>
+          style={{ boxShadow: "0 20px 56px rgba(2,27,90,0.18), 0 4px 16px rgba(2,27,90,0.08)" }}>
 
           {/* Image principale */}
           <motion.div
@@ -494,7 +494,7 @@ function ProjectShowcase({
             <Image src={img0} alt={projet.nom} fill sizes="100vw" className="object-cover" priority unoptimized />
             {/* Fondu bas pour souder avec les 2 images du bas */}
             <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-12"
-              style={{ background: "linear-gradient(to top, rgba(8,14,50,0.40), transparent)" }} />
+              style={{ background: "linear-gradient(to top, rgba(2,18,60,0.40), transparent)" }} />
           </motion.div>
 
           {/* 2 images du bas — gap-0 explicite */}
@@ -509,10 +509,10 @@ function ProjectShowcase({
               <Image src={img1} alt={`${projet.nom} vue 2`} fill sizes="50vw" className="object-cover" unoptimized />
               {/* Fondu haut (soude avec img0) */}
               <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-8"
-                style={{ background: "linear-gradient(to bottom, rgba(8,14,50,0.38), transparent)" }} />
+                style={{ background: "linear-gradient(to bottom, rgba(2,18,60,0.38), transparent)" }} />
               {/* Fondu droite (soude avec img2) */}
               <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-6"
-                style={{ background: "linear-gradient(to right, transparent, rgba(8,14,50,0.35))" }} />
+                style={{ background: "linear-gradient(to right, transparent, rgba(2,18,60,0.35))" }} />
             </motion.div>
 
             <motion.div
@@ -525,16 +525,16 @@ function ProjectShowcase({
               <Image src={img2} alt={`${projet.nom} vue 3`} fill sizes="50vw" className="object-cover" unoptimized />
               {/* Fondu haut */}
               <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-8"
-                style={{ background: "linear-gradient(to bottom, rgba(8,14,50,0.38), transparent)" }} />
+                style={{ background: "linear-gradient(to bottom, rgba(2,18,60,0.38), transparent)" }} />
               {/* Fondu gauche */}
               <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-6"
-                style={{ background: "linear-gradient(to left, transparent, rgba(8,14,50,0.35))" }} />
+                style={{ background: "linear-gradient(to left, transparent, rgba(2,18,60,0.35))" }} />
             </motion.div>
           </div>
 
           {/* Vignette globale mobile */}
           <div aria-hidden className="pointer-events-none absolute inset-0"
-            style={{ background: "radial-gradient(ellipse 95% 90% at 50% 50%, transparent 50%, rgba(8,14,50,0.22) 100%)" }} />
+            style={{ background: "radial-gradient(ellipse 95% 90% at 50% 50%, transparent 50%, rgba(2,18,60,0.22) 100%)" }} />
 
           {/* Watermark mobile */}
           <div aria-hidden className="pointer-events-none absolute bottom-3 right-3 z-20">
@@ -549,7 +549,7 @@ function ProjectShowcase({
           className="relative hidden overflow-hidden rounded-2xl lg:block"
           style={{
             height: 540,
-            boxShadow: "0 28px 72px rgba(13,26,74,0.22), 0 6px 24px rgba(13,26,74,0.10)",
+            boxShadow: "0 28px 72px rgba(2,27,90,0.22), 0 6px 24px rgba(2,27,90,0.10)",
           }}
         >
           {/* Image 1 — gauche, pleine hauteur, 62% */}
@@ -570,10 +570,10 @@ function ProjectShowcase({
             </motion.div>
             {/* Fondu droit pour fusionner avec img1/2 */}
             <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-16"
-              style={{ background: "linear-gradient(to right, transparent, rgba(10,18,60,0.45))" }} />
+              style={{ background: "linear-gradient(to right, transparent, rgba(2,22,72,0.45))" }} />
             {/* Fondu bas */}
             <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
-              style={{ background: "linear-gradient(to top, rgba(10,18,60,0.22), transparent)" }} />
+              style={{ background: "linear-gradient(to top, rgba(2,22,72,0.22), transparent)" }} />
           </motion.div>
 
           {/* Image 2 — haut-droite, 38% × 50% */}
@@ -587,10 +587,10 @@ function ProjectShowcase({
             <Image src={img1} alt={`${projet.nom} vue 2`} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" unoptimized />
             {/* Fondu gauche (fusionne avec img0) */}
             <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-10"
-              style={{ background: "linear-gradient(to left, transparent, rgba(10,18,60,0.38))" }} />
+              style={{ background: "linear-gradient(to left, transparent, rgba(2,22,72,0.38))" }} />
             {/* Fondu bas (fusionne avec img2) */}
             <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-8"
-              style={{ background: "linear-gradient(to top, rgba(10,18,60,0.35), transparent)" }} />
+              style={{ background: "linear-gradient(to top, rgba(2,22,72,0.35), transparent)" }} />
           </motion.div>
 
           {/* Image 3 — bas-droite, 38% × 50% */}
@@ -604,18 +604,18 @@ function ProjectShowcase({
             <Image src={img2} alt={`${projet.nom} vue 3`} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" unoptimized />
             {/* Fondu gauche */}
             <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-10"
-              style={{ background: "linear-gradient(to left, transparent, rgba(10,18,60,0.38))" }} />
+              style={{ background: "linear-gradient(to left, transparent, rgba(2,22,72,0.38))" }} />
             {/* Fondu haut (fusionne avec img1) */}
             <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-8"
-              style={{ background: "linear-gradient(to bottom, rgba(10,18,60,0.35), transparent)" }} />
+              style={{ background: "linear-gradient(to bottom, rgba(2,22,72,0.35), transparent)" }} />
           </motion.div>
 
           {/* ── Vignette globale — unifie les 3 images en un seul bloc ── */}
           <div aria-hidden className="pointer-events-none absolute inset-0"
             style={{
               background: [
-                "radial-gradient(ellipse 90% 85% at 50% 50%, transparent 55%, rgba(8,14,50,0.28) 100%)",
-                "linear-gradient(to bottom, rgba(8,14,50,0.10) 0%, transparent 15%, transparent 85%, rgba(8,14,50,0.16) 100%)",
+                "radial-gradient(ellipse 90% 85% at 50% 50%, transparent 55%, rgba(2,18,60,0.28) 100%)",
+                "linear-gradient(to bottom, rgba(2,18,60,0.10) 0%, transparent 15%, transparent 85%, rgba(2,18,60,0.16) 100%)",
               ].join(", "),
             }}
           />
@@ -704,7 +704,7 @@ function ProjectShowcase({
         </div>
 
         {/* ── Nom du projet (STATIQUE) ── */}
-        <h3 className="mt-6 text-[1.75rem] font-bold leading-tight tracking-tight text-[#0D1A4A] sm:text-[2rem] lg:text-[1.875rem] xl:text-[2.125rem]">
+        <h3 className="mt-6 text-[1.75rem] font-bold leading-tight tracking-tight text-[#021B5A] sm:text-[2rem] lg:text-[1.875rem] xl:text-[2.125rem]">
           {projet.nom}
         </h3>
 
@@ -714,7 +714,7 @@ function ProjectShowcase({
             <MapPin size={13} strokeWidth={1.75} className="shrink-0" />
             <span>{projet.lieu}</span>
           </div>
-          <p className="mt-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.18em]" style={{ color: "#F39200" }}>
+          <p className="mt-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.18em]" style={{ color: "#F77F00" }}>
             {projet.mission}
           </p>
         </div>
@@ -722,7 +722,7 @@ function ProjectShowcase({
         {/* ── Filet décoratif ── */}
         <div
           className="mt-6 h-px w-12"
-          style={{ background: "linear-gradient(90deg, #1E2F8A, rgba(30,47,138,0))" }}
+          style={{ background: "linear-gradient(90deg, #0633B0, rgba(6,51,176,0))" }}
         />
 
         {/* ── Description (STATIQUE) ── */}

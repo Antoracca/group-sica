@@ -10,10 +10,10 @@ import { links } from "@/lib/links";
       → "Comptable" N'EST PAS un pôle — c'est une sous-section d'Assistance.
       → "Réalisations" N'EST PAS un pôle — c'est du contenu Construction.
 
-   2. Sur le site Groupe (groupesica.ci), la navbar liste :
+   2. Sur le site Groupe (groupe-sica.com), la navbar liste :
       - Le Groupe (pages institutionnelles internes)
-      - Construction (lien externe vers sicaconstruction.ci + preview menu)
-      - Assistance (lien externe vers sicaassistance.ci + preview menu)
+      - Construction (lien externe vers sicaconstruction.com + preview menu)
+      - Assistance (lien externe vers sicaassistance.com + preview menu)
       - Actualités (blog SEO interne)
 
    3. Le top-nav (haut de page) est ADAPTATIF — voir packages/ui/lib/top-nav.ts.
@@ -107,37 +107,37 @@ export const mainNav: NavItem[] = [
   },
   {
     label: "Assistance",
-    href: "https://sicaassistance.ci",
+    href: "https://www.sicaassistance.com",
     external: true,
     tagline: "Créer, gérer et sécuriser votre activité",
     children: [
       {
         label: "Accueil Assistance",
-        href: "https://sicaassistance.ci",
+        href: "https://www.sicaassistance.com",
         description: "Création, comptabilité, juridique et conseil PME.",
         external: true,
       },
       {
         label: "Création d'entreprise",
-        href: "https://sicaassistance.ci/creation-entreprise",
+        href: "https://www.sicaassistance.com/creation-entreprise",
         description: "Constitution légale, RCCM et formalités administratives.",
         external: true,
       },
       {
         label: "Comptabilité & fiscalité",
-        href: "https://sicaassistance.ci/comptabilite",
+        href: "https://www.sicaassistance.com/comptabilite",
         description: "Tenue comptable, déclarations fiscales et sociales.",
         external: true,
       },
       {
         label: "Juridique",
-        href: "https://sicaassistance.ci/juridique",
+        href: "https://www.sicaassistance.com/juridique",
         description: "Suivi administratif et sécurisation des actes.",
         external: true,
       },
       {
         label: "Conseil en gestion",
-        href: "https://sicaassistance.ci/conseil",
+        href: "https://www.sicaassistance.com/conseil",
         description: "Structuration, pilotage et accompagnement des dirigeants.",
         external: true,
       },

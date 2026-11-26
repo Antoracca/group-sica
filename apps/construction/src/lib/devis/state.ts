@@ -7,7 +7,7 @@ export const DEFAULT_STAMP: StampConfig = {
   shape: "circle",
   size: 180,
   borderWidth: 3,
-  color: "#1E2F8A",
+  color: "#0633B0",
   lines: [COMPANY.marque, COMPANY.groupe, "Abidjan · Côte d'Ivoire"],
   curvedTop: COMPANY.marque,
   curvedBottom: `RCCM ${COMPANY.rccm}`,

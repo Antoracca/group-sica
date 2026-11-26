@@ -61,7 +61,7 @@ export function RessourcesSection() {
                 transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 className={cn(
                   "flex flex-col rounded-2xl border border-brand-royal/10 bg-white p-6",
-                  "transition-shadow duration-200 hover:shadow-[0_20px_50px_-30px_rgba(13,26,74,0.4)]",
+                  "transition-shadow duration-200 hover:shadow-[0_20px_50px_-30px_rgba(2,27,90,0.4)]",
                 )}
               >
                 <span className="flex size-11 items-center justify-center rounded-xl bg-brand-royal/5 text-brand-royal">

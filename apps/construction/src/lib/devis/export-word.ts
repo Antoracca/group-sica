@@ -10,11 +10,11 @@ import { formatFcfa, formatDateFr, lineQty, lineTotal } from "./pricing";
 */
 
 const C = {
-  royal: "#1E2F8A",
-  amber: "#F39200",
-  ink: "#0B1020",
-  slate: "#475066",
-  line: "#d9deea",
+  royal: "#0633B0",
+  amber: "#F77F00",
+  ink: "#071027",
+  slate: "#4B556C",
+  line: "#D9DEEA",
 };
 
 function esc(value: string): string {

@@ -56,7 +56,7 @@ function Segmented<T extends string>({
 }) {
   return (
     <div>
-      <p className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-[#475569]">
+      <p className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-[#4B556F]">
         {label}
       </p>
       <div role="group" aria-label={label} className="grid grid-cols-3 gap-1.5">
@@ -72,8 +72,8 @@ function Segmented<T extends string>({
                 "min-h-[44px] rounded-lg px-2 text-[0.8rem] font-semibold transition-colors",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-amber/70",
                 selected
-                  ? "bg-brand-amber text-[#1E2F8A]"
-                  : "bg-[#F1F5F9] text-[#475569] hover:bg-[#E2E8F0]",
+                  ? "bg-brand-amber text-[#0633B0]"
+                  : "bg-[#EFF2FB] text-[#4B556F] hover:bg-[#DFE5F3]",
               ].join(" ")}
             >
               {opt.label}
@@ -107,7 +107,7 @@ export function HeroEstimator() {
   }).toString();
 
   return (
-    <aside className="rounded-2xl border border-[#E2E8F0] bg-white p-5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.15)] sm:p-6">
+    <aside className="rounded-2xl border border-[#DFE5F3] bg-white p-5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.15)] sm:p-6">
       <div className="flex items-center gap-3">
         <span aria-hidden className="h-px w-6 bg-brand-amber" />
         <p className="font-mono text-xs uppercase tracking-[0.22em] text-brand-amber">
@@ -120,7 +120,7 @@ export function HeroEstimator() {
 
       {/* Typologie — grille tactile */}
       <div className="mt-5">
-        <p className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-[#475569]">
+        <p className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-[#4B556F]">
           Nature des travaux
         </p>
         <div className="grid grid-cols-2 gap-1.5">
@@ -136,8 +136,8 @@ export function HeroEstimator() {
                   "min-h-[44px] rounded-lg px-3 text-left text-[0.8rem] font-semibold leading-tight transition-colors",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-amber/70",
                   selected
-                    ? "bg-brand-amber text-[#1E2F8A]"
-                    : "bg-[#F1F5F9] text-[#475569] hover:bg-[#E2E8F0]",
+                    ? "bg-brand-amber text-[#0633B0]"
+                    : "bg-[#EFF2FB] text-[#4B556F] hover:bg-[#DFE5F3]",
                 ].join(" ")}
               >
                 {t.label}
@@ -150,7 +150,7 @@ export function HeroEstimator() {
       {/* Surface */}
       <div className="mt-5">
         <div className="mb-2 flex items-baseline justify-between">
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-[#475569]">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-[#4B556F]">
             Surface estimée
           </p>
           <p className="font-mono text-sm font-semibold text-black">
@@ -186,8 +186,8 @@ export function HeroEstimator() {
       </div>
 
       {/* Résultat — feedback animé */}
-      <div className="mt-6 overflow-hidden rounded-xl border border-[#1E2F8A]/10 bg-[#1E2F8A]/5 p-4">
-        <p className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-[#1E2F8A]/80">
+      <div className="mt-6 overflow-hidden rounded-xl border border-[#0633B0]/10 bg-[#0633B0]/5 p-4">
+        <p className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-[#0633B0]/80">
           Fourchette initiale
         </p>
         <div className="mt-1 h-8 overflow-hidden">
@@ -198,7 +198,7 @@ export function HeroEstimator() {
               animate={{ y: "0%", opacity: 1 }}
               exit={{ y: "-60%", opacity: 0 }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-xl font-bold text-[#1E2F8A]"
+              className="font-display text-xl font-bold text-[#0633B0]"
             >
               {formatFcfa(low)} – {formatFcfa(high)}{" "}
               <span className="font-mono text-sm font-medium text-brand-amber">
@@ -207,14 +207,14 @@ export function HeroEstimator() {
             </motion.p>
           </AnimatePresence>
         </div>
-        <p className="mt-1 text-xs leading-relaxed text-[#475569]">
+        <p className="mt-1 text-xs leading-relaxed text-[#4B556F]">
           Estimation indicative, avant visite de site et étude technique.
         </p>
       </div>
 
       <a
         href={`/devis?${query}`}
-        className="group mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#1E2F8A] px-5 text-sm font-semibold text-white transition-colors hover:bg-brand-amber hover:text-[#1E2F8A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-amber focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E2F8A]"
+        className="group mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#0633B0] px-5 text-sm font-semibold text-white transition-colors hover:bg-brand-amber hover:text-[#0633B0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-amber focus-visible:ring-offset-2 focus-visible:ring-offset-[#0633B0]"
       >
         Continuer avec ces paramètres
         <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />

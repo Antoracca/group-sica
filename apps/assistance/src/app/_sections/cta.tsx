@@ -10,7 +10,7 @@ export function CtaSection() {
     <section className="relative overflow-hidden bg-brand-royal-900 text-white">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_80%_at_85%_10%,rgba(243,146,0,0.18),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_80%_at_85%_10%,rgba(247,127,0,0.18),transparent_70%)]"
       />
       <Container className="relative z-10 py-20 text-center sm:py-28">
         <p className="font-mono text-xs uppercase tracking-[0.22em] text-brand-amber">
@@ -36,7 +36,7 @@ export function CtaSection() {
             className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full border border-white/25 px-7 text-sm font-semibold text-white transition-colors hover:bg-white/10"
           >
             <Phone className="size-4" />
-            +225 07 09 88 32 93
+            (+225) 07 09 88 32 93
           </a>
         </div>
       </Container>

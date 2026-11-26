@@ -79,7 +79,7 @@ export function SignaturePad({
           <div className="overflow-hidden rounded-lg border border-dashed border-brand-royal/30 bg-[linear-gradient(180deg,#fafbff_0%,#f4f6fb_100%)]">
             <SignatureCanvas
               ref={sigRef}
-              penColor="#0B1020"
+              penColor="#071027"
               backgroundColor="rgba(0,0,0,0)"
               canvasProps={{
                 width: 520,

@@ -84,7 +84,7 @@ export function EditableCell({
           if (e.key === "Enter") handleSave();
           if (e.key === "Escape") setEditing(false);
         }}
-        className={`h-8 rounded border border-slate-300 px-2 text-sm outline-none focus:border-[#1E2F8A] ${numeric ? "w-24 text-right tabular-nums" : "w-48"}`}
+        className={`h-8 rounded border border-slate-300 px-2 text-sm outline-none focus:border-[#0633B0] ${numeric ? "w-24 text-right tabular-nums" : "w-48"}`}
       />
       <button
         type="button"

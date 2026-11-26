@@ -35,7 +35,7 @@ export default async function AdminDemandesPage() {
       <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1E2F8A]">Assistance & qualification</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0633B0]">Assistance & qualification</p>
             <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-slate-950">Demandes clients</h1>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
               Les sollicitations client deviennent un vrai flux admin: qualification, budget, localisation et suivi du statut.

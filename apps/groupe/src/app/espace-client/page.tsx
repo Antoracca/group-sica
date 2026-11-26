@@ -168,7 +168,7 @@ export default function EspaceClientPage() {
         aria-hidden
         className="relative hidden overflow-hidden lg:flex lg:w-[40%]"
         style={{
-          background: "linear-gradient(155deg, #08112E 0%, #1E2F8A 60%, #0E1D53 100%)",
+          background: "linear-gradient(155deg, #011138 0%, #0633B0 60%, #031E64 100%)",
         }}
       >
         <div
@@ -218,7 +218,7 @@ export default function EspaceClientPage() {
       <main className="relative flex flex-1 flex-col bg-white px-4 pb-6 pt-4 sm:px-8 sm:pb-8 sm:pt-6 lg:px-12 lg:pb-10 lg:pt-8">
         <a
           href="/"
-          className="absolute left-4 top-3 z-20 inline-flex items-center gap-1.5 text-[0.84rem] font-medium text-[#7E88A6] transition-colors hover:text-[#1E2F8A] sm:left-6 sm:top-5"
+          className="absolute left-4 top-3 z-20 inline-flex items-center gap-1.5 text-[0.84rem] font-medium text-[#7E89A6] transition-colors hover:text-[#0633B0] sm:left-6 sm:top-5"
         >
           <ArrowLeft size={14} strokeWidth={2.2} />
           Retour au site
@@ -243,10 +243,10 @@ export default function EspaceClientPage() {
               unoptimized
               className="mx-auto h-[112px] w-auto sm:h-[120px] lg:h-[96px]"
             />
-            <h2 className="mt-2 font-display text-[clamp(1.7rem,4.2vw,2.45rem)] font-bold leading-[1.06] tracking-tight text-[#0C1A4E]">
+            <h2 className="mt-2 font-display text-[clamp(1.7rem,4.2vw,2.45rem)] font-bold leading-[1.06] tracking-tight text-[#021C5D]">
               SICA ESPACE CLIENT
             </h2>
-            <p className="mx-auto mt-2 max-w-[38ch] text-[0.95rem] leading-relaxed text-[#687390]">
+            <p className="mx-auto mt-2 max-w-[38ch] text-[0.95rem] leading-relaxed text-[#6B7794]">
               Connectez-vous pour acceder a votre tableau de bord chantier.
             </p>
           </motion.div>
@@ -266,7 +266,7 @@ export default function EspaceClientPage() {
                   noValidate
                 >
                   <div className="relative">
-                    <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-[#9BA3C0]">
+                    <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-[#9BA5C0]">
                       <User size={16} strokeWidth={2.05} />
                     </div>
                     <input
@@ -276,12 +276,12 @@ export default function EspaceClientPage() {
                       onChange={(e) => setUsername(e.target.value)}
                       autoComplete="username"
                       required
-                      className="w-full rounded-xl border border-[#E4E7F0] bg-[#F7F8FC] py-4 pl-11 pr-4 text-base text-[#08112E] outline-none transition-all duration-200 placeholder:text-[#9AA3BE] focus:border-[#1E2F8A] focus:bg-white focus:shadow-[0_0_0_3px_rgba(30,47,138,0.09)]"
+                      className="w-full rounded-xl border border-[#E4E7F0] bg-[#F6F8FD] py-4 pl-11 pr-4 text-base text-[#011138] outline-none transition-all duration-200 placeholder:text-[#9AA4BE] focus:border-[#0633B0] focus:bg-white focus:shadow-[0_0_0_3px_rgba(6,51,176,0.09)]"
                     />
                   </div>
 
                   <div className="relative">
-                    <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-[#9BA3C0]">
+                    <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-[#9BA5C0]">
                       <Lock size={16} strokeWidth={2.05} />
                     </div>
                     <input
@@ -291,33 +291,33 @@ export default function EspaceClientPage() {
                       onChange={(e) => setPassword(e.target.value)}
                       autoComplete="current-password"
                       required
-                      className="w-full rounded-xl border border-[#E4E7F0] bg-[#F7F8FC] py-4 pl-11 pr-12 text-base text-[#08112E] outline-none transition-all duration-200 placeholder:text-[#9AA3BE] focus:border-[#1E2F8A] focus:bg-white focus:shadow-[0_0_0_3px_rgba(30,47,138,0.09)]"
+                      className="w-full rounded-xl border border-[#E4E7F0] bg-[#F6F8FD] py-4 pl-11 pr-12 text-base text-[#011138] outline-none transition-all duration-200 placeholder:text-[#9AA4BE] focus:border-[#0633B0] focus:bg-white focus:shadow-[0_0_0_3px_rgba(6,51,176,0.09)]"
                     />
                     <button
                       type="button"
                       aria-label={showPwd ? "Masquer le mot de passe" : "Afficher le mot de passe"}
                       onClick={() => setShowPwd((v) => !v)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-[#9BA3C0] transition-colors hover:text-[#1E2F8A]"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-[#9BA5C0] transition-colors hover:text-[#0633B0]"
                     >
                       {showPwd ? <EyeOff size={16} strokeWidth={2} /> : <Eye size={16} strokeWidth={2} />}
                     </button>
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <label className="flex cursor-pointer select-none items-center gap-2 text-[0.84rem] text-[#6B7490]">
+                    <label className="flex cursor-pointer select-none items-center gap-2 text-[0.84rem] text-[#6D7792]">
                       <input
                         type="checkbox"
                         checked={remember}
                         onChange={(e) => setRemember(e.target.checked)}
                         className="h-4 w-4 rounded border"
-                        style={{ accentColor: "#1E2F8A" }}
+                        style={{ accentColor: "#0633B0" }}
                       />
                       Se souvenir de moi
                     </label>
                     <button
                       type="button"
                       onClick={openResetPanel}
-                      className="text-[0.84rem] font-semibold text-[#1E2F8A] transition-colors hover:text-[#0F1E5A]"
+                      className="text-[0.84rem] font-semibold text-[#0633B0] transition-colors hover:text-[#03216D]"
                     >
                       Reinitialiser le mot de passe
                     </button>
@@ -345,8 +345,8 @@ export default function EspaceClientPage() {
                     whileTap={loading ? {} : { scale: 0.99 }}
                     className="group relative mt-1 flex w-full items-center justify-center overflow-hidden rounded-xl py-4 text-[0.98rem] font-semibold text-white transition-all duration-300 disabled:opacity-75"
                     style={{
-                      background: "linear-gradient(135deg, #1E2F8A 0%, #2C47C5 100%)",
-                      boxShadow: "0 4px 22px rgba(30,47,138,0.28), 0 1px 0 rgba(255,255,255,0.12) inset",
+                      background: "linear-gradient(135deg, #0633B0 0%, #0A4DF5 100%)",
+                      boxShadow: "0 4px 22px rgba(6,51,176,0.28), 0 1px 0 rgba(255,255,255,0.12) inset",
                     }}
                   >
                     <span
@@ -370,7 +370,7 @@ export default function EspaceClientPage() {
                     )}
                   </motion.button>
 
-                  <p className="mt-2 text-[0.82rem] leading-relaxed text-[#6F7895]">
+                  <p className="mt-2 text-[0.82rem] leading-relaxed text-[#6F7A95]">
                     Vos identifiants de connexion vous ont ete communiques lors de la signature du contrat.
                     En cas de perte, utilisez la procedure de reinitialisation du mot de passe ou contactez votre interlocuteur SICA.
                   </p>
@@ -387,12 +387,12 @@ export default function EspaceClientPage() {
                   className="flex flex-col gap-4"
                   noValidate
                 >
-                  <p className="text-[0.92rem] leading-relaxed text-[#687390]">
+                  <p className="text-[0.92rem] leading-relaxed text-[#6B7794]">
                     Entrez votre adresse e-mail de connexion. Nous vous enverrons les instructions de reinitialisation.
                   </p>
 
                   <div className="relative">
-                    <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-[#9BA3C0]">
+                    <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-[#9BA5C0]">
                       <Mail size={16} strokeWidth={2.05} />
                     </div>
                     <input
@@ -402,7 +402,7 @@ export default function EspaceClientPage() {
                       onChange={(e) => setResetEmail(e.target.value)}
                       autoComplete="email"
                       required
-                      className="w-full rounded-xl border border-[#E4E7F0] bg-[#F7F8FC] py-4 pl-11 pr-4 text-base text-[#08112E] outline-none transition-all duration-200 placeholder:text-[#9AA3BE] focus:border-[#1E2F8A] focus:bg-white focus:shadow-[0_0_0_3px_rgba(30,47,138,0.09)]"
+                      className="w-full rounded-xl border border-[#E4E7F0] bg-[#F6F8FD] py-4 pl-11 pr-4 text-base text-[#011138] outline-none transition-all duration-200 placeholder:text-[#9AA4BE] focus:border-[#0633B0] focus:bg-white focus:shadow-[0_0_0_3px_rgba(6,51,176,0.09)]"
                     />
                   </div>
 
@@ -413,8 +413,8 @@ export default function EspaceClientPage() {
                     whileTap={resetLoading ? {} : { scale: 0.99 }}
                     className="group relative mt-1 flex w-full items-center justify-center overflow-hidden rounded-xl py-4 text-[0.98rem] font-semibold text-white transition-all duration-300 disabled:opacity-75"
                     style={{
-                      background: "linear-gradient(135deg, #1E2F8A 0%, #2C47C5 100%)",
-                      boxShadow: "0 4px 22px rgba(30,47,138,0.28), 0 1px 0 rgba(255,255,255,0.12) inset",
+                      background: "linear-gradient(135deg, #0633B0 0%, #0A4DF5 100%)",
+                      boxShadow: "0 4px 22px rgba(6,51,176,0.28), 0 1px 0 rgba(255,255,255,0.12) inset",
                     }}
                   >
                     {resetLoading ? "Envoi en cours..." : "Envoyer le lien de reinitialisation"}
@@ -429,7 +429,7 @@ export default function EspaceClientPage() {
                   <button
                     type="button"
                     onClick={openLoginPanel}
-                    className="mt-1 inline-flex items-center justify-center gap-2 text-[0.84rem] font-semibold text-[#1E2F8A] transition-colors hover:text-[#0F1E5A]"
+                    className="mt-1 inline-flex items-center justify-center gap-2 text-[0.84rem] font-semibold text-[#0633B0] transition-colors hover:text-[#03216D]"
                   >
                     <ArrowLeft size={14} strokeWidth={2.1} />
                     Retour a la connexion

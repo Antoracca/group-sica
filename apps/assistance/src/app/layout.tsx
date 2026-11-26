@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { fontBody, fontDisplay, fontMono } from "@/lib/fonts";
+import { fontAccent, fontBody, fontDisplay, fontMono, fontTitre } from "@/lib/fonts";
+import { AssistantSica } from "@/components/assistant-sica";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sicaassistance.ci"),
+  metadataBase: new URL("https://www.sicaassistance.com"),
   title: {
     default: "SICA Assistance — Création d'entreprise, comptabilité, conseil en Côte d'Ivoire",
     template: "%s · SICA Assistance",
@@ -32,9 +33,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}>
+    <html lang="fr" className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable} ${fontTitre.variable} ${fontAccent.variable}`}>
       <body className="min-h-screen bg-background font-body text-foreground antialiased">
         {children}
+        <AssistantSica />
       </body>
     </html>
   );

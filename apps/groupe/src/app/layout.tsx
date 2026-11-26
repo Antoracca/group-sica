@@ -3,7 +3,7 @@ import { fontBody, fontDisplay, fontMono } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://groupesica.ci"),
+  metadataBase: new URL("https://www.groupe-sica.com"),
   title: {
     default: "Groupe SICA — Construction & Assistance en Côte d'Ivoire",
     template: "%s · Groupe SICA",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#FAFAF7" },
-    { media: "(prefers-color-scheme: dark)", color: "#0F1956" },
+    { media: "(prefers-color-scheme: dark)", color: "#031F68" },
   ],
   width: "device-width",
   initialScale: 1,

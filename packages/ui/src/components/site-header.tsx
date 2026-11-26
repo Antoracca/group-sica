@@ -110,6 +110,9 @@ export function SiteHeader({
   forceScrolled = false,
   espaceClientUrl = "/espace-client",
 }: SiteHeaderProps) {
+  /* Menu long (8 entrées, ex. menu imposé Construction) : liens resserrés et bascule desktop à xl. */
+  const compactNav = nav.length > 6;
+
   const state = useHeaderScroll({ scrolledThreshold, hideThreshold });
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [mobileExpanded, setMobileExpanded] = React.useState<string | null>(null);
@@ -225,7 +228,7 @@ export function SiteHeader({
            par Tailwind ou Framer Motion. */
         style={
           forceScrolled
-            ? { backgroundColor: "#1E2F8A", boxShadow: "0 2px 24px rgba(7,20,74,0.28)" }
+            ? { backgroundColor: "#0633B0", boxShadow: "0 2px 24px rgba(2,25,84,0.28)" }
             : undefined
         }
       >
@@ -248,7 +251,7 @@ export function SiteHeader({
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(110deg, rgba(30,47,138,0.045) 0%, rgba(30,47,138,0.01) 22%, rgba(255,255,255,0) 50%, rgba(30,47,138,0.008) 78%, rgba(30,47,138,0.038) 100%)",
+                  "linear-gradient(110deg, rgba(6,51,176,0.045) 0%, rgba(6,51,176,0.01) 22%, rgba(255,255,255,0) 50%, rgba(6,51,176,0.008) 78%, rgba(6,51,176,0.038) 100%)",
               }}
             />
 
@@ -277,7 +280,7 @@ export function SiteHeader({
                       <a
                         href={item.href}
                         {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                        className="group inline-flex items-center gap-2 text-[0.95rem] font-semibold tracking-[0.01em] text-brand-royal transition-colors duration-200 hover:text-[#0D1A4A]"
+                        className="group inline-flex items-center gap-2 text-[0.95rem] font-semibold tracking-[0.01em] text-brand-royal transition-colors duration-200 hover:text-[#021B5A]"
                       >
                         {item.logoSrc ? (
                           // eslint-disable-next-line @next/next/no-img-element
@@ -341,7 +344,7 @@ export function SiteHeader({
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(110deg, rgba(30,47,138,0.045) 0%, rgba(30,47,138,0.01) 28%, transparent 50%, rgba(30,47,138,0.008) 72%, rgba(30,47,138,0.038) 100%)",
+                "linear-gradient(110deg, rgba(6,51,176,0.045) 0%, rgba(6,51,176,0.01) 28%, transparent 50%, rgba(6,51,176,0.008) 72%, rgba(6,51,176,0.038) 100%)",
             }}
           />
 
@@ -349,7 +352,7 @@ export function SiteHeader({
             {/* Gauche : Colonne (étagères alignées) avec Kicker en haut, Liens en bas */}
             <div className="flex flex-col gap-1.5">
               {_brand === "construction" && (
-                <span className="text-[0.68rem] font-extrabold uppercase text-[#1E2F8A] tracking-[0.16em] leading-none mt-1">
+                <span className="text-[0.68rem] font-extrabold uppercase text-[#0633B0] tracking-[0.16em] leading-none mt-1">
                   SICA Construction
                 </span>
               )}
@@ -430,7 +433,7 @@ export function SiteHeader({
             forceScrolled
               ? "bg-transparent shadow-none"
               : solidBg
-                ? "bg-[#1E2F8A] shadow-[0_8px_32px_rgba(7,20,74,0.32)]"
+                ? "bg-[#0633B0] shadow-[0_8px_32px_rgba(2,25,84,0.32)]"
                 : "bg-transparent shadow-none",
           )}
           onMouseLeave={closeDesktopMenu}
@@ -441,7 +444,8 @@ export function SiteHeader({
                 Quand la barre de recherche est ouverte → logo masqué pour
                 libérer l'espace. Le hamburger reste toujours visible.        */}
             <div className={cn(
-              "flex items-center rounded-2xl bg-white lg:hidden",
+              "flex items-center rounded-2xl bg-white",
+              compactNav ? "xl:hidden" : "lg:hidden",
               "transition-[filter] duration-300",
               isTop ? "[filter:drop-shadow(0_4px_20px_rgba(0,0,0,0.22))]" : "[filter:drop-shadow(0_0px_0px_transparent)]",
             )}>
@@ -468,7 +472,8 @@ export function SiteHeader({
 
             {/* Desktop : logo */}
             <div className={cn(
-              "hidden shrink-0 items-center lg:flex transition-[filter] duration-300",
+              "hidden shrink-0 items-center transition-[filter] duration-300",
+              compactNav ? "xl:flex" : "lg:flex",
               /* Sur fond bleu ou transparent → ombre blanche pour faire ressortir le logo */
               "[filter:drop-shadow(0_2px_12px_rgba(255,255,255,0.18))]",
             )}>
@@ -476,7 +481,7 @@ export function SiteHeader({
             </div>
 
             {/* Desktop : nav collée au logo (ml-8) — pas centrée */}
-            <nav aria-label="Navigation principale" className="ml-8 hidden items-center lg:flex xl:ml-10">
+            <nav aria-label="Navigation principale" className={cn("hidden items-center", compactNav ? "ml-5 xl:flex 2xl:ml-8" : "ml-8 lg:flex xl:ml-10")}>
               <ul className="flex items-center gap-0.5">
                 {nav.map((item) => {
                   const hasChildren = Boolean(item.children?.length);
@@ -492,8 +497,9 @@ export function SiteHeader({
                         aria-current={item.current ? "page" : undefined}
                         {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                         className={cn(
-                          "group relative inline-flex items-center gap-1.5 px-3.5 py-3.5 xl:px-4",
-                          "text-[0.95rem] font-semibold tracking-[0.01em] transition-colors duration-200",
+                          "group relative inline-flex items-center gap-1.5 whitespace-nowrap py-3.5",
+                          compactNav ? "px-2 text-[0.84rem] 2xl:px-3 2xl:text-[0.92rem]" : "px-3.5 text-[0.95rem] xl:px-4",
+                          "font-semibold tracking-[0.01em] transition-colors duration-200",
                           /* Sur fond bleu (solidBg ou forceScrolled) → texte blanc.
                              Sur fond transparent (hero) → texte blanc aussi. Toujours blanc. */
                           "text-white/90 hover:text-white",
@@ -569,7 +575,7 @@ export function SiteHeader({
                      sur hero sombre, soit bleue au scroll : dans les deux cas blanc
                      est le seul choix lisible. Bleu royal sur bleu = invisible (bug). */
                   "text-white",
-                  "lg:text-white lg:border-brand-amber lg:bg-brand-amber lg:hover:brightness-110 lg:shadow-[0_2px_14px_rgba(247,160,38,0.30)]",
+                  "lg:text-white lg:border-brand-amber lg:bg-brand-amber lg:hover:brightness-110 lg:shadow-[0_2px_14px_rgba(247,143,38,0.30)]",
                 )}
               >
                 <UserCircle size={22} weight="regular" className="shrink-0" aria-hidden />
@@ -594,9 +600,10 @@ export function SiteHeader({
               onMouseEnter={() => openDesktopMenu(desktopOpenItem.label)}
               onMouseLeave={closeDesktopMenu}
               className={cn(
-                "absolute inset-x-0 top-full hidden overflow-hidden lg:block",
-                "shadow-[0_24px_60px_rgba(7,20,74,0.35)]",
-                "bg-[#1E2F8A]",
+                "absolute inset-x-0 top-full hidden overflow-hidden",
+                compactNav ? "xl:block" : "lg:block",
+                "shadow-[0_24px_60px_rgba(2,25,84,0.35)]",
+                "bg-[#0633B0]",
                 "border-t border-white/10",
               )}
             >
@@ -610,7 +617,7 @@ export function SiteHeader({
                 style={{
                   background:
                     "radial-gradient(ellipse 65% 130% at 0% -10%, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.05) 40%, transparent 65%), " +
-                    "radial-gradient(circle at 95% 110%, rgba(247,160,38,0.12) 0%, transparent 40%), " +
+                    "radial-gradient(circle at 95% 110%, rgba(247,143,38,0.12) 0%, transparent 40%), " +
                     "linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 30%, transparent 55%)",
                 }}
               />
@@ -713,7 +720,7 @@ export function SiteHeader({
             role="dialog"
             aria-modal="true"
             aria-label="Menu de navigation"
-            className="fixed inset-0 z-[60] lg:hidden"
+            className={cn("fixed inset-0 z-[60]", compactNav ? "xl:hidden" : "lg:hidden")}
           >
             {/* Backdrop */}
             <motion.div
@@ -732,7 +739,7 @@ export function SiteHeader({
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.3, ease: [0.32, 0, 0.18, 1] }}
-              className="absolute right-0 top-0 flex h-full w-full max-w-[340px] flex-col bg-white shadow-[−32px_0_80px_rgba(7,20,74,0.22)]"
+              className="absolute right-0 top-0 flex h-full w-full max-w-[340px] flex-col bg-white shadow-[−32px_0_80px_rgba(2,25,84,0.22)]"
             >
               {/* ── Header du drawer : gradient bleu + logo grand ──────── */}
               <div className="relative shrink-0 overflow-hidden">
@@ -744,7 +751,7 @@ export function SiteHeader({
                   className="pointer-events-none absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(135deg, rgba(30,47,138,0.07) 0%, rgba(30,47,138,0.04) 35%, rgba(255,255,255,0) 65%)",
+                      "linear-gradient(135deg, rgba(6,51,176,0.07) 0%, rgba(6,51,176,0.04) 35%, rgba(255,255,255,0) 65%)",
                   }}
                 />
                 {/* Ligne d'accentuation amber en bas du header */}
@@ -753,7 +760,7 @@ export function SiteHeader({
                   className="absolute bottom-0 left-5 right-5 h-px"
                   style={{
                     background:
-                      "linear-gradient(to right, transparent, rgba(247,160,38,0.5) 30%, rgba(247,160,38,0.5) 70%, transparent)",
+                      "linear-gradient(to right, transparent, rgba(247,143,38,0.5) 30%, rgba(247,143,38,0.5) 70%, transparent)",
                   }}
                 />
 
@@ -780,7 +787,7 @@ export function SiteHeader({
                     className="pointer-events-none absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(180deg, rgba(30,47,138,0.03) 0%, rgba(30,47,138,0.015) 100%)",
+                        "linear-gradient(180deg, rgba(6,51,176,0.03) 0%, rgba(6,51,176,0.015) 100%)",
                     }}
                   />
 
@@ -805,7 +812,7 @@ export function SiteHeader({
                           href={item.href}
                           {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                           onClick={() => setMobileOpen(false)}
-                          className="group flex shrink-0 items-center gap-1.5 rounded-full border border-brand-royal/10 bg-white/80 px-3 py-1.5 text-[0.68rem] font-semibold text-brand-royal/80 shadow-[0_1px_4px_rgba(7,20,74,0.06)] transition-all hover:border-brand-royal/20 hover:bg-brand-royal hover:text-white active:scale-95"
+                          className="group flex shrink-0 items-center gap-1.5 rounded-full border border-brand-royal/10 bg-white/80 px-3 py-1.5 text-[0.68rem] font-semibold text-brand-royal/80 shadow-[0_1px_4px_rgba(2,25,84,0.06)] transition-all hover:border-brand-royal/20 hover:bg-brand-royal hover:text-white active:scale-95"
                         >
                           {item.logoSrc ? (
                             // eslint-disable-next-line @next/next/no-img-element
@@ -826,7 +833,7 @@ export function SiteHeader({
                     <button
                       type="button"
                       onClick={() => setLang((l) => (l === "fr" ? "en" : "fr"))}
-                      className="group flex shrink-0 items-center gap-1.5 rounded-full border border-brand-royal/10 bg-white/80 px-3 py-1.5 text-[0.68rem] font-semibold text-brand-royal/80 shadow-[0_1px_4px_rgba(7,20,74,0.06)] transition-all hover:border-brand-royal/20 hover:bg-brand-royal hover:text-white"
+                      className="group flex shrink-0 items-center gap-1.5 rounded-full border border-brand-royal/10 bg-white/80 px-3 py-1.5 text-[0.68rem] font-semibold text-brand-royal/80 shadow-[0_1px_4px_rgba(2,25,84,0.06)] transition-all hover:border-brand-royal/20 hover:bg-brand-royal hover:text-white"
                       aria-label="Changer la langue"
                     >
                       <Globe size={12} weight="light" className="text-brand-amber transition-colors group-hover:text-white/90" />
@@ -935,7 +942,7 @@ export function SiteHeader({
                     className="pointer-events-none absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(30,47,138,0.025) 100%)",
+                        "linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(6,51,176,0.025) 100%)",
                     }}
                   />
                   <div className="relative px-4 py-4">
@@ -964,7 +971,7 @@ export function SiteHeader({
                     {/* CTA Espace client — amber, visible, premium */}
                     <a
                       href={espaceClientUrl}
-                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-amber px-4 py-3.5 text-[0.78rem] font-bold uppercase tracking-[0.05em] text-white shadow-[0_4px_20px_rgba(247,160,38,0.32)] transition-all hover:brightness-110 active:scale-[0.98]"
+                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-amber px-4 py-3.5 text-[0.78rem] font-bold uppercase tracking-[0.05em] text-white shadow-[0_4px_20px_rgba(247,143,38,0.32)] transition-all hover:brightness-110 active:scale-[0.98]"
                     >
                       <UserCircle size={17} weight="light" aria-hidden />
                       Espace client

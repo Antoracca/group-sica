@@ -11,3 +11,7 @@
 - [Construction Phase 2 � 17/05/2026](construction_progress_2026-05-17_phase2.md) � Estimateur devis interactif, panels overlay projets A?Z, polish copywriting, build/typecheck OK
 
 - [Structure navbar Groupe SICA — 18/05/2026](groupe_navbar_structure.md) — **RÈGLE ABSOLUE** : 2 pôles uniquement (Construction + Assistance). Comptable et Réalisations NE SONT PAS des pôles. mainNav 4 entrées max, topNav adaptatif par brand. Pages V1 créées : /groupe /actualites /carrieres /partenaires /contact /mentions-legales /confidentialite /cookies.
+
+- [Refonte v2 — nov. 2026](project_sica_refonte_v2.md) — INSTRUCTIONS.md + DESIGN.md + CONTEXTE rév.2 font foi
+- [Couleurs officielles](feedback_sica_couleurs_officielles.md) — #0633B0 / #FFFFFF / #F77F00, modèle client = structure
+- [feedback_sica_garder_ancien_style](feedback_sica_garder_ancien_style.md) — Refonte v2 REJETÉE 26/11 : garder l'ancien site, couleurs + corrections DG seulement

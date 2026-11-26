@@ -34,7 +34,7 @@ export function SegmentsSection() {
                 transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 className={cn(
                   "group flex flex-col rounded-2xl border border-brand-royal/10 bg-white p-6",
-                  "transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-royal/30 hover:shadow-[0_20px_50px_-30px_rgba(13,26,74,0.45)]",
+                  "transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-royal/30 hover:shadow-[0_20px_50px_-30px_rgba(2,27,90,0.45)]",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-royal focus-visible:ring-offset-2",
                 )}
               >

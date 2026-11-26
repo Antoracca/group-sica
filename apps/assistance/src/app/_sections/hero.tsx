@@ -39,7 +39,7 @@ export function AssistanceHero() {
             backgroundSize: "48px 48px",
           }}
         />
-        <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_85%_0%,rgba(30,47,138,0.10),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_85%_0%,rgba(6,51,176,0.10),transparent_70%)]" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background" />
       </div>
 
@@ -97,7 +97,7 @@ export function AssistanceHero() {
           </div>
 
           {/* Colonne droite — Gateway « Je suis… » */}
-          <div className="rounded-2xl border border-brand-royal/10 bg-white p-5 shadow-[0_24px_60px_-30px_rgba(13,26,74,0.45)] sm:p-6">
+          <div className="rounded-2xl border border-brand-royal/10 bg-white p-5 shadow-[0_24px_60px_-30px_rgba(2,27,90,0.45)] sm:p-6">
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-slate">
               Je suis…
             </p>

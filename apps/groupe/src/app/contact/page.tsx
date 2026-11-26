@@ -11,18 +11,18 @@ const ADRESSES = [
   {
     ville: "Abidjan",
     role: "Siège social",
-    adresse: "Cocody Centre, en face Cité 48 Logements V1",
+    adresse: "Cocody Centre / PMI",
     detail: "Près de la PMI Urbaine, Abidjan",
     bp: "01 BP 1203 Abidjan",
-    tel: "+225 0709883293",
+    tel: "+225 07 09 88 32 93",
   },
   {
     ville: "Yamoussoukro",
     role: "Succursale",
-    adresse: "Morofé · 24 ampoules",
+    adresse: "Morofé / 24 Ampoules",
     detail: "Rond-point route Daloa",
     bp: null,
-    tel: "+225 2722247445",
+    tel: "+225 27 22 24 74 45",
   },
 ];
 
@@ -36,7 +36,7 @@ const POLES = [
 
 /* ─── Styles champs partagés ─────────────────────────────────────────────── */
 const FIELD =
-  "w-full rounded-xl border-2 border-neutral-200 bg-white px-4 py-3.5 text-[0.9375rem] text-neutral-800 placeholder:text-neutral-400 outline-none transition-all duration-200 focus:border-[#1E2F8A] focus:shadow-[0_0_0_3px_rgba(30,47,138,0.08)]";
+  "w-full rounded-xl border-2 border-neutral-200 bg-white px-4 py-3.5 text-[0.9375rem] text-neutral-800 placeholder:text-neutral-400 outline-none transition-all duration-200 focus:border-[#0633B0] focus:shadow-[0_0_0_3px_rgba(6,51,176,0.08)]";
 
 const LABEL =
   "mb-2 block text-[0.72rem] font-bold uppercase tracking-[0.18em] text-neutral-500";
@@ -96,7 +96,7 @@ export default function ContactPage() {
       ══════════════════════════════════════════════════════ */}
       <section
         className="relative overflow-hidden pt-36 pb-20 text-white sm:pt-44 sm:pb-28"
-        style={{ background: "linear-gradient(155deg, #060D22 0%, #0F1C55 55%, #1E2F8A 100%)" }}
+        style={{ background: "linear-gradient(155deg, #010C29 0%, #031F67 55%, #0633B0 100%)" }}
       >
         {/* Blueprint grid */}
         <div
@@ -112,12 +112,12 @@ export default function ContactPage() {
         <div
           aria-hidden
           className="pointer-events-none absolute -top-16 left-1/2 h-[380px] w-[380px] -translate-x-1/2 rounded-full opacity-15"
-          style={{ background: "radial-gradient(circle, rgba(243,146,0,0.5) 0%, transparent 65%)" }}
+          style={{ background: "radial-gradient(circle, rgba(247,127,0,0.5) 0%, transparent 65%)" }}
         />
 
         <Container className="relative">
-          <p className="mb-6 inline-flex items-center gap-3 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
-            <span className="h-px w-7 bg-[#F39200]" aria-hidden />
+          <p className="mb-6 inline-flex items-center gap-3 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
+            <span className="h-px w-7 bg-[#F77F00]" aria-hidden />
             Contact SICA
           </p>
           <h1
@@ -125,7 +125,7 @@ export default function ContactPage() {
             style={{ fontFamily: "'DM Serif Display', serif" }}
           >
             Parlons de votre{" "}
-            <em className="not-italic" style={{ color: "#F39200" }}>projet.</em>
+            <em className="not-italic" style={{ color: "#F77F00" }}>projet.</em>
           </h1>
           <p className="mt-6 max-w-xl text-[1.0625rem] leading-[1.7] text-white/62">
             Décrivez votre besoin — chantier, dossier administratif, partenariat.
@@ -135,7 +135,7 @@ export default function ContactPage() {
           {/* Filet décoratif */}
           <div
             className="mt-10 h-px w-full max-w-[480px]"
-            style={{ background: "linear-gradient(to right, rgba(243,146,0,0.5), transparent)" }}
+            style={{ background: "linear-gradient(to right, rgba(247,127,0,0.5), transparent)" }}
           />
         </Container>
       </section>
@@ -149,11 +149,11 @@ export default function ContactPage() {
 
             {/* ─── FORMULAIRE ──────────────────────────────── */}
             <div className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-[0_2px_24px_rgba(0,0,0,0.05)] sm:p-10">
-              <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+              <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
                 Formulaire de contact
               </p>
               <h2
-                className="mb-8 text-balance text-[1.75rem] font-bold leading-tight tracking-tight text-[#0D1A4A]"
+                className="mb-8 text-balance text-[1.75rem] font-bold leading-tight tracking-tight text-[#021B5A]"
                 style={{ fontFamily: "'DM Serif Display', serif" }}
               >
                 Écrivez-nous.
@@ -245,8 +245,8 @@ export default function ContactPage() {
                   whileTap={submitting || sent ? {} : { scale: 0.986 }}
                   className="mt-1 inline-flex items-center justify-center gap-2.5 rounded-xl py-4 text-[0.9375rem] font-semibold text-white transition-opacity disabled:opacity-65"
                   style={{
-                    background: "linear-gradient(135deg, #1E2F8A 0%, #2C47C5 100%)",
-                    boxShadow: "0 4px 20px rgba(30,47,138,0.28)",
+                    background: "linear-gradient(135deg, #0633B0 0%, #0A4DF5 100%)",
+                    boxShadow: "0 4px 20px rgba(6,51,176,0.28)",
                   }}
                 >
                   {submitting ? (
@@ -267,7 +267,7 @@ export default function ContactPage() {
 
                 <p className="text-[0.72rem] leading-relaxed text-neutral-400">
                   Données traitées conformément à l'ARTCI.{" "}
-                  <a href="/confidentialite" className="text-[#1E2F8A] underline underline-offset-2 hover:text-[#F39200]">
+                  <a href="/confidentialite" className="text-[#0633B0] underline underline-offset-2 hover:text-[#F77F00]">
                     Politique de confidentialité
                   </a>
                 </p>
@@ -278,11 +278,11 @@ export default function ContactPage() {
             <div className="flex flex-col gap-6">
 
               <div>
-                <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+                <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
                   Coordonnées directes
                 </p>
                 <h2
-                  className="text-balance text-[1.375rem] font-bold leading-tight tracking-tight text-[#0D1A4A]"
+                  className="text-balance text-[1.375rem] font-bold leading-tight tracking-tight text-[#021B5A]"
                   style={{ fontFamily: "'DM Serif Display', serif" }}
                 >
                   Ou contactez-nous directement.
@@ -293,15 +293,15 @@ export default function ContactPage() {
               {ADRESSES.map((a) => (
                 <div
                   key={a.ville}
-                  className="group rounded-2xl border-2 border-neutral-100 bg-white p-6 transition-all duration-300 hover:border-[#1E2F8A]/20 hover:shadow-[0_6px_28px_rgba(30,47,138,0.08)]"
+                  className="group rounded-2xl border-2 border-neutral-100 bg-white p-6 transition-all duration-300 hover:border-[#0633B0]/20 hover:shadow-[0_6px_28px_rgba(6,51,176,0.08)]"
                 >
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="text-[0.62rem] font-bold uppercase tracking-[0.22em] text-[#F39200]">
+                    <span className="text-[0.62rem] font-bold uppercase tracking-[0.22em] text-[#F77F00]">
                       {a.role}
                     </span>
                   </div>
                   <h3
-                    className="text-[1.375rem] font-bold tracking-tight text-[#0D1A4A]"
+                    className="text-[1.375rem] font-bold tracking-tight text-[#021B5A]"
                     style={{ fontFamily: "'DM Serif Display', serif" }}
                   >
                     {a.ville}
@@ -311,7 +311,7 @@ export default function ContactPage() {
                   {a.bp && <p className="mt-1 text-[0.8125rem] text-neutral-400">{a.bp}</p>}
                   <a
                     href={`tel:${a.tel.replace(/\s/g, "")}`}
-                    className="mt-4 inline-flex items-center gap-2 rounded-lg border border-[#1E2F8A]/15 bg-[#1E2F8A]/04 px-3.5 py-2 text-[0.875rem] font-semibold text-[#1E2F8A] transition-all hover:border-[#1E2F8A]/30 hover:bg-[#1E2F8A]/08"
+                    className="mt-4 inline-flex items-center gap-2 rounded-lg border border-[#0633B0]/15 bg-[#0633B0]/04 px-3.5 py-2 text-[0.875rem] font-semibold text-[#0633B0] transition-all hover:border-[#0633B0]/30 hover:bg-[#0633B0]/08"
                   >
                     <Phone size={13} strokeWidth={2.2} />
                     {a.tel}
@@ -322,9 +322,9 @@ export default function ContactPage() {
               {/* Canaux numériques */}
               <div
                 className="rounded-2xl p-6"
-                style={{ background: "linear-gradient(145deg, #060D22 0%, #0F1C55 100%)" }}
+                style={{ background: "linear-gradient(145deg, #010C29 0%, #031F67 100%)" }}
               >
-                <p className="mb-5 text-[0.62rem] font-bold uppercase tracking-[0.28em] text-[#F39200]">
+                <p className="mb-5 text-[0.62rem] font-bold uppercase tracking-[0.28em] text-[#F77F00]">
                   Autres canaux
                 </p>
                 <div className="flex flex-col gap-4">
@@ -334,9 +334,9 @@ export default function ContactPage() {
                   >
                     <span
                       className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
-                      style={{ background: "rgba(243,146,0,0.14)" }}
+                      style={{ background: "rgba(247,127,0,0.14)" }}
                     >
-                      <Mail size={14} strokeWidth={2} style={{ color: "#F39200" }} />
+                      <Mail size={14} strokeWidth={2} style={{ color: "#F77F00" }} />
                     </span>
                     groupesica@gmail.com
                   </a>
@@ -348,9 +348,9 @@ export default function ContactPage() {
                   >
                     <span
                       className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
-                      style={{ background: "rgba(243,146,0,0.14)" }}
+                      style={{ background: "rgba(247,127,0,0.14)" }}
                     >
-                      <Facebook size={14} strokeWidth={2} style={{ color: "#F39200" }} />
+                      <Facebook size={14} strokeWidth={2} style={{ color: "#F77F00" }} />
                     </span>
                     facebook.com/SicaConstruction
                   </a>
@@ -370,15 +370,15 @@ export default function ContactPage() {
 
             {/* Texte */}
             <div>
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#F39200]/30 bg-[#F39200]/08 px-3.5 py-1.5">
-                <Clock size={11} strokeWidth={2.2} style={{ color: "#F39200" }} />
-                <span className="text-[0.62rem] font-bold uppercase tracking-[0.22em] text-[#F39200]">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#F77F00]/30 bg-[#F77F00]/08 px-3.5 py-1.5">
+                <Clock size={11} strokeWidth={2.2} style={{ color: "#F77F00" }} />
+                <span className="text-[0.62rem] font-bold uppercase tracking-[0.22em] text-[#F77F00]">
                   Bientôt disponible
                 </span>
               </div>
 
               <h2
-                className="text-balance text-[clamp(1.875rem,3.5vw,2.875rem)] font-bold leading-[1.1] tracking-tight text-[#0D1A4A]"
+                className="text-balance text-[clamp(1.875rem,3.5vw,2.875rem)] font-bold leading-[1.1] tracking-tight text-[#021B5A]"
                 style={{ fontFamily: "'DM Serif Display', serif" }}
               >
                 Discuter avec un agent commercial.
@@ -408,11 +408,11 @@ export default function ContactPage() {
                 style={{ background: "rgba(248,248,245,0.82)" }}>
                 <div
                   className="flex h-12 w-12 items-center justify-center rounded-2xl"
-                  style={{ background: "linear-gradient(135deg, #1E2F8A 0%, #2C47C5 100%)", boxShadow: "0 4px 18px rgba(30,47,138,0.25)" }}
+                  style={{ background: "linear-gradient(135deg, #0633B0 0%, #0A4DF5 100%)", boxShadow: "0 4px 18px rgba(6,51,176,0.25)" }}
                 >
                   <MessageSquare size={22} strokeWidth={1.6} className="text-white" />
                 </div>
-                <p className="text-[0.8125rem] font-semibold text-[#0D1A4A]">En développement</p>
+                <p className="text-[0.8125rem] font-semibold text-[#021B5A]">En développement</p>
                 <p className="text-[0.75rem] text-neutral-400">Disponible prochainement</p>
               </div>
 
@@ -420,7 +420,7 @@ export default function ContactPage() {
               <div className="rounded-2xl border-2 border-neutral-200 bg-[#F8F8F5] p-5" aria-hidden>
                 {/* Header du chat */}
                 <div className="mb-4 flex items-center gap-3 border-b border-neutral-200 pb-4">
-                  <div className="h-8 w-8 rounded-full bg-[#1E2F8A]/15" />
+                  <div className="h-8 w-8 rounded-full bg-[#0633B0]/15" />
                   <div>
                     <div className="h-2.5 w-28 rounded-full bg-neutral-200" />
                     <div className="mt-1.5 h-2 w-16 rounded-full bg-neutral-100" />
@@ -438,7 +438,7 @@ export default function ContactPage() {
                   <div className="flex justify-end">
                     <div
                       className="max-w-[75%] rounded-2xl rounded-tr-sm px-4 py-2.5"
-                      style={{ background: "#1E2F8A" }}
+                      style={{ background: "#0633B0" }}
                     >
                       <div className="h-2 w-32 rounded-full bg-white/25" />
                     </div>

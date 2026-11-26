@@ -1,3 +1,5 @@
+> OBSOLÈTE pour la charte : voir DESIGN.md v2 (couleurs #0633B0 / #F77F00, Inter + IBM Plex).
+
 ---
 name: SICA — stack technique et charte graphique verrouillées
 description: Décisions techniques et design validées par le client SICA, à ne pas remettre en cause sans son accord explicite.

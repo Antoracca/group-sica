@@ -131,7 +131,7 @@ export default async function PanelDashboardPage() {
             </div>
             <a
               href="#creation-client"
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-slate-950 px-5 text-sm font-semibold text-white transition-colors hover:bg-[#1E2F8A]"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-slate-950 px-5 text-sm font-semibold text-white transition-colors hover:bg-[#0633B0]"
             >
               <Users className="size-4" />
               Créer un client
@@ -188,7 +188,7 @@ export default async function PanelDashboardPage() {
       <section id="modules" className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1E2F8A]">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0633B0]">
               Architecture admin
             </p>
             <h2 className="mt-2 font-display text-2xl font-bold text-slate-950">
@@ -383,7 +383,7 @@ export default async function PanelDashboardPage() {
               <ul className="divide-y divide-slate-200">
                 {clientList.slice(0, 10).map((c) => (
                   <li key={c.id} className="flex items-center gap-3 p-4">
-                    <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-[#1E2F8A] font-display text-sm font-bold text-white">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-[#0633B0] font-display text-sm font-bold text-white">
                       {initials(c.prenom, c.nom, c.email)}
                     </span>
                     <div className="min-w-0 flex-1">

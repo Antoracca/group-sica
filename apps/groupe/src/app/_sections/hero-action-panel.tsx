@@ -526,7 +526,7 @@ export function HeroActionPanel() {
                 type="submit"
                 aria-label="Valider"
                 disabled={isLoading}
-                className="flex h-[46px] sm:h-auto w-full sm:w-[60px] shrink-0 items-center justify-center bg-[#2C4373] text-white transition-colors duration-200 hover:bg-[#1E3054] disabled:opacity-70"
+                className="flex h-[46px] sm:h-auto w-full sm:w-[60px] shrink-0 items-center justify-center bg-[#1E3D8B] text-white transition-colors duration-200 hover:bg-[#132A66] disabled:opacity-70"
               >
                 {isLoading ? (
                   <Loader2 className="size-5 animate-spin" />
@@ -552,7 +552,7 @@ export function HeroActionPanel() {
                   {/* Scroll area */}
                   <div
                     className="max-h-[220px] overflow-y-auto p-3"
-                    style={{ scrollbarWidth: "thin", scrollbarColor: "#cbd5e1 transparent" }}
+                    style={{ scrollbarWidth: "thin", scrollbarColor: "#CBD1E1 transparent" }}
                   >
                     <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
                       {activeOptions.map((opt) => {
@@ -568,8 +568,8 @@ export function HeroActionPanel() {
                             className={[
                               "rounded-[2px] px-3 py-2 text-left text-[11.5px] font-medium leading-snug transition-all duration-150",
                               selected
-                                ? "bg-[#1E2F8A] text-white"
-                                : "bg-slate-50 text-slate-700 hover:bg-[#1E2F8A]/10 hover:text-[#1E2F8A]",
+                                ? "bg-[#0633B0] text-white"
+                                : "bg-slate-50 text-slate-700 hover:bg-[#0633B0]/10 hover:text-[#0633B0]",
                             ].join(" ")}
                           >
                             {opt}
@@ -723,7 +723,7 @@ export function HeroActionPanel() {
                   "flex min-w-0 flex-1 flex-col items-center gap-1.5 px-1.5 py-4 sm:px-2 sm:py-5",
                   "font-[Inter,Helvetica,sans-serif] transition-all duration-200",
                   isActive
-                    ? "bg-white/15 text-[#1E2F8A]"
+                    ? "bg-white/15 text-[#0633B0]"
                     : "text-white/75 hover:bg-white/10 hover:text-white",
                   i !== TABS.length - 1 ? "border-r border-white/20" : "",
                 ].join(" ")}

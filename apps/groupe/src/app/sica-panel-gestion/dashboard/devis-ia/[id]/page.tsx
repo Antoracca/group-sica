@@ -71,7 +71,7 @@ export default async function GenerationDetailPage({
       {/* Retour */}
       <Link
         href="/sica-panel-gestion/dashboard/devis-ia"
-        className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-slate-600 hover:text-[#1E2F8A]"
+        className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-slate-600 hover:text-[#0633B0]"
       >
         <ArrowLeft className="size-4" />
         Toutes les générations
@@ -81,7 +81,7 @@ export default async function GenerationDetailPage({
       <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.12em] text-[#1E2F8A]">
+            <p className="font-mono text-xs uppercase tracking-[0.12em] text-[#0633B0]">
               Référence
             </p>
             <h1 className="mt-1 font-display text-2xl font-bold text-slate-950">{g.reference}</h1>
@@ -183,7 +183,7 @@ export default async function GenerationDetailPage({
               <section key={lot.code}>
                 <header className="mb-3 flex items-baseline gap-3">
                   <span className="font-mono text-sm font-bold text-amber-700">{lot.code}.</span>
-                  <h3 className="font-display text-sm font-bold uppercase tracking-[0.12em] text-[#1E2F8A]">
+                  <h3 className="font-display text-sm font-bold uppercase tracking-[0.12em] text-[#0633B0]">
                     {lot.titre}
                   </h3>
                   <span className="h-px flex-1 bg-slate-200" />
@@ -252,7 +252,7 @@ export default async function GenerationDetailPage({
                             </tr>
                           ))}
                           <tr className="bg-slate-50">
-                            <td colSpan={4} className="px-3 py-2 text-left font-mono text-[0.65rem] font-semibold uppercase tracking-wider text-[#1E2F8A]">
+                            <td colSpan={4} className="px-3 py-2 text-left font-mono text-[0.65rem] font-semibold uppercase tracking-wider text-[#0633B0]">
                               Sous-total · {sl.titre}
                             </td>
                             <td className="px-3 py-2 text-right font-mono font-bold tabular-nums text-slate-950">

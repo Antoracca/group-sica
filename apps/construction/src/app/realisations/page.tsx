@@ -57,12 +57,12 @@ export default function RealisationsPage() {
     <>
       <ConstructionHeader forceScrolled />
       
-      <main id="main-content" className="min-h-screen bg-[#F8F9FC] pb-20 pt-40 sm:pt-44">
+      <main id="main-content" className="min-h-screen bg-[#F7F9FD] pb-20 pt-40 sm:pt-44">
         <Container className="relative">
           <SectionHeader
             eyebrow="Nos Réalisations"
-            heading="L'Excellence en Bâtiment et Travaux Publics"
-            description="Découvrez l'étendue de notre savoir-faire à travers nos projets emblématiques. Des infrastructures structurantes aux complexes résidentiels de standing."
+            heading="Nos réalisations"
+            description="Chantiers réels de SICA Construction, classés par type d'ouvrage. Photos authentiques de nos équipes ; année, mission exacte et caractéristiques techniques publiées après validation de la Direction."
           />
 
           {/* Barre de filtres de catégories */}
@@ -229,30 +229,24 @@ export default function RealisationsPage() {
                 <div className="mt-10 h-px w-full bg-white/10" />
 
                 <div className="mt-10 space-y-6">
-                  {selectedProject.client && (
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Maître d'ouvrage</p>
-                      <p className="mt-1 text-sm font-medium text-white">{selectedProject.client}</p>
-                    </div>
-                  )}
                   {selectedProject.city && (
                     <div>
                       <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Localisation</p>
                       <p className="mt-1 text-sm font-medium text-white">{selectedProject.city}</p>
                     </div>
                   )}
-                  {selectedProject.year && (
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Livraison</p>
-                      <p className="mt-1 text-sm font-medium text-white">{selectedProject.year}</p>
-                    </div>
-                  )}
-                  {selectedProject.surface && (
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Surface / Linéaire</p>
-                      <p className="mt-1 text-sm font-medium text-white">{selectedProject.surface}</p>
-                    </div>
-                  )}
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Typologie</p>
+                    <p className="mt-1 text-sm font-medium text-white">{selectedProject.type}</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Statut</p>
+                    <p className="mt-1 text-sm font-medium text-white">{selectedProject.status}</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Mission SICA · Année</p>
+                    <p className="mt-1 text-sm font-medium text-white">{selectedProject.mission ?? "À confirmer par la Direction"}{selectedProject.year ? ` · ${selectedProject.year}` : ""}</p>
+                  </div>
                 </div>
               </div>
             </div>

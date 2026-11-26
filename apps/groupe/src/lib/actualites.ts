@@ -31,14 +31,14 @@ export const ACTUALITES: Actualite[] = [
     slug: "geobeton-btcs-materiau-signature",
     titre: "Géobéton BTCS : le matériau qui change la façon de construire en Côte d'Ivoire",
     chapo:
-      "Brique de terre comprimée stabilisée. 90 % de terre tamisée, 10 % de ciment. Plus de 99 ans de durée de vie, zéro fissure après construction. Notre signature technique.",
+      "Brique de terre comprimée stabilisée. 90 % de terre tamisée, 10 % de ciment. Une durée de vie annoncée de plus de 99 ans et une fissuration limitée après construction. Notre signature technique.",
     categorie: "Construction",
     date: "2025-12-10",
     auteur: "Pôle Construction SICA",
     lecture: "5 min",
     contenu: [
       "Le géobéton BTCS — Brique de Terre Comprimée Stabilisée — est devenu en quelques années la signature technique du Groupe SICA. À l'heure où le ciment est cher et où ses cours fluctuent, nous avons fait le choix d'un matériau composé à 90 % de terre tamisée et seulement 10 % de ciment. Une équation simple qui répond à une réalité économique ivoirienne.",
-      "Au-delà de l'économie, la brique BTCS offre une combinaison rare d'avantages techniques : durée de vie supérieure à 99 ans, zéro fissure après construction, excellente régulation de la température intérieure, isolation thermique et phonique de très bon niveau, parfaite imperméabilité une fois posée. Autant de caractéristiques mesurées et tenues sur l'ensemble de nos chantiers.",
+      "Au-delà de l'économie, la brique BTCS offre une combinaison rare d'avantages techniques : durée de vie supérieure à 99 ans, fissuration limitée après construction, excellente régulation de la température intérieure, isolation thermique et phonique de très bon niveau, parfaite imperméabilité une fois posée. Autant de caractéristiques mesurées et tenues sur l'ensemble de nos chantiers.",
       "Le coût de construction reste sensiblement identique à celui de la brique agglo/parpaing, mais avec une réduction de 20 % sur le coût total des gros œuvres et une empreinte environnementale nettement plus faible. Pour le client final, c'est un investissement de long terme. Pour la Côte d'Ivoire, c'est une réponse industrielle adaptée à son climat et à ses ressources.",
     ],
   },
@@ -53,8 +53,8 @@ export const ACTUALITES: Actualite[] = [
     auteur: "Direction SICA",
     lecture: "3 min",
     contenu: [
-      "Le Groupe SICA s'appuie désormais sur deux bureaux permanents : un siège social à Abidjan Cocody Centre, en face de la cité 48 Logements V1, et une succursale installée à Yamoussoukro Morofé — 24 ampoules. Cette double implantation n'est pas symbolique : elle traduit notre conviction que les villes de l'intérieur méritent le même niveau d'exigence que la capitale économique.",
-      "Notre bureau de Yamoussoukro accueille des équipes terrain et techniques permanentes, capables d'intervenir dans toute la zone centre et au-delà : Bouaké, Daloa, Korhogo, San Pedro. Les contacts directs (+225 0102442894 et +225 2722247445) permettent d'obtenir un rendez-vous sans intermédiaire.",
+      "Le Groupe SICA s'appuie désormais sur deux bureaux permanents : un siège social à Abidjan, Cocody Centre / PMI, et un bureau à Yamoussoukro, Morofé / 24 Ampoules. Cette double implantation n'est pas symbolique : elle traduit notre conviction que les villes de l'intérieur méritent le même niveau d'exigence que la capitale économique.",
+      "Notre bureau de Yamoussoukro accueille des équipes terrain et techniques permanentes, capables d'intervenir dans toute la zone centre et au-delà : Bouaké, Daloa, Korhogo, San Pedro. Les contacts directs (+225 01 02 44 28 94 et +225 27 22 24 74 45) permettent d'obtenir un rendez-vous sans intermédiaire.",
       "Pour le Groupe, c'est aussi la concrétisation d'une promesse contenue dans nos statuts : « nos équipes sont mobiles et disponibles pour vous servir et satisfaire partout en Côte d'Ivoire, quelle que soit votre localité ». Aucune mission n'est trop éloignée si elle entre dans notre champ technique.",
     ],
   },
@@ -63,7 +63,7 @@ export const ACTUALITES: Actualite[] = [
     slug: "etudes-sol-pressiometre",
     titre: "Essais pressiométriques : la précision avant les fondations",
     chapo:
-      "Mesurer la résistance du sol couche par couche, avant de couler la moindre semelle. C'est notre garantie : zéro mauvaise surprise lors du gros œuvre.",
+      "Mesurer la résistance du sol couche par couche, avant de couler la moindre semelle. C'est notre méthode pour limiter les mauvaises surprises lors du gros œuvre.",
     categorie: "Construction",
     date: "2025-10-15",
     auteur: "Pôle Études SICA",
@@ -167,7 +167,7 @@ export const ACTUALITES: Actualite[] = [
     contenu: [
       "Parmi nos valeurs fondatrices, l'engagement client est listé en premier. La formulation est précise : « nous respectons nos engagements envers nos clients, nous leur portons assistance 24h/24 et 7j/7, et offrons un service de qualité ». Cette astreinte n'est pas un slogan, c'est une organisation.",
       "Un chantier ne s'arrête pas le week-end et n'attend pas le lundi matin pour rencontrer un imprévu. Notre cellule d'astreinte répond à toute heure : pour une question technique du maître d'ouvrage, pour une urgence de terrain (intempérie, livraison de béton à valider, accident mineur), pour le suivi d'un client distant qui souhaite un point en soirée.",
-      "Au quotidien, nos lignes directes (+225 0709883293 et +225 2722247445) restent les premiers points de contact. Pour les urgences hors heures ouvrées, l'astreinte prend le relais. Notre principe : un appel ne reste jamais sans réponse.",
+      "Au quotidien, nos lignes directes (+225 07 09 88 32 93 et +225 27 22 24 74 45) restent les premiers points de contact. Pour les urgences hors heures ouvrées, l'astreinte prend le relais. Notre objectif : qu'aucun appel ne reste sans suite.",
     ],
   },
 
@@ -302,7 +302,7 @@ export const ACTUALITES: Actualite[] = [
 
   {
     slug: "sica-ci-lancement-site",
-    titre: "sica.ci : la vitrine officielle du Groupe SICA",
+    titre: "groupe-sica.com : la vitrine officielle du Groupe SICA",
     chapo:
       "Une vitrine pensée pour vous. Pôles, réalisations, contact direct, accès client. Une porte d'entrée unique vers SICA Construction et SICA Assistance.",
     categorie: "Groupe",
@@ -310,9 +310,9 @@ export const ACTUALITES: Actualite[] = [
     auteur: "Communication SICA",
     lecture: "2 min",
     contenu: [
-      "Le Groupe SICA dispose désormais d'une vitrine officielle en ligne : sica.ci. C'est notre porte d'entrée numérique unique, qui présente les deux départements du Groupe : SICA Construction (bâtiment, travaux publics, géobéton, métal, plomberie, électricité) et SICA Assistance (accompagnement entrepreneurial des entreprises et des particuliers).",
+      "Le Groupe SICA dispose désormais d'une vitrine officielle en ligne : www.groupe-sica.com. C'est notre porte d'entrée numérique unique, qui présente les deux départements du Groupe : SICA Construction (bâtiment, travaux publics, géobéton, métal, plomberie, électricité) et SICA Assistance (accompagnement entrepreneurial des entreprises et des particuliers).",
       "Le site centralise l'essentiel : la présentation du Groupe, le détail de nos pôles d'activité, nos réalisations en Côte d'Ivoire, un accès direct au contact (formulaire, téléphone, e-mail) et un espace client pour le suivi des projets en cours. La navigation a été pensée pour aller à l'essentiel sans surcharge marketing.",
-      "Au-delà de la vitrine, sica.ci constitue aussi un point d'entrée pour les candidatures spontanées, les demandes de partenariat, et les commandes de matériel (briques, location d'engins, fourniture). C'est l'extension naturelle de notre présence physique à Cocody et à Yamoussoukro.",
+      "Au-delà de la vitrine, www.groupe-sica.com constitue aussi un point d'entrée pour les candidatures spontanées, les demandes de partenariat, et les commandes de matériel (briques, location d'engins, fourniture). C'est l'extension naturelle de notre présence physique à Cocody et à Yamoussoukro.",
     ],
   },
 

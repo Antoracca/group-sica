@@ -32,7 +32,7 @@ export default async function PanelDashboardLayout({ children }: { children: Rea
   const displayName = [me.prenom, me.nom].filter(Boolean).join(" ") || "Personnel SICA";
 
   return (
-    <div className="min-h-[100dvh] bg-[#F5F7FB] text-[#101828]">
+    <div className="min-h-[100dvh] bg-[#F4F6FC] text-[#0B1630]">
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-72 flex-col border-r border-slate-200 bg-white lg:flex">
         <div className="flex h-20 items-center gap-3 border-b border-slate-200 px-6">
           <Image src="/logo-groupe.png" alt="Groupe SICA" width={160} height={64} className="h-12 w-auto" priority />
@@ -84,7 +84,7 @@ export default async function PanelDashboardLayout({ children }: { children: Rea
               <input
                 type="search"
                 placeholder="Rechercher un client, projet, document..."
-                className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 pl-9 pr-3 text-sm outline-none transition-colors focus:border-[#1E2F8A] focus:bg-white focus:ring-4 focus:ring-[#1E2F8A]/10"
+                className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 pl-9 pr-3 text-sm outline-none transition-colors focus:border-[#0633B0] focus:bg-white focus:ring-4 focus:ring-[#0633B0]/10"
               />
             </div>
 
@@ -106,7 +106,7 @@ export default async function PanelDashboardLayout({ children }: { children: Rea
               <form action={adminSignOut}>
                 <button
                   type="submit"
-                  className="inline-flex min-h-10 items-center gap-2 rounded-md bg-[#101828] px-3 text-sm font-semibold text-white transition-colors hover:bg-slate-800"
+                  className="inline-flex min-h-10 items-center gap-2 rounded-md bg-[#0B1630] px-3 text-sm font-semibold text-white transition-colors hover:bg-slate-800"
                 >
                   <LogOut className="size-4" />
                   <span className="hidden sm:inline">Déconnexion</span>

@@ -1,55 +1,57 @@
 "use client";
 
-import { useState } from "react";
-import { CheckCircle2, Loader2, Send } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Send } from "lucide-react";
 
-const SUJETS = [
-  "Création d'entreprise",
-  "Comptabilité et fiscalité",
-  "Déclarations",
-  "Conseil en gestion",
-  "Suivi administratif",
-  "Autre demande",
-] as const;
+/* Formulaire de contact : ouvre la messagerie du visiteur avec un message pré-rempli
+   vers groupesica@gmail.com (aucun envoi simulé). Le sujet peut être pré-sélectionné
+   via ?objet=creation | modification | formes | gestion | impots | rendez-vous. */
 
-const labelCls = "mb-1.5 block font-mono text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-slate";
+const SUJETS = {
+  creation: "Création d'entreprise",
+  modification: "Modification d'entreprise",
+  formes: "Choix de la forme juridique",
+  gestion: "Gestion comptable, fiscale et sociale",
+  impots: "Impôts et taxes",
+  "rendez-vous": "Prise de rendez-vous",
+  autre: "Autre demande",
+} as const;
+
+type Sujet = keyof typeof SUJETS;
+
+const labelCls = "mb-1.5 block text-xs font-semibold text-ink";
 const fieldCls =
-  "min-h-[44px] w-full rounded-xl border border-black/10 bg-white px-4 py-2.5 text-base text-ink outline-none transition-colors focus:border-brand-royal focus:ring-2 focus:ring-brand-royal/15";
+  "min-h-[48px] w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base text-ink outline-none transition-colors focus:border-brand-royal focus:ring-2 focus:ring-brand-royal/15";
 
 export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "done">("idle");
+  const [sujet, setSujet] = useState<Sujet | "">("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    const objet = new URLSearchParams(window.location.search).get("objet");
+    if (objet && objet in SUJETS) setSujet(objet as Sujet);
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus("loading");
-    /* TODO : brancher sur Supabase / Resend en production. */
-    await new Promise((r) => setTimeout(r, 900));
-    setStatus("done");
+    const f = new FormData(e.currentTarget);
+    const titre = sujet ? SUJETS[sujet] : "Demande d'information";
+    const corps = [
+      `Nom et prénom : ${f.get("nom") ?? ""}`,
+      `Entreprise : ${f.get("entreprise") || "-"}`,
+      `Téléphone : ${f.get("tel") ?? ""}`,
+      `E-mail : ${f.get("email") ?? ""}`,
+      "",
+      String(f.get("message") ?? ""),
+    ].join("\n");
+    window.location.href = `mailto:groupesica@gmail.com?subject=${encodeURIComponent(
+      `SICA ASSISTANCE — ${titre}`,
+    )}&body=${encodeURIComponent(corps)}`;
   };
-
-  if (status === "done") {
-    return (
-      <div
-        role="status"
-        aria-live="polite"
-        className="flex flex-col items-center justify-center rounded-2xl border border-brand-royal/10 bg-white p-8 text-center"
-      >
-        <span className="flex size-12 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600">
-          <CheckCircle2 className="size-6" />
-        </span>
-        <h2 className="mt-4 font-display text-xl font-semibold text-ink">Demande envoyée.</h2>
-        <p className="mt-2 max-w-sm text-base leading-relaxed text-slate">
-          Merci. Un conseiller SICA Assistance vous recontacte rapidement pour cerner
-          votre besoin et vous indiquer les prochaines étapes.
-        </p>
-      </div>
-    );
-  }
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-brand-royal/10 bg-white p-6 sm:p-7"
+      className="rounded-[28px] border border-slate-200/70 bg-white p-6 shadow-sm sm:p-8"
       aria-label="Formulaire de contact"
     >
       <div className="grid gap-4 sm:grid-cols-2">
@@ -71,13 +73,19 @@ export function ContactForm() {
         </label>
         <label className="block sm:col-span-2">
           <span className={labelCls}>Votre besoin</span>
-          <select name="sujet" className={fieldCls} defaultValue="">
+          <select
+            name="sujet"
+            className={fieldCls}
+            value={sujet}
+            onChange={(e) => setSujet(e.target.value as Sujet)}
+            required
+          >
             <option value="" disabled>
               Choisir un sujet
             </option>
-            {SUJETS.map((s) => (
-              <option key={s} value={s}>
-                {s}
+            {(Object.keys(SUJETS) as Sujet[]).map((k) => (
+              <option key={k} value={k}>
+                {SUJETS[k]}
               </option>
             ))}
           </select>
@@ -87,7 +95,7 @@ export function ContactForm() {
           <textarea
             name="message"
             rows={4}
-            className={`${fieldCls} min-h-[120px] resize-none`}
+            className={`${fieldCls} min-h-[130px] resize-none`}
             placeholder="Décrivez votre projet ou votre demande en quelques lignes."
           />
         </label>
@@ -95,24 +103,14 @@ export function ContactForm() {
 
       <button
         type="submit"
-        disabled={status === "loading"}
-        className="mt-5 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full bg-brand-royal px-6 text-sm font-semibold text-white transition-colors hover:bg-brand-royal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-royal focus-visible:ring-offset-2 disabled:opacity-70 sm:w-auto"
+        className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-brand-amber px-7 text-sm font-semibold text-ink shadow-[0_10px_28px_-10px_rgba(247,127,0,0.7)] transition-colors hover:bg-brand-amber-600 sm:w-auto"
       >
-        {status === "loading" ? (
-          <>
-            <Loader2 className="size-4 animate-spin" />
-            Envoi en cours
-          </>
-        ) : (
-          <>
-            <Send className="size-4" />
-            Envoyer ma demande
-          </>
-        )}
+        <Send aria-hidden className="size-4" />
+        Préparer mon e-mail
       </button>
       <p className="mt-3 text-xs leading-relaxed text-slate">
-        Vos informations servent uniquement à traiter votre demande. Elles ne sont pas
-        transmises à des tiers.
+        Le bouton ouvre votre messagerie avec un message pré-rempli adressé à groupesica@gmail.com. Vos informations
+        servent uniquement à traiter votre demande.
       </p>
     </form>
   );

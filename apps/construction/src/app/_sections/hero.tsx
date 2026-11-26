@@ -68,7 +68,7 @@ export function HeroConstruction() {
         {/* Vignette basse — ancrage du contenu */}
         <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-brand-royal-900 to-transparent" />
         {/* Halo ambre — écho de marque */}
-        <div className="absolute inset-0 bg-[radial-gradient(60%_45%_at_88%_8%,rgba(243,146,0,0.20),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(60%_45%_at_88%_8%,rgba(247,127,0,0.20),transparent_70%)]" />
       </div>
 
       {/* ── Transition vers section Statistiques (dégradé + lueurs) ── */}
@@ -108,15 +108,15 @@ export function HeroConstruction() {
               </span>
             </h1>
 
-            <p className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-white sm:text-2xl font-medium drop-shadow-xl">
-              Études, exécution, contrôle qualité.<br />
-              <span className="font-semibold text-brand-amber">La maîtrise d&apos;œuvre par la preuve.</span>
+            <p className="mt-7 max-w-xl text-pretty text-base leading-relaxed text-white sm:text-xl font-medium drop-shadow-xl">
+              SICA CONSTRUCTION accompagne les particuliers, entreprises et investisseurs de la conception aux travaux de finition, avec une exigence constante de qualité, de maîtrise technique et de suivi.<br />
+              <span className="font-semibold text-brand-amber">L&apos;exigence technique au service de vos constructions.</span>
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <Button asChild variant="accent" size="lg" className="group w-full sm:w-auto shadow-xl shadow-brand-amber/20">
                 <a href="/devis">
-                  Constituer votre devis
+                  Demander un devis
                   <ArrowRight className="transition-transform duration-200 group-hover:translate-x-0.5" />
                 </a>
               </Button>
@@ -138,7 +138,7 @@ export function HeroConstruction() {
                     <div
                       className={`flex h-12 w-12 items-center justify-center rounded-full border transition-all duration-300 ${
                         isActive
-                          ? "border-brand-amber bg-brand-amber text-brand-royal-900 shadow-[0_0_15px_rgba(243,146,0,0.4)]"
+                          ? "border-brand-amber bg-brand-amber text-brand-royal-900 shadow-[0_0_15px_rgba(247,127,0,0.4)]"
                           : "border-white/20 bg-white/5 text-white/50"
                       }`}
                     >

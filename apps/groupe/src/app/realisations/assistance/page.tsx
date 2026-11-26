@@ -68,7 +68,7 @@ export default function RealisationsAssistancePage() {
         {/* Hero */}
         <section
           className="relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-28"
-          style={{ background: "linear-gradient(145deg, #FBF4E6 0%, #FEF0CC 45%, #FFFBF2 100%)" }}
+          style={{ background: "linear-gradient(145deg, #FBF2E6 0%, #FEECCC 45%, #FFFAF2 100%)" }}
         >
           {/* Diagonal pattern */}
           <div
@@ -83,41 +83,41 @@ export default function RealisationsAssistancePage() {
           />
           <div
             className="absolute inset-x-0 top-0 h-[3px]"
-            style={{ background: "linear-gradient(to right, #F39200, rgba(243,146,0,0.3), transparent)" }}
+            style={{ background: "linear-gradient(to right, #F77F00, rgba(247,127,0,0.3), transparent)" }}
           />
 
           <div className="relative mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-16">
             {/* Breadcrumb */}
-            <nav aria-label="Fil d'Ariane" className="mb-10 flex items-center gap-2 text-[0.75rem] text-[#0D1A4A]/40">
-              <Link href="/" className="transition-colors hover:text-[#0D1A4A]/80">Accueil</Link>
-              <ArrowRight size={11} strokeWidth={2} className="text-[#0D1A4A]/25" />
-              <Link href="/realisations" className="transition-colors hover:text-[#0D1A4A]/80">Réalisations</Link>
-              <ArrowRight size={11} strokeWidth={2} className="text-[#0D1A4A]/25" />
-              <span className="text-[#0D1A4A]/70">Assistance</span>
+            <nav aria-label="Fil d'Ariane" className="mb-10 flex items-center gap-2 text-[0.75rem] text-[#021B5A]/40">
+              <Link href="/" className="transition-colors hover:text-[#021B5A]/80">Accueil</Link>
+              <ArrowRight size={11} strokeWidth={2} className="text-[#021B5A]/25" />
+              <Link href="/realisations" className="transition-colors hover:text-[#021B5A]/80">Réalisations</Link>
+              <ArrowRight size={11} strokeWidth={2} className="text-[#021B5A]/25" />
+              <span className="text-[#021B5A]/70">Assistance</span>
             </nav>
 
             <div className="mb-5 inline-flex items-center gap-2">
-              <ClipboardList size={14} strokeWidth={1.5} className="text-[#A05500]" />
-              <p className="text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#A05500]">
+              <ClipboardList size={14} strokeWidth={1.5} className="text-[#A04800]" />
+              <p className="text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#A04800]">
                 Pôle Conseil
               </p>
             </div>
 
             <h1
-              className="max-w-3xl text-balance text-[clamp(2rem,5vw,3.75rem)] font-bold leading-[1.06] tracking-tight text-[#0D1A4A]"
+              className="max-w-3xl text-balance text-[clamp(2rem,5vw,3.75rem)] font-bold leading-[1.06] tracking-tight text-[#021B5A]"
               style={{ fontFamily: "'DM Serif Display', serif" }}
             >
               Projets Assistance
             </h1>
 
-            <p className="mt-6 max-w-xl text-[1.0625rem] leading-[1.72] text-[#0D1A4A]/60">
+            <p className="mt-6 max-w-xl text-[1.0625rem] leading-[1.72] text-[#021B5A]/60">
               Création d'entreprises, missions comptables, juridiques et de conseil en gestion. Six dossiers illustrant l'expertise SICA Assistance auprès des PME ivoiriennes.
             </p>
 
             <div
               className="mt-10 h-px w-full max-w-[400px]"
               style={{
-                background: "linear-gradient(to right, rgba(243,146,0,0.55), transparent)",
+                background: "linear-gradient(to right, rgba(247,127,0,0.55), transparent)",
               }}
             />
           </div>
@@ -129,11 +129,11 @@ export default function RealisationsAssistancePage() {
 
             <div className="mb-12 flex items-center justify-between">
               <div>
-                <p className="mb-2 text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+                <p className="mb-2 text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
                   Dossiers
                 </p>
                 <h2
-                  className="text-[1.375rem] font-bold tracking-tight text-[#0D1A4A]"
+                  className="text-[1.375rem] font-bold tracking-tight text-[#021B5A]"
                   style={{ fontFamily: "'DM Serif Display', serif" }}
                 >
                   6 projets Assistance
@@ -141,7 +141,7 @@ export default function RealisationsAssistancePage() {
               </div>
               <Link
                 href="/realisations"
-                className="inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-[#1E2F8A]/60 transition-colors hover:text-[#1E2F8A]"
+                className="inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-[#0633B0]/60 transition-colors hover:text-[#0633B0]"
               >
                 <ArrowLeft size={13} strokeWidth={2} />
                 Tous les pôles
@@ -152,30 +152,30 @@ export default function RealisationsAssistancePage() {
               {PROJETS.map((projet) => (
                 <div
                   key={projet.num}
-                  className="relative overflow-hidden border border-[#F39200]/15 bg-white"
+                  className="relative overflow-hidden border border-[#F77F00]/15 bg-white"
                 >
                   {/* Accent bar top */}
-                  <div className="h-[3px] w-full bg-[#F39200]" />
+                  <div className="h-[3px] w-full bg-[#F77F00]" />
 
                   {/* Placeholder zone */}
                   <div
                     className="flex h-48 items-center justify-center"
                     style={{
                       background:
-                        "linear-gradient(145deg, #FBF4E6 0%, #FEF0CC 45%, #FFFBF2 100%)",
+                        "linear-gradient(145deg, #FBF2E6 0%, #FEECCC 45%, #FFFAF2 100%)",
                     }}
                   >
                     <div className="flex flex-col items-center gap-3 text-center">
                       <div
                         className="flex h-12 w-12 items-center justify-center rounded-2xl"
                         style={{
-                          background: "rgba(243,146,0,0.12)",
-                          border: "1px solid rgba(243,146,0,0.20)",
+                          background: "rgba(247,127,0,0.12)",
+                          border: "1px solid rgba(247,127,0,0.20)",
                         }}
                       >
-                        <ClipboardList size={20} strokeWidth={1.35} className="text-[#A05500]/60" />
+                        <ClipboardList size={20} strokeWidth={1.35} className="text-[#A04800]/60" />
                       </div>
-                      <p className="text-[0.6rem] font-bold uppercase tracking-[0.25em] text-[#A05500]/40">
+                      <p className="text-[0.6rem] font-bold uppercase tracking-[0.25em] text-[#A04800]/40">
                         Dossier {String(projet.num).padStart(2, "0")}
                       </p>
                     </div>
@@ -183,11 +183,11 @@ export default function RealisationsAssistancePage() {
 
                   {/* Card body */}
                   <div className="p-6">
-                    <span className="mb-3 block text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-[#A05500]/60">
+                    <span className="mb-3 block text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-[#A04800]/60">
                       Assistance
                     </span>
                     <h3
-                      className="text-[1.0625rem] font-bold leading-tight tracking-tight text-[#0D1A4A]"
+                      className="text-[1.0625rem] font-bold leading-tight tracking-tight text-[#021B5A]"
                       style={{ fontFamily: "'DM Serif Display', serif" }}
                     >
                       {projet.label}
@@ -210,11 +210,11 @@ export default function RealisationsAssistancePage() {
         {/* CTA Contact */}
         <section className="border-t border-neutral-200 bg-white py-16">
           <div className="mx-auto max-w-[1440px] px-6 text-center sm:px-10 lg:px-16">
-            <p className="mb-3 text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+            <p className="mb-3 text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
               Un besoin d'accompagnement ?
             </p>
             <h2
-              className="mb-4 text-[1.375rem] font-bold tracking-tight text-[#0D1A4A]"
+              className="mb-4 text-[1.375rem] font-bold tracking-tight text-[#021B5A]"
               style={{ fontFamily: "'DM Serif Display', serif" }}
             >
               Parlons de votre entreprise
@@ -222,7 +222,7 @@ export default function RealisationsAssistancePage() {
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-[#F39200] px-7 py-3 text-[0.875rem] font-semibold text-white transition-all duration-300 hover:bg-[#D97F00]"
+                className="inline-flex items-center gap-2 rounded-full bg-[#F77F00] px-7 py-3 text-[0.875rem] font-semibold text-white transition-all duration-300 hover:bg-[#D96D00]"
               >
                 Nous contacter
                 <ArrowRight size={14} strokeWidth={2} />

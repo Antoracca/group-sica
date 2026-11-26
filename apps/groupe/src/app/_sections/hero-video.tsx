@@ -93,7 +93,7 @@ export function HeroVideo() {
       muted
       playsInline
       preload="auto"
-      className="h-full w-full object-cover transition-opacity duration-500"
+      className="h-full w-full origin-top-right scale-[1.16] object-cover transition-opacity duration-500"
       style={{ opacity: ready ? 1 : 1 /* poster visible avant ready */ }}
     />
   );

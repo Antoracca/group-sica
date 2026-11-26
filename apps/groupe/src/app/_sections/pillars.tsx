@@ -128,7 +128,7 @@ function AnimatedServices({
           >
             {/* Icône Lucide — professionnelle, pas d'emoji */}
             <span
-              className={`shrink-0 ${light ? "text-[#F39200]" : "text-[#1E2F8A]"}`}
+              className={`shrink-0 ${light ? "text-[#F77F00]" : "text-[#0633B0]"}`}
               aria-hidden
             >
               <Icon size={16} strokeWidth={1.75} />
@@ -142,7 +142,7 @@ function AnimatedServices({
             */}
             <span
               className={`relative text-sm sm:text-[0.9375rem] font-semibold tracking-[0.04em] ${
-                light ? "text-white/90" : "text-[#1E2F8A]/90"
+                light ? "text-white/90" : "text-[#0633B0]/90"
               }`}
               style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
             >
@@ -154,7 +154,7 @@ function AnimatedServices({
               {isTyping && (
                 <span
                   className={`inline-block w-[2px] h-[1em] ml-0.5 align-middle animate-pulse ${
-                    light ? "bg-white/80" : "bg-[#1E2F8A]/70"
+                    light ? "bg-white/80" : "bg-[#0633B0]/70"
                   }`}
                 />
               )}
@@ -203,7 +203,7 @@ export function Pillars() {
       <section
         ref={sectionRef}
         aria-labelledby="pillars-heading"
-        className="overflow-hidden bg-[#F7F8FC]"
+        className="overflow-hidden bg-[#F6F8FD]"
       >
 
         {/* ══════════════════════════════════════════════════════
@@ -216,7 +216,7 @@ export function Pillars() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.45, delay: 0.1 }}
             style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-            className="mb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.32em] text-[#F39200] sm:text-[0.75rem]"
+            className="mb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.32em] text-[#F77F00] sm:text-[0.75rem]"
           >
             Deux pôles, une exigence
           </motion.p>
@@ -232,7 +232,7 @@ export function Pillars() {
               fontSize:      "clamp(2rem, 4.5vw, 3.5rem)",
               lineHeight:    1.1,
               letterSpacing: "-0.025em",
-              color:         "#1E2F8A",
+              color:         "#0633B0",
             }}
           >
             Construire le bâti.{" "}
@@ -243,7 +243,7 @@ export function Pillars() {
             initial={{ scaleX: 0 }}
             animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.55, ease: "easeOut" }}
-            className="mx-auto mt-6 h-px w-16 origin-center bg-[#F39200]"
+            className="mx-auto mt-6 h-px w-16 origin-center bg-[#F77F00]"
           />
         </div>
 
@@ -257,7 +257,7 @@ export function Pillars() {
             aria-hidden
             className="absolute inset-0"
             style={{
-              background: "linear-gradient(140deg, #1E2F8A 0%, #0D1A6E 100%)",
+              background: "linear-gradient(140deg, #0633B0 0%, #03267F 100%)",
               clipPath:   "polygon(0 0, 100% 0, 100% 42%, 0 88%)",
             }}
           />
@@ -293,7 +293,7 @@ export function Pillars() {
             <motion.path
               d="M 0 668.8 L 1000 319.2"
               fill="none"
-              stroke="#F39200"
+              stroke="#F77F00"
               strokeWidth="12"
               strokeLinecap="round"
               opacity="0.18"
@@ -306,7 +306,7 @@ export function Pillars() {
             <motion.path
               d="M 0 668.8 L 1000 319.2"
               fill="none"
-              stroke="#F39200"
+              stroke="#F77F00"
               strokeWidth="1.5"
               strokeLinecap="round"
               filter="url(#amber-glow-pillars)"
@@ -317,14 +317,14 @@ export function Pillars() {
 
             <motion.circle
               cx="0" cy="668.8" r="5"
-              fill="#F39200"
+              fill="#F77F00"
               initial={{ scale: 0, opacity: 0 }}
               animate={inView ? { scale: 1, opacity: 1 } : {}}
               transition={{ duration: 0.35, delay: 0.52 }}
             />
             <motion.circle
               cx="1000" cy="319.2" r="5"
-              fill="#F39200"
+              fill="#F77F00"
               initial={{ scale: 0, opacity: 0 }}
               animate={inView ? { scale: 1, opacity: 1 } : {}}
               transition={{ duration: 0.35, delay: 1.5 }}
@@ -404,7 +404,7 @@ export function Pillars() {
                   href={links.construction.base}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#F39200] px-6 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-white shadow-lg transition-all duration-200 hover:bg-[#D97E00] hover:shadow-xl"
+                  className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#F77F00] px-6 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-white shadow-lg transition-all duration-200 hover:bg-[#D96C00] hover:shadow-xl"
                   style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
                   Découvrir SICA Construction <Arrow />
@@ -465,7 +465,7 @@ export function Pillars() {
 
               {/* Tagline */}
               <p
-                className="mb-5 text-right text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-[#1E2F8A]/70"
+                className="mb-5 text-right text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-[#0633B0]/70"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
               >
                 Création · Conseil · Comptabilité
@@ -493,10 +493,10 @@ export function Pillars() {
                 className="mt-8"
               >
                 <a
-                  href="https://sicaassistance.ci"
+                  href="https://www.sicaassistance.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-[44px] items-center gap-2 rounded-full border-2 border-[#1E2F8A] px-6 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#1E2F8A] shadow-sm transition-all duration-200 hover:bg-[#1E2F8A] hover:text-white hover:shadow-lg"
+                  className="inline-flex min-h-[44px] items-center gap-2 rounded-full border-2 border-[#0633B0] px-6 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#0633B0] shadow-sm transition-all duration-200 hover:bg-[#0633B0] hover:text-white hover:shadow-lg"
                   style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
                   Découvrir SICA Assistance <Arrow />
@@ -515,7 +515,7 @@ export function Pillars() {
           <div
             className="relative px-6 pb-24 pt-10"
             style={{
-              background: "linear-gradient(140deg, #1E2F8A 0%, #0D1A6E 100%)",
+              background: "linear-gradient(140deg, #0633B0 0%, #03267F 100%)",
               clipPath:   "polygon(0 0, 100% 0, 100% 90%, 0 100%)",
             }}
           >
@@ -566,7 +566,7 @@ export function Pillars() {
                 href={links.construction.base}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#F39200] px-5 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-white"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#F77F00] px-5 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-white"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
               >
                 Découvrir <Arrow />
@@ -577,9 +577,9 @@ export function Pillars() {
           {/* Séparateur diagonal SVG */}
           <div className="relative -mt-px h-10 overflow-hidden" aria-hidden>
             <svg viewBox="0 0 100 20" preserveAspectRatio="none" className="h-full w-full">
-              <polygon points="0,0 100,0 100,0 0,20" fill="#0D1A6E" />
+              <polygon points="0,0 100,0 100,0 0,20" fill="#03267F" />
               <polygon points="0,20 100,0 100,20" fill="#FAFAF8" />
-              <line x1="0" y1="20" x2="100" y2="0" stroke="#F39200" strokeWidth="0.4" />
+              <line x1="0" y1="20" x2="100" y2="0" stroke="#F77F00" strokeWidth="0.4" />
             </svg>
           </div>
 
@@ -612,7 +612,7 @@ export function Pillars() {
             </div>
 
             <p
-              className="mb-5 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-[#1E2F8A]/40"
+              className="mb-5 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-[#0633B0]/40"
               style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
             >
               Création · Conseil · Comptabilité
@@ -640,10 +640,10 @@ export function Pillars() {
               className="mt-7"
             >
               <a
-                href="https://sicaassistance.ci"
+                href="https://www.sicaassistance.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] items-center gap-2 rounded-full border-2 border-[#1E2F8A] px-5 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#1E2F8A]"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-full border-2 border-[#0633B0] px-5 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#0633B0]"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
               >
                 Découvrir <Arrow />

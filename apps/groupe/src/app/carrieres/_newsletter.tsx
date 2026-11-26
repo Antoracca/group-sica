@@ -38,15 +38,15 @@ export function NewsletterForm() {
         placeholder="Votre adresse email professionnelle"
         required
         disabled={status === "loading"}
-        className="flex-1 rounded-xl border border-neutral-200 bg-white px-4 py-3.5 text-[0.9375rem] text-neutral-700 placeholder:text-neutral-400 outline-none transition-all focus:border-[#1E2F8A] focus:ring-2 focus:ring-[#1E2F8A]/10 disabled:opacity-60"
+        className="flex-1 rounded-xl border border-neutral-200 bg-white px-4 py-3.5 text-[0.9375rem] text-neutral-700 placeholder:text-neutral-400 outline-none transition-all focus:border-[#0633B0] focus:ring-2 focus:ring-[#0633B0]/10 disabled:opacity-60"
       />
       <button
         type="submit"
         disabled={status === "loading"}
         className="inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-[0.875rem] font-semibold text-white transition-all hover:opacity-90 disabled:opacity-60"
         style={{
-          background: "linear-gradient(135deg, #1E2F8A 0%, #2C47C5 100%)",
-          boxShadow: "0 2px 14px rgba(30,47,138,0.22)",
+          background: "linear-gradient(135deg, #0633B0 0%, #0A4DF5 100%)",
+          boxShadow: "0 2px 14px rgba(6,51,176,0.22)",
         }}
       >
         {status === "loading" ? "..." : "M'alerter"}

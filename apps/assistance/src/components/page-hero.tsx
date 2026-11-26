@@ -27,7 +27,7 @@ export function PageHero({
             backgroundSize: "48px 48px",
           }}
         />
-        <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_88%_0%,rgba(30,47,138,0.08),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_88%_0%,rgba(6,51,176,0.08),transparent_70%)]" />
       </div>
 
       <Container className="pb-12 pt-28 sm:pb-16 sm:pt-36 lg:pt-40">

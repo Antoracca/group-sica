@@ -38,7 +38,7 @@ export default async function AdminProjectsPage() {
       <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1E2F8A]">Opérations</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0633B0]">Opérations</p>
             <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-slate-950">Projets et chantiers</h1>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
               Une lecture opérationnelle des dossiers en cours: qui porte le projet, où il se situe, quel est son statut
@@ -85,7 +85,7 @@ export default async function AdminProjectsPage() {
               return (
                 <article
                   key={project.id}
-                  className="rounded-lg border border-slate-200 bg-slate-50/70 p-4 transition-colors hover:border-[#1E2F8A]/30 hover:bg-white"
+                  className="rounded-lg border border-slate-200 bg-slate-50/70 p-4 transition-colors hover:border-[#0633B0]/30 hover:bg-white"
                 >
                   <div className="grid gap-4 lg:grid-cols-[1fr_260px] lg:items-center">
                     <div className="min-w-0">

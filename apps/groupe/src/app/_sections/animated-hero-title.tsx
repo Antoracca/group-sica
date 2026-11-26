@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 
 const PHRASES = [
   "la bâtit de A à Z.",
-  "la structure à 100%.",
+  "la structure dans les règles.",
   "la sort de terre.",
   "gère sa compta.",
   "en fait une réalité.",

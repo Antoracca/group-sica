@@ -35,7 +35,7 @@ export default function AdminModulesPage() {
       <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1E2F8A]">Architecture produit</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0633B0]">Architecture produit</p>
             <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-slate-950">50 modules SICA Admin</h1>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
               Une cartographie volontairement ambitieuse pour transformer l'admin en ERP interne: direction, clients,

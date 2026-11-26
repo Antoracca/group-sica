@@ -31,7 +31,7 @@ export function Dropzone({ onFile, disabled, file, onClear }: Props) {
 
   if (file) {
     return (
-      <div className="relative flex items-center gap-4 rounded-2xl border border-brand-royal/20 bg-white p-5 shadow-[0_8px_30px_-15px_rgba(13,26,74,0.25)]">
+      <div className="relative flex items-center gap-4 rounded-2xl border border-brand-royal/20 bg-white p-5 shadow-[0_8px_30px_-15px_rgba(2,27,90,0.25)]">
         <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand-royal/8 text-brand-royal">
           <FileText className="size-6" strokeWidth={1.5} />
         </span>

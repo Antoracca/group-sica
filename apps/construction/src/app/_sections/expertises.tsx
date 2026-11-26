@@ -6,9 +6,6 @@ import { Button, Container, cn } from "@sica/ui";
 import {
   DraftingCompass,
   Layers3,
-  Home,
-  Waypoints,
-  Scan,
   Award,
   ArrowRight,
   ChevronDown,
@@ -20,110 +17,76 @@ import {
    DATA (Ultra-court, 1 phrase) + Contenu Modale
 ───────────────────────────────────────────── */
 
-const expertises = [
+type Expertise = {
+  id: string;
+  icon: typeof DraftingCompass;
+  title: string;
+  shortTitle: string;
+  description: string;
+  linkText: string;
+  href?: string;
+  modal?: { title: string; subtitle: string; content: string; points: string[] };
+};
+
+const expertises: Expertise[] = [
   {
     id: "etudes",
     icon: DraftingCompass,
-    title: "Études et préconisations",
+    title: "A. Études & conception",
     shortTitle: "Études",
-    description: "Analyse topographique et clauses techniques arrêtées avant tout engagement budgétaire.",
-    linkText: "Découvrir la méthode",
+    description: "Étude de sol, conception architecturale, études de structure, plans techniques, métrés, estimation et devis.",
+    linkText: "Voir le domaine Études",
     modal: {
-      title: "Notre Méthodologie d'Étude",
-      subtitle: "La garantie d'un projet sécurisé en amont",
-      content: "Avant le premier coup de pioche, notre bureau d'études sécurise chaque aspect technique et financier de votre projet pour garantir le respect de votre budget initial.",
+      title: "A. Études & conception",
+      subtitle: "Fonction Études — bureau d'études SICA",
+      content: "Le bureau d'études définit le projet avant tout engagement : nature du sol, conception, dimensionnement de la structure et chiffrage. Les quantités et hypothèses sont vérifiées par le service Études avant la validation d'un devis.",
       points: [
-        "Études de sol géotechniques approfondies",
-        "Relevés topographiques de précision",
-        "Dimensionnement structurel parasismique",
-        "Validation des plans d'exécution (PE)"
-      ]
-    }
+        "Étude de sol",
+        "Conception architecturale",
+        "Études de structure et plans techniques",
+        "Métrés, estimation et devis",
+      ],
+    },
   },
   {
-    id: "structure",
+    id: "technique",
     icon: Layers3,
-    title: "Géobéton et structure",
-    shortTitle: "Structure",
-    description: "Ferraillage et coffrage contrôlés par points d'arrêt stricts avant chaque coulage.",
-    linkText: "Les normes appliquées",
+    title: "B. Technique & réalisation",
+    shortTitle: "Réalisation",
+    description: "Préparation de chantier, villas et immeubles, gros œuvre, second œuvre, électricité, plomberie, finitions et géobéton.",
+    linkText: "Voir le domaine Technique",
     modal: {
-      title: "Normes & Gros Œuvre",
-      subtitle: "Des fondations conçues pour durer",
-      content: "La pérennité de votre ouvrage repose sur l'intégrité de sa structure. Nous ne faisons aucun compromis sur la qualité des matériaux et le respect des normes internationales.",
+      title: "B. Technique & réalisation",
+      subtitle: "Fonction Technique — équipes terrain",
+      content: "Les équipes terrain exécutent les ouvrages sur la base des plans validés par le bureau d'études, de la préparation du chantier jusqu'aux finitions.",
       points: [
-        "Traçabilité des bétons et tests d'écrasement",
-        "Vérification systématique du ferraillage",
-        "Respect strict des Eurocodes (calculs de charge)",
-        "Points d'arrêt validés par bureau de contrôle"
-      ]
-    }
+        "Préparation de chantier",
+        "Villas basses, duplex et immeubles",
+        "Gros œuvre et second œuvre",
+        "Électricité, plomberie et finitions",
+        "Géobéton / BTCS",
+      ],
+    },
   },
   {
-    id: "residentiel",
-    icon: Home,
-    title: "Bâtiment résidentiel",
-    shortTitle: "Résidentiel",
-    description: "Gestion intégrale du second œuvre en coordination serrée avec tous les corps d'état.",
-    linkText: "Voir nos réalisations",
-    href: "/realisations", // Lien direct, pas de modale
-  },
-  {
-    id: "pilotage",
-    icon: Waypoints,
-    title: "Pilotage de chantier",
-    shortTitle: "Pilotage",
-    description: "Tableaux de bord et anticipation proactive pour corriger tout écart à J-7.",
-    linkText: "Comprendre le pilotage",
-    modal: {
-      title: "Pilotage & OPC",
-      subtitle: "Maîtriser le temps, anticiper les risques",
-      content: "L'Ordonnancement, le Pilotage et la Coordination (OPC) sont le moteur de notre efficacité. Nous synchronisons tous les intervenants pour éliminer les temps morts.",
-      points: [
-        "Plannings décisionnels dynamiques",
-        "Réunions de chantier avec compte-rendu sous 24h",
-        "Anticipation des approvisionnements (J-15)",
-        "Gestion proactive des aléas climatiques"
-      ]
-    }
-  },
-  {
-    id: "metriques",
-    icon: Scan,
-    title: "Contrôle des métriques",
-    shortTitle: "Métriques",
-    description: "Traçabilité des matériaux et traitement des non-conformités en temps réel.",
-    linkText: "Explorer nos outils",
-    modal: {
-      title: "Outils & Data",
-      subtitle: "La donnée au service de la performance",
-      content: "La gestion moderne de chantier s'appuie sur des données précises. Nous mesurons l'avancement financier et physique pour vous offrir une transparence totale.",
-      points: [
-        "Suivi financier en temps réel (budget vs réel)",
-        "Tableaux de bord d'avancement physique",
-        "Traçabilité de la chaîne logistique",
-        "Outils collaboratifs pour le client"
-      ]
-    }
-  },
-  {
-    id: "livraison",
+    id: "suivi",
     icon: Award,
-    title: "Sécurité et livraison",
-    shortTitle: "Livraison",
-    description: "Application des protocoles stricts et remise du dossier technique exhaustif.",
-    linkText: "La charte qualité",
+    title: "C. Suivi, contrôle & accompagnement",
+    shortTitle: "Suivi",
+    description: "Suivi de chantier, contrôle qualité, coordination, conseil technique, réception et accompagnement.",
+    linkText: "Voir le domaine Suivi",
     modal: {
-      title: "Charte Qualité",
-      subtitle: "Une réception sans mauvaise surprise",
-      content: "La remise des clés n'est pas une fin, mais l'aboutissement d'un processus d'autocontrôle continu mené tout au long du chantier.",
+      title: "C. Suivi, contrôle & accompagnement",
+      subtitle: "Du premier jalon à la réception",
+      content: "Le suivi est assuré tout au long du chantier : points de contrôle, coordination des intervenants, conseil technique et réception des travaux avec le client.",
       points: [
-        "Opérations Préalables à la Réception (OPR) strictes",
-        "Engagement zéro réserve à la livraison",
-        "Remise du Dossier des Ouvrages Exécutés (DOE)",
-        "Suivi et réactivité durant l'année de parfait achèvement"
-      ]
-    }
+        "Suivi de chantier",
+        "Contrôle qualité",
+        "Coordination des intervenants",
+        "Conseil technique",
+        "Réception et accompagnement",
+      ],
+    },
   },
 ];
 
@@ -289,10 +252,10 @@ export function ExpertisesSection() {
                 className="absolute -bottom-1 left-0 h-[4px] w-full bg-brand-amber"
               />
             </span>
-            , structurée comme un système infaillible.
+            , organisée en trois domaines.
           </h2>
           <p className="mt-8 text-pretty text-base leading-relaxed text-slate lg:text-lg">
-            Chaque phase possède ses points de contrôle et son livrable. C&apos;est ce qui sécurise vos délais et votre budget de bout en bout.
+            Études &amp; conception, technique &amp; réalisation, suivi &amp; contrôle : chaque domaine a ses responsables et ses validations. Les études valident les plans et les quantités, la technique exécute, le suivi contrôle et réceptionne.
           </p>
         </div>
 
@@ -332,7 +295,7 @@ export function ExpertisesSection() {
                       transition={{ duration: 0.8 }}
                       className="pointer-events-none absolute inset-0 z-0"
                       style={{
-                        backgroundImage: "linear-gradient(to right, #cbd5e1 1px, transparent 1px), linear-gradient(to bottom, #cbd5e1 1px, transparent 1px)",
+                        backgroundImage: "linear-gradient(to right, #CBD1E1 1px, transparent 1px), linear-gradient(to bottom, #CBD1E1 1px, transparent 1px)",
                         backgroundSize: "24px 24px"
                       }}
                     />

@@ -68,7 +68,7 @@ export function CtaBand() {
   return (
     <section
       aria-labelledby="cta-heading"
-      className="relative overflow-hidden bg-[#05081A] py-28 sm:py-36 lg:py-44"
+      className="relative overflow-hidden bg-[#010A20] py-28 sm:py-36 lg:py-44"
     >
       {/* ── Aurora blobs ──────────────────────────────────────────────────── */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -76,7 +76,7 @@ export function CtaBand() {
         <div
           className="absolute -left-32 -top-40 h-[680px] w-[680px] rounded-full"
           style={{
-            background: "radial-gradient(circle, #1E2F8A 0%, transparent 70%)",
+            background: "radial-gradient(circle, #0633B0 0%, transparent 70%)",
             filter: "blur(80px)",
             opacity: 0.48,
           }}
@@ -85,7 +85,7 @@ export function CtaBand() {
         <div
           className="absolute -right-20 top-[-8%] h-[560px] w-[560px] rounded-full"
           style={{
-            background: "radial-gradient(circle, #F7A026 0%, transparent 68%)",
+            background: "radial-gradient(circle, #F78F26 0%, transparent 68%)",
             filter: "blur(100px)",
             opacity: 0.26,
           }}
@@ -94,7 +94,7 @@ export function CtaBand() {
         <div
           className="absolute bottom-[-25%] left-[20%] h-[520px] w-[520px] rounded-full"
           style={{
-            background: "radial-gradient(circle, #3E53CC 0%, transparent 70%)",
+            background: "radial-gradient(circle, #1E58EC 0%, transparent 70%)",
             filter: "blur(88px)",
             opacity: 0.22,
           }}
@@ -162,7 +162,7 @@ export function CtaBand() {
         <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
           <a
             href={links.construction.devis}
-            className="inline-flex items-center justify-center rounded-full bg-white px-9 py-3.5 text-sm font-bold tracking-wide text-[#05081A] transition-all hover:bg-white/90 active:scale-[0.97]"
+            className="inline-flex items-center justify-center rounded-full bg-white px-9 py-3.5 text-sm font-bold tracking-wide text-[#010A20] transition-all hover:bg-white/90 active:scale-[0.97]"
           >
             Commencer
           </a>

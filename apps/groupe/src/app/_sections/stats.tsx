@@ -109,7 +109,7 @@ function ParticleField({ mouseRef }: ParticleFieldProps) {
           const d2 = (a.x - b.x) ** 2 + (a.y - b.y) ** 2;
           if (d2 < CONN2) {
             ctx.globalAlpha = (1 - d2 / CONN2) * 0.22;
-            ctx.strokeStyle = "#1E2F8A";
+            ctx.strokeStyle = "#0633B0";
             ctx.lineWidth   = 0.6;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
@@ -123,7 +123,7 @@ function ParticleField({ mouseRef }: ParticleFieldProps) {
       /* Points */
       for (const p of particles) {
         ctx.globalAlpha = p.amber ? 0.38 : 0.28;
-        ctx.fillStyle   = p.amber ? "#F39200" : "#1E2F8A";
+        ctx.fillStyle   = p.amber ? "#F77F00" : "#0633B0";
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
@@ -169,10 +169,10 @@ const STATS = [
     padClass:   "",
   },
   {
-    value: 150,
-    suffix: "+",
-    lines: ["PROJETS", "LIVRÉS"],
-    sub: "BTP · Génie civil · Géobéton",
+    value: 11,
+    suffix: "",
+    lines: ["RÉALISATIONS", "RÉFÉRENCÉES"],
+    sub: "Dossier technique · Abidjan, Soubré, Agboville…",
     delay: 1.22,
     mtClass:    "lg:mt-20",
     itemsClass: "items-end lg:items-start",
@@ -189,10 +189,10 @@ const STATS = [
     padClass:   "lg:pr-8",
   },
   {
-    value: 500,
-    suffix: "+",
-    lines: ["CLIENTS", "ACCOMPAGNÉS"],
-    sub: "PME · Particuliers · Promoteurs",
+    value: 5,
+    suffix: "",
+    lines: ["ÉQUIPES", "TERRAIN"],
+    sub: "Teams n°1 à n°5 · Bureau d'études",
     delay: 1.54,
     mtClass:    "lg:mt-28",
     itemsClass: "items-end",
@@ -332,7 +332,7 @@ export function Stats() {
           <path
             d="M-80,520 C200,80 580,480 900,180 C1050,60 1250,320 1540,120"
             fill="none"
-            stroke="#1E2F8A"
+            stroke="#0633B0"
             strokeWidth="1.5"
             opacity="0.045"
           />
@@ -340,14 +340,14 @@ export function Stats() {
           <path
             d="M-40,600 C260,380 660,120 1200,380 C1320,440 1420,380 1540,400"
             fill="none"
-            stroke="#F39200"
+            stroke="#F77F00"
             strokeWidth="1"
             opacity="0.065"
           />
           {/* Séparateurs obliques amber entre les stats (desktop) */}
-          <line x1="372" y1="30"  x2="350" y2="570" stroke="#F39200" strokeWidth="0.8" opacity="0.20" />
-          <line x1="738" y1="20"  x2="762" y2="580" stroke="#F39200" strokeWidth="0.8" opacity="0.16" />
-          <line x1="1092" y1="40" x2="1070" y2="560" stroke="#F39200" strokeWidth="0.8" opacity="0.18" />
+          <line x1="372" y1="30"  x2="350" y2="570" stroke="#F77F00" strokeWidth="0.8" opacity="0.20" />
+          <line x1="738" y1="20"  x2="762" y2="580" stroke="#F77F00" strokeWidth="0.8" opacity="0.16" />
+          <line x1="1092" y1="40" x2="1070" y2="560" stroke="#F77F00" strokeWidth="0.8" opacity="0.18" />
         </svg>
 
         {/* Watermark SICA — quasi invisible, donne de la profondeur */}
@@ -359,7 +359,7 @@ export function Stats() {
             style={{
               fontFamily: "'DM Serif Display', serif",
               fontSize: "22vw",
-              color: "#1E2F8A",
+              color: "#0633B0",
               opacity: 0.016,
               lineHeight: 1,
               letterSpacing: "-0.04em",
@@ -370,7 +370,7 @@ export function Stats() {
         </div>
 
         {/* ═══════════════════════════════════════════════════
-            RIDEAU DIAGONAL — Triangle haut-gauche (#1E2F8A)
+            RIDEAU DIAGONAL — Triangle haut-gauche (#0633B0)
             clip-path + translate → la forme reste un triangle
             pendant tout le déplacement
         ═══════════════════════════════════════════════════ */}
@@ -379,7 +379,7 @@ export function Stats() {
           className="pointer-events-none absolute inset-0 z-20"
           style={{
             clipPath: "polygon(0 0, 100% 0, 0 100%)",
-            backgroundColor: "#1E2F8A",
+            backgroundColor: "#0633B0",
           }}
           initial={{ x: "-101%", y: "-101%" }}
           animate={inView ? CURTAIN_TL : undefined}
@@ -392,7 +392,7 @@ export function Stats() {
           className="pointer-events-none absolute inset-0 z-20"
           style={{
             clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
-            backgroundColor: "#1E2F8A",
+            backgroundColor: "#0633B0",
           }}
           initial={{ x: "101%", y: "101%" }}
           animate={inView ? CURTAIN_BR : undefined}
@@ -410,7 +410,7 @@ export function Stats() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 1.08 }}
             style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-            className="mb-16 text-center text-[13px] font-semibold uppercase tracking-[0.32em] text-[#F39200] sm:mb-20 sm:text-[14px]"
+            className="mb-16 text-center text-[13px] font-semibold uppercase tracking-[0.32em] text-[#F77F00] sm:mb-20 sm:text-[14px]"
           >
             Le Groupe SICA en chiffres
           </motion.p>
@@ -444,7 +444,7 @@ export function Stats() {
                     fontSize: "clamp(4rem, 8.5vw, 8.5rem)",
                     lineHeight: 0.88,
                     letterSpacing: "-0.03em",
-                    color: "#1E2F8A",
+                    color: "#0633B0",
                   }}
                 >
                   <CountUp
@@ -458,7 +458,7 @@ export function Stats() {
                         fontFamily: "'Barlow Condensed', sans-serif",
                         fontWeight: 700,
                         fontSize: "0.38em",
-                        color: "#F39200",
+                        color: "#F77F00",
                         verticalAlign: "super",
                         lineHeight: 1,
                         letterSpacing: "0em",
@@ -482,7 +482,7 @@ export function Stats() {
                         fontWeight: 700,
                         letterSpacing: "0.24em",
                         textTransform: "uppercase" as const,
-                        color: "#1E2F8A",
+                        color: "#0633B0",
                         opacity: li === 0 ? 0.82 : 0.5,
                       }}
                     >
@@ -498,7 +498,7 @@ export function Stats() {
                     fontFamily: "'Barlow', sans-serif",
                     fontSize: "0.75rem",
                     fontWeight: 300,
-                    color: "#1E2F8A",
+                    color: "#0633B0",
                     opacity: 0.38,
                     letterSpacing: "0.03em",
                     lineHeight: 1.6,

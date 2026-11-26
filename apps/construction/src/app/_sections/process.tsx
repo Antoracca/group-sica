@@ -47,10 +47,10 @@ export function ProcessSection() {
               Notre Méthodologie
             </h2>
             <p className="mt-4 font-display text-[clamp(2.5rem,5vw,4rem)] font-bold leading-[1.05] tracking-tight text-ink">
-              L'ingénierie du <br/><span className="text-brand-amber">zéro défaut.</span>
+              L'exigence technique <br/><span className="text-brand-amber">à chaque étape.</span>
             </p>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-slate-600">
-              Notre méthode est avant tout pensée pour le terrain. De la toute première visite jusqu'à la remise des clés, nous structurons chaque étape pour vous garantir une exécution parfaite, le respect strict des délais et une transparence totale sur l'avancement.
+              Notre méthode est avant tout pensée pour le terrain. De la toute première visite jusqu'à la remise des clés, nous structurons chaque étape avec un responsable, un point de contrôle et un compte rendu daté, pour que vous suiviez l'avancement de votre chantier.
             </p>
 
             <div className="mt-10 hidden lg:block">
@@ -86,7 +86,7 @@ export function ProcessSection() {
                   )}
 
                   {/* Le point sur la timeline */}
-                  <div className="absolute left-[7px] top-[8px] size-[10px] rounded-full bg-brand-amber shadow-[0_0_8px_rgba(243,146,0,0.6)] z-10 lg:left-[11px] lg:top-[10px]" />
+                  <div className="absolute left-[7px] top-[8px] size-[10px] rounded-full bg-brand-amber shadow-[0_0_8px_rgba(247,127,0,0.6)] z-10 lg:left-[11px] lg:top-[10px]" />
 
                   {/* Contenu textuel */}
                   <div className="relative z-10">

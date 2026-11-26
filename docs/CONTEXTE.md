@@ -1,5 +1,27 @@
 # Plateforme Web GROUPE SICA — Plan & Mémoire Contexte
 
+> ## RÉVISION 2 — novembre 2026 (prioritaire sur tout le reste du document)
+>
+> **Nouveaux documents client** (dans `docs/`) :
+> 1. `Ameliorations du site web SICA CONSTRUCTION 2026.pdf` (17/11/2026) : 12 améliorations pour sicaconstruction.com, couleurs **INDIGO – BLANC – ORANGE obligatoires**.
+> 2. `Info à completer site web.pdf` : contenus officiels SICA Assistance (création et modification d'entreprise, formes juridiques OHADA, gestion comptable/fiscale/sociale, impôts et taxes en CI). Corrige le domaine : **www.sicaassistance.com**.
+> 3. `Courrier site web acces.pdf` (11/11/2026) : demande officielle de remise des accès (domaines, DNS, hébergement, admin, code, base, e-mails, Analytics/Search Console, SSL, sauvegardes, licences, documentation, formation, tests de récupération).
+>
+> **Changements actés** :
+> - **Design** : `DESIGN.md` remplace la §3 ci-dessous. Couleurs mesurées sur les logos : indigo **#0633B0**, orange **#F77F00**, blanc. Les anciennes valeurs #1E2F8A / #F39200 sont obsolètes (les tokens `brand-royal` / `brand-amber` pointent maintenant sur les valeurs officielles). Polices : Inter + IBM Plex Sans (chiffres) + IBM Plex Mono.
+> - **Domaines** : www.groupe-sica.com, www.sicaconstruction.com, www.sicaassistance.com.
+> - **Adresse Abidjan** tranchée : agence **Cocody Centre / PMI**. Yamoussoukro : **Morofé / 24 Ampoules**.
+> - **Forme** : GROUPE SICA – SARLU.
+> - **Menu Construction imposé** : Accueil · Qui sommes-nous ? · Nos expertises · Nos réalisations · Nos services / Solutions constructives · Nos agences · Espace client E-SICA · Contact / Demander un devis (+ liens visibles vers GROUPE SICA et SICA ASSISTANCE).
+> - **Expertises Construction en 3 domaines** : A. Études & Conception · B. Technique & Réalisation · C. Suivi, Contrôle & Accompagnement.
+> - **Signature Construction** : « L'exigence technique au service de vos constructions. » Phrase d'accueil : « SICA CONSTRUCTION accompagne les particuliers, entreprises et investisseurs de la conception aux travaux de finition, avec une exigence constante de qualité, de maîtrise technique et de suivi. »
+> - **Assistance** : SICA ASSISTANCE gère les formalités « pour formaliser légalement votre activité sous 30 jours ». Notaire agréé ou sous seing privé. Services : création, modification, gestion comptable (SYSCOHADA révisé), fiscale (DGI, e-impôts), sociale (CNPS, e-cnps), FNE, business plan, accompagnement entrepreneurial.
+> - **Règles de preuve** : aucun chiffre, aucune date, aucune certification, aucun témoignage, aucune photo d'équipe sans validation de la Direction. Estimation ≠ devis contractuel.
+>
+> Le plan de travail détaillé est dans `docs/TASKS.md`, section « Refonte v2 ». Pilotage : `INSTRUCTIONS.md`.
+
+---
+
 > Ce document tient lieu **à la fois de plan d'exécution et de mémoire de contexte**. Toute IA reprenant ce projet doit pouvoir l'ouvrir et démarrer sans rien d'autre. Pas de génération vague — tout ce qui suit est sourcé du dossier technique 36 pages, de l'offre GIRA signée, des logos et du fichier `infosSica.txt`.
 
 ---
@@ -70,7 +92,7 @@ PROJET DABRÉ (Villa basse avec sous-sol) • Projet AVAGOUT (Jacqueville Abidja
 
 ---
 
-## 3. Charte graphique (sourcée logos + dossier technique)
+## 3. Charte graphique — OBSOLÈTE, voir DESIGN.md (révision 2)
 
 ### Couleurs
 | Token | Hex | Usage |

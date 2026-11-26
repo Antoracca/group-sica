@@ -48,13 +48,13 @@ const POLES = [
       "Villas, sièges institutionnels, génie civil, études de sol. Chaque projet traduit une maîtrise rigoureuse du chantier, du sol au toit.",
     cta: "Voir les projets construction",
     count: "6 dossiers",
-    accent: "#1E2F8A",
-    bg: "linear-gradient(145deg, #060D22 0%, #0F1C55 55%, #1E2F8A 100%)",
+    accent: "#0633B0",
+    bg: "linear-gradient(145deg, #010C29 0%, #031F67 55%, #0633B0 100%)",
     patternColor: "rgba(255,255,255,0.035)",
     textColor: "white",
-    labelColor: "#F39200",
+    labelColor: "#F77F00",
     ctaClass:
-      "border-white/30 text-white hover:bg-white hover:text-[#1E2F8A]",
+      "border-white/30 text-white hover:bg-white hover:text-[#0633B0]",
     chipClass: "bg-white/10 text-white/75 border border-white/15",
   },
   {
@@ -67,14 +67,14 @@ const POLES = [
       "Création d'entreprises, structures comptables, missions juridiques et conseils en gestion. Des missions à impact durable pour les PME ivoiriennes.",
     cta: "Voir les projets assistance",
     count: "6 dossiers",
-    accent: "#F39200",
-    bg: "linear-gradient(145deg, #FBF4E6 0%, #FEF0CC 45%, #FFFBF2 100%)",
-    patternColor: "rgba(243,146,0,0.045)",
-    textColor: "#0D1A4A",
-    labelColor: "#A05500",
+    accent: "#F77F00",
+    bg: "linear-gradient(145deg, #FBF2E6 0%, #FEECCC 45%, #FFFAF2 100%)",
+    patternColor: "rgba(247,127,0,0.045)",
+    textColor: "#021B5A",
+    labelColor: "#A04800",
     ctaClass:
-      "border-[#1E2F8A]/30 text-[#1E2F8A] hover:bg-[#1E2F8A] hover:text-white",
-    chipClass: "bg-[#1E2F8A]/08 text-[#1E2F8A]/70 border border-[#1E2F8A]/10",
+      "border-[#0633B0]/30 text-[#0633B0] hover:bg-[#0633B0] hover:text-white",
+    chipClass: "bg-[#0633B0]/08 text-[#0633B0]/70 border border-[#0633B0]/10",
   },
 ] as const;
 
@@ -104,7 +104,7 @@ export default function RealisationsPage() {
           className="relative overflow-hidden pt-36 pb-20 text-white sm:pt-44 sm:pb-28"
           style={{
             background:
-              "linear-gradient(155deg, #060D22 0%, #0F1C55 55%, #1E2F8A 100%)",
+              "linear-gradient(155deg, #010C29 0%, #031F67 55%, #0633B0 100%)",
           }}
         >
           {/* Blueprint grid */}
@@ -122,7 +122,7 @@ export default function RealisationsPage() {
             className="absolute inset-x-0 top-0 h-[3px]"
             style={{
               background:
-                "linear-gradient(to right, #F39200, rgba(243,146,0,0.4), transparent)",
+                "linear-gradient(to right, #F77F00, rgba(247,127,0,0.4), transparent)",
             }}
           />
 
@@ -140,7 +140,7 @@ export default function RealisationsPage() {
             {/* Label éditorial */}
             <p
               className="mb-5 text-[0.6rem] font-bold uppercase tracking-[0.35em]"
-              style={{ color: "#F39200" }}
+              style={{ color: "#F77F00" }}
             >
               Dossiers · Groupe SICA
             </p>
@@ -163,7 +163,7 @@ export default function RealisationsPage() {
               className="mt-10 h-px w-full max-w-[400px]"
               style={{
                 background:
-                  "linear-gradient(to right, rgba(243,146,0,0.55), transparent)",
+                  "linear-gradient(to right, rgba(247,127,0,0.55), transparent)",
               }}
             />
           </div>
@@ -176,11 +176,11 @@ export default function RealisationsPage() {
           <div className="mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-16">
 
             {/* Label section */}
-            <p className="mb-3 text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+            <p className="mb-3 text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
               Explorer par pôle
             </p>
             <h2
-              className="mb-14 text-[1.375rem] font-bold leading-tight tracking-tight text-[#0D1A4A] sm:text-[1.625rem]"
+              className="mb-14 text-[1.375rem] font-bold leading-tight tracking-tight text-[#021B5A] sm:text-[1.625rem]"
               style={{ fontFamily: "'DM Serif Display', serif" }}
             >
               Choisissez un domaine d'expertise
@@ -259,11 +259,11 @@ export default function RealisationsPage() {
                             background:
                               pole.key === "construction"
                                 ? "rgba(255,255,255,0.10)"
-                                : "rgba(243,146,0,0.12)",
+                                : "rgba(247,127,0,0.12)",
                             border:
                               pole.key === "construction"
                                 ? "1px solid rgba(255,255,255,0.14)"
-                                : "1px solid rgba(243,146,0,0.20)",
+                                : "1px solid rgba(247,127,0,0.20)",
                           }}
                         >
                           {pole.key === "construction" ? (
@@ -276,7 +276,7 @@ export default function RealisationsPage() {
                             <Handshake
                               size={28}
                               strokeWidth={1.25}
-                              style={{ color: "#A05500" }}
+                              style={{ color: "#A04800" }}
                             />
                           )}
                         </div>
@@ -289,7 +289,7 @@ export default function RealisationsPage() {
                           color:
                             pole.key === "construction"
                               ? "rgba(255,255,255,0.62)"
-                              : "rgba(13,26,74,0.65)",
+                              : "rgba(2,27,90,0.65)",
                         }}
                       >
                         {pole.description}
@@ -304,15 +304,15 @@ export default function RealisationsPage() {
                             background:
                               pole.key === "construction"
                                 ? "rgba(255,255,255,0.10)"
-                                : "rgba(30,47,138,0.07)",
+                                : "rgba(6,51,176,0.07)",
                             color:
                               pole.key === "construction"
                                 ? "rgba(255,255,255,0.65)"
-                                : "rgba(13,26,74,0.60)",
+                                : "rgba(2,27,90,0.60)",
                             border:
                               pole.key === "construction"
                                 ? "1px solid rgba(255,255,255,0.12)"
-                                : "1px solid rgba(30,47,138,0.08)",
+                                : "1px solid rgba(6,51,176,0.08)",
                           }}
                         >
                           {pole.count}
@@ -325,8 +325,8 @@ export default function RealisationsPage() {
                             borderColor:
                               pole.key === "construction"
                                 ? "rgba(255,255,255,0.28)"
-                                : "rgba(30,47,138,0.25)",
-                            color: pole.key === "construction" ? "white" : "#1E2F8A",
+                                : "rgba(6,51,176,0.25)",
+                            color: pole.key === "construction" ? "white" : "#0633B0",
                           }}
                         >
                           {pole.cta}
@@ -355,11 +355,11 @@ export default function RealisationsPage() {
         ══════════════════════════════════════════════════════════════════ */}
         <section className="border-t border-neutral-200 bg-white py-16 sm:py-20">
           <div className="mx-auto max-w-[1440px] px-6 text-center sm:px-10 lg:px-16">
-            <p className="mb-3 text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+            <p className="mb-3 text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
               Un projet en tête ?
             </p>
             <h2
-              className="mb-4 text-[1.5rem] font-bold tracking-tight text-[#0D1A4A] sm:text-[1.875rem]"
+              className="mb-4 text-[1.5rem] font-bold tracking-tight text-[#021B5A] sm:text-[1.875rem]"
               style={{ fontFamily: "'DM Serif Display', serif" }}
             >
               Parlons de votre projet
@@ -370,14 +370,14 @@ export default function RealisationsPage() {
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-[#1E2F8A] px-7 py-3 text-[0.875rem] font-semibold text-white transition-all duration-300 hover:bg-[#0D1A4A]"
+                className="inline-flex items-center gap-2 rounded-full bg-[#0633B0] px-7 py-3 text-[0.875rem] font-semibold text-white transition-all duration-300 hover:bg-[#021B5A]"
               >
                 Nous contacter
                 <ArrowRight size={14} strokeWidth={2} />
               </Link>
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-7 py-3 text-[0.875rem] font-semibold text-[#1E2F8A] transition-all duration-300 hover:border-[#1E2F8A]"
+                className="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-7 py-3 text-[0.875rem] font-semibold text-[#0633B0] transition-all duration-300 hover:border-[#0633B0]"
               >
                 <ArrowLeft size={14} strokeWidth={2} />
                 Retour à l'accueil

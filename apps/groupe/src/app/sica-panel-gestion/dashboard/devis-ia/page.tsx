@@ -92,7 +92,7 @@ export default async function DevisIaConsolePage() {
       <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#1E2F8A]">
+            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#0633B0]">
               <Sparkles className="size-3.5" /> Outil signature
             </p>
             <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-slate-950">

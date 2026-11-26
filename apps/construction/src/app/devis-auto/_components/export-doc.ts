@@ -13,11 +13,11 @@ import { COMPANY } from "@/lib/devis/company";
 */
 
 const C = {
-  royal: "#1E2F8A",
-  amber: "#F39200",
-  ink: "#0B1020",
-  slate: "#475066",
-  line: "#d9deea",
+  royal: "#0633B0",
+  amber: "#F77F00",
+  ink: "#071027",
+  slate: "#4B556C",
+  line: "#D9DEEA",
 };
 
 function esc(value: string): string {
@@ -110,7 +110,7 @@ export function buildDevisHtml(
                 <td style="padding:6px 8px;border-bottom:1px solid ${C.line};text-align:right;font-weight:bold;font-size:12px;">${fmt(l.montant)}</td>
               </tr>
             `).join("")}
-            <tr style="background:#f3f5fb;">
+            <tr style="background:#F1F4FD;">
               <td colspan="4" style="padding:7px 8px;font-weight:bold;font-size:12px;color:${C.royal};">
                 Sous-total · ${esc(sl.titre)}
               </td>
@@ -202,7 +202,7 @@ export function buildDevisHtml(
   <h3 style="color:${C.royal};font-size:13px;margin-top:10px;margin-bottom:6px;">Détail des pièces</h3>
   <table style="width:100%;border-collapse:collapse;margin-bottom:18px;">
     <thead>
-      <tr style="background:#f3f5fb;">
+      <tr style="background:#F1F4FD;">
         <th style="padding:6px 8px;text-align:left;font-size:11px;border-bottom:2px solid ${C.royal};">Nom</th>
         <th style="padding:6px 8px;text-align:left;font-size:11px;border-bottom:2px solid ${C.royal};">Type</th>
         <th style="padding:6px 8px;text-align:right;font-size:11px;border-bottom:2px solid ${C.royal};">Surface</th>

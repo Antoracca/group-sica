@@ -88,12 +88,13 @@ export default async function ProjectDetailPage({
                 {project.summary}
               </p>
 
-              <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-brand-royal/10 bg-brand-royal/10">
+              <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden [&>div:last-child:nth-child(odd)]:col-span-2 rounded-xl border border-brand-royal/10 bg-brand-royal/10">
                 {[
                   { k: "Localisation", v: project.city },
                   { k: "Typologie", v: project.type },
                   { k: "Statut", v: project.status },
-                  { k: "Maîtrise d'œuvre", v: "SICA Construction" },
+                  { k: "Mission SICA", v: project.mission ?? "À confirmer" },
+                  { k: "Année", v: project.year ?? "À confirmer" },
                 ].map((row) => (
                   <div key={row.k} className="bg-paper p-4">
                     <dt className="font-mono text-[0.65rem] uppercase tracking-[0.12em] text-slate">

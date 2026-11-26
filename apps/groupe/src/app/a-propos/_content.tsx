@@ -59,20 +59,20 @@ function IntroSection() {
 
       <Container className="relative">
         <Reveal>
-          <p className="mb-7 inline-flex items-center gap-3 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
-            <span className="block h-px w-8 bg-[#F39200]" aria-hidden />
+          <p className="mb-7 inline-flex items-center gap-3 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
+            <span className="block h-px w-8 bg-[#F77F00]" aria-hidden />
             Corporate
           </p>
         </Reveal>
 
         <Reveal delay={0.07}>
           <h1
-            className="max-w-4xl text-balance text-[clamp(2.75rem,6.5vw,5.25rem)] font-bold leading-[1.02] tracking-tight text-[#0D1A4A]"
+            className="max-w-4xl text-balance text-[clamp(2.75rem,6.5vw,5.25rem)] font-bold leading-[1.02] tracking-tight text-[#021B5A]"
             style={{ fontFamily: "'DM Serif Display', serif" }}
           >
             Qui nous sommes,
             <br />
-            <em className="not-italic" style={{ color: "#F39200" }}>
+            <em className="not-italic" style={{ color: "#F77F00" }}>
               d'où nous venons.
             </em>
           </h1>
@@ -80,7 +80,7 @@ function IntroSection() {
 
         <Reveal delay={0.15}>
           <p className="mt-8 max-w-2xl text-pretty text-[1.0625rem] leading-[1.7] text-neutral-500">
-            Une SARL ivoirienne démarrée en 2015 et légalement fondée en 2020 à Abidjan,
+            GROUPE SICA – SARLU, société ivoirienne immatriculée en 2020 à Abidjan,
             Côte d&apos;Ivoire. Portée par une conviction simple: la rigueur n&apos;est pas une
             option, ni sur les chantiers ni dans les dossiers.
           </p>
@@ -119,7 +119,7 @@ function TeamSection() {
               initial={{ opacity: 0, x: -18 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.65, ease: E }}
-              className="mb-5 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]"
+              className="mb-5 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]"
             >
               Notre équipe
             </motion.p>
@@ -128,7 +128,7 @@ function TeamSection() {
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.78, delay: 0.07, ease: E }}
-              className="text-balance text-[clamp(1.875rem,4.5vw,3.125rem)] font-bold leading-tight tracking-tight text-[#0D1A4A]"
+              className="text-balance text-[clamp(1.875rem,4.5vw,3.125rem)] font-bold leading-tight tracking-tight text-[#021B5A]"
               style={{ fontFamily: "'DM Serif Display', serif" }}
             >
               Une organisation bâtie
@@ -142,7 +142,7 @@ function TeamSection() {
               transition={{ duration: 0.75, delay: 0.17, ease: E }}
             >
               <p className="mt-7 text-[1.0625rem] leading-[1.72] text-neutral-600">
-                Depuis 2015, nos équipes grandissent avec méthode. Ingénieurs génie civil,
+                Depuis 2020, nos équipes grandissent avec méthode. Ingénieurs génie civil,
                 techniciens supérieurs, juristes, comptables, conseillers en gestion:
                 chaque recrutement est un choix délibéré en faveur de l'excellence.
               </p>
@@ -155,14 +155,14 @@ function TeamSection() {
               {/* Chiffres clés */}
               <div className="mt-11 flex flex-wrap gap-x-10 gap-y-5">
                 {[
-                  { n: "2015", label: "Fondée à Abidjan" },
+                  { n: "2020", label: "Immatriculée à Abidjan" },
                   { n: "5", label: "Équipes terrain" },
-                  { n: "50+", label: "Projets livrés" },
-                  { n: "5", label: "Implantations" },
+                  { n: "11", label: "Réalisations référencées" },
+                  { n: "2", label: "Implantations" },
                 ].map((s) => (
                   <div key={s.label}>
                     <p
-                      className="text-[2.125rem] font-black leading-none text-[#1E2F8A]"
+                      className="text-[2.125rem] font-black leading-none text-[#0633B0]"
                       style={{ fontFamily: "'DM Serif Display', serif" }}
                     >
                       {s.n}
@@ -190,7 +190,7 @@ function TeamSection() {
                 className="absolute inset-0 rounded-full"
                 style={{
                   boxShadow:
-                    "0 0 0 3px #F39200, 0 0 52px rgba(243,146,0,0.26), 0 0 100px rgba(243,146,0,0.09)",
+                    "0 0 0 3px #F77F00, 0 0 52px rgba(247,127,0,0.26), 0 0 100px rgba(247,127,0,0.09)",
                 }}
               />
 
@@ -209,7 +209,7 @@ function TeamSection() {
                   className="absolute inset-0 rounded-full"
                   style={{
                     background:
-                      "radial-gradient(circle, transparent 52%, rgba(13,26,74,0.28) 100%)",
+                      "radial-gradient(circle, transparent 52%, rgba(2,27,90,0.28) 100%)",
                   }}
                 />
               </div>
@@ -229,7 +229,7 @@ function DirecteurSection() {
   const inView = useInView(ref, { once: true, amount: 0.14 });
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-[#060D22]">
+    <section ref={ref} className="relative overflow-hidden bg-[#010C29]">
       <div className="flex min-h-[680px] flex-col lg:grid lg:min-h-[760px] lg:grid-cols-2">
 
         {/* Photo — dessus sur mobile, droite sur desktop */}
@@ -248,7 +248,7 @@ function DirecteurSection() {
             className="absolute inset-0 hidden lg:block"
             style={{
               background:
-                "linear-gradient(to right, #060D22 0%, rgba(6,13,34,0.92) 18%, rgba(6,13,34,0.55) 48%, rgba(6,13,34,0.08) 75%, transparent 100%)",
+                "linear-gradient(to right, #010C29 0%, rgba(1,12,41,0.92) 18%, rgba(1,12,41,0.55) 48%, rgba(1,12,41,0.08) 75%, transparent 100%)",
             }}
           />
           {/* Dégradé vertical bas → haut (mobile: pour fondre avec la section texte) */}
@@ -257,7 +257,7 @@ function DirecteurSection() {
             className="absolute inset-0 lg:hidden"
             style={{
               background:
-                "linear-gradient(to top, #060D22 0%, rgba(6,13,34,0.7) 35%, rgba(6,13,34,0.0) 70%)",
+                "linear-gradient(to top, #010C29 0%, rgba(1,12,41,0.7) 35%, rgba(1,12,41,0.0) 70%)",
             }}
           />
           {/* Dégradé vertical haut (desktop seulement, pour estomper le haut photo) */}
@@ -266,7 +266,7 @@ function DirecteurSection() {
             className="absolute inset-0 hidden lg:block"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(6,13,34,0.5) 0%, transparent 30%, transparent 70%, rgba(6,13,34,0.3) 100%)",
+                "linear-gradient(to bottom, rgba(1,12,41,0.5) 0%, transparent 30%, transparent 70%, rgba(1,12,41,0.3) 100%)",
             }}
           />
         </div>
@@ -291,7 +291,7 @@ function DirecteurSection() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, ease: E }}
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-[#F39200]/30 bg-[#F39200]/10 px-3.5 py-1.5 text-[0.63rem] font-bold uppercase tracking-[0.22em] text-[#F39200]">
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#F77F00]/30 bg-[#F77F00]/10 px-3.5 py-1.5 text-[0.63rem] font-bold uppercase tracking-[0.22em] text-[#F77F00]">
                 <Award size={12} strokeWidth={2.2} aria-hidden />
                 Meilleur jeune entrepreneur ivoirien 2023
               </span>
@@ -307,7 +307,7 @@ function DirecteurSection() {
             >
               Ngoran
               <br />
-              <span style={{ color: "#F39200" }}>Ivan.</span>
+              <span style={{ color: "#F77F00" }}>Ivan.</span>
             </motion.h2>
 
             <motion.p
@@ -326,7 +326,7 @@ function DirecteurSection() {
               transition={{ duration: 0.78, delay: 0.28, ease: E }}
             >
               <p className="mt-9 text-[1rem] leading-[1.74] text-white/65">
-                Depuis la création du Groupe SICA en 2015, Ngoran Ivan porte une vision
+                Depuis la création du Groupe SICA en 2020, Ngoran Ivan porte une vision
                 claire: offrir à la Côte d'Ivoire un acteur intégré, capable d'accompagner
                 aussi bien le montage d'une PME que la livraison d'un siège institutionnel.
               </p>
@@ -337,7 +337,7 @@ function DirecteurSection() {
               </p>
 
               {/* Citation */}
-              <blockquote className="mt-10 border-l-[2.5px] border-[#F39200] pl-6">
+              <blockquote className="mt-10 border-l-[2.5px] border-[#F77F00] pl-6">
                 <p
                   className="text-[1.175rem] italic leading-[1.6] text-white/88"
                   style={{ fontFamily: "'DM Serif Display', serif" }}
@@ -416,26 +416,26 @@ function OrgSVG({ inView }: { inView: boolean }) {
         transition={{ duration: 0.5 }}
       >
         <rect x="360" y="14" width="280" height="62" rx="10"
-          stroke="#F39200" strokeWidth="1.5" fill="rgba(243,146,0,0.09)" />
+          stroke="#F77F00" strokeWidth="1.5" fill="rgba(247,127,0,0.09)" />
         <text x="500" y="41" textAnchor="middle"
-          fill="#F39200" fontSize="11" fontWeight="800" letterSpacing="3" fontFamily="sans-serif">
+          fill="#F77F00" fontSize="11" fontWeight="800" letterSpacing="3" fontFamily="sans-serif">
           DIRECTION
         </text>
         <text x="500" y="59" textAnchor="middle"
-          fill="rgba(243,146,0,0.62)" fontSize="10" fontFamily="sans-serif">
+          fill="rgba(247,127,0,0.62)" fontSize="10" fontFamily="sans-serif">
           Ngoran Ivan
         </text>
       </motion.g>
 
       {/* ── Ligne verticale principale ── */}
-      <motion.path d="M500,76 L500,124" stroke="#F39200" strokeWidth="1.5"
+      <motion.path d="M500,76 L500,124" stroke="#F77F00" strokeWidth="1.5"
         fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke"
         {...vertAnim(0.38)} />
 
       {/* ── Ligne horizontale complète (opacité, pas pathLength) ── */}
       <motion.line
         x1="160" y1="124" x2="840" y2="124"
-        stroke="rgba(243,146,0,0.45)" strokeWidth="1.2"
+        stroke="rgba(247,127,0,0.45)" strokeWidth="1.2"
         strokeLinecap="round" vectorEffect="non-scaling-stroke"
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : { opacity: 0 }}
@@ -446,7 +446,7 @@ function OrgSVG({ inView }: { inView: boolean }) {
       {NODES.map(({ cx }, i) => (
         <motion.path key={`drop-${cx}`}
           d={`M${cx},124 L${cx},180`}
-          stroke="rgba(243,146,0,0.45)" strokeWidth="1.2"
+          stroke="rgba(247,127,0,0.45)" strokeWidth="1.2"
           fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke"
           {...vertAnim(0.78 + i * 0.06)} />
       ))}
@@ -460,7 +460,7 @@ function OrgSVG({ inView }: { inView: boolean }) {
           transition={{ duration: 0.45, delay: 0.92 + i * 0.07 }}
         >
           <rect x={x} y="180" width={w} height="54" rx="8"
-            stroke="rgba(255,255,255,0.14)" strokeWidth="1" fill="rgba(30,47,138,0.42)" />
+            stroke="rgba(255,255,255,0.14)" strokeWidth="1" fill="rgba(6,51,176,0.42)" />
           <text x={cx} y="213" textAnchor="middle"
             fill="rgba(255,255,255,0.85)" fontSize="10" fontWeight="700"
             letterSpacing="2" fontFamily="sans-serif">
@@ -507,15 +507,15 @@ function OrgMobile({ inView }: { inView: boolean }) {
         initial={{ opacity: 0, y: 12 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5 }}
-        className="rounded-xl border border-[#F39200]/50 bg-[#F39200]/10 px-8 py-3.5 text-center"
+        className="rounded-xl border border-[#F77F00]/50 bg-[#F77F00]/10 px-8 py-3.5 text-center"
       >
-        <p className="text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#F39200]">Direction</p>
+        <p className="text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#F77F00]">Direction</p>
         <p className="mt-0.5 text-[0.72rem] text-white/50">Ngoran Ivan</p>
       </motion.div>
 
       {/* Ligne */}
       <motion.div
-        className="h-8 w-px origin-top bg-[#F39200]/35"
+        className="h-8 w-px origin-top bg-[#F77F00]/35"
         initial={{ scaleY: 0 }}
         animate={inView ? { scaleY: 1 } : {}}
         transition={{ duration: 0.35, delay: 0.4 }}
@@ -529,7 +529,7 @@ function OrgMobile({ inView }: { inView: boolean }) {
               initial={{ opacity: 0, x: -12 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.55 + i * 0.1 }}
-              className="w-full max-w-[320px] rounded-xl border border-white/12 bg-[#1E2F8A]/40 px-5 py-3 text-center"
+              className="w-full max-w-[320px] rounded-xl border border-white/12 bg-[#0633B0]/40 px-5 py-3 text-center"
             >
               <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white/78">
                 {p.label}
@@ -561,7 +561,7 @@ function OrgSection() {
     <section
       ref={ref}
       className="relative overflow-hidden py-24 sm:py-32"
-      style={{ background: "#0D1A4A" }}
+      style={{ background: "#021B5A" }}
     >
       {/* Grain texture */}
       <div
@@ -578,13 +578,13 @@ function OrgSection() {
         className="pointer-events-none absolute -bottom-40 -right-40 h-[600px] w-[600px] rounded-full opacity-20"
         style={{
           background:
-            "radial-gradient(circle, rgba(243,146,0,0.28) 0%, transparent 65%)",
+            "radial-gradient(circle, rgba(247,127,0,0.28) 0%, transparent 65%)",
         }}
       />
 
       <Container className="relative">
         <Reveal>
-          <p className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+          <p className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
             Organisation
           </p>
         </Reveal>
@@ -630,15 +630,15 @@ function LocationCard({
   tel: string;
 }) {
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-[#E4E7F0] bg-white p-8 transition-all duration-300 hover:shadow-[0_8px_40px_rgba(30,47,138,0.10)]">
+    <div className="group relative overflow-hidden rounded-2xl border border-[#E4E7F0] bg-white p-8 transition-all duration-300 hover:shadow-[0_8px_40px_rgba(6,51,176,0.10)]">
       {/* Barre ambre au hover */}
-      <div className="absolute inset-x-0 top-0 h-[2.5px] origin-left scale-x-0 bg-gradient-to-r from-[#F39200] to-[#F7A832] transition-transform duration-500 group-hover:scale-x-100" />
+      <div className="absolute inset-x-0 top-0 h-[2.5px] origin-left scale-x-0 bg-gradient-to-r from-[#F77F00] to-[#F79832] transition-transform duration-500 group-hover:scale-x-100" />
 
-      <p className="mb-1.5 text-[0.63rem] font-bold uppercase tracking-[0.28em] text-[#F39200]">
+      <p className="mb-1.5 text-[0.63rem] font-bold uppercase tracking-[0.28em] text-[#F77F00]">
         {role}
       </p>
       <h3
-        className="text-[2rem] font-bold tracking-tight text-[#0D1A4A]"
+        className="text-[2rem] font-bold tracking-tight text-[#021B5A]"
         style={{ fontFamily: "'DM Serif Display', serif" }}
       >
         {ville}
@@ -651,7 +651,7 @@ function LocationCard({
 
       <a
         href={`tel:${tel.replace(/\s/g, "")}`}
-        className="mt-6 inline-flex items-center gap-2 text-[0.875rem] font-semibold text-[#1E2F8A] transition-colors hover:text-[#F39200]"
+        className="mt-6 inline-flex items-center gap-2 text-[0.875rem] font-semibold text-[#0633B0] transition-colors hover:text-[#F77F00]"
       >
         <Phone size={14} strokeWidth={2.2} aria-hidden />
         {tel}
@@ -665,13 +665,13 @@ function ImplantationsSection() {
     <section className="bg-[#F8F8F5] py-24 sm:py-32">
       <Container>
         <Reveal>
-          <p className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+          <p className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
             Implantations
           </p>
         </Reveal>
         <Reveal delay={0.08}>
           <h2
-            className="mb-12 max-w-2xl text-balance text-[clamp(1.875rem,4vw,2.875rem)] font-bold leading-tight tracking-tight text-[#0D1A4A]"
+            className="mb-12 max-w-2xl text-balance text-[clamp(1.875rem,4vw,2.875rem)] font-bold leading-tight tracking-tight text-[#021B5A]"
             style={{ fontFamily: "'DM Serif Display', serif" }}
           >
             Présents là où vos projets prennent vie.
@@ -683,18 +683,18 @@ function ImplantationsSection() {
             <LocationCard
               ville="Abidjan"
               role="Siège social"
-              adresse="Cocody Centre, en face de la cité 48 Logements V1"
+              adresse="Cocody Centre / PMI"
               detail="Près de la PMI Urbaine"
-              tel="+225 0709 883 293"
+              tel="+225 07 09 88 32 93"
             />
           </Reveal>
           <Reveal delay={0.18}>
             <LocationCard
               ville="Yamoussoukro"
               role="Succursale"
-              adresse="Morofé, 24 ampoules"
+              adresse="Morofé / 24 Ampoules"
               detail="Rond-point route Daloa"
-              tel="+225 2722 247 445"
+              tel="+225 27 22 24 74 45"
             />
           </Reveal>
         </div>

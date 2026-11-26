@@ -15,7 +15,7 @@ export function Surface({
   return (
     <Comp
       className={cn(
-        "rounded-2xl border border-black/[0.06] bg-white/80 shadow-[0_1px_2px_rgba(13,26,74,0.04),0_8px_24px_-16px_rgba(13,26,74,0.18)] backdrop-blur-xl",
+        "rounded-2xl border border-black/[0.06] bg-white/80 shadow-[0_1px_2px_rgba(2,27,90,0.04),0_8px_24px_-16px_rgba(2,27,90,0.18)] backdrop-blur-xl",
         className,
       )}
     >

@@ -4,11 +4,11 @@ import { links } from "@/lib/links";
 
 /* ── Accès rapide & liens légaux ── */
 const CLIENT_LINKS = [
-  { label: "Connexion client", href: "/espace-client", highlight: true },
+  { label: "Espace client E-SICA", href: links.espace.base, highlight: true },
   { label: "Demander un devis", href: "/devis" },
-  { label: "Mentions légales", href: "/mentions-legales" },
-  { label: "Confidentialité", href: "/confidentialite" },
-  { label: "Cookies", href: "/cookies" },
+  { label: "Mentions légales", href: `${links.groupe.base}/mentions-legales` },
+  { label: "Confidentialité", href: `${links.groupe.base}/confidentialite` },
+  { label: "Cookies", href: `${links.groupe.base}/cookies` },
 ] as const;
 
 /* ── Liens vers les autres entités du Groupe ── */
@@ -39,7 +39,7 @@ export function FooterConstruction() {
         className="h-px"
         style={{
           background:
-            "linear-gradient(to right, transparent 0%, rgba(247,160,38,0.35) 25%, rgba(247,160,38,0.35) 75%, transparent 100%)",
+            "linear-gradient(to right, transparent 0%, rgba(247,143,38,0.35) 25%, rgba(247,143,38,0.35) 75%, transparent 100%)",
         }}
       />
 
@@ -55,12 +55,12 @@ export function FooterConstruction() {
               )}
             />
             <p className="max-w-[30ch] text-sm leading-relaxed text-white/60">
-              De l'étude de sol jusqu'à la livraison, SICA Construction pilote chaque lot avec une logique chantier claire: délais, qualité, sécurité, traçabilité.
+              L'exigence technique au service de vos constructions. Études, réalisation, suivi et contrôle, de la conception aux travaux de finition.
             </p>
             <div className="text-xs leading-relaxed text-white/55">
-              <span className="font-medium text-white/60">Abidjan</span> — Cocody, Centre, en face Cité 48 Logements V1
+              <span className="font-medium text-white/60">Abidjan</span> — Cocody Centre / PMI
               <br />
-              <span className="font-medium text-white/60">Yamoussoukro</span> — Morofé, 24 ampoules
+              <span className="font-medium text-white/60">Yamoussoukro</span> — Morofé / 24 Ampoules
             </div>
           </div>
 
@@ -69,11 +69,16 @@ export function FooterConstruction() {
               Navigation
             </p>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5 xl:grid-cols-1">
-              <li><a href="/#expertises" className="text-sm text-white/52 transition-colors duration-200 hover:text-white">Expertises</a></li>
-              <li><a href="/#projets-az" className="text-sm text-white/52 transition-colors duration-200 hover:text-white">Projets A-Z</a></li>
-              <li><a href="/realisations" className="text-sm text-white/52 transition-colors duration-200 hover:text-white">Réalisations</a></li>
-              <li><a href="/#process" className="text-sm text-white/52 transition-colors duration-200 hover:text-white">Process chantier</a></li>
-              <li><a href="/devis" className="text-sm text-white/52 transition-colors duration-200 hover:text-white">Devis en ligne</a></li>
+              {[
+                ["/qui-sommes-nous", "Qui sommes-nous ?"],
+                ["/expertises", "Nos expertises"],
+                ["/realisations", "Nos réalisations"],
+                ["/solutions", "Nos services"],
+                ["/agences", "Nos agences"],
+                ["/contact", "Contact / Devis"],
+              ].map(([href, label]) => (
+                <li key={href}><a href={href} className="text-sm text-white/52 transition-colors duration-200 hover:text-white">{label}</a></li>
+              ))}
             </ul>
           </nav>
 
@@ -89,9 +94,9 @@ export function FooterConstruction() {
                       href={item.href}
                       className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-semibold transition-all duration-200 hover:opacity-90"
                       style={{
-                        background: "linear-gradient(135deg, #1E2F8A 0%, #2C47C5 100%)",
+                        background: "linear-gradient(135deg, #0633B0 0%, #0A4DF5 100%)",
                         color: "#FFFFFF",
-                        boxShadow: "0 2px 12px rgba(30,47,138,0.35)",
+                        boxShadow: "0 2px 12px rgba(6,51,176,0.35)",
                       }}
                     >
                       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -159,7 +164,15 @@ export function FooterConstruction() {
                     href="tel:+2250709883293"
                     className="text-sm text-white/52 transition-colors duration-200 hover:text-white"
                   >
-                    +225 07 09 88 32 93
+                    (+225) 07 09 88 32 93
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="tel:+2252722247445"
+                    className="text-sm text-white/52 transition-colors duration-200 hover:text-white"
+                  >
+                    (+225) 27 22 24 74 45
                   </a>
                 </li>
                 <li>
@@ -188,7 +201,7 @@ export function FooterConstruction() {
 
         <div className="flex flex-col gap-2 border-t border-white/[0.07] py-5 md:flex-row md:items-center md:justify-between">
           <p className="text-[0.75rem] text-white/55">
-            &copy; {year} SICA Construction · Groupe SICA - RCCM CI-ABJ-03-2020-B13-17592 - Abidjan, Côte d'Ivoire
+            &copy; {year} SICA CONSTRUCTION · GROUPE SICA – SARLU · RCCM CI-ABJ-03-2020-B13-17592 · CC 2054314X · Abidjan, Côte d'Ivoire
           </p>
         </div>
       </div>

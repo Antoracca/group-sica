@@ -34,7 +34,7 @@ export default async function AdminDocumentsPage() {
       <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1E2F8A]">GED interne</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0633B0]">GED interne</p>
             <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-slate-950">Documents & signatures</h1>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
               Un registre clair pour suivre les devis, contrats, factures et pieces sensibles. Le module Devis Construction

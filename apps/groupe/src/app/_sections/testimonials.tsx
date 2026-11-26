@@ -51,7 +51,7 @@ function useResolvedThirdImage() {
 
 function PhotoCard({ src, alt, priority = false }: { src: string; alt: string; priority?: boolean }) {
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-[20px] border border-[#E6EAF6] bg-white shadow-[0_12px_40px_rgba(18,35,102,0.12)]">
+    <div className="relative h-full w-full overflow-hidden rounded-[20px] border border-[#E2E9FA] bg-white shadow-[0_12px_40px_rgba(3,37,124,0.12)]">
       <Image
         src={src}
         alt={alt}
@@ -120,10 +120,10 @@ export function Testimonials() {
 
       <Container>
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.24em] text-[#1E2F8A]/70">
+          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.24em] text-[#0633B0]/70">
             Confiance
           </p>
-          <h2 className="mt-3 text-balance text-[clamp(1.7rem,4vw,3.1rem)] font-bold leading-[1.08] tracking-tight text-[#0F1E5A]">
+          <h2 className="mt-3 text-balance text-[clamp(1.7rem,4vw,3.1rem)] font-bold leading-[1.08] tracking-tight text-[#03216D]">
             Des preuves concrètes, sur le terrain.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-neutral-600 sm:text-base">
@@ -132,10 +132,10 @@ export function Testimonials() {
         </div>
 
         <div
-          className="relative mx-auto mt-10 w-full max-w-[1320px] overflow-hidden rounded-[28px] border border-[#E7EBF7] bg-white"
+          className="relative mx-auto mt-10 w-full max-w-[1320px] overflow-hidden rounded-[28px] border border-[#E3EAFB] bg-white"
           style={{
             aspectRatio: "16 / 9",
-            boxShadow: "0 26px 70px rgba(20,37,110,0.12)",
+            boxShadow: "0 26px 70px rgba(3,41,134,0.12)",
           }}
         >
           <motion.div
@@ -256,7 +256,7 @@ export function Testimonials() {
             </motion.div>
 
             <motion.div
-              className="absolute left-1/2 top-1/2 z-[6] h-[2px] w-[170%] -translate-x-1/2 -translate-y-1/2 bg-[#1E2F8A]/65"
+              className="absolute left-1/2 top-1/2 z-[6] h-[2px] w-[170%] -translate-x-1/2 -translate-y-1/2 bg-[#0633B0]/65"
               style={{ rotate: "-18deg" }}
               initial={{ opacity: 0 }}
               animate={
@@ -290,7 +290,7 @@ export function Testimonials() {
             ease: "easeOut",
           }}
         >
-          <p className="text-center font-mono text-[clamp(0.85rem,2vw,1.08rem)] font-medium tracking-[0.06em] text-[#0F1E5A]">
+          <p className="text-center font-mono text-[clamp(0.85rem,2vw,1.08rem)] font-medium tracking-[0.06em] text-[#03216D]">
             {typed}
             <span className={typed.length < phrase.length ? "animate-pulse" : "opacity-0"}>|</span>
           </p>

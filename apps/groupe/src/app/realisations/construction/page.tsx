@@ -70,7 +70,7 @@ export default function RealisationsConstructionPage() {
           className="relative overflow-hidden pt-36 pb-20 text-white sm:pt-44 sm:pb-28"
           style={{
             background:
-              "linear-gradient(155deg, #060D22 0%, #0F1C55 55%, #1E2F8A 100%)",
+              "linear-gradient(155deg, #010C29 0%, #031F67 55%, #0633B0 100%)",
           }}
         >
           <div
@@ -84,7 +84,7 @@ export default function RealisationsConstructionPage() {
           />
           <div
             className="absolute inset-x-0 top-0 h-[3px]"
-            style={{ background: "#1E2F8A" }}
+            style={{ background: "#0633B0" }}
           />
 
           <div className="relative mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-16">
@@ -98,8 +98,8 @@ export default function RealisationsConstructionPage() {
             </nav>
 
             <div className="mb-5 inline-flex items-center gap-2">
-              <Home size={14} strokeWidth={1.5} className="text-[#F39200]" />
-              <p className="text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+              <Home size={14} strokeWidth={1.5} className="text-[#F77F00]" />
+              <p className="text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
                 Pôle BTP
               </p>
             </div>
@@ -119,7 +119,7 @@ export default function RealisationsConstructionPage() {
               className="mt-10 h-px w-full max-w-[400px]"
               style={{
                 background:
-                  "linear-gradient(to right, rgba(243,146,0,0.55), transparent)",
+                  "linear-gradient(to right, rgba(247,127,0,0.55), transparent)",
               }}
             />
           </div>
@@ -131,11 +131,11 @@ export default function RealisationsConstructionPage() {
 
             <div className="mb-12 flex items-center justify-between">
               <div>
-                <p className="mb-2 text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+                <p className="mb-2 text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
                   Dossiers
                 </p>
                 <h2
-                  className="text-[1.375rem] font-bold tracking-tight text-[#0D1A4A]"
+                  className="text-[1.375rem] font-bold tracking-tight text-[#021B5A]"
                   style={{ fontFamily: "'DM Serif Display', serif" }}
                 >
                   6 projets Construction
@@ -143,7 +143,7 @@ export default function RealisationsConstructionPage() {
               </div>
               <Link
                 href="/realisations"
-                className="inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-[#1E2F8A]/60 transition-colors hover:text-[#1E2F8A]"
+                className="inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-[#0633B0]/60 transition-colors hover:text-[#0633B0]"
               >
                 <ArrowLeft size={13} strokeWidth={2} />
                 Tous les pôles
@@ -154,17 +154,17 @@ export default function RealisationsConstructionPage() {
               {PROJETS.map((projet) => (
                 <div
                   key={projet.num}
-                  className="relative overflow-hidden rounded-none border border-[#1E2F8A]/10 bg-white"
+                  className="relative overflow-hidden rounded-none border border-[#0633B0]/10 bg-white"
                 >
                   {/* Accent bar top */}
-                  <div className="h-[3px] w-full bg-[#1E2F8A]" />
+                  <div className="h-[3px] w-full bg-[#0633B0]" />
 
                   {/* Placeholder zone image */}
                   <div
                     className="flex h-48 items-center justify-center"
                     style={{
                       background:
-                        "linear-gradient(145deg, #060D22 0%, #0F1C55 55%, #1E2F8A 100%)",
+                        "linear-gradient(145deg, #010C29 0%, #031F67 55%, #0633B0 100%)",
                     }}
                   >
                     <div className="flex flex-col items-center gap-3 text-center">
@@ -182,11 +182,11 @@ export default function RealisationsConstructionPage() {
 
                   {/* Card body */}
                   <div className="p-6">
-                    <span className="mb-3 block text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-[#1E2F8A]/50">
+                    <span className="mb-3 block text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-[#0633B0]/50">
                       Construction
                     </span>
                     <h3
-                      className="text-[1.0625rem] font-bold leading-tight tracking-tight text-[#0D1A4A]"
+                      className="text-[1.0625rem] font-bold leading-tight tracking-tight text-[#021B5A]"
                       style={{ fontFamily: "'DM Serif Display', serif" }}
                     >
                       {projet.label}
@@ -209,11 +209,11 @@ export default function RealisationsConstructionPage() {
         {/* CTA Contact */}
         <section className="border-t border-neutral-200 bg-white py-16">
           <div className="mx-auto max-w-[1440px] px-6 text-center sm:px-10 lg:px-16">
-            <p className="mb-3 text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+            <p className="mb-3 text-[0.6rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
               Un projet BTP ?
             </p>
             <h2
-              className="mb-4 text-[1.375rem] font-bold tracking-tight text-[#0D1A4A]"
+              className="mb-4 text-[1.375rem] font-bold tracking-tight text-[#021B5A]"
               style={{ fontFamily: "'DM Serif Display', serif" }}
             >
               Démarrons votre chantier
@@ -221,7 +221,7 @@ export default function RealisationsConstructionPage() {
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-[#1E2F8A] px-7 py-3 text-[0.875rem] font-semibold text-white transition-all duration-300 hover:bg-[#0D1A4A]"
+                className="inline-flex items-center gap-2 rounded-full bg-[#0633B0] px-7 py-3 text-[0.875rem] font-semibold text-white transition-all duration-300 hover:bg-[#021B5A]"
               >
                 Nous contacter
                 <ArrowRight size={14} strokeWidth={2} />

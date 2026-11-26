@@ -13,11 +13,11 @@ import { ArrowLeft, ArrowRight, Clock, Calendar, User } from "lucide-react";
 
 /* ─── Couleurs par catégorie ────────────────────────────────────────────── */
 type CatStyle = { accent: string; bg: string; label: string };
-const FALLBACK_CAT: CatStyle = { accent: "#0D1A4A", bg: "rgba(13,26,74,0.09)", label: "#0D1A4A" };
+const FALLBACK_CAT: CatStyle = { accent: "#021B5A", bg: "rgba(2,27,90,0.09)", label: "#021B5A" };
 const CAT: Record<string, CatStyle> = {
-  Construction: { accent: "#1E2F8A", bg: "rgba(30,47,138,0.09)", label: "#1E2F8A" },
-  Assistance:   { accent: "#F39200", bg: "rgba(243,146,0,0.11)",  label: "#A05500" },
-  Groupe:       { accent: "#0D1A4A", bg: "rgba(13,26,74,0.09)",   label: "#0D1A4A" },
+  Construction: { accent: "#0633B0", bg: "rgba(6,51,176,0.09)", label: "#0633B0" },
+  Assistance:   { accent: "#F77F00", bg: "rgba(247,127,0,0.11)",  label: "#A04800" },
+  Groupe:       { accent: "#021B5A", bg: "rgba(2,27,90,0.09)",   label: "#021B5A" },
   Communauté:   { accent: "#166534", bg: "rgba(22,101,52,0.10)",  label: "#166534" },
 };
 
@@ -60,7 +60,7 @@ export default async function ArticlePage({
       ══════════════════════════════════════════════════════════════════ */}
       <section
         className="relative overflow-hidden pt-36 pb-20 text-white sm:pt-44 sm:pb-28"
-        style={{ background: "linear-gradient(155deg, #060D22 0%, #0F1C55 55%, #1E2F8A 100%)" }}
+        style={{ background: "linear-gradient(155deg, #010C29 0%, #031F67 55%, #0633B0 100%)" }}
       >
         {/* Blueprint grid */}
         <div
@@ -126,7 +126,7 @@ export default async function ArticlePage({
           {/* Filet décoratif */}
           <div
             className="mt-10 h-px w-full max-w-[480px]"
-            style={{ background: "linear-gradient(to right, rgba(243,146,0,0.55), transparent)" }}
+            style={{ background: "linear-gradient(to right, rgba(247,127,0,0.55), transparent)" }}
           />
         </Container>
       </section>
@@ -139,7 +139,7 @@ export default async function ArticlePage({
           {/* Premier paragraphe mis en valeur */}
           {article.contenu.length > 0 && (
             <p
-              className="mb-8 border-l-[3px] pl-6 text-[1.125rem] font-medium leading-[1.76] text-[#0D1A4A] sm:text-[1.25rem]"
+              className="mb-8 border-l-[3px] pl-6 text-[1.125rem] font-medium leading-[1.76] text-[#021B5A] sm:text-[1.25rem]"
               style={{ borderColor: cat.accent }}
             >
               {article.contenu[0]}
@@ -164,13 +164,13 @@ export default async function ArticlePage({
               <p className="text-[0.72rem] font-bold uppercase tracking-[0.22em] text-neutral-400">
                 Rédigé par
               </p>
-              <p className="mt-1 text-[0.9375rem] font-semibold text-[#0D1A4A]">
+              <p className="mt-1 text-[0.9375rem] font-semibold text-[#021B5A]">
                 {article.auteur}
               </p>
             </div>
             <Link
               href="/actualites"
-              className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 px-5 py-2 text-[0.8125rem] font-semibold text-[#1E2F8A] transition-all hover:border-[#1E2F8A] hover:bg-[#1E2F8A] hover:text-white"
+              className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 px-5 py-2 text-[0.8125rem] font-semibold text-[#0633B0] transition-all hover:border-[#0633B0] hover:bg-[#0633B0] hover:text-white"
             >
               <ArrowLeft size={13} strokeWidth={2} />
               Retour aux actualités
@@ -185,11 +185,11 @@ export default async function ArticlePage({
       {related.length > 0 && (
         <section className="border-t border-neutral-200 bg-[#F8F8F5] py-16 sm:py-20">
           <Container>
-            <p className="mb-3 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+            <p className="mb-3 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
               À lire également
             </p>
             <h2
-              className="mb-10 text-[1.375rem] font-bold leading-tight tracking-tight text-[#0D1A4A]"
+              className="mb-10 text-[1.375rem] font-bold leading-tight tracking-tight text-[#021B5A]"
               style={{ fontFamily: "'DM Serif Display', serif" }}
             >
               Dans la même thématique
@@ -202,7 +202,7 @@ export default async function ArticlePage({
                   <Link
                     key={a.slug}
                     href={`/actualites/${a.slug}`}
-                    className="group flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-all duration-300 hover:border-transparent hover:shadow-[0_8px_36px_rgba(30,47,138,0.10)]"
+                    className="group flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-all duration-300 hover:border-transparent hover:shadow-[0_8px_36px_rgba(6,51,176,0.10)]"
                   >
                     <div
                       className="h-[3px] w-full"
@@ -221,7 +221,7 @@ export default async function ArticlePage({
                         </time>
                       </div>
                       <h3
-                        className="flex-1 text-balance text-[1.125rem] font-bold leading-tight tracking-tight text-[#0D1A4A] transition-colors group-hover:text-[#1E2F8A]"
+                        className="flex-1 text-balance text-[1.125rem] font-bold leading-tight tracking-tight text-[#021B5A] transition-colors group-hover:text-[#0633B0]"
                         style={{ fontFamily: "'DM Serif Display', serif" }}
                       >
                         {a.titre}
@@ -229,7 +229,7 @@ export default async function ArticlePage({
                       <p className="mt-2.5 line-clamp-2 text-[0.875rem] leading-relaxed text-neutral-600">
                         {a.chapo}
                       </p>
-                      <span className="mt-5 inline-flex items-center gap-1.5 text-[0.8125rem] font-semibold text-[#1E2F8A] transition-colors group-hover:text-[#F39200]">
+                      <span className="mt-5 inline-flex items-center gap-1.5 text-[0.8125rem] font-semibold text-[#0633B0] transition-colors group-hover:text-[#F77F00]">
                         Lire l'article
                         <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
                       </span>

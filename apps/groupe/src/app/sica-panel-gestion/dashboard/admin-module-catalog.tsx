@@ -65,7 +65,7 @@ function statusNextStep(status: AdminModule["status"]) {
 }
 
 function decisionClasses(decision?: ModuleDecision) {
-  if (decision === "validated") return "border-[#1E2F8A] bg-[#1E2F8A] text-white";
+  if (decision === "validated") return "border-[#0633B0] bg-[#0633B0] text-white";
   if (decision === "discussion") return "border-slate-400 bg-slate-100 text-slate-900";
   if (decision === "rejected") return "border-slate-200 bg-white text-slate-400 line-through";
   return "border-slate-200 bg-white text-slate-700";
@@ -234,7 +234,7 @@ export function AdminModuleCatalog() {
                       className={[
                         "min-h-11 rounded-md border px-3 text-sm font-semibold transition-colors",
                         selectedDecision === decision
-                          ? "border-[#1E2F8A] bg-[#1E2F8A] text-white"
+                          ? "border-[#0633B0] bg-[#0633B0] text-white"
                           : "border-slate-200 bg-white text-slate-700 hover:border-slate-400",
                       ].join(" ")}
                     >

@@ -23,7 +23,7 @@ export function LegalPage({ title, intro, updatedAt, sections }: LegalPageProps)
       {/* ── HERO ── */}
       <section
         className="relative overflow-hidden pt-32 pb-12 text-white sm:pt-40 sm:pb-16 lg:pt-44"
-        style={{ background: "linear-gradient(155deg, #08112E 0%, #1E2F8A 60%, #0D1A4A 100%)" }}
+        style={{ background: "linear-gradient(155deg, #011138 0%, #0633B0 60%, #021B5A 100%)" }}
       >
         <div
           aria-hidden
@@ -35,7 +35,7 @@ export function LegalPage({ title, intro, updatedAt, sections }: LegalPageProps)
           }}
         />
         <Container className="relative">
-          <p className="mb-3 text-[0.7rem] font-bold uppercase tracking-[0.22em]" style={{ color: "#F7A832" }}>
+          <p className="mb-3 text-[0.7rem] font-bold uppercase tracking-[0.22em]" style={{ color: "#F79832" }}>
             Mentions officielles
           </p>
           <h1 className="font-display max-w-3xl text-balance text-[2rem] font-bold leading-tight tracking-tight sm:text-[2.75rem] lg:text-[3.25rem]">
@@ -58,7 +58,7 @@ export function LegalPage({ title, intro, updatedAt, sections }: LegalPageProps)
           <div className="space-y-12">
             {sections.map((s, i) => (
               <article key={i}>
-                <h2 className="font-display text-[1.375rem] font-bold leading-tight tracking-tight text-[#0D1A4A] sm:text-[1.625rem]">
+                <h2 className="font-display text-[1.375rem] font-bold leading-tight tracking-tight text-[#021B5A] sm:text-[1.625rem]">
                   {s.heading}
                 </h2>
                 <div className="prose-styles mt-4 space-y-4 text-[0.9375rem] leading-[1.75] text-neutral-700 sm:text-base">

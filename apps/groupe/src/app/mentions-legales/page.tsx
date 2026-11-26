@@ -3,14 +3,14 @@ import { LegalPage } from "@/components/legal-page";
 
 export const metadata: Metadata = {
   title: "Mentions légales — Groupe SICA",
-  description: "Mentions légales obligatoires du Groupe SICA (SARL ivoirienne).",
+  description: "Mentions légales obligatoires du Groupe SICA (SARLU ivoirienne).",
 };
 
 export default function MentionsLegalesPage() {
   return (
     <LegalPage
       title="Mentions légales"
-      intro="Conformément à la législation ivoirienne en vigueur, vous trouverez ci-dessous les mentions obligatoires relatives à l'éditeur du site groupesica.ci et à ses pôles."
+      intro="Conformément à la législation ivoirienne en vigueur, vous trouverez ci-dessous les mentions obligatoires relatives à l'éditeur du site www.groupe-sica.com et à ses pôles."
       updatedAt="15 mai 2026"
       sections={[
         {
@@ -18,7 +18,7 @@ export default function MentionsLegalesPage() {
           body: (
             <>
               <p>
-                <strong>GROUPE SICA</strong> — Société à responsabilité limitée (SARL) de droit ivoirien.
+                <strong>GROUPE SICA</strong> — Société à responsabilité limitée unipersonnelle (SARLU) de droit ivoirien.
               </p>
               <ul className="list-disc space-y-1 pl-6">
                 <li>RCCM : CI-ABJ-03-2020-B13-17592</li>
@@ -37,14 +37,14 @@ export default function MentionsLegalesPage() {
           body: (
             <>
               <p>
-                Cocody Centre, en face Cité 48 Logements V1, près de la PMI Urbaine —
+                Cocody Centre / PMI —
                 Abidjan, Côte d'Ivoire.
               </p>
               <p>
                 Boîtes postales : 2100 BP 05 Abidjan / 01 BP 1203 Abidjan.
               </p>
               <p>
-                Succursale : Morofé · 24 ampoules, rond-point route Daloa — Yamoussoukro.
+                Succursale : Morofé / 24 Ampoules (rond-point route de Daloa) — Yamoussoukro.
               </p>
             </>
           ),
@@ -54,10 +54,10 @@ export default function MentionsLegalesPage() {
           body: (
             <>
               <p>
-                Email : <a href="mailto:groupesica@gmail.com" className="text-[#1E2F8A] underline hover:text-brand-amber">groupesica@gmail.com</a>
+                Email : <a href="mailto:groupesica@gmail.com" className="text-[#0633B0] underline hover:text-brand-amber">groupesica@gmail.com</a>
               </p>
               <p>
-                Téléphones : +225 0709883293 · +225 0102442894 · +225 2722247445
+                Téléphones : +225 07 09 88 32 93 · +225 27 22 24 74 45 · +225 01 02 44 28 94
               </p>
             </>
           ),
@@ -67,7 +67,7 @@ export default function MentionsLegalesPage() {
           body: (
             <p>
               Le site est hébergé par Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723,
-              États-Unis, accessible via <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="text-[#1E2F8A] underline hover:text-brand-amber">vercel.com</a>.
+              États-Unis, accessible via <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="text-[#0633B0] underline hover:text-brand-amber">vercel.com</a>.
               Les données utilisateurs sont hébergées par Supabase Inc., conforme au RGPD européen
               et applicable en équivalence ARTCI Côte d'Ivoire.
             </p>
@@ -77,7 +77,7 @@ export default function MentionsLegalesPage() {
           heading: "Propriété intellectuelle",
           body: (
             <p>
-              L'ensemble des éléments du site groupesica.ci — textes, images, logos, charte
+              L'ensemble des éléments du site www.groupe-sica.com — textes, images, logos, charte
               graphique, code source — sont la propriété exclusive du Groupe SICA, sauf mention
               contraire explicite. Toute reproduction, distribution ou modification sans
               autorisation écrite préalable est interdite.

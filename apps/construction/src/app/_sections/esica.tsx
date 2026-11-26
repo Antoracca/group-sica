@@ -78,7 +78,7 @@ export function ESicaSection() {
             <div className="absolute -inset-4 z-0 rounded-r-full bg-gradient-to-r from-brand-royal-100 to-transparent blur-2xl" />
             
             {/* Conteneur principal découpé en demi-cercle */}
-            <div className="relative z-10 w-[90%] sm:w-[80%] lg:w-[110%] aspect-[4/5] rounded-r-full overflow-hidden shadow-[20px_0_40px_-15px_rgba(7,20,74,0.15)] border-y border-r border-slate-100">
+            <div className="relative z-10 w-[90%] sm:w-[80%] lg:w-[110%] aspect-[4/5] rounded-r-full overflow-hidden shadow-[20px_0_40px_-15px_rgba(2,25,84,0.15)] border-y border-r border-slate-100">
               <Image
                 src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&q=80&w=800"
                 alt="Application E-sica sur smartphone"

@@ -63,10 +63,10 @@ const PARTENAIRES: Partenaire[] = [
 
 const CATEGORIE_COLORS: Record<string, { bg: string; text: string }> = {
   Bancaire: { bg: "rgba(31,138,86,0.12)", text: "#0B6E45" },
-  Matériaux: { bg: "rgba(30,47,138,0.10)", text: "#1E2F8A" },
-  "Études techniques": { bg: "rgba(168,92,0,0.12)", text: "#A85C00" },
-  Institution: { bg: "rgba(13,26,74,0.10)", text: "#0D1A4A" },
-  "Cabinet conseil": { bg: "rgba(243,146,0,0.12)", text: "#A85C00" },
+  Matériaux: { bg: "rgba(6,51,176,0.10)", text: "#0633B0" },
+  "Études techniques": { bg: "rgba(168,78,0,0.12)", text: "#A84E00" },
+  Institution: { bg: "rgba(2,27,90,0.10)", text: "#021B5A" },
+  "Cabinet conseil": { bg: "rgba(247,127,0,0.12)", text: "#A84E00" },
 };
 
 export default function PartenairesPage() {
@@ -75,7 +75,7 @@ export default function PartenairesPage() {
       {/* ── HERO ── */}
       <section
         className="relative overflow-hidden pt-32 pb-16 text-white sm:pt-40 sm:pb-20 lg:pt-44"
-        style={{ background: "linear-gradient(155deg, #08112E 0%, #1E2F8A 60%, #0D1A4A 100%)" }}
+        style={{ background: "linear-gradient(155deg, #011138 0%, #0633B0 60%, #021B5A 100%)" }}
       >
         <div
           aria-hidden
@@ -87,11 +87,11 @@ export default function PartenairesPage() {
           }}
         />
         <Container className="relative">
-          <p className="mb-4 text-[0.7rem] font-bold uppercase tracking-[0.22em]" style={{ color: "#F7A832" }}>
+          <p className="mb-4 text-[0.7rem] font-bold uppercase tracking-[0.22em]" style={{ color: "#F79832" }}>
             Partenaires SICA
           </p>
           <h1 className="font-display max-w-3xl text-balance text-[2.25rem] font-bold leading-tight tracking-tight sm:text-[3rem] lg:text-[3.75rem]">
-            Un réseau, une garantie.
+            Un réseau, un engagement.
           </h1>
           <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-white/65 sm:text-lg">
             Banque, fournisseurs, bureaux d'études, institutions. Chaque chantier et chaque dossier
@@ -105,15 +105,15 @@ export default function PartenairesPage() {
         <Container>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
             {[
-              { Icon: Handshake, value: "50+", label: "Partenaires actifs" },
+              { Icon: Handshake, value: "2", label: "Pôles : Construction et Assistance" },
               { Icon: Award, value: "10 ans", label: "Ancienneté moyenne" },
               { Icon: Building2, value: "3", label: "Régions couvertes" },
-              { Icon: Handshake, value: "100%", label: "Couverture CI" },
+              { Icon: Handshake, value: "CI", label: "Équipes mobiles sur tout le territoire" },
             ].map((s, i) => (
               <div key={i} className="flex items-start gap-3">
-                <s.Icon size={20} strokeWidth={1.8} style={{ color: "#1E2F8A" }} className="mt-1 shrink-0" />
+                <s.Icon size={20} strokeWidth={1.8} style={{ color: "#0633B0" }} className="mt-1 shrink-0" />
                 <div>
-                  <p className="font-display text-[1.75rem] font-bold leading-tight text-[#0D1A4A]">
+                  <p className="font-display text-[1.75rem] font-bold leading-tight text-[#021B5A]">
                     {s.value}
                   </p>
                   <p className="text-[0.75rem] uppercase tracking-wider text-neutral-500">
@@ -133,7 +133,7 @@ export default function PartenairesPage() {
             <p className="mb-3 text-[0.7rem] font-bold uppercase tracking-[0.22em] text-brand-amber">
               Notre écosystème
             </p>
-            <h2 className="font-display text-balance text-[1.75rem] font-bold leading-tight tracking-tight text-[#0D1A4A] sm:text-[2.5rem]">
+            <h2 className="font-display text-balance text-[1.75rem] font-bold leading-tight tracking-tight text-[#021B5A] sm:text-[2.5rem]">
               Avec qui nous travaillons au quotidien.
             </h2>
           </div>
@@ -159,7 +159,7 @@ export default function PartenairesPage() {
                     <span className="text-[0.7rem] text-neutral-400">Depuis {p.depuis}</span>
                   )}
                 </div>
-                <h3 className="font-display text-[1.125rem] font-bold leading-tight text-[#0D1A4A]">
+                <h3 className="font-display text-[1.125rem] font-bold leading-tight text-[#021B5A]">
                   {p.nom}
                 </h3>
                 <p className="mt-2 text-[0.875rem] leading-relaxed text-neutral-600">
@@ -174,12 +174,12 @@ export default function PartenairesPage() {
       {/* ── DEVENIR PARTENAIRE ── */}
       <section
         className="relative overflow-hidden py-16 text-white sm:py-20"
-        style={{ background: "linear-gradient(160deg, #0D1A4A 0%, #1E2F8A 60%, #08112E 100%)" }}
+        style={{ background: "linear-gradient(160deg, #021B5A 0%, #0633B0 60%, #011138 100%)" }}
       >
         <Container>
           <div className="grid items-center gap-8 lg:grid-cols-[1.5fr_1fr]">
             <div>
-              <p className="mb-3 text-[0.7rem] font-bold uppercase tracking-[0.22em]" style={{ color: "#F7A832" }}>
+              <p className="mb-3 text-[0.7rem] font-bold uppercase tracking-[0.22em]" style={{ color: "#F79832" }}>
                 Vous êtes un partenaire potentiel ?
               </p>
               <h2 className="font-display text-balance text-[1.75rem] font-bold leading-tight tracking-tight sm:text-[2.25rem]">
@@ -195,8 +195,8 @@ export default function PartenairesPage() {
                 href="/contact"
                 className="group inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-4 text-sm font-semibold text-white transition-all duration-300"
                 style={{
-                  background: "linear-gradient(135deg, #F39200 0%, #D87D00 100%)",
-                  boxShadow: "0 4px 22px rgba(243,146,0,0.32)",
+                  background: "linear-gradient(135deg, #F77F00 0%, #D86B00 100%)",
+                  boxShadow: "0 4px 22px rgba(247,127,0,0.32)",
                 }}
               >
                 Discuter d'un partenariat

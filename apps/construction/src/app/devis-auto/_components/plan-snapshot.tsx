@@ -48,7 +48,7 @@ export function PlanSnapshot({ plan }: Props) {
   const niveauxLabel = plan.niveaux === 1 ? "Plain-pied" : plan.niveaux === 2 ? "R+1" : `R+${plan.niveaux - 1}`;
 
   return (
-    <section className="rounded-2xl border border-ink/8 bg-white p-6 shadow-[0_8px_30px_-15px_rgba(13,26,74,0.18)]">
+    <section className="rounded-2xl border border-ink/8 bg-white p-6 shadow-[0_8px_30px_-15px_rgba(2,27,90,0.18)]">
       <header className="mb-5 flex items-baseline justify-between">
         <p className="font-mono text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-brand-royal">
           Compréhension du plan

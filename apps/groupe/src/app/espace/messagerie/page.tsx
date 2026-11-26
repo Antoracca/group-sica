@@ -177,7 +177,7 @@ export default function MessageriePage() {
               <div className="p-4 bg-white border-t border-slate-200">
                 <form 
                   onSubmit={handleSendMessage}
-                  className="flex items-end gap-2 bg-slate-100/80 rounded-2xl p-2 border border-slate-200 focus-within:border-blue-400 focus-within:bg-white transition-all focus-within:shadow-[0_0_0_3px_rgba(59,130,246,0.1)]"
+                  className="flex items-end gap-2 bg-slate-100/80 rounded-2xl p-2 border border-slate-200 focus-within:border-blue-400 focus-within:bg-white transition-all focus-within:shadow-[0_0_0_3px_rgba(55,110,250,0.1)]"
                 >
                   <button 
                     type="button"

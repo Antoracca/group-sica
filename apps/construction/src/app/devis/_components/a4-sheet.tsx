@@ -21,7 +21,7 @@ export function A4Sheet({
 }) {
   return (
     <div
-      className="devis-page relative flex flex-col bg-white text-ink shadow-[0_8px_40px_-12px_rgba(13,26,74,0.35)] ring-1 ring-black/5"
+      className="devis-page relative flex flex-col bg-white text-ink shadow-[0_8px_40px_-12px_rgba(2,27,90,0.35)] ring-1 ring-black/5"
       style={{ width: SHEET_W, height: SHEET_H }}
     >
       {/* En-tête */}

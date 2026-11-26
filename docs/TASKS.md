@@ -1,9 +1,76 @@
 # SICA Platform — Suivi des tâches
 
 > Source unique de vérité du travail en cours. Cochée = livrée ET validée client.
-> Convention : `[ ]` à faire · `[~]` en cours · `[x]` terminée et validée · `[!]` bloquée.
+> Convention : `[ ]` à faire · `[~]` en cours / livré en attente de validation · `[x]` terminée et validée · `[!]` bloquée.
 
 ---
+
+## REFONTE V2 — novembre 2026 (prioritaire)
+
+> **26/11/2026 — vague 1 REJETÉE et ANNULÉE** (code remis à l'état du commit 954ba3a, refonte conservée dans `git stash` « refonte-v2-rejetee-2026-11-26 »). Les cases `[~]` ci-dessous ne sont plus valides. Nouvelle approche : ancien site conservé + couleurs officielles + corrections DG + finitions du modèle de design (voir DESIGN.md révision 3).
+>
+> **Groupe (fait le 26/11, en attente de validation)** : couleurs officielles sur tout le site, domaines `.com`, adresses Cocody Centre / PMI et Morofé / 24 Ampoules, SARLU, téléphones uniformisés, chiffres non sourcés remplacés (11 réalisations référencées, 5 équipes terrain, 2 implantations, immatriculation 2020), années et statuts de projets « à confirmer », promesses absolues adoucies, filigrane de la vidéo d'accueil recadré, boutons au format du modèle.
+> **Ensuite** : Construction (12 améliorations, menu imposé) puis Assistance, même méthode.
+
+
+Sources : `DESIGN.md` (v2), `INSTRUCTIONS.md`, les 3 PDF de `docs/` (11 et 17/11/2026).
+Objectif de cette vague : refaire **plus de 50 %** des 3 sites selon DESIGN.md, dans l'ordre Groupe → Construction → Assistance. L'autre moitié suit dans une seconde vague.
+
+**État au 26/11/2026** : `[~]` = livré dans le code (typecheck 0 erreur, build OK : Groupe 30 pages, Construction 26, Assistance 15, contrôle visuel 375 / 1440 px), en attente de validation client. Les champs non fournis par la Direction sont affichés « à confirmer » ou masqués.
+
+### Phase 0 — Fondation design (partagée)
+- [~] **F-1** Tokens couleurs officiels (`#0633B0`, `#F77F00`, surfaces indigo-nuit, filets, statuts) dans `packages/tokens` + variables CSS
+- [~] **F-2** Preset Tailwind : nouvelles classes (surfaces, texte, tailles display, `font-num`, `py-section`), rayons 4/6/8/12
+- [~] **F-3** Polices unifiées sur les 3 apps : Inter + IBM Plex Sans (chiffres) + IBM Plex Mono
+- [~] **F-4** `@sica/ui` : `Button` (primary, pill, secondary-dark, secondary-light, indigo, ghost), `Container` 1280
+- [~] **F-5** Header partagé restylé `top-nav-dark` / `top-nav-light` + barre inter-sites (Groupe · Construction · Assistance)
+- [~] **F-6** Footer clair `footer-light` sur les 3 sites, coordonnées uniformes, domaines `.com`
+- [~] **F-7** Liens de production → `groupe-sica.com`, `sicaconstruction.com`, `sicaassistance.com`
+
+### Phase 1 — Site principal GROUPE SICA (`apps/groupe`)
+- [~] **G2-1** Accueil : hero-band-dark (H1 + CTA + accès aux 2 pôles), bande entités, signature-band, réalisations (tableau data-table-card + photos réelles), actualités, cta-band, footer clair
+- [~] **G2-2** Page À propos / Le Groupe : présentation SARLU, vision/mission/valeurs, organisation, implantations (sans chiffres non validés)
+- [~] **G2-3** Contact : mode clair transactionnel, 2 agences, coordonnées uniformes
+- [~] **G2-4** Navigation Groupe : liens vers les 2 pôles distingués, nouveaux domaines
+
+### Phase 2 — SICA Construction (`apps/construction`) — 12 améliorations
+- [~] **C2-1** Menu imposé (amélioration 1) : Accueil · Qui sommes-nous ? · Nos expertises · Nos réalisations · Nos solutions constructives · Nos agences · Espace client E-SICA · Contact / Demander un devis + liens Groupe/Assistance
+- [~] **C2-2** Accueil : bannière claire + message (phrase d'accueil validée) + CTA, signature « L'exigence technique… »
+- [~] **C2-3** Page `/qui-sommes-nous` (amélioration 2)
+- [~] **C2-4** Page `/expertises` en 3 domaines A/B/C (amélioration 3), circuits Études vs Technique distincts
+- [~] **C2-5** `/realisations` : filtres type / localisation / année, fiche projet (type, localisation, année, statut, mission SICA, caractéristiques) — champs non connus marqués « à confirmer » (amélioration 4)
+- [~] **C2-6** Page `/solutions` (services / solutions constructives, dont géobéton / BTCS)
+- [~] **C2-7** Page `/agences` : Abidjan Cocody Centre / PMI + Yamoussoukro Morofé / 24 Ampoules, téléphone, WhatsApp, carte + itinéraire, horaires « à confirmer » (amélioration 7)
+- [~] **C2-8** Textes commerciaux revus : engagements mesurables, CTA devis / conseiller / rendez-vous (amélioration 11)
+- [~] **C2-9** Métadonnées uniques par page + mots-clés SEO de l'amélioration 9
+
+### Phase 3 — SICA Assistance (`apps/assistance`)
+- [~] **A2-1** Accueil restylé (hero sombre, services, process, CTA « Démarrer mon dossier »)
+- [~] **A2-2** `/creation-entreprise` : but, pièces à fournir, rédaction des actes (notaire agréé / sous seing privé), enregistrement DGI, immatriculations, rattachement impôts, rattachement CNPS, délai 30 jours
+- [~] **A2-3** `/modification-entreprise` : définition, buts, motifs fréquents, pièces, mêmes étapes
+- [~] **A2-4** `/formes-juridiques` : EI, SARL/SARLU, SA, SAS/SASU, SCI, SNC, SCS (tableau comparatif data-table)
+- [~] **A2-5** `/gestion-comptable-fiscale-sociale` : comptable (SYSCOHADA), fiscale (DGI, régimes), sociale (CNPS), FNE, business plan, accompagnement
+- [~] **A2-6** `/impots-taxes` : particuliers, entreprises (IS 25 %, IMF, TVA 18 %), régimes TEE / RME / RSI / RNI, foncier et locaux, cotisations CNPS
+- [~] **A2-7** Navigation et footer Assistance alignés, domaine `sicaassistance.com`
+
+### Seconde vague (≈ 50 % restant, plus tard)
+- [ ] Simulateur devis / DQE v2 (amélioration 5) : estimation vs avant-métré vs DQE vs devis officiel, villa basse / duplex / triplex / immeuble R+1 → R+50, standing, géobéton/BTCS, upload plans PDF limité, hypothèses / exclusions / validité, PDF référencé daté versionné, validation service Études
+- [ ] Espace client E-SICA renforcé (amélioration 6) : documents, planning, rapports datés, situations financières, réserves, PV, droits par client (RLS)
+- [ ] Preuves de crédibilité (amélioration 8) après validation Direction : équipe, moyens matériels, contrôle qualité, témoignages autorisés
+- [ ] SEO complet (amélioration 9) : pages locales Abidjan / Yamoussoukro, sitemap, robots, redirections, rapport SEO avant/après
+- [~] Restyle pages secondaires Groupe : actualités, carrières, partenaires, légales ; Assistance : simulateur, ressources, légales
+- [ ] Sécurité et remise des accès (amélioration 12 + courrier du 11/11/2026) : dossier de remise (domaines, DNS, hébergement, admin, code, base, e-mails, Analytics/Search Console, SSL, sauvegardes, licences, doc technique, formation, tests de restauration et de récupération)
+
+### À fournir par la Direction (bloquant pour publication, pas pour le dev)
+- Horaires des agences, photo des bureaux, numéro WhatsApp à afficher
+- Dates d'historique, chiffres publiables (projets, années, effectifs)
+- Par projet : type, année, statut, mission SICA, surface/niveaux, photos avant/pendant/après, autorisation client
+- Témoignages signés, profils d'équipe autorisés, qualifications justifiables
+- Confirmation des domaines `.com` et accès registrar
+
+---
+
+## Historique (vague 1, mai–juin 2026)
 
 ## Légende des sites
 
@@ -139,3 +206,15 @@ App web façon Windows 11 / Fluent, reliée aux 3 pôles (Groupe = vue holding, 
 ---
 
 *Mise à jour automatique : éditer ce fichier à chaque clôture/validation.*
+
+
+## Mise à jour 26/11/2026 (soir)
+- [x] Courrier de remise des accès (`docs/REMISE_ACCES_GROUPE_SICA.docx`)
+- [x] Construction : menu imposé, qui-sommes-nous, expertises A/B/C, solutions, agences, contact, données projets nettoyées, signature, sitemap/robots
+- [x] Assistance : couleurs + coordonnées uniformes
+- [x] Assistance : pages de contenu du PDF « Info à compléter » (refonte style batup, 26/11 nuit)
+- [ ] Assistance : intégrer le modal fourni par le client pour IA SICA
+- [ ] Assistance : vidéo / photos des bureaux, horaires, témoignages (à fournir)
+- [ ] Assistance : supprimer les anciens `src/app/_sections/*` après validation
+- [ ] Révoquer le jeton GitHub présent dans l'URL du dépôt local
+- [ ] Vérifier/remplacer les photos du hero Construction si non SICA

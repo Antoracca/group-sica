@@ -8,7 +8,7 @@ import { adminCreateClient } from "@/espace/lib/actions";
 const labelCls =
   "mb-1.5 block text-xs font-semibold uppercase tracking-[0.08em] text-slate-500";
 const fieldCls =
-  "min-h-[44px] w-full rounded-md border border-slate-200 bg-slate-50 px-3.5 text-base text-slate-950 placeholder:text-slate-400 outline-none transition-colors focus:border-[#1E2F8A] focus:bg-white focus:ring-4 focus:ring-[#1E2F8A]/10";
+  "min-h-[44px] w-full rounded-md border border-slate-200 bg-slate-50 px-3.5 text-base text-slate-950 placeholder:text-slate-400 outline-none transition-colors focus:border-[#0633B0] focus:bg-white focus:ring-4 focus:ring-[#0633B0]/10";
 
 function makePassword(): string {
   const a = "ABCDEFGHJKLMNPQRSTUVWXYZ";
@@ -125,7 +125,7 @@ export function CreateClientForm() {
             type="button"
             onClick={() => setPassword(makePassword())}
             aria-label="Générer un mot de passe"
-            className="flex size-11 shrink-0 items-center justify-center rounded-md border border-slate-200 text-slate-500 transition-colors hover:bg-slate-100 hover:text-[#1E2F8A]"
+            className="flex size-11 shrink-0 items-center justify-center rounded-md border border-slate-200 text-slate-500 transition-colors hover:bg-slate-100 hover:text-[#0633B0]"
           >
             <RefreshCw className="size-4" />
           </button>
@@ -133,7 +133,7 @@ export function CreateClientForm() {
       </label>
 
       <label className="flex items-center gap-2.5 pt-1">
-        <input name="seed" type="checkbox" defaultChecked className="size-4 accent-[#1E2F8A]" />
+        <input name="seed" type="checkbox" defaultChecked className="size-4 accent-[#0633B0]" />
         <span className="text-sm text-slate-600">Pré-remplir l&apos;espace (2 projets, 1 devis, 1 demande)</span>
       </label>
 

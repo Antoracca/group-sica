@@ -1,93 +1,91 @@
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
-import { Container } from "@sica/ui";
-import { AssistanceHeader } from "@/components/assistance-header";
-import { FooterAssistance } from "@/components/footer-assistance";
-import { PageHero } from "@/components/page-hero";
-import { ASSISTANCE_SERVICES } from "@/lib/services";
+import { Block, CtaFinal, InnerHero, PageShell } from "@/components/assistance-page";
+import { Btn } from "@/components/kit";
 
 export const metadata: Metadata = {
-  title: "Nos services",
+  title: "Nos services — formalités, gestion, impôts",
   description:
-    "Création et modification d'entreprises, comptabilité, fiscalité, déclarations, conseil en gestion et accompagnement. Le détail des services de SICA Assistance.",
+    "Les services de SICA ASSISTANCE : création et modification d'entreprise, formes juridiques, gestion comptable, fiscale et sociale, impôts et taxes en Côte d'Ivoire.",
+  alternates: { canonical: "/services" },
 };
+
+const SERVICES = [
+  {
+    titre: "Création d'entreprise",
+    texte: "Pièces à fournir, actes, enregistrement DGI, RCCM, CEPICI, rattachements aux impôts et à la CNPS.",
+    href: "/creation-entreprise",
+  },
+  {
+    titre: "Modification d'entreprise",
+    texte: "Gérant, siège social, capital, forme juridique, dénomination, objet social.",
+    href: "/modification-entreprise",
+  },
+  {
+    titre: "Formes juridiques",
+    texte: "EI, SARL / SARLU, SA, SAS / SASU, SCI, SNC, SCS : associés, capital, responsabilité.",
+    href: "/formes-juridiques",
+  },
+  {
+    titre: "Gestion comptable, fiscale et sociale",
+    texte: "SYSCOHADA, e-Impôts, paie, e-CNPS, états financiers, FNE, business plan.",
+    href: "/gestion",
+  },
+  {
+    titre: "Impôts et taxes",
+    texte: "ITS, CN, IGR, IS, IMF, TVA, régimes TEE, RME, RSI, RNI, impôts fonciers, CNPS.",
+    href: "/impots-et-taxes",
+  },
+] as const;
 
 export default function ServicesPage() {
   return (
-    <>
-      <AssistanceHeader forceScrolled />
-      <main id="main-content">
-        <PageHero
-          eyebrow="Nos services"
-          title="L'administratif de votre entreprise, pris en charge de bout en bout."
-          intro="Sept domaines d'intervention complémentaires. Vous mobilisez un seul service ou un accompagnement complet, selon votre situation."
-        />
+    <PageShell>
+      <InnerHero
+        pill="Nos services"
+        title={
+          <>
+            Tout l&apos;administratif de votre entreprise, <span className="f-accent text-[1.08em] text-brand-amber">un seul cabinet.</span>
+          </>
+        }
+        intro="Formalités de création et de modification, gestion comptable, fiscale et sociale, impôts et taxes."
+        image="/media/equipe-bureau-2.jpeg"
+      >
+        <Btn href="/contact?objet=creation" arrow>
+          Démarrer mon dossier
+        </Btn>
+      </InnerHero>
 
-        <section className="bg-background pb-20 sm:pb-24 lg:pb-28">
-          <Container>
-            <div className="grid gap-5 sm:grid-cols-2 lg:gap-6">
-              {ASSISTANCE_SERVICES.map((service) => {
-                const Icon = service.icon;
-                return (
-                  <article
-                    key={service.id}
-                    id={service.id}
-                    className="flex scroll-mt-28 flex-col rounded-2xl border border-brand-royal/10 bg-white p-6 sm:p-7"
-                  >
-                    <div className="flex items-center gap-4">
-                      <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand-royal/5 text-brand-royal">
-                        <Icon className="size-6" aria-hidden />
-                      </span>
-                      <span className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-brand-royal/40">
-                        {service.num}
-                      </span>
-                    </div>
+      <Block>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {SERVICES.map((s) => (
+            <a
+              key={s.href}
+              href={s.href}
+              className="group flex flex-col rounded-3xl border border-slate-200/70 bg-white p-7 shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-royal/30 hover:shadow-md"
+            >
+              <h2 className=" font-display text-xl font-bold text-ink">{s.titre}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate">{s.texte}</p>
+              <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-brand-royal">
+                En savoir plus <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </a>
+          ))}
+          <a
+            href="/simulateur"
+            className="flex flex-col rounded-3xl bg-[#0A1130] p-7 text-white transition-transform hover:-translate-y-0.5"
+          >
+            <span className="font-display text-sm font-extrabold text-brand-amber">Outil</span>
+            <h2 className="mt-3 font-display text-xl font-bold">Simulateur de création</h2>
+            <p className="mt-3 text-sm leading-relaxed text-white/70">Préparez votre projet avant d&apos;échanger avec un conseiller.</p>
+            <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-brand-amber">
+              Lancer le simulateur <ArrowRight aria-hidden className="size-4" />
+            </span>
+          </a>
+        </div>
+      </Block>
 
-                    <h2 className="mt-5 font-display text-xl font-semibold leading-snug tracking-[-0.01em] text-ink">
-                      {service.label}
-                    </h2>
-                    <p className="mt-3 flex-1 text-base leading-relaxed text-slate">
-                      {service.description}
-                    </p>
-
-                    <ul className="mt-5 flex flex-wrap gap-2">
-                      {service.points.map((point) => (
-                        <li
-                          key={point}
-                          className="inline-flex items-center gap-1.5 rounded-full border border-brand-royal/12 bg-mist/60 px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-brand-royal"
-                        >
-                          <span aria-hidden className="size-1 shrink-0 rounded-full bg-brand-amber" />
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                );
-              })}
-            </div>
-
-            {/* CTA */}
-            <div className="mt-12 flex flex-col items-start gap-4 rounded-2xl border border-brand-royal/10 bg-mist/40 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-              <div>
-                <h2 className="font-display text-xl font-semibold text-ink">
-                  Un besoin précis ? Parlons-en.
-                </h2>
-                <p className="mt-1 max-w-md text-base leading-relaxed text-slate">
-                  Exposez-nous votre situation, nous vous orientons vers le bon service.
-                </p>
-              </div>
-              <a
-                href="/contact"
-                className="group inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-full bg-brand-royal px-6 text-sm font-semibold text-white transition-colors hover:bg-brand-royal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-royal focus-visible:ring-offset-2"
-              >
-                Démarrer mon dossier
-                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
-              </a>
-            </div>
-          </Container>
-        </section>
-      </main>
-      <FooterAssistance />
-    </>
+      <CtaFinal />
+    </PageShell>
   );
 }

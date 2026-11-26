@@ -50,11 +50,11 @@ function formatDateShort(iso: string): string {
    Couleurs par catégorie — accents clairs (cohérent avec news.tsx)
 ═══════════════════════════════════════════════════════════════════════ */
 type CatStyle = { accent: string; bg: string; label: string };
-const FALLBACK_CAT: CatStyle = { accent: "#0D1A4A", bg: "rgba(13,26,74,0.09)", label: "#0D1A4A" };
+const FALLBACK_CAT: CatStyle = { accent: "#021B5A", bg: "rgba(2,27,90,0.09)", label: "#021B5A" };
 const CAT: Record<string, CatStyle> = {
-  Construction: { accent: "#1E2F8A", bg: "rgba(30,47,138,0.09)", label: "#1E2F8A" },
-  Assistance:   { accent: "#F39200", bg: "rgba(243,146,0,0.11)",  label: "#A05500" },
-  Groupe:       { accent: "#0D1A4A", bg: "rgba(13,26,74,0.09)",   label: "#0D1A4A" },
+  Construction: { accent: "#0633B0", bg: "rgba(6,51,176,0.09)", label: "#0633B0" },
+  Assistance:   { accent: "#F77F00", bg: "rgba(247,127,0,0.11)",  label: "#A04800" },
+  Groupe:       { accent: "#021B5A", bg: "rgba(2,27,90,0.09)",   label: "#021B5A" },
   Communauté:   { accent: "#166534", bg: "rgba(22,101,52,0.10)",  label: "#166534" },
 };
 
@@ -73,7 +73,7 @@ function Hero() {
   return (
     <section
       className="relative overflow-hidden pt-36 pb-20 text-white sm:pt-44 sm:pb-28"
-      style={{ background: "linear-gradient(155deg, #060D22 0%, #0F1C55 55%, #1E2F8A 100%)" }}
+      style={{ background: "linear-gradient(155deg, #010C29 0%, #031F67 55%, #0633B0 100%)" }}
     >
       <div
         aria-hidden
@@ -87,7 +87,7 @@ function Hero() {
       <div
         aria-hidden
         className="pointer-events-none absolute -top-20 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full opacity-15"
-        style={{ background: "radial-gradient(circle, rgba(243,146,0,0.45) 0%, transparent 65%)" }}
+        style={{ background: "radial-gradient(circle, rgba(247,127,0,0.45) 0%, transparent 65%)" }}
       />
 
       <Container className="relative">
@@ -95,10 +95,10 @@ function Hero() {
           initial={{ opacity: 0, x: -14 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.55, ease: E }}
-          className="mb-7 inline-flex items-center gap-3 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]"
+          className="mb-7 inline-flex items-center gap-3 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]"
           style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
         >
-          <span className="h-px w-7 bg-[#F39200]" aria-hidden />
+          <span className="h-px w-7 bg-[#F77F00]" aria-hidden />
           Actualités SICA
         </motion.p>
 
@@ -111,7 +111,7 @@ function Hero() {
         >
           Le journal
           <br />
-          <em className="not-italic" style={{ color: "#F39200" }}>
+          <em className="not-italic" style={{ color: "#F77F00" }}>
             du Groupe.
           </em>
         </motion.h1>
@@ -130,7 +130,7 @@ function Hero() {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.9, delay: 0.35, ease: E }}
-          className="mt-10 h-px w-full max-w-[560px] origin-left bg-gradient-to-r from-[#F39200]/60 via-white/10 to-transparent"
+          className="mt-10 h-px w-full max-w-[560px] origin-left bg-gradient-to-r from-[#F77F00]/60 via-white/10 to-transparent"
         />
       </Container>
     </section>
@@ -169,9 +169,9 @@ function FeaturedArticle({ article }: { article: Actualite }) {
           transition={{ duration: 0.6, ease: E }}
           className="mb-10 flex items-center gap-4"
         >
-          <span className="h-[1.5px] w-12" style={{ background: "#F39200" }} aria-hidden />
+          <span className="h-[1.5px] w-12" style={{ background: "#F77F00" }} aria-hidden />
           <span
-            className="text-[0.7rem] font-bold uppercase tracking-[0.35em] text-[#F39200]"
+            className="text-[0.7rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]"
             style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
           >
             À la une
@@ -213,7 +213,7 @@ function FeaturedArticle({ article }: { article: Actualite }) {
                 initial={{ opacity: 0, y: 22 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.85, delay: 0.14, ease: E }}
-                className="text-balance text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-[#0D1A4A] transition-colors duration-300 group-hover:text-[#1E2F8A]"
+                className="text-balance text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-[#021B5A] transition-colors duration-300 group-hover:text-[#0633B0]"
                 style={{ fontFamily: "'DM Serif Display', serif" }}
               >
                 {article.titre}
@@ -235,14 +235,14 @@ function FeaturedArticle({ article }: { article: Actualite }) {
                 className="mt-8 inline-flex items-center gap-3"
               >
                 <span
-                  className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#1E2F8A] transition-colors group-hover:text-[#F39200]"
+                  className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#0633B0] transition-colors group-hover:text-[#F77F00]"
                   style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
                   Lire l'article complet
                 </span>
                 <ArrowUpRight
                   size={16}
-                  className="text-[#1E2F8A] transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:text-[#F39200]"
+                  className="text-[#0633B0] transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:text-[#F77F00]"
                 />
               </motion.div>
             </div>
@@ -336,7 +336,7 @@ function ArticleRow({
           className="pointer-events-none absolute -inset-x-4 inset-y-0 -z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           style={{
             background:
-              "linear-gradient(90deg, rgba(243,146,0,0.04) 0%, rgba(243,146,0,0.015) 50%, transparent 100%)",
+              "linear-gradient(90deg, rgba(247,127,0,0.04) 0%, rgba(247,127,0,0.015) 50%, transparent 100%)",
           }}
         />
 
@@ -361,7 +361,7 @@ function ArticleRow({
         <div className="flex-1 pl-6 lg:pl-0">
           <h3
             className={[
-              "text-balance font-bold leading-[1.16] tracking-tight text-[#0D1A4A] transition-colors duration-300 group-hover:text-[#1E2F8A]",
+              "text-balance font-bold leading-[1.16] tracking-tight text-[#021B5A] transition-colors duration-300 group-hover:text-[#0633B0]",
               isLarge
                 ? "text-[clamp(1.625rem,2.6vw,2.25rem)]"
                 : "text-[clamp(1.25rem,2vw,1.625rem)]",
@@ -383,7 +383,7 @@ function ArticleRow({
           {/* Méta ligne basse : lire + temps */}
           <div className="mt-5 flex items-center gap-5">
             <span
-              className="inline-flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-[#1E2F8A] transition-colors group-hover:text-[#F39200]"
+              className="inline-flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-[#0633B0] transition-colors group-hover:text-[#F77F00]"
               style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
             >
               <span className="h-px w-5 bg-current transition-all duration-300 group-hover:w-9" aria-hidden />
@@ -435,7 +435,7 @@ export function ActualitesContent({ articles }: { articles: Actualite[] }) {
           Filets verticaux d'accent + séparateurs fins horizontaux
       ══════════════════════════════════════════════════════════════ */}
       {rest.length > 0 && (
-        <section className="relative overflow-hidden bg-[#FBF7EE] py-16 sm:py-20 lg:py-24">
+        <section className="relative overflow-hidden bg-[#FBF6EE] py-16 sm:py-20 lg:py-24">
           {/* Texture papier journal très subtile */}
           <div
             aria-hidden
@@ -449,19 +449,19 @@ export function ActualitesContent({ articles }: { articles: Actualite[] }) {
 
           <Container className="relative">
             {/* ─ En-tête section + filtres ─ */}
-            <div className="mb-12 flex flex-col gap-7 border-b border-[#1E2F8A]/12 pb-10 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+            <div className="mb-12 flex flex-col gap-7 border-b border-[#0633B0]/12 pb-10 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
               <Reveal>
                 <div className="flex items-center gap-3">
-                  <span className="h-[1.5px] w-8 bg-[#F39200]" aria-hidden />
+                  <span className="h-[1.5px] w-8 bg-[#F77F00]" aria-hidden />
                   <span
-                    className="text-[0.7rem] font-bold uppercase tracking-[0.32em] text-[#F39200]"
+                    className="text-[0.7rem] font-bold uppercase tracking-[0.32em] text-[#F77F00]"
                     style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                   >
                     Toute l'actualité
                   </span>
                 </div>
                 <h2
-                  className="mt-4 text-balance text-[clamp(1.625rem,3vw,2.25rem)] font-bold leading-[1.1] tracking-tight text-[#0D1A4A]"
+                  className="mt-4 text-balance text-[clamp(1.625rem,3vw,2.25rem)] font-bold leading-[1.1] tracking-tight text-[#021B5A]"
                   style={{ fontFamily: "'DM Serif Display', serif" }}
                 >
                   Chroniques du Groupe SICA.
@@ -481,8 +481,8 @@ export function ActualitesContent({ articles }: { articles: Actualite[] }) {
                         className={[
                           "px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.18em] transition-all duration-200",
                           isActive
-                            ? "bg-[#1E2F8A] text-white shadow-[0_2px_12px_rgba(30,47,138,0.25)]"
-                            : "bg-transparent text-neutral-500 hover:bg-[#1E2F8A]/[0.05] hover:text-[#1E2F8A]",
+                            ? "bg-[#0633B0] text-white shadow-[0_2px_12px_rgba(6,51,176,0.25)]"
+                            : "bg-transparent text-neutral-500 hover:bg-[#0633B0]/[0.05] hover:text-[#0633B0]",
                         ].join(" ")}
                         style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                       >
@@ -503,7 +503,7 @@ export function ActualitesContent({ articles }: { articles: Actualite[] }) {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="divide-y divide-[#1E2F8A]/12"
+                  className="divide-y divide-[#0633B0]/12"
                 >
                   {filtered.map((a, i) => (
                     <ArticleRow
@@ -520,7 +520,7 @@ export function ActualitesContent({ articles }: { articles: Actualite[] }) {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="border-t border-[#1E2F8A]/12 py-16 text-center"
+                  className="border-t border-[#0633B0]/12 py-16 text-center"
                 >
                   <p className="text-[0.875rem] text-neutral-500">
                     Aucun article dans cette catégorie pour le moment.
@@ -530,7 +530,7 @@ export function ActualitesContent({ articles }: { articles: Actualite[] }) {
             </AnimatePresence>
 
             {/* Pied de section — colophon éditorial */}
-            <div className="mt-12 flex items-center justify-between border-t border-[#1E2F8A]/12 pt-7">
+            <div className="mt-12 flex items-center justify-between border-t border-[#0633B0]/12 pt-7">
               <span
                 className="text-[0.68rem] font-bold uppercase tracking-[0.28em] text-neutral-400"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
@@ -555,9 +555,9 @@ export function ActualitesContent({ articles }: { articles: Actualite[] }) {
         <Container>
           <Reveal>
             <div className="flex items-center gap-3">
-              <span className="h-[1.5px] w-8 bg-[#F39200]" aria-hidden />
+              <span className="h-[1.5px] w-8 bg-[#F77F00]" aria-hidden />
               <span
-                className="text-[0.7rem] font-bold uppercase tracking-[0.32em] text-[#F39200]"
+                className="text-[0.7rem] font-bold uppercase tracking-[0.32em] text-[#F77F00]"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
               >
                 Prix et récompenses
@@ -566,19 +566,19 @@ export function ActualitesContent({ articles }: { articles: Actualite[] }) {
           </Reveal>
           <Reveal delay={0.07}>
             <h2
-              className="mb-10 mt-4 text-balance text-[clamp(1.625rem,3vw,2.25rem)] font-bold leading-[1.1] tracking-tight text-[#0D1A4A]"
+              className="mb-10 mt-4 text-balance text-[clamp(1.625rem,3vw,2.25rem)] font-bold leading-[1.1] tracking-tight text-[#021B5A]"
               style={{ fontFamily: "'DM Serif Display', serif" }}
             >
               Distinctions du Groupe.
             </h2>
           </Reveal>
           <Reveal delay={0.14}>
-            <div className="flex items-center gap-5 border-l-[2px] border-[#F39200] bg-[#FBF7EE] px-7 py-7">
+            <div className="flex items-center gap-5 border-l-[2px] border-[#F77F00] bg-[#FBF6EE] px-7 py-7">
               <div
                 className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
-                style={{ background: "rgba(243,146,0,0.10)" }}
+                style={{ background: "rgba(247,127,0,0.10)" }}
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F39200" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F77F00" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                   <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
                 </svg>
               </div>

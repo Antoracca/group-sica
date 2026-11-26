@@ -18,7 +18,7 @@ const SHAPES: { id: StampShape; label: string; icon: typeof Circle }[] = [
   { id: "rectangle", label: "Rectangle", icon: RectangleHorizontal },
 ];
 
-const PRESET_COLORS = ["#1E2F8A", "#0B1020", "#B5283A", "#1F8A56", "#000000"];
+const PRESET_COLORS = ["#0633B0", "#071027", "#B5283A", "#1F8A56", "#000000"];
 
 export function StampBuilder({
   config,

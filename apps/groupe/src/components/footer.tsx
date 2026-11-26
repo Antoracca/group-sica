@@ -33,7 +33,7 @@ const POLES = [
   {
     name: "SICA Assistance",
     tagline: "Comptabilite - Fiscalite - Paie",
-    href: "https://sicaassistance.ci",
+    href: "https://www.sicaassistance.com",
     logoSrc: "/logo-assistance.png",
     logoAlt: "Logo SICA Assistance",
   },
@@ -49,7 +49,7 @@ export function Footer() {
         className="h-px"
         style={{
           background:
-            "linear-gradient(to right, transparent 0%, rgba(247,160,38,0.35) 25%, rgba(247,160,38,0.35) 75%, transparent 100%)",
+            "linear-gradient(to right, transparent 0%, rgba(247,143,38,0.35) 25%, rgba(247,143,38,0.35) 75%, transparent 100%)",
         }}
       />
 
@@ -75,9 +75,9 @@ export function Footer() {
               comptabilité, conseil. Une équipe ivoirienne depuis 2020.
             </p>
             <div className="text-xs leading-relaxed text-white/55">
-              <span className="font-medium text-white/70">Abidjan</span> — Cocody, Centre, en face Cité 48 Logements V1
+              <span className="font-medium text-white/70">Abidjan</span> — Cocody Centre / PMI
               <br />
-              <span className="font-medium text-white/70">Yamoussoukro</span> — Morofé, 24 ampoules
+              <span className="font-medium text-white/70">Yamoussoukro</span> — Morofé / 24 Ampoules
             </div>
           </div>
 
@@ -112,9 +112,9 @@ export function Footer() {
                       href={item.href}
                       className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-semibold transition-all duration-200 hover:opacity-90"
                       style={{
-                        background: "linear-gradient(135deg, #1E2F8A 0%, #2C47C5 100%)",
+                        background: "linear-gradient(135deg, #0633B0 0%, #0A4DF5 100%)",
                         color: "#FFFFFF",
-                        boxShadow: "0 2px 12px rgba(30,47,138,0.35)",
+                        boxShadow: "0 2px 12px rgba(6,51,176,0.35)",
                       }}
                     >
                       {/* Petit cadenas */}
@@ -188,6 +188,14 @@ export function Footer() {
                 </li>
                 <li>
                   <a
+                    href="tel:+2252722247445"
+                    className="text-sm text-white/52 transition-colors duration-200 hover:text-white"
+                  >
+                    +225 27 22 24 74 45
+                  </a>
+                </li>
+                <li>
+                  <a
                     href="mailto:groupesica@gmail.com"
                     className="text-sm text-white/52 transition-colors duration-200 hover:text-white"
                   >
@@ -212,7 +220,7 @@ export function Footer() {
 
         <div className="flex flex-col gap-2 border-t border-white/[0.07] py-5 md:flex-row md:items-center md:justify-between">
           <p className="text-[0.75rem] text-white/55">
-            &copy; {year} Groupe SICA - RCCM CI-ABJ-03-2020-B13-17592 - Abidjan, Cote d'Ivoire
+            &copy; {year} GROUPE SICA – SARLU · RCCM CI-ABJ-03-2020-B13-17592 · CC 2054314X · Abidjan, Côte d&apos;Ivoire
           </p>
           <nav aria-label="Navigation legale">
             <ul className="flex gap-4">

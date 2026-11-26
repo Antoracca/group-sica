@@ -5,11 +5,11 @@
 @layer base {
   :root {
     /* Brand */
-    --brand-royal: 230 64% 33%;
-    --brand-royal-700: 230 65% 27%;
-    --brand-royal-900: 232 71% 20%;
-    --brand-amber: 36 100% 48%;
-    --brand-amber-600: 35 100% 42%;
+    --brand-royal: 224 93% 36%;
+    --brand-royal-700: 224 93% 29%;
+    --brand-royal-900: 224 90% 21%;
+    --brand-amber: 31 100% 48%;
+    --brand-amber-600: 31 100% 42%;
 
     /* Neutral */
     --ink: 226 49% 8%;

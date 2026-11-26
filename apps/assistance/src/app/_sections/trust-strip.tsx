@@ -13,7 +13,7 @@ import { Container } from "@sica/ui";
 
 const FACTS = [
   { icon: CalendarCheck2, value: "2020", label: "Année de création" },
-  { icon: Landmark, value: "SARL", label: "Société enregistrée" },
+  { icon: Landmark, value: "SARLU", label: "GROUPE SICA – SARLU" },
   { icon: MapPin, value: "2", label: "Implantations · Abidjan, Yamoussoukro" },
   { icon: ShieldCheck, value: "RCCM", label: "CI-ABJ-03-2020-B13-17592" },
 ];

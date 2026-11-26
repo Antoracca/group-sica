@@ -21,7 +21,7 @@ export default function CarrieresPage() {
       ══════════════════════════════════════════════════════ */}
       <section
         className="relative overflow-hidden pt-36 pb-20 text-white sm:pt-44 sm:pb-28 lg:pt-48"
-        style={{ background: "linear-gradient(155deg, #060D22 0%, #0F1C55 55%, #1E2F8A 100%)" }}
+        style={{ background: "linear-gradient(155deg, #010C29 0%, #031F67 55%, #0633B0 100%)" }}
       >
         <div
           aria-hidden
@@ -36,7 +36,7 @@ export default function CarrieresPage() {
         <Container className="relative">
           <p
             className="mb-6 text-[0.65rem] font-bold uppercase tracking-[0.35em]"
-            style={{ color: "#F39200" }}
+            style={{ color: "#F77F00" }}
           >
             Carrières SICA · Côte d'Ivoire
           </p>
@@ -45,7 +45,7 @@ export default function CarrieresPage() {
             style={{ fontFamily: "'DM Serif Display', serif" }}
           >
             Construire avec nous,{" "}
-            <em className="not-italic" style={{ color: "#F39200" }}>
+            <em className="not-italic" style={{ color: "#F77F00" }}>
               structurer demain.
             </em>
           </h1>
@@ -65,11 +65,11 @@ export default function CarrieresPage() {
           {/* En-tête section */}
           <div className="mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F39200]">
+              <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#F77F00]">
                 Offres en cours
               </p>
               <h2
-                className="text-balance text-[clamp(1.875rem,3.5vw,2.5rem)] font-bold leading-tight tracking-tight text-[#0D1A4A]"
+                className="text-balance text-[clamp(1.875rem,3.5vw,2.5rem)] font-bold leading-tight tracking-tight text-[#021B5A]"
                 style={{ fontFamily: "'DM Serif Display', serif" }}
               >
                 0 poste ouvert.
@@ -88,12 +88,12 @@ export default function CarrieresPage() {
               <div className="flex flex-col justify-center px-8 py-12 lg:px-12 lg:py-14">
                 <div
                   className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl"
-                  style={{ background: "rgba(243,146,0,0.09)" }}
+                  style={{ background: "rgba(247,127,0,0.09)" }}
                 >
-                  <Bell size={24} strokeWidth={1.6} style={{ color: "#F39200" }} />
+                  <Bell size={24} strokeWidth={1.6} style={{ color: "#F77F00" }} />
                 </div>
                 <h3
-                  className="mb-3 text-[1.375rem] font-bold leading-tight tracking-tight text-[#0D1A4A]"
+                  className="mb-3 text-[1.375rem] font-bold leading-tight tracking-tight text-[#021B5A]"
                   style={{ fontFamily: "'DM Serif Display', serif" }}
                 >
                   Aucune offre disponible pour le moment.
@@ -108,7 +108,7 @@ export default function CarrieresPage() {
               {/* Colonne visuelle desktop */}
               <div
                 className="hidden lg:flex lg:flex-col lg:items-center lg:justify-center lg:gap-6 lg:px-12 lg:py-14"
-                style={{ background: "linear-gradient(145deg, #0F1C55 0%, #1E2F8A 100%)" }}
+                style={{ background: "linear-gradient(145deg, #031F67 0%, #0633B0 100%)" }}
               >
                 {/* Blueprint grid */}
                 <div
@@ -135,7 +135,7 @@ export default function CarrieresPage() {
                           key={item}
                           className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5"
                         >
-                          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#F39200]/60" />
+                          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#F77F00]/60" />
                           <span className="text-[0.8125rem] text-white/52">{item}</span>
                         </div>
                       ))}
@@ -157,7 +157,7 @@ export default function CarrieresPage() {
           <div
             className="relative overflow-hidden rounded-2xl"
             style={{
-              background: "linear-gradient(160deg, #060D22 0%, #0F1C55 45%, #1E2F8A 100%)",
+              background: "linear-gradient(160deg, #010C29 0%, #031F67 45%, #0633B0 100%)",
             }}
           >
             {/* Blueprint grid */}
@@ -174,7 +174,7 @@ export default function CarrieresPage() {
             <div
               aria-hidden
               className="pointer-events-none absolute -top-24 right-1/3 h-[400px] w-[400px] rounded-full opacity-15"
-              style={{ background: "radial-gradient(circle, rgba(243,146,0,0.5) 0%, transparent 65%)" }}
+              style={{ background: "radial-gradient(circle, rgba(247,127,0,0.5) 0%, transparent 65%)" }}
             />
 
             <div className="relative grid items-center gap-10 px-8 py-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16 lg:px-16 lg:py-16">
@@ -182,7 +182,7 @@ export default function CarrieresPage() {
               <div>
                 <p
                   className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.35em]"
-                  style={{ color: "#F39200" }}
+                  style={{ color: "#F77F00" }}
                 >
                   Candidature spontanée
                 </p>
@@ -196,7 +196,7 @@ export default function CarrieresPage() {
                 </h2>
                 <p className="mt-5 max-w-[44ch] text-[0.9375rem] leading-[1.7] text-white/60">
                   Nous étudions toutes les candidatures qualifiées en BTP, comptabilité,
-                  droit OHADA et conseil PME. Réponse garantie sous 15 jours.
+                  droit OHADA et conseil PME. Réponse sous 15 jours ouvrés.
                 </p>
               </div>
 
@@ -206,8 +206,8 @@ export default function CarrieresPage() {
                   href="mailto:groupesica@gmail.com?subject=Candidature%20spontan%C3%A9e"
                   className="group inline-flex items-center gap-2.5 rounded-2xl px-8 py-4 text-[0.9375rem] font-semibold text-white transition-all hover:opacity-92"
                   style={{
-                    background: "linear-gradient(135deg, #F39200 0%, #D87D00 100%)",
-                    boxShadow: "0 4px 24px rgba(243,146,0,0.35)",
+                    background: "linear-gradient(135deg, #F77F00 0%, #D86B00 100%)",
+                    boxShadow: "0 4px 24px rgba(247,127,0,0.35)",
                   }}
                 >
                   Envoyer mon CV

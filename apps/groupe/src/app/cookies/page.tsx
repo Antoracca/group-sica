@@ -35,9 +35,9 @@ export default function CookiesPage() {
                   requis.
                 </li>
                 <li>
-                  <strong>Cookies de mesure d'audience</strong> — Plausible Analytics, conforme RGPD.
-                  Mesure anonymisée du trafic, sans suivi inter-sites ni profilage. Données agrégées
-                  uniquement.
+                  <strong>Cookies de mesure d'audience</strong> — aucun outil de mesure d'audience
+                  n'est actif à ce jour. Si un outil est mis en place, cette page sera mise à jour
+                  avant son activation et votre consentement sera demandé.
                 </li>
               </ul>
               <p>
@@ -74,7 +74,7 @@ export default function CookiesPage() {
           body: (
             <p>
               Pour toute question relative à cette politique cookies, écrivez à{" "}
-              <a href="mailto:groupesica@gmail.com" className="text-[#1E2F8A] underline hover:text-brand-amber">groupesica@gmail.com</a>.
+              <a href="mailto:groupesica@gmail.com" className="text-[#0633B0] underline hover:text-brand-amber">groupesica@gmail.com</a>.
             </p>
           ),
         },

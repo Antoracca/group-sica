@@ -45,8 +45,8 @@ export function AdminSidebarNav({ className = "" }: { className?: string }) {
             className={[
               "flex min-h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold transition-colors",
               active
-                ? "bg-[#1E2F8A] text-white shadow-sm"
-                : "text-slate-600 hover:bg-slate-100 hover:text-[#1E2F8A]",
+                ? "bg-[#0633B0] text-white shadow-sm"
+                : "text-slate-600 hover:bg-slate-100 hover:text-[#0633B0]",
             ].join(" ")}
           >
             <Icon className="size-4" />
@@ -77,8 +77,8 @@ export function AdminMobileNav() {
             className={[
               "inline-flex min-h-10 shrink-0 items-center gap-2 rounded-full border px-3 text-xs font-bold transition-colors",
               active
-                ? "border-[#1E2F8A] bg-[#1E2F8A] text-white"
-                : "border-slate-200 bg-white text-slate-600 hover:border-[#1E2F8A]/30 hover:text-[#1E2F8A]",
+                ? "border-[#0633B0] bg-[#0633B0] text-white"
+                : "border-slate-200 bg-white text-slate-600 hover:border-[#0633B0]/30 hover:text-[#0633B0]",
             ].join(" ")}
           >
             <Icon className="size-4" />

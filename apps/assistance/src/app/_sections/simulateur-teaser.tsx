@@ -35,7 +35,7 @@ export function SimulateurTeaser() {
     <section id="simulateur" aria-labelledby="simulateur-heading" className="relative overflow-hidden bg-brand-royal text-white">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_70%_at_88%_12%,rgba(243,146,0,0.16),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_70%_at_88%_12%,rgba(247,127,0,0.16),transparent_70%)]"
       />
       <Container className="relative z-10 py-20 sm:py-24 lg:py-28">
         <div ref={ref} className="grid items-center gap-12 lg:grid-cols-[1fr_0.9fr]">

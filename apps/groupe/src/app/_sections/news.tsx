@@ -46,7 +46,7 @@ const ARTICLES: readonly Article[] = [
     date: "Déc. 2025",
     title: "Géobéton BTCS — le matériau qui change la façon de construire en Côte d'Ivoire",
     excerpt:
-      "Brique de terre comprimée stabilisée. 90 % terre tamisée, 10 % ciment. Plus de 99 ans de durée de vie, zéro fissure après construction. Notre signature technique.",
+      "Brique de terre comprimée stabilisée. 90 % terre tamisée, 10 % ciment. Durée de vie annoncée de plus de 99 ans, fissuration limitée. Notre signature technique.",
     readTime: "5 min",
   },
   {
@@ -64,7 +64,7 @@ const ARTICLES: readonly Article[] = [
     date: "Oct. 2025",
     title: "Essais pressiométriques — la précision avant les fondations",
     excerpt:
-      "Mesurer la résistance du sol couche par couche, avant de couler la moindre semelle. C'est notre garantie : zéro mauvaise surprise lors du gros œuvre.",
+      "Mesurer la résistance du sol couche par couche, avant de couler la moindre semelle. C'est notre méthode pour limiter les mauvaises surprises lors du gros œuvre.",
     readTime: "4 min",
   },
   {
@@ -197,7 +197,7 @@ const ARTICLES: readonly Article[] = [
     slug: "sica-ci-lancement-site",
     category: "Digital",
     date: "Janv. 2025",
-    title: "sica.ci — notre nouveau site dédié au Groupe",
+    title: "groupe-sica.com — notre nouveau site dédié au Groupe",
     excerpt:
       "Une vitrine pensée pour vous. Pôles, réalisations, contact direct, accès client. Une porte d'entrée unique vers SICA Construction et SICA Assistance.",
     readTime: "2 min",
@@ -238,17 +238,17 @@ function chunkBy<T>(arr: readonly T[], n: number): T[][] {
 function catColor(c: Categorie): string {
   switch (c) {
     case "Innovation":
-    case "Performance":     return "#F39200"; /* orange chaud */
+    case "Performance":     return "#F77F00"; /* orange chaud */
     case "Réseau":
-    case "Partenariat":     return "#6B85F0"; /* bleu clair */
+    case "Partenariat":     return "#608CFB"; /* bleu clair */
     case "Technique":
-    case "Équipement":      return "#7CC4FF"; /* cyan doux */
+    case "Équipement":      return "#7FA3FC"; /* cyan doux */
     case "Chantier":
     case "Équipe":          return "#5FD4A4"; /* vert émeraude clair */
     case "Service":
     case "Engagement":      return "#C8A5FF"; /* lavande */
     case "Méthode":
-    case "Diversification": return "#FFB84D"; /* ocre */
+    case "Diversification": return "#FFA94D"; /* ocre */
     case "Digital":         return "#5FE6E5"; /* turquoise */
   }
 }
@@ -373,7 +373,7 @@ export function News() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(30,47,138,0.045) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 100% 100%, rgba(243,146,0,0.04) 0%, transparent 60%)",
+              "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(6,51,176,0.045) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 100% 100%, rgba(247,127,0,0.04) 0%, transparent 60%)",
           }}
         />
 
@@ -392,10 +392,10 @@ export function News() {
                   initial={{ scaleX: 0 }}
                   animate={inView ? { scaleX: 1 } : {}}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="h-px w-10 origin-left bg-[#F39200]"
+                  className="h-px w-10 origin-left bg-[#F77F00]"
                 />
                 <span
-                  className="text-[0.6875rem] font-semibold uppercase tracking-[0.32em] text-[#F39200]"
+                  className="text-[0.6875rem] font-semibold uppercase tracking-[0.32em] text-[#F77F00]"
                   style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
                   Actualités · À la une
@@ -404,7 +404,7 @@ export function News() {
 
               <h2
                 id="news-heading"
-                className="text-balance text-[2rem] font-bold leading-[1.05] tracking-tight text-[#0D1A4A] sm:text-[2.5rem] lg:text-[3rem]"
+                className="text-balance text-[2rem] font-bold leading-[1.05] tracking-tight text-[#021B5A] sm:text-[2.5rem] lg:text-[3rem]"
                 style={{ fontFamily: "'DM Serif Display', serif" }}
               >
                 Les dernières nouvelles{" "}
@@ -412,7 +412,7 @@ export function News() {
                   className="not-italic"
                   style={{
                     background:
-                      "linear-gradient(120deg, #1E2F8A 20%, #3B62F5 100%)",
+                      "linear-gradient(120deg, #0633B0 20%, #366EFA 100%)",
                     WebkitBackgroundClip: "text",
                     backgroundClip: "text",
                     color: "transparent",
@@ -437,7 +437,7 @@ export function News() {
             >
               <a
                 href="/actualites"
-                className="group inline-flex items-center gap-2 rounded-full border border-[#1E2F8A]/20 bg-white px-5 py-2.5 text-sm font-semibold text-[#1E2F8A] transition-all duration-300 hover:bg-[#1E2F8A] hover:text-white hover:shadow-lg"
+                className="group inline-flex items-center gap-2 rounded-full border border-[#0633B0]/20 bg-white px-5 py-2.5 text-sm font-semibold text-[#0633B0] transition-all duration-300 hover:bg-[#0633B0] hover:text-white hover:shadow-lg"
               >
                 Toutes les actualités
                 <ArrowUpRight
@@ -504,9 +504,9 @@ function DiagonalStage({
         height: STAGE_HEIGHT,
         perspective: 2000, // requis pour rotateX 3D du peel
         background:
-          "radial-gradient(ellipse 90% 80% at 30% 20%, #142066 0%, #0A1340 60%, #06092A 100%)",
+          "radial-gradient(ellipse 90% 80% at 30% 20%, #03267E 0%, #02174C 60%, #010F32 100%)",
         boxShadow:
-          "0 40px 100px rgba(8,12,40,0.35), 0 12px 32px rgba(8,12,40,0.18), inset 0 1px 0 rgba(255,255,255,0.06)",
+          "0 40px 100px rgba(1,15,50,0.35), 0 12px 32px rgba(1,15,50,0.18), inset 0 1px 0 rgba(255,255,255,0.06)",
       }}
     >
       {/* ── Texture grain sur le navy (très subtile) ── */}
@@ -526,7 +526,7 @@ function DiagonalStage({
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 40% 30% at 90% 90%, rgba(243,146,0,0.10) 0%, transparent 60%)",
+            "radial-gradient(ellipse 40% 30% at 90% 90%, rgba(247,127,0,0.10) 0%, transparent 60%)",
         }}
       />
 
@@ -599,7 +599,7 @@ function DiagonalDecor({
       {/* ── Trait 1 : flotte au-dessus de la carte top-left ── */}
       <motion.line
         x1="48" y1="36" x2="180" y2="36"
-        stroke="#F39200"
+        stroke="#F77F00"
         strokeWidth="1.5"
         strokeLinecap="round"
         vectorEffect="non-scaling-stroke"
@@ -610,7 +610,7 @@ function DiagonalDecor({
       {/* Petit tiret diagonal qui amorce la diagonale */}
       <motion.line
         x1="180" y1="36" x2="208" y2="20"
-        stroke="#F39200"
+        stroke="#F77F00"
         strokeWidth="1.5"
         strokeLinecap="round"
         vectorEffect="non-scaling-stroke"
@@ -635,7 +635,7 @@ function DiagonalDecor({
       {/* Petit tiret diagonal d'amorce */}
       <motion.line
         x1="792" y1="380" x2="820" y2="364"
-        stroke="#F39200"
+        stroke="#F77F00"
         strokeWidth="1.5"
         strokeLinecap="round"
         vectorEffect="non-scaling-stroke"
@@ -645,7 +645,7 @@ function DiagonalDecor({
       />
       <motion.line
         x1="820" y1="380" x2="952" y2="380"
-        stroke="#F39200"
+        stroke="#F77F00"
         strokeWidth="1.5"
         strokeLinecap="round"
         vectorEffect="non-scaling-stroke"
@@ -736,7 +736,7 @@ function DiagonalCard({
     >
       <a
         href={`/actualites/${article.slug}`}
-        className="group relative block overflow-hidden rounded-[14px] bg-[#FBF7EE] p-7 transition-shadow duration-300 xl:p-8"
+        className="group relative block overflow-hidden rounded-[14px] bg-[#FBF6EE] p-7 transition-shadow duration-300 xl:p-8"
         style={{
           boxShadow:
             "0 24px 60px rgba(0,0,0,0.32), 0 6px 18px rgba(0,0,0,0.20), 0 0 0 1px rgba(255,255,255,0.04)",
@@ -772,7 +772,7 @@ function DiagonalCard({
 
         {/* ── Titre éditorial ── */}
         <h3
-          className="text-balance text-[1.25rem] font-bold leading-[1.2] tracking-tight text-[#0D1A4A] transition-colors duration-300 group-hover:text-[#1E2F8A] xl:text-[1.4375rem]"
+          className="text-balance text-[1.25rem] font-bold leading-[1.2] tracking-tight text-[#021B5A] transition-colors duration-300 group-hover:text-[#0633B0] xl:text-[1.4375rem]"
           style={{ fontFamily: "'DM Serif Display', serif" }}
         >
           {article.title}
@@ -786,7 +786,7 @@ function DiagonalCard({
         {/* ── Pied : CTA + readtime ── */}
         <div className="mt-5 flex items-center justify-between">
           <span
-            className="inline-flex items-center gap-1.5 text-[0.8125rem] font-semibold tracking-wide text-[#1E2F8A]"
+            className="inline-flex items-center gap-1.5 text-[0.8125rem] font-semibold tracking-wide text-[#0633B0]"
             style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
           >
             Lire l&apos;article
@@ -825,10 +825,10 @@ function MobileStage({
       className="relative overflow-hidden rounded-[20px] p-5"
       style={{
         background:
-          "radial-gradient(ellipse 100% 80% at 40% 20%, #142066 0%, #0A1340 70%, #06092A 100%)",
+          "radial-gradient(ellipse 100% 80% at 40% 20%, #03267E 0%, #02174C 70%, #010F32 100%)",
         perspective: 1400,
         boxShadow:
-          "0 28px 64px rgba(8,12,40,0.30), 0 8px 20px rgba(8,12,40,0.16)",
+          "0 28px 64px rgba(1,15,50,0.30), 0 8px 20px rgba(1,15,50,0.16)",
       }}
     >
       {/* Watermark filigrane top-right mobile */}
@@ -898,7 +898,7 @@ function MobileCard({
 
   return (
     <motion.article
-      className="relative overflow-hidden rounded-[14px] bg-[#FBF7EE]"
+      className="relative overflow-hidden rounded-[14px] bg-[#FBF6EE]"
       style={{
         boxShadow:
           "0 18px 40px rgba(0,0,0,0.30), 0 4px 12px rgba(0,0,0,0.18)",
@@ -976,7 +976,7 @@ function MobileCard({
         </div>
 
         <h3
-          className="text-balance text-[1.0625rem] font-bold leading-[1.22] tracking-tight text-[#0D1A4A]"
+          className="text-balance text-[1.0625rem] font-bold leading-[1.22] tracking-tight text-[#021B5A]"
           style={{ fontFamily: "'DM Serif Display', serif" }}
         >
           {article.title}
@@ -988,7 +988,7 @@ function MobileCard({
 
         <div className="mt-4 flex items-center justify-between">
           <span
-            className="inline-flex items-center gap-1.5 text-[0.75rem] font-semibold text-[#1E2F8A]"
+            className="inline-flex items-center gap-1.5 text-[0.75rem] font-semibold text-[#0633B0]"
             style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
           >
             Lire l&apos;article
