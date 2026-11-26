@@ -357,48 +357,50 @@ function DirecteurSection() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   4. ORGANIGRAMME — refonte : un rendu unique responsive
-   ────────────────────────────────────────────────────────────────────────────
-   Objectifs : lisibilité maximale (contraste fort sur fond bleu marine,
-   typo >= 14 px partout, hiérarchie claire), aération, design soigné.
+   4. ORGANIGRAMME — arbre animé
 ═══════════════════════════════════════════════════════════════════════════ */
-
 const POLES = [
   {
     key: "commercial",
     label: "Pôle Commercial",
-    role: "Vente & Croissance",
-    items: [
-      "Vente Construction",
-      "Vente Assistance",
-      "Prospection & Marketing",
-    ],
+    sub: ["Vente Construction", "Vente Assistance", "Prospection & Marketing"],
   },
   {
     key: "technique",
     label: "Pôle Technique",
-    role: "Études, chantier & matériaux",
-    items: [
-      "Études & conception",
-      "Production chantier",
-      "Génie civil & Géobéton",
-      "Contrôle qualité",
-    ],
+    sub: ["Études & conception", "Production chantier", "Génie civil & Géobéton", "Contrôle qualité"],
   },
   {
     key: "administratif",
     label: "Pôle Administratif",
-    role: "Conformité & support",
-    items: [
-      "Comptabilité & Finance",
-      "Ressources humaines",
-      "Juridique & Conformité",
-      "Achats & Logistique",
-    ],
+    sub: ["Comptabilité & Finance", "Ressources humaines", "Juridique & Conformité", "Achats & Logistique"],
   },
-] as const;
+];
 
-function OrgChart({ inView }: { inView: boolean }) {
+/* SVG arbre pour desktop */
+function OrgSVG({ inView }: { inView: boolean }) {
+  const vertAnim = (delay: number) => ({
+    initial: { pathLength: 0, opacity: 0 },
+    animate: inView ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 },
+    transition: { duration: 0.45, delay, ease: "easeOut" as const },
+  });
+
+  /* Positions : cx = centre de chaque pôle dans un viewBox 1000×330 */
+  const NODES = [
+    {
+      cx: 160, x: 35, w: 250, label: "COMMERCIAL",
+      sub: ["Vente Construction", "Vente Assistance", "Prospection & Marketing"],
+    },
+    {
+      cx: 500, x: 375, w: 250, label: "TECHNIQUE",
+      sub: ["Études & conception", "Production chantier", "Génie civil · Géobéton"],
+    },
+    {
+      cx: 840, x: 715, w: 250, label: "ADMINISTRATIF",
+      sub: ["Comptabilité & Finance", "Ressources humaines", "Juridique & Conformité"],
+    },
+  ];
+
   return (
     <svg
       viewBox="0 0 1000 330"
@@ -455,8 +457,7 @@ function OrgChart({ inView }: { inView: boolean }) {
           key={label}
           initial={{ opacity: 0, y: 8 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, ease: E }}
-          className="relative w-full max-w-md rounded-2xl border-2 border-[#F39200]/70 bg-gradient-to-br from-[#F39200]/15 via-[#F39200]/8 to-transparent px-7 py-5 text-center shadow-[0_10px_40px_-15px_rgba(243,146,0,0.45)]"
+          transition={{ duration: 0.45, delay: 0.92 + i * 0.07 }}
         >
           <rect x={x} y="180" width={w} height="54" rx="8"
             stroke="rgba(255,255,255,0.14)" strokeWidth="1" fill="rgba(6,51,176,0.42)" />
@@ -468,40 +469,40 @@ function OrgChart({ inView }: { inView: boolean }) {
         </motion.g>
       ))}
 
-      {/* ── Filets connecteurs ──────────────────────────────────────────── */}
-      <div className="relative mx-auto mt-0 hidden lg:block">
-        {/* Trait vertical depuis la racine */}
-        <motion.div
-          aria-hidden
-          initial={{ scaleY: 0 }}
-          animate={inView ? { scaleY: 1 } : {}}
-          transition={{ duration: 0.45, delay: 0.35, ease: E }}
-          className="mx-auto h-10 w-px origin-top bg-[#F39200]/55"
-        />
-        {/* Trait horizontal */}
-        <motion.div
-          aria-hidden
-          initial={{ scaleX: 0 }}
-          animate={inView ? { scaleX: 1 } : {}}
-          transition={{ duration: 0.55, delay: 0.55, ease: E }}
-          className="mx-auto h-px w-2/3 origin-center bg-[#F39200]/40"
-        />
-        {/* 3 descentes vers les pôles */}
-        <div className="mx-auto grid w-2/3 grid-cols-3">
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={i}
-              aria-hidden
-              initial={{ scaleY: 0 }}
-              animate={inView ? { scaleY: 1 } : {}}
-              transition={{ duration: 0.35, delay: 0.85 + i * 0.08, ease: E }}
-              className="mx-auto h-10 w-px origin-top bg-[#F39200]/40"
-            />
-          ))}
-        </div>
-      </div>
+      {/* ── Lignes sous-items ── */}
+      {NODES.map(({ cx }, i) => (
+        <motion.path key={`sub-line-${cx}`}
+          d={`M${cx},234 L${cx},252`}
+          stroke="rgba(255,255,255,0.14)" strokeWidth="1"
+          fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke"
+          {...vertAnim(1.18 + i * 0.05)} />
+      ))}
 
-      {/* Mobile : un seul filet vertical au-dessus de la grille */}
+      {/* ── Textes sous-items ── */}
+      {NODES.map(({ cx, sub }, i) => (
+        <motion.g key={`sub-text-${cx}`}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.38, delay: 1.32 + i * 0.06 }}
+        >
+          {sub.map((line, j) => (
+            <text key={j} x={cx} y={265 + j * 14} textAnchor="middle"
+              fill={j === 0 ? "rgba(255,255,255,0.42)" : "rgba(255,255,255,0.28)"}
+              fontSize="8.5" fontFamily="sans-serif">
+              {line}
+            </text>
+          ))}
+        </motion.g>
+      ))}
+    </svg>
+  );
+}
+
+/* Arbre vertical pour mobile */
+function OrgMobile({ inView }: { inView: boolean }) {
+  return (
+    <div className="flex flex-col items-center">
+      {/* Racine */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -517,8 +518,7 @@ function OrgChart({ inView }: { inView: boolean }) {
         className="h-8 w-px origin-top bg-[#F77F00]/35"
         initial={{ scaleY: 0 }}
         animate={inView ? { scaleY: 1 } : {}}
-        transition={{ duration: 0.4, delay: 0.4, ease: E }}
-        className="mx-auto h-8 w-px origin-top bg-[#F39200]/55 lg:hidden"
+        transition={{ duration: 0.35, delay: 0.4 }}
       />
 
       {/* Pôles */}
@@ -531,28 +531,22 @@ function OrgChart({ inView }: { inView: boolean }) {
               transition={{ duration: 0.5, delay: 0.55 + i * 0.1 }}
               className="w-full max-w-[320px] rounded-xl border border-white/12 bg-[#0633B0]/40 px-5 py-3 text-center"
             >
-              {pole.role}
-            </p>
-
-            {/* Filet de séparation */}
-            <span aria-hidden className="my-5 block h-px w-12 bg-[#F39200]/70" />
-
-            {/* Liste des sous-services — bien lisible */}
-            <ul className="space-y-2.5">
-              {pole.items.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 text-[0.95rem] leading-relaxed text-white/85"
-                >
-                  <span
-                    aria-hidden
-                    className="mt-2 size-1.5 shrink-0 rounded-full bg-[#F39200]"
-                  />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+              <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white/78">
+                {p.label}
+              </p>
+              <p className="mt-1 text-[0.65rem] text-white/38">
+                {p.sub.join("  ·  ")}
+              </p>
+            </motion.div>
+            {i < POLES.length - 1 && (
+              <motion.div
+                className="h-4 w-px bg-white/12"
+                initial={{ scaleY: 0 }}
+                animate={inView ? { scaleY: 1 } : {}}
+                transition={{ duration: 0.25, delay: 0.7 + i * 0.1 }}
+              />
+            )}
+          </React.Fragment>
         ))}
       </div>
     </div>
@@ -596,7 +590,7 @@ function OrgSection() {
         </Reveal>
         <Reveal delay={0.08}>
           <h2
-            className="mb-4 max-w-2xl text-balance text-[clamp(1.875rem,4vw,2.875rem)] font-bold leading-tight tracking-tight text-white"
+            className="mb-14 max-w-xl text-balance text-[clamp(1.875rem,4vw,2.875rem)] font-bold leading-tight tracking-tight text-white"
             style={{ fontFamily: "'DM Serif Display', serif" }}
           >
             Une structure pensée
@@ -604,15 +598,16 @@ function OrgSection() {
             pour la performance.
           </h2>
         </Reveal>
-        <Reveal delay={0.16}>
-          <p className="mb-14 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
-            Une direction unique, trois pôles complémentaires. Chaque pôle
-            possède son périmètre clair, ses livrables et ses interlocuteurs
-            dédiés pour vous accompagner avec rigueur.
-          </p>
-        </Reveal>
 
-        <OrgChart inView={inView} />
+        {/* Desktop : SVG animé */}
+        <div className="hidden lg:block">
+          <OrgSVG inView={inView} />
+        </div>
+
+        {/* Mobile : flux vertical */}
+        <div className="lg:hidden">
+          <OrgMobile inView={inView} />
+        </div>
       </Container>
     </section>
   );

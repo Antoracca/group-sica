@@ -4,19 +4,18 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useInView } from "motion/react";
 import { Button, Container, cn } from "@sica/ui";
 import {
+  DraftingCompass,
   Layers3,
   Award,
   ArrowRight,
   ChevronDown,
+  X,
+  CheckCircle2,
 } from "lucide-react";
 
-/* ════════════════════════════════════════════════════════════════════════
-   EXPERTISES MÉTIER — SICA Construction
-   ────────────────────────────────────────────────────────────────────────
-   Refonte alignée sur les 8 activités réelles. Mode accordéon conservé.
-   Le bloc "Notre Méthodologie d'Étude" + "Points de contrôle" a été
-   retiré (redondant avec les expertises ci-dessous).
-═══════════════════════════════════════════════════════════════════════ */
+/* ─────────────────────────────────────────────
+   DATA (Ultra-court, 1 phrase) + Contenu Modale
+───────────────────────────────────────────── */
 
 type Expertise = {
   id: string;
@@ -92,11 +91,115 @@ const expertises: Expertise[] = [
 ];
 
 /* ─────────────────────────────────────────────
+   PANNEAU LATÉRAL (SIDE-PANEL MODAL)
+───────────────────────────────────────────── */
+function SidePanel({ 
+  item, 
+  onClose 
+}: { 
+  item: typeof expertises[0] | null; 
+  onClose: () => void 
+}) {
+  useEffect(() => {
+    if (item && item.modal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [item]);
+
+  return (
+    <AnimatePresence>
+      {item && item.modal && (
+        <div className="fixed inset-0 z-[100] flex justify-end">
+          {/* Backdrop sombre flouté */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+          />
+
+          {/* Panneau latéral */}
+          <motion.div
+            initial={{ x: "100%", opacity: 0.5 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "100%", opacity: 0.5 }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="relative flex h-full w-full max-w-md flex-col bg-white shadow-2xl"
+          >
+            {/* Header avec icône */}
+            <div className="flex items-center justify-between border-b border-black/5 p-6">
+              <div className="flex items-center gap-3">
+                <div className="flex size-10 items-center justify-center rounded-lg bg-brand-royal/10 text-brand-royal">
+                  <item.icon className="size-5" />
+                </div>
+                <span className="font-mono text-[0.65rem] font-bold uppercase tracking-widest text-brand-amber">
+                  Expertise
+                </span>
+              </div>
+              <button
+                onClick={onClose}
+                className="flex size-8 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-ink"
+              >
+                <X className="size-5" />
+              </button>
+            </div>
+
+            {/* Contenu défilable */}
+            <div className="flex-1 overflow-y-auto p-6 sm:p-8">
+              <h3 className="font-display text-2xl font-bold leading-tight text-ink">
+                {item.modal.title}
+              </h3>
+              <p className="mt-2 text-sm font-semibold text-brand-royal">
+                {item.modal.subtitle}
+              </p>
+              
+              <div className="my-6 h-px w-12 bg-brand-amber" />
+
+              <p className="text-[0.95rem] leading-relaxed text-slate-600">
+                {item.modal.content}
+              </p>
+
+              <div className="mt-8 rounded-xl border border-black/5 bg-slate-50 p-5">
+                <h4 className="mb-4 font-mono text-[0.7rem] font-bold uppercase tracking-widest text-slate-500">
+                  Points de contrôle
+                </h4>
+                <ul className="space-y-3">
+                  {item.modal.points.map((point, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5">
+                      <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-brand-amber" />
+                      <span className="text-sm text-slate-700">{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="border-t border-black/5 bg-slate-50/50 p-6">
+              <Button asChild className="w-full" variant="accent">
+                <a href="/devis">Démarrer mon projet</a>
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+/* ─────────────────────────────────────────────
    MAIN SECTION : ACCORDION MINIMALISTE
 ───────────────────────────────────────────── */
 
 export function ExpertisesSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [activeModal, setActiveModal] = useState<typeof expertises[0] | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px 0px" });
 
@@ -109,21 +212,25 @@ export function ExpertisesSection() {
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  // Ouverture d'une expertise via hash dans l'URL (#etudes-sol etc.)
+  // Écoute du hash pour ouvrir la modale depuis la navbar
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace("#", "");
       if (!hash) return;
-
-      const idx = expertises.findIndex((exp) => exp.id === hash);
-      if (idx >= 0) {
-        setActiveIndex(idx);
+      
+      const found = expertises.find((exp) => exp.id === hash);
+      if (found && found.modal) {
+        setActiveModal(found);
+        // On remonte un peu pour voir la section
         const section = document.getElementById("expertises");
         if (section) section.scrollIntoView({ behavior: "smooth" });
       }
     };
 
+    // Vérifier au montage
     handleHashChange();
+
+    // Écouter les changements
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
@@ -132,14 +239,14 @@ export function ExpertisesSection() {
     <section id="expertises" className="bg-paper pt-8 pb-20 sm:pt-12 sm:pb-28 lg:pt-16 lg:pb-36">
       <Container>
         {/* ── Section Header ── */}
-        <div className="mb-10 max-w-3xl lg:mb-14">
+        <div className="mb-10 max-w-3xl lg:mb-16">
           <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-brand-amber">
             Expertises métier
           </p>
           <h2 className="mt-5 font-display text-[clamp(2.2rem,4vw,3.5rem)] font-bold leading-[1.1] tracking-tight text-ink text-balance">
-            L&apos;ingénierie de votre projet, structurée pour garantir{" "}
+            L&apos;ingénierie de votre{" "}
             <span className="relative inline-block">
-              qualité
+              CHANTIER
               <span
                 aria-hidden
                 className="absolute -bottom-1 left-0 h-[4px] w-full bg-brand-amber"
@@ -158,7 +265,7 @@ export function ExpertisesSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="flex h-[640px] w-full flex-col border-y border-slate-200/80 lg:h-[520px] lg:flex-row lg:border-x lg:border-y-0"
+          className="flex h-[600px] w-full flex-col border-y border-slate-200/80 lg:h-[500px] lg:flex-row lg:border-x lg:border-y-0"
         >
           {expertises.map((item, index) => {
             const isActive = activeIndex === index;
@@ -173,12 +280,12 @@ export function ExpertisesSection() {
                 className={cn(
                   "relative flex cursor-pointer overflow-hidden transition-colors duration-500",
                   !isLast && "border-b border-slate-200/80 lg:border-b-0 lg:border-r",
-                  isActive ? "bg-white" : "bg-slate-50/40 hover:bg-slate-100/60",
+                  isActive ? "bg-white" : "bg-slate-50/40 hover:bg-slate-100/60"
                 )}
                 animate={{ flex: isActive ? (isDesktop ? 5 : 4) : 1 }}
                 transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
               >
-                {/* Grille Architecturale (Blueprint) en fond du panneau actif */}
+                {/* TOUCHE SPÉCIALE : Grille Architecturale (Blueprint) en fond du panneau actif */}
                 <AnimatePresence>
                   {isActive && (
                     <motion.div
@@ -205,21 +312,18 @@ export function ExpertisesSection() {
                       transition={{ duration: 0.3, delay: 0.1 }}
                       className="relative z-10 flex h-full w-full flex-col justify-end p-5 lg:p-10"
                     >
-                      <div className="mb-auto flex items-start justify-between gap-4">
+                      <div className="mb-auto">
                         <div className="flex size-14 items-center justify-center rounded-none bg-brand-royal-900 text-brand-amber">
                           <Icon className="size-6" strokeWidth={1.5} />
                         </div>
-                        <span className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-brand-amber/80">
-                          {String(index + 1).padStart(2, "0")} / {String(expertises.length).padStart(2, "0")}
-                        </span>
                       </div>
-
+                      
                       {/* Ligne orange dynamique au-dessus du titre */}
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: 48 }}
+                      <motion.div 
+                        initial={{ width: 0 }} 
+                        animate={{ width: 48 }} 
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className="mb-6 h-[2px] bg-brand-amber"
+                        className="mb-6 h-[2px] bg-brand-amber" 
                       />
 
                       <h3 className="mb-4 font-display text-2xl font-bold leading-tight text-brand-royal-900 lg:text-3xl">
@@ -229,16 +333,32 @@ export function ExpertisesSection() {
                         {item.description}
                       </p>
                       <div>
-                        <a
-                          href={item.href}
-                          onClick={(e) => e.stopPropagation()}
-                          className="group/btn inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-royal-900 transition-all hover:text-brand-amber"
-                        >
-                          <span className="border-b border-brand-royal-900/30 pb-1 transition-colors group-hover/btn:border-brand-amber">
-                            {item.linkText}
-                          </span>
-                          <ArrowRight className="size-4 transition-transform group-hover/btn:translate-x-1" />
-                        </a>
+                        {item.href ? (
+                          <a
+                            href={item.href}
+                            onClick={(e) => e.stopPropagation()}
+                            className="group/btn inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-royal-900 transition-all hover:text-brand-amber"
+                          >
+                            <span className="border-b border-brand-royal-900/30 pb-1 transition-colors group-hover/btn:border-brand-amber">
+                              {item.linkText}
+                            </span>
+                            <ArrowRight className="size-4 transition-transform group-hover/btn:translate-x-1" />
+                          </a>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveModal(item);
+                            }}
+                            className="group/btn inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-royal-900 transition-all hover:text-brand-amber"
+                          >
+                            <span className="border-b border-brand-royal-900/30 pb-1 transition-colors group-hover/btn:border-brand-amber">
+                              {item.linkText}
+                            </span>
+                            <ArrowRight className="size-4 transition-transform group-hover/btn:translate-x-1" />
+                          </button>
+                        )}
                       </div>
                     </motion.div>
                   ) : (
@@ -256,7 +376,7 @@ export function ExpertisesSection() {
                       <span className="font-display text-sm font-bold tracking-widest text-slate-400 whitespace-nowrap uppercase lg:-rotate-180 lg:[writing-mode:vertical-rl] lg:text-[11px]">
                         {item.shortTitle}
                       </span>
-
+                      
                       {/* Flèche flottante au centre/bas */}
                       <motion.div
                         animate={{ y: [0, 4, 0] }}
@@ -281,10 +401,15 @@ export function ExpertisesSection() {
             </p>
           </div>
           <Button asChild variant="accent" size="lg" className="shrink-0 shadow-lg shadow-brand-amber/10 group">
-            <a href="/devis">Configurer mon projet</a>
+            <a href="/devis">
+              Configurer mon projet
+            </a>
           </Button>
         </div>
       </Container>
+      
+      {/* Intégration du panneau latéral en dehors du flux */}
+      <SidePanel item={activeModal} onClose={() => setActiveModal(null)} />
     </section>
   );
 }

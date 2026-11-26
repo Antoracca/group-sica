@@ -5,6 +5,12 @@ import { motion, useInView, useReducedMotion } from "motion/react";
 import { CalendarCheck2, Landmark, MapPin, ShieldCheck } from "lucide-react";
 import { Container } from "@sica/ui";
 
+/*
+  Bande de confiance — Trust & Authority. Uniquement des faits vérifiables
+  sourcés (année, forme, implantations, enregistrement). Aucun chiffre client
+  inventé. Fond royal, peu d'amber, lecture nette.
+*/
+
 const FACTS = [
   { icon: CalendarCheck2, value: "2020", label: "Année de création" },
   { icon: Landmark, value: "SARLU", label: "GROUPE SICA – SARLU" },
@@ -18,9 +24,9 @@ export function TrustStrip() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section aria-label="Repères de confiance" className="border-y border-zinc-200/50 bg-white">
-      <Container className="py-16 sm:py-24">
-        <div ref={ref} className="grid grid-cols-2 gap-x-8 gap-y-16 lg:grid-cols-4 lg:divide-x lg:divide-zinc-200/50">
+    <section aria-label="Repères de confiance" className="bg-brand-royal text-white">
+      <Container className="py-12 sm:py-14">
+        <div ref={ref} className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
           {FACTS.map((f, i) => {
             const Icon = f.icon;
             return (
@@ -28,16 +34,14 @@ export function TrustStrip() {
                 key={f.label}
                 initial={reduce ? false : { opacity: 0, y: 16 }}
                 animate={inView ? { opacity: 1, y: 0 } : undefined}
-                transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="flex flex-col items-center text-center lg:px-8"
+                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                className="flex flex-col gap-2"
               >
-                <div className="mb-5 flex size-14 items-center justify-center rounded-2xl bg-brand-amber/10 text-brand-amber transition-transform duration-500 hover:scale-110">
-                  <Icon className="size-6" />
-                </div>
-                <span className="font-display text-4xl font-bold leading-none tracking-tight text-zinc-950 sm:text-5xl">
+                <Icon className="size-5 text-brand-amber" />
+                <span className="font-display text-3xl font-bold leading-none sm:text-4xl">
                   {f.value}
                 </span>
-                <span className="mt-4 font-mono text-[0.7rem] font-bold uppercase tracking-[0.15em] text-zinc-400">
+                <span className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-white/65">
                   {f.label}
                 </span>
               </motion.div>

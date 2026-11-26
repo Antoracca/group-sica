@@ -10,151 +10,16 @@ import { links } from "@/lib/links";
    2. Sur le site Groupe, la navbar liste : Corporate, Construction (externe),
       Assistance (externe), Actualités (interne).
 
-   2. Sur le site Groupe (groupe-sica.com), la navbar liste :
-      - Le Groupe (pages institutionnelles internes)
-      - Construction (lien externe vers sicaconstruction.com + preview menu)
-      - Assistance (lien externe vers sicaassistance.com + preview menu)
-      - Actualités (blog SEO interne)
-
-   3. Le top-nav (haut de page) est ADAPTATIF — voir packages/ui/lib/top-nav.ts.
-      Sur Groupe SICA → on n'affiche PAS "Groupe SICA" (on y est déjà).
+   Les libellés/descriptions sont traduits (namespace "Nav") et les liens
+   INTERNES sont préfixés par la locale active. Construit dans GroupeHeader.
 ═══════════════════════════════════════════════════════════════════════ */
 
 type Translator = (key: string) => string;
 
-export const mainNav: NavItem[] = [
-  {
-    label: "Corporate",
-    href: "/a-propos",
-    tagline: "Qui nous sommes, d'où nous venons",
-    children: [
-      {
-        label: "À propos",
-        href: "/a-propos",
-        description: "Dirigeant, organigramme et implantations du Groupe SICA.",
-      },
-      {
-        label: "Actualités",
-        href: "/actualites",
-        description: "Toute l'activité récente du Groupe et de ses pôles.",
-      },
-      {
-        label: "Carrières",
-        href: "/carrieres",
-        description: "Rejoindre les équipes SICA en Côte d'Ivoire.",
-      },
-      {
-        label: "Partenaires",
-        href: "/partenaires",
-        description: "Réseau d'entreprises et institutions associées.",
-      },
-      {
-        label: "Contact",
-        href: "/contact",
-        description: "Nous joindre — Abidjan et Yamoussoukro.",
-      },
-    ],
-  },
-  {
-    label: "Construction",
-    href: links.construction.base,
-    external: true,
-    tagline: "Du sol au toit — BTP, géobéton, génie civil",
-    children: [
-      {
-        label: "Accueil Construction",
-        href: links.construction.base,
-        description: "Présentation du pôle BTP — études, génie civil, géobéton.",
-        external: true,
-      },
-      {
-        label: "Services BTP",
-        href: `${links.construction.base}/services`,
-        description: "Études, terrassement, structure, charpente, plomberie, électricité, VRD.",
-        external: true,
-      },
-      {
-        label: "Géobéton",
-        href: `${links.construction.base}/services/geobeton`,
-        description: "Notre matériau signature — brique BTCS à haute densité.",
-        external: true,
-      },
-      {
-        label: "Études de sol",
-        href: `${links.construction.base}/services/etudes-sol`,
-        description: "Sondages pressiométriques et dimensionnement des fondations.",
-        external: true,
-      },
-      {
-        label: "Réalisations",
-        href: `${links.construction.base}/projets`,
-        description: "Villas, sièges institutionnels et chantiers en cours.",
-        external: true,
-      },
-      {
-        label: "Demander un devis",
-        href: links.construction.devis,
-        description: "Estimation rapide, cadrage du budget et lancement du projet.",
-        external: true,
-      },
-      {
-        label: "Espace client",
-        href: links.espace.base,
-        description: "Suivi d'avancement, documents et points chantier.",
-        external: true,
-      },
-    ],
-  },
-  {
-    label: "Assistance",
-    href: "https://www.sicaassistance.com",
-    external: true,
-    tagline: "Créer, gérer et sécuriser votre activité",
-    children: [
-      {
-        label: "Accueil Assistance",
-        href: "https://www.sicaassistance.com",
-        description: "Création, comptabilité, juridique et conseil PME.",
-        external: true,
-      },
-      {
-        label: "Création d'entreprise",
-        href: "https://www.sicaassistance.com/creation-entreprise",
-        description: "Constitution légale, RCCM et formalités administratives.",
-        external: true,
-      },
-      {
-        label: "Comptabilité & fiscalité",
-        href: "https://www.sicaassistance.com/comptabilite",
-        description: "Tenue comptable, déclarations fiscales et sociales.",
-        external: true,
-      },
-      {
-        label: "Juridique",
-        href: "https://www.sicaassistance.com/juridique",
-        description: "Suivi administratif et sécurisation des actes.",
-        external: true,
-      },
-      {
-        label: "Conseil en gestion",
-        href: "https://www.sicaassistance.com/conseil",
-        description: "Structuration, pilotage et accompagnement des dirigeants.",
-        external: true,
-      },
-      {
-        label: "Espace client",
-        href: links.espace.base,
-        description: "Suivi dossier, pièces attendues et factures.",
-        external: true,
-      },
-    ],
-  },
-  {
-    label: "Actualités",
-    href: "/actualites",
-    tagline: "Informations récentes du Groupe et des pôles",
-  },
-];
+export function getMainNav(t: Translator, locale: string): NavItem[] {
+  // Préfixe la locale sur les liens internes (les liens vers les autres sites
+  // restent absolus).
+  const loc = (path: string) => `/${locale}${path}`;
 
   return [
     {

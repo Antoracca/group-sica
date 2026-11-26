@@ -4,7 +4,6 @@ import * as React from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { motion, useInView } from "motion/react";
-import { useTranslations } from "next-intl";
 import { links } from "@/lib/links";
 import {
   DraftingCompass,
@@ -32,8 +31,19 @@ const DotLottieReact = dynamic(
 /* ─────────────────────────────────────────────────────────────
    Services data — icônes Lucide, aucun emoji
 ───────────────────────────────────────────────────────────── */
-const CONSTRUCTION_ICONS = [DraftingCompass, Building2, Layers, Wrench];
-const ASSISTANCE_ICONS = [FileSignature, Calculator, TrendingUp, Users];
+const CONSTRUCTION = [
+  { Icon: DraftingCompass, text: "Études architecturales & techniques" },
+  { Icon: Building2, text: "Villas & immeubles résidentiels" },
+  { Icon: Layers,    text: "Géobéton — matériau signature SICA" },
+  { Icon: Wrench,    text: "Plomberie · Électricité · VRD" },
+];
+
+const ASSISTANCE = [
+  { Icon: FileSignature, text: "Création & modification d'entreprises" },
+  { Icon: Calculator,  text: "Comptabilité & déclarations fiscales" },
+  { Icon: TrendingUp,  text: "Conseil en gestion de PME" },
+  { Icon: Users,       text: "Accompagnement porteurs de projets" },
+];
 
 /* ─────────────────────────────────────────────────────────────
    AnimatedServices — typewriter séquentiel + icônes Lucide
@@ -178,15 +188,6 @@ function Arrow() {
    Pillars — export principal
 ───────────────────────────────────────────────────────────── */
 export function Pillars() {
-  const t = useTranslations("Home.pillars");
-  const CONSTRUCTION = CONSTRUCTION_ICONS.map((Icon, i) => ({
-    Icon,
-    text: t(`construction.s${i + 1}`),
-  }));
-  const ASSISTANCE = ASSISTANCE_ICONS.map((Icon, i) => ({
-    Icon,
-    text: t(`assistance.s${i + 1}`),
-  }));
   const sectionRef = React.useRef<HTMLElement>(null);
   const inView     = useInView(sectionRef, { once: true, margin: "-10%" });
 
@@ -217,7 +218,7 @@ export function Pillars() {
             style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
             className="mb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.32em] text-[#F77F00] sm:text-[0.75rem]"
           >
-            {t("eyebrow")}
+            Deux pôles, une exigence
           </motion.p>
 
           <motion.h2
@@ -234,8 +235,8 @@ export function Pillars() {
               color:         "#0633B0",
             }}
           >
-            {t("headingMain")}{" "}
-            <em className="not-italic opacity-60">{t("headingItalic")}</em>
+            Construire le bâti.{" "}
+            <em className="not-italic opacity-60">Structurer l'entreprise.</em>
           </motion.h2>
 
           <motion.div
@@ -379,7 +380,7 @@ export function Pillars() {
                 className="mb-5 text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-white/45"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
               >
-                {t("construction.tagline")}
+                BTP · Génie civil · Géobéton
               </p>
 
               {/* Typewriter services — desktop vitesse ×2.5 */}
@@ -406,7 +407,7 @@ export function Pillars() {
                   className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#F77F00] px-6 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-white shadow-lg transition-all duration-200 hover:bg-[#D96C00] hover:shadow-xl"
                   style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
-                  {t("construction.cta")} <Arrow />
+                  Découvrir SICA Construction <Arrow />
                 </a>
               </motion.div>
             </motion.div>
@@ -467,7 +468,7 @@ export function Pillars() {
                 className="mb-5 text-right text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-[#0633B0]/70"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
               >
-                {t("assistance.tagline")}
+                Création · Conseil · Comptabilité
               </p>
 
               {/* Typewriter assistance — desktop vitesse ×2.5 */}
@@ -498,7 +499,7 @@ export function Pillars() {
                   className="inline-flex min-h-[44px] items-center gap-2 rounded-full border-2 border-[#0633B0] px-6 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#0633B0] shadow-sm transition-all duration-200 hover:bg-[#0633B0] hover:text-white hover:shadow-lg"
                   style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
-                  {t("assistance.cta")} <Arrow />
+                  Découvrir SICA Assistance <Arrow />
                 </a>
               </motion.div>
             </motion.div>
@@ -545,7 +546,7 @@ export function Pillars() {
               className="mb-5 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-white/40"
               style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
             >
-              {t("construction.tagline")}
+              BTP · Génie civil · Géobéton
             </p>
             <AnimatedServices
               services={CONSTRUCTION}
@@ -568,7 +569,7 @@ export function Pillars() {
                 className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#F77F00] px-5 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-white"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
               >
-                {t("construction.cta")} <Arrow />
+                Découvrir <Arrow />
               </a>
             </motion.div>
           </div>
@@ -614,7 +615,7 @@ export function Pillars() {
               className="mb-5 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-[#0633B0]/40"
               style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
             >
-              {t("assistance.tagline")}
+              Création · Conseil · Comptabilité
             </p>
             {/*
               Toujours rendu (plus de montage conditionnel) pour éviter
@@ -645,7 +646,7 @@ export function Pillars() {
                 className="inline-flex min-h-[44px] items-center gap-2 rounded-full border-2 border-[#0633B0] px-5 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#0633B0]"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
               >
-                {t("assistance.cta")} <Arrow />
+                Découvrir <Arrow />
               </a>
             </motion.div>
           </div>

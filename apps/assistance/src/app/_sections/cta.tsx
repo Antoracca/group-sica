@@ -1,25 +1,11 @@
-"use client";
-
-import { useRef, useState } from "react";
-import { motion, useInView } from "motion/react";
 import { ArrowRight, Phone } from "lucide-react";
 import { Container } from "@sica/ui";
 
-/* Magnetic Button Wrapper */
-function MagneticButton({ children, className }: { children: React.ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { clientX, clientY } = e;
-    const { height, width, left, top } = ref.current!.getBoundingClientRect();
-    const middleX = clientX - (left + width / 2);
-    const middleY = clientY - (top + height / 2);
-    setPosition({ x: middleX * 0.1, y: middleY * 0.1 });
-  };
-
-  const reset = () => setPosition({ x: 0, y: 0 });
-
+/*
+  CTA final — porte la devise officielle sourcée du dossier technique.
+  Fond royal, accent amber parcimonieux.
+*/
+export function CtaSection() {
   return (
     <section className="relative overflow-hidden bg-brand-royal-900 text-white">
       <div

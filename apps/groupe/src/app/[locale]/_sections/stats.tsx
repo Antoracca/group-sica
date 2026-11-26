@@ -3,7 +3,6 @@
 import * as React from "react";
 import Image from "next/image";
 import { motion, useInView, animate } from "motion/react";
-import { useTranslations } from "next-intl";
 
 /* ─────────────────────────────────────────────────────────────
    Typographies Google Fonts (injection directe — client component)
@@ -156,10 +155,12 @@ function ParticleField({ mouseRef }: ParticleFieldProps) {
 /* ─────────────────────────────────────────────────────────────
    Données
 ───────────────────────────────────────────────────────────── */
-const STATS_STATIC = [
+const STATS = [
   {
     value: 6,
     suffix: "",
+    lines: ["ANNÉES", "D'EXPERTISE"],
+    sub: "Fondé en 2020",
     delay: 1.05,
     /* Staircase desktop — ces classes Tailwind doivent rester en strings
        complètes pour que le scanner JIT les détecte */
@@ -180,6 +181,8 @@ const STATS_STATIC = [
   {
     value: 2,
     suffix: "",
+    lines: ["VILLES", "COUVERTES"],
+    sub: "Abidjan · Yamoussoukro",
     delay: 1.38,
     mtClass:    "lg:mt-6",
     itemsClass: "items-start lg:items-end",
@@ -255,15 +258,6 @@ const CURTAIN_TRANSITION = {
    Section Stats
 ───────────────────────────────────────────────────────────── */
 export function Stats() {
-  const t = useTranslations("Home.stats");
-  const STATS = STATS_STATIC.map((s, i) => {
-    const idx = i + 1;
-    return {
-      ...s,
-      lines: [t(`s${idx}.line1`), t(`s${idx}.line2`)] as string[],
-      sub: t(`s${idx}.sub`),
-    };
-  });
   const sectionRef = React.useRef<HTMLElement>(null);
   const mouseRef   = React.useRef<{ x: number; y: number }>({ x: -9999, y: -9999 });
 
@@ -295,7 +289,7 @@ export function Stats() {
     <>
       <section
         ref={sectionRef}
-        aria-label={t("ariaLabel")}
+        aria-label="Chiffres clés du Groupe SICA"
         className="relative isolate overflow-hidden pb-24 pt-20 sm:pb-32 sm:pt-28 lg:pb-44 lg:pt-32"
       >
 
@@ -418,7 +412,7 @@ export function Stats() {
             style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
             className="mb-16 text-center text-[13px] font-semibold uppercase tracking-[0.32em] text-[#F77F00] sm:mb-20 sm:text-[14px]"
           >
-            {t("eyebrow")}
+            Le Groupe SICA en chiffres
           </motion.p>
 
           {/* ── Grid staircase 2×2 mobile / 1×4 desktop ── */}

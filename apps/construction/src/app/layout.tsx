@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   description:
     "SICA CONSTRUCTION accompagne les particuliers, entreprises et investisseurs de la conception aux travaux de finition : étude de sol, étude de structure, villas, immeubles, géobéton, suivi de chantier. Abidjan et Yamoussoukro.",
   applicationName: "SICA Construction",
-  icons: { icon: "/logo-construction.png", shortcut: "/logo-construction.png", apple: "/logo-construction.png" },
   openGraph: {
     type: "website",
     locale: "fr_CI",

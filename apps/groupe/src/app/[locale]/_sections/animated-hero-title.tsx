@@ -12,14 +12,6 @@ const PHRASES = [
 ];
 
 export function AnimatedHeroTitle() {
-  const t = useTranslations("Home.heroTitle");
-  const PHRASES = [
-    t("phrase1"),
-    t("phrase2"),
-    t("phrase3"),
-    t("phrase4"),
-    t("phrase5"),
-  ];
   const [index, setIndex] = React.useState(0);
 
   React.useEffect(() => {
@@ -27,14 +19,14 @@ export function AnimatedHeroTitle() {
       setIndex((current) => (current + 1) % PHRASES.length);
     }, 3000);
     return () => clearInterval(timer);
-  }, [PHRASES.length]);
+  }, []);
 
   return (
     <h1
       id="hero-heading"
       className="max-w-3xl font-display font-bold leading-[1.05] tracking-tight text-balance text-[clamp(1.6rem,5vw,4.25rem)] xl:text-[4.75rem]"
     >
-      {t("prefix")}
+      Votre ambition en Côte d'Ivoire, on
       {/* Ligne animée — min-height = 2 lignes sur mobile pour éviter
           le saut de hauteur quand une phrase plus longue wraps sur très
           petits écrans (< 380px). clamp : 2 lignes min → 1 ligne desktop. */}

@@ -121,9 +121,6 @@ export function SiteHeader({
   activeLocale,
   onLocaleChange,
 }: SiteHeaderProps) {
-  /* Menu long (8 entrées, ex. menu imposé Construction) : liens resserrés et bascule desktop à xl. */
-  const compactNav = nav.length > 6;
-
   const state = useHeaderScroll({ scrolledThreshold, hideThreshold });
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [mobileExpanded, setMobileExpanded] = React.useState<string | null>(null);
@@ -245,14 +242,6 @@ export function SiteHeader({
         initial={false}
         className={cn("fixed inset-x-0 top-0 z-50", className)}
         data-state={state}
-        /* Fond blanc garanti sur les pages sans hero vidéo.
-           Style inline = priorité maximale, impossible à écraser
-           par Tailwind ou Framer Motion. */
-        style={
-          forceScrolled
-            ? { backgroundColor: "#0633B0", boxShadow: "0 2px 24px rgba(2,25,84,0.28)" }
-            : undefined
-        }
       >
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-5 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-brand-royal focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white">
           Aller au contenu principal
@@ -371,16 +360,13 @@ export function SiteHeader({
             }}
           />
 
-          <div className="relative flex min-h-[3.25rem] items-start justify-between gap-2 px-3 py-2">
-            {/* Gauche : Colonne (étagères alignées) avec Kicker en haut, Liens en bas */}
-            <div className="flex flex-col gap-1.5">
-              {_brand === "construction" && (
-                <span className="text-[0.68rem] font-extrabold uppercase text-[#0633B0] tracking-[0.16em] leading-none mt-1">
-                  SICA Construction
-                </span>
-              )}
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                {topNav?.map((item, idx) => {
+          {/* Une seule ligne (28 px), nowrap. Tailles texte légèrement
+              augmentées pour rester lisibles sans gonfler la hauteur. */}
+          <div className="relative flex h-7 items-center justify-between gap-2 overflow-hidden px-3">
+            <div className="flex min-w-0 flex-nowrap items-center gap-x-2">
+              {topNav
+                ?.filter((item) => !item.hideOnMobile)
+                .map((item, idx) => {
                   const Icon = item.icon ? TOP_ICONS[item.icon] : null;
                   return (
                     <React.Fragment key={item.label}>
@@ -450,7 +436,7 @@ export function SiteHeader({
              le bandeau utilitaire mobile qui reste blanc en permanence. */
           style={
             forceScrolled
-              ? { backgroundColor: "#1E2F8A", boxShadow: "0 2px 24px rgba(7,20,74,0.28)" }
+              ? { backgroundColor: "#0633B0", boxShadow: "0 2px 24px rgba(2,25,84,0.28)" }
               : undefined
           }
         >
@@ -488,8 +474,7 @@ export function SiteHeader({
                 Quand la barre de recherche est ouverte → logo masqué pour
                 libérer l'espace. Le hamburger reste toujours visible.        */}
             <div className={cn(
-              "flex items-center rounded-2xl bg-white",
-              compactNav ? "xl:hidden" : "lg:hidden",
+              "flex items-center rounded-2xl bg-white lg:hidden",
               "transition-[filter] duration-300",
               isTop ? "[filter:drop-shadow(0_4px_20px_rgba(0,0,0,0.22))]" : "[filter:drop-shadow(0_0px_0px_transparent)]",
             )}>
@@ -516,8 +501,7 @@ export function SiteHeader({
 
             {/* Desktop : logo */}
             <div className={cn(
-              "hidden shrink-0 items-center transition-[filter] duration-300",
-              compactNav ? "xl:flex" : "lg:flex",
+              "hidden shrink-0 items-center lg:flex transition-[filter] duration-300",
               /* Sur fond bleu ou transparent → ombre blanche pour faire ressortir le logo */
               "[filter:drop-shadow(0_2px_12px_rgba(255,255,255,0.18))]",
             )}>
@@ -525,7 +509,7 @@ export function SiteHeader({
             </div>
 
             {/* Desktop : nav collée au logo (ml-8) — pas centrée */}
-            <nav aria-label="Navigation principale" className={cn("hidden items-center", compactNav ? "ml-5 xl:flex 2xl:ml-8" : "ml-8 lg:flex xl:ml-10")}>
+            <nav aria-label="Navigation principale" className="ml-8 hidden items-center lg:flex xl:ml-10">
               <ul className="flex items-center gap-0.5">
                 {nav.map((item) => {
                   const hasChildren = Boolean(item.children?.length);
@@ -541,9 +525,8 @@ export function SiteHeader({
                         aria-current={item.current ? "page" : undefined}
                         {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                         className={cn(
-                          "group relative inline-flex items-center gap-1.5 whitespace-nowrap py-3.5",
-                          compactNav ? "px-2 text-[0.84rem] 2xl:px-3 2xl:text-[0.92rem]" : "px-3.5 text-[0.95rem] xl:px-4",
-                          "font-semibold tracking-[0.01em] transition-colors duration-200",
+                          "group relative inline-flex items-center gap-1.5 px-3.5 py-3.5 xl:px-4",
+                          "text-[0.95rem] font-semibold tracking-[0.01em] transition-colors duration-200",
                           /* Sur fond bleu (solidBg ou forceScrolled) → texte blanc.
                              Sur fond transparent (hero) → texte blanc aussi. Toujours blanc. */
                           "text-white/90 hover:text-white",
@@ -613,13 +596,13 @@ export function SiteHeader({
                 href={espaceClientUrl}
                 aria-label="Espace client"
                 className={cn(
-                  "inline-flex items-center gap-2 text-[0.85rem] font-bold uppercase tracking-[0.04em] transition-all duration-200",
-                  "lg:rounded-full lg:border lg:px-5 lg:py-2.5",
-                  /* Mobile : toujours blanc — la navbar mobile est soit transparente
-                     sur hero sombre, soit bleue au scroll : dans les deux cas blanc
-                     est le seul choix lisible. Bleu royal sur bleu = invisible (bug). */
-                  "text-white",
-                  "lg:text-white lg:border-brand-amber lg:bg-brand-amber lg:hover:brightness-110 lg:shadow-[0_2px_14px_rgba(247,143,38,0.30)]",
+                  "inline-flex items-center justify-center gap-2 text-[0.85rem] font-bold uppercase tracking-[0.04em] transition-all duration-200",
+                  /* Bouton orange plein dans TOUS les états (repos/transparent,
+                     scroll/bleu, mobile/desktop). L'amber #F39200 reste lisible
+                     sur fond clair, sombre ou bleu royal → fini le blanc-sur-blanc. */
+                  "rounded-full border border-brand-amber bg-brand-amber text-white shadow-[0_2px_14px_rgba(247,143,38,0.35)] hover:brightness-110",
+                  /* Mobile : pastille ronde (icône seule). Desktop : pilule avec libellé. */
+                  "size-11 lg:size-auto lg:px-5 lg:py-2.5",
                 )}
               >
                 <UserCircle size={22} weight="regular" className="shrink-0" aria-hidden />
@@ -644,8 +627,7 @@ export function SiteHeader({
               onMouseEnter={() => openDesktopMenu(desktopOpenItem.label)}
               onMouseLeave={closeDesktopMenu}
               className={cn(
-                "absolute inset-x-0 top-full hidden overflow-hidden",
-                compactNav ? "xl:block" : "lg:block",
+                "absolute inset-x-0 top-full hidden overflow-hidden lg:block",
                 "shadow-[0_24px_60px_rgba(2,25,84,0.35)]",
                 "bg-[#0633B0]",
                 "border-t border-white/10",
@@ -765,7 +747,7 @@ export function SiteHeader({
             role="dialog"
             aria-modal="true"
             aria-label="Menu de navigation"
-            className={cn("fixed inset-0 z-[60]", compactNav ? "xl:hidden" : "lg:hidden")}
+            className="fixed inset-0 z-[60] lg:hidden"
           >
             {/* Backdrop */}
             <motion.div
@@ -877,7 +859,7 @@ export function SiteHeader({
                     {/* Chip langue dans la barre utilitaire mobile */}
                     <button
                       type="button"
-                      onClick={() => setLang((l) => (l === "fr" ? "en" : "fr"))}
+                      onClick={() => selectLocale(currentLocale === "fr" ? "en" : "fr")}
                       className="group flex shrink-0 items-center gap-1.5 rounded-full border border-brand-royal/10 bg-white/80 px-3 py-1.5 text-[0.68rem] font-semibold text-brand-royal/80 shadow-[0_1px_4px_rgba(2,25,84,0.06)] transition-all hover:border-brand-royal/20 hover:bg-brand-royal hover:text-white"
                       aria-label="Changer la langue"
                     >

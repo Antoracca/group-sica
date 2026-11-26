@@ -4,7 +4,6 @@ import * as React from "react";
 import Image from "next/image";
 import { Container } from "@sica/ui";
 import { motion, useInView, useReducedMotion } from "motion/react";
-import { useTranslations } from "next-intl";
 
 const THIRD_IMAGE_CANDIDATES = [
   "/CONFIANCE3.jpeg",
@@ -67,7 +66,6 @@ function PhotoCard({ src, alt, priority = false }: { src: string; alt: string; p
 }
 
 export function Testimonials() {
-  const t = useTranslations("Home.testimonials");
   const sectionRef = React.useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, {
     once: true,
@@ -76,7 +74,7 @@ export function Testimonials() {
   });
   const shouldReduceMotion = useReducedMotion();
   const thirdSrc = useResolvedThirdImage();
-  const phrase = t("typewriter");
+  const phrase = "TOUTE UNE EQUIPE PRETE POUR VOUS";
   const [typed, setTyped] = React.useState("");
 
   const stageDuration = shouldReduceMotion ? 0.7 : 6.2;
@@ -129,7 +127,7 @@ export function Testimonials() {
             Des preuves concrètes, sur le terrain.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-neutral-600 sm:text-base">
-            {t("subtitle")}
+            Nos collaborations, nos inaugurations, et surtout une équipe engagée pour chaque client.
           </p>
         </div>
 
