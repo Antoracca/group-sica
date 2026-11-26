@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Container, SectionHeader, cn } from "@sica/ui";
 import { ConstructionHeader } from "@/components/construction-header";
 import { FooterConstruction } from "@/components/footer-construction";
+import { ProjectImageCarousel } from "@/components/project-image-carousel";
 import { constructionProjects, type ProjectItem } from "@/lib/projects";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -104,14 +105,19 @@ export default function RealisationsPage() {
                     index % 4 === 0 || index % 4 === 3 ? "aspect-[4/5]" : "aspect-square"
                   )}
                 >
-                  <Image
-                    src={project.media?.[0] || "/placeholder.jpg"}
+                  {/* Carousel auto + Ken Burns. Décalage 2s × index. */}
+                  <ProjectImageCarousel
+                    images={project.media ?? []}
                     alt={project.name}
-                    fill
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                    staggerIndex={index}
+                    staggerMs={2000}
+                    intervalMs={5500}
+                    fadeMs={900}
+                    priority={index < 3}
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                   />
-                  
+
                   {/* Voile sombre au survol */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-95" />
 

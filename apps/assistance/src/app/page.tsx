@@ -12,7 +12,7 @@ import { Essentiel, Faq, FormesJuridiques, Manifeste, Reperes } from "./_accueil
 export default function AssistanceHomePage() {
   return (
     <>
-      <AssistanceHeader />
+      <AssistanceHeader forceScrolled />
 
       <main id="main-content" className="bg-white">
         <HeroAccueil />

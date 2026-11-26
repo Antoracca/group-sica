@@ -61,6 +61,10 @@ export interface TopNavItem {
   icon?: TopNavIcon;
   /** Chemin vers un logo image à afficher à la place de l'icône Phosphor */
   logoSrc?: string;
+  /** Masquer cet item dans le bandeau utilitaire mobile (il reste dans le
+   *  drawer hamburger via la nav principale ou les chips). Permet de garder
+   *  le bandeau mobile très court (uniquement les passerelles de marque). */
+  hideOnMobile?: boolean;
 }
 
 const TOP_ICONS: Record<
@@ -93,6 +97,11 @@ interface SiteHeaderProps {
    *  blanche reste invisible sur un fond blanc. */
   forceScrolled?: boolean;
   espaceClientUrl?: string;
+  /** Locale active. Si fourni avec onLocaleChange, le sélecteur FR/EN devient
+   *  fonctionnel (bascule réelle de langue). Sinon il reste cosmétique. */
+  activeLocale?: "fr" | "en";
+  /** Callback de changement de langue (fourni par l'app qui gère le routing i18n). */
+  onLocaleChange?: (locale: "fr" | "en") => void;
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -109,6 +118,8 @@ export function SiteHeader({
   className,
   forceScrolled = false,
   espaceClientUrl = "/espace-client",
+  activeLocale,
+  onLocaleChange,
 }: SiteHeaderProps) {
   /* Menu long (8 entrées, ex. menu imposé Construction) : liens resserrés et bascule desktop à xl. */
   const compactNav = nav.length > 6;
@@ -119,6 +130,10 @@ export function SiteHeader({
   const [searchOpen, setSearchOpen] = React.useState(false);
   const [desktopOpenLabel, setDesktopOpenLabel] = React.useState<string | null>(null);
   const [lang, setLang] = React.useState<"fr" | "en">("fr");
+  // Si l'app fournit la locale + le callback → sélecteur fonctionnel.
+  // Sinon (autres sites sans i18n) → état local cosmétique inchangé.
+  const currentLocale: "fr" | "en" = activeLocale ?? lang;
+  const selectLocale: (l: "fr" | "en") => void = onLocaleChange ?? setLang;
   const searchRef = React.useRef<HTMLInputElement>(null);
   const closeMenuTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -217,10 +232,17 @@ export function SiteHeader({
 
   return (
     <>
+      {/* Note de comportement scroll :
+          - Desktop : header entier glisse (caché → réapparu) — comportement Vinci.
+          - Mobile : le bandeau utilitaire (passerelles inter-sites) reste TOUJOURS
+            visible collé en haut ; seule la nav principale glisse hors écran au
+            scroll vers le bas, et réapparaît au scroll vers le haut.
+            → mécanisme : le motion.header ne bouge plus, on anime seulement le
+              wrapper interne `<motion.div data-collapsible>` qui englobe
+              "bandeau desktop + nav principale". Le bandeau mobile est rendu
+              EN DEHORS de ce wrapper pour rester en permanence. */}
       <motion.header
         initial={false}
-        animate={{ y: isHidden ? "-100%" : "0%" }}
-        transition={{ duration: 0.22, ease: [0, 0, 0.2, 1] }}
         className={cn("fixed inset-x-0 top-0 z-50", className)}
         data-state={state}
         /* Fond blanc garanti sur les pages sans hero vidéo.
@@ -312,11 +334,11 @@ export function SiteHeader({
                       <button
                         type="button"
                         aria-label={l === "fr" ? "Version francaise" : "English version"}
-                        aria-pressed={lang === l}
-                        onClick={() => setLang(l)}
+                        aria-pressed={currentLocale === l}
+                        onClick={() => selectLocale(l)}
                         className={cn(
                           "text-[0.875rem] font-semibold uppercase tracking-[0.05em] transition-colors duration-200",
-                          lang === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
+                          currentLocale === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
                         )}
                       >
                         {l === "fr" ? "Français" : "English"}
@@ -331,12 +353,13 @@ export function SiteHeader({
         ) : null}
 
         {/* ══════════════════════════════════════════════════════════════
-            MOBILE UTILITY STRIP — visible HORS du drawer, au-dessus
-            de la barre hamburger. Minimaliste : Nos pôles | Groupe SICA
-            + sélecteur FR/EN bien visible. Même nuance bleutée que desktop.
+            MOBILE UTILITY STRIP — TOUJOURS visible (ne slide PAS au scroll).
+            Hauteur fixe 28 px. `z-20` + fond opaque blanc pour MASQUER la
+            nav principale qui glisse derrière au scroll vers le bas (sinon
+            on continuait à voir un bout de logo qui dépassait).
         ══════════════════════════════════════════════════════════════ */}
-        <div className="relative block overflow-hidden border-b border-slate-100/80 lg:hidden">
-          {/* Base blanche */}
+        <div className="relative z-20 block overflow-hidden border-b border-slate-100/80 lg:hidden">
+          {/* Base blanche opaque */}
           <div className="absolute inset-0 bg-white" />
           {/* Nuance bleue latérale — miroir exact du desktop */}
           <div
@@ -364,7 +387,7 @@ export function SiteHeader({
                       {idx > 0 && <span aria-hidden className="text-[0.78rem] font-light text-slate-300 select-none">|</span>}
                       <a
                         href={item.href}
-                        className="flex shrink-0 items-center gap-1.5 text-[0.78rem] font-semibold uppercase text-slate-600 transition-colors hover:text-brand-royal"
+                        className="flex shrink-0 items-center gap-1.5 text-[0.78rem] font-semibold uppercase leading-none text-slate-600 transition-colors hover:text-brand-royal"
                       >
                         {item.logoSrc ? (
                           // eslint-disable-next-line @next/next/no-img-element
@@ -372,35 +395,36 @@ export function SiteHeader({
                             src={item.logoSrc}
                             alt=""
                             aria-hidden
-                            className="h-[1.1rem] w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100"
+                            className="h-[0.95rem] w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100"
                           />
                         ) : Icon ? (
-                          <Icon size={14} weight="regular" className="text-brand-royal/50" aria-hidden />
+                          <Icon size={13} weight="regular" className="text-brand-royal/55" aria-hidden />
                         ) : null}
                         <span>{item.label}</span>
                       </a>
                     </React.Fragment>
                   );
                 })}
-              </div>
             </div>
 
-            {/* Droite : sélecteur de langue avec icône Translate */}
-            <div className="mt-1 flex shrink-0 items-center gap-1.5">
-              <Translate size={15} weight="regular" className="text-brand-royal/45" aria-hidden />
+            {/* Sélecteur de langue — agrandi pour mieux lire FR / EN.
+                Bouton tap target augmenté (touch min 36 px en largeur),
+                texte 0.66 -> 0.8 rem, icône Translate 11 -> 14 px. */}
+            <div className="flex shrink-0 items-center gap-1">
+              <Translate size={14} weight="regular" className="text-brand-royal/55" aria-hidden />
               {(["fr", "en"] as const).map((l, i) => (
                 <React.Fragment key={l}>
                   {i > 0 ? (
-                    <span aria-hidden className="select-none text-[0.72rem] text-slate-200">/</span>
+                    <span aria-hidden className="select-none text-[0.7rem] text-slate-200">/</span>
                   ) : null}
                   <button
                     type="button"
                     aria-label={l === "fr" ? "Version francaise" : "English version"}
-                    aria-pressed={lang === l}
-                    onClick={() => setLang(l)}
+                    aria-pressed={currentLocale === l}
+                    onClick={() => selectLocale(l)}
                     className={cn(
-                      "text-[0.74rem] font-bold uppercase tracking-[0.04em] transition-colors duration-200",
-                      lang === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
+                      "px-1 text-[0.8rem] font-bold uppercase leading-none tracking-[0.04em] transition-colors duration-200",
+                      currentLocale === l ? "text-brand-royal" : "text-slate-400 hover:text-brand-royal",
                     )}
                   >
                     {l.toUpperCase()}
@@ -410,6 +434,26 @@ export function SiteHeader({
             </div>
           </div>
         </div>
+
+        {/* ══════════════════════════════════════════════════════════════
+            WRAPPER COLLAPSIBLE — englobe la nav principale (+ partie desktop
+            qui ne concerne pas le bandeau mobile). C'est ce wrapper qui
+            slide en y au scroll. Le bandeau mobile au-dessus reste collé.
+        ══════════════════════════════════════════════════════════════ */}
+        <motion.div
+          data-collapsible
+          initial={false}
+          animate={{ y: isHidden ? "-100%" : "0%" }}
+          transition={{ duration: 0.22, ease: [0, 0, 0.2, 1] }}
+          /* Fond bleu solide sur les pages SANS hero vidéo (forceScrolled).
+             Posé ici (pas sur le motion.header global) pour ne pas teinter
+             le bandeau utilitaire mobile qui reste blanc en permanence. */
+          style={
+            forceScrolled
+              ? { backgroundColor: "#1E2F8A", boxShadow: "0 2px 24px rgba(7,20,74,0.28)" }
+              : undefined
+          }
+        >
 
         {/* ══════════════════════════════════════════════════════════════
             MAIN NAV — Logo + nav collée à gauche + actions droite
@@ -701,6 +745,7 @@ export function SiteHeader({
             </motion.div>
           ) : null}
         </AnimatePresence>
+        </motion.div>
       </motion.header>
 
       {/* ══════════════════════════════════════════════════════════════
@@ -837,7 +882,7 @@ export function SiteHeader({
                       aria-label="Changer la langue"
                     >
                       <Globe size={12} weight="light" className="text-brand-amber transition-colors group-hover:text-white/90" />
-                      <span>{lang.toUpperCase()}</span>
+                      <span>{currentLocale.toUpperCase()}</span>
                     </button>
                   </div>
                 </div>
@@ -954,10 +999,10 @@ export function SiteHeader({
                           <button
                             key={l}
                             type="button"
-                            onClick={() => setLang(l)}
+                            onClick={() => selectLocale(l)}
                             className={cn(
                               "rounded-full px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.06em] transition-all duration-200",
-                              lang === l
+                              currentLocale === l
                                 ? "bg-brand-royal text-white shadow-sm"
                                 : "text-slate-400 hover:text-brand-royal",
                             )}

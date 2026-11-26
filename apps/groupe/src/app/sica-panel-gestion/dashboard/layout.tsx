@@ -97,7 +97,7 @@ export default async function PanelDashboardLayout({ children }: { children: Rea
                 <Bell className="size-4" />
               </button>
               <a
-                href="https://groupesica.ci"
+                href="https://groupe-sica.com"
                 className="hidden min-h-10 items-center gap-2 rounded-md border border-slate-200 px-3 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-100 sm:inline-flex"
               >
                 <Building2 className="size-4" />

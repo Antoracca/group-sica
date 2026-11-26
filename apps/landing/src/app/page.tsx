@@ -97,7 +97,7 @@ export default function LandingPage() {
             <span aria-hidden className="text-[#F39200]">↗</span>
           </a>
           <a
-            href="https://sicaconstruction.ci"
+            href="https://sicaconstruction.com"
             className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] px-5 py-3 text-[0.82rem] font-semibold tracking-wide text-white transition-all hover:bg-white/[0.08]"
           >
             Pôle Construction
@@ -191,7 +191,7 @@ export default function LandingPage() {
         </p>
         <div className="flex gap-6">
           <a
-            href="mailto:groupesica@gmail.com"
+            href="mailto:secretariat@groupe-sica.com"
             className="text-[0.7rem] font-medium text-white/30 transition-colors hover:text-white/70"
           >
             Contactez-nous

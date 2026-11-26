@@ -1,7 +1,4 @@
-import Image from "next/image";
-import { Logo, SiteHeader, getTopNav } from "@sica/ui";
-import { mainNav } from "@/lib/nav";
-import { links } from "@/lib/links";
+import { GroupeHeader } from "@/components/groupe-header";
 import { Footer } from "./footer";
 
 /* ════════════════════════════════════════════════════════════════════════
@@ -22,30 +19,9 @@ interface PageShellProps {
 }
 
 export function PageShell({ children, headerSolid = true }: PageShellProps) {
-  const topNav = getTopNav("groupe", {
-    constructionUrl: links.construction.base,
-    assistanceUrl: links.assistance.base,
-    groupeUrl: links.groupe.base,
-    landingUrl: links.landing.base,
-  });
-
   return (
     <>
-      <SiteHeader
-        brand="groupe"
-        logo={
-          <Logo
-            brand="groupe"
-            imgClassName="h-16 w-auto select-none sm:h-[4.5rem] lg:h-20 xl:h-24"
-            imageRenderer={({ src, alt, width, height, className }) => (
-              <Image src={src} alt={alt} width={width} height={height} className={className} />
-            )}
-          />
-        }
-        nav={mainNav}
-        topNav={topNav}
-        forceScrolled={headerSolid}
-      />
+      <GroupeHeader forceScrolled={headerSolid} />
 
       <main id="main-content">{children}</main>
 

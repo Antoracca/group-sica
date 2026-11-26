@@ -82,7 +82,7 @@ export default function PanelGestionLogin() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="prenom@sica.ci"
+              placeholder="prenom@groupe-sica.com"
               className="min-h-[44px] w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 text-base text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-brand-royal focus:ring-2 focus:ring-brand-royal/25"
             />
           </label>

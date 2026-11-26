@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { getLocale } from "next-intl/server";
 import { fontBody, fontDisplay, fontMono } from "@/lib/fonts";
 import "./globals.css";
 
@@ -36,9 +37,10 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = await getLocale();
   return (
-    <html lang="fr" className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}>
+    <html lang={locale} className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}>
       <head>
         {/* ── Préchargement critique du hero ──────────────────────────────────
             Le poster est en image (priorité HIGH par défaut) → s'affiche
